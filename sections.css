@@ -244,16 +244,23 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--line);
-  padding-top: 24px;
+  gap: 16px;
 }
 .stat {
-  padding: 12px 28px 12px 0;
-  display: flex; flex-direction: column; gap: 6px;
-  border-right: 1px solid var(--line);
+  padding: 24px;
+  display: flex; flex-direction: column; gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(14,28,22,0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
-.stat:last-child { border-right: 0; }
+.stat:hover {
+  border-color: var(--line-2);
+  background: rgba(14,28,22,0.55);
+  box-shadow: 0 4px 20px -8px rgba(0,0,0,0.4);
+}
 .stat .k {
   font-family: var(--mono);
   font-size: 10px; letter-spacing: 0.18em;
@@ -267,9 +274,8 @@
 .stat .v .pulse { color: var(--accent); }
 
 @media (max-width: 680px) {
-  .hero-stats { grid-template-columns: 1fr; gap: 16px; border-top: 1px solid var(--line); }
-  .stat { border-right: 0; border-bottom: 1px solid var(--line); padding: 14px 0; }
-  .stat:last-child { border-bottom: 0; }
+  .hero-stats { grid-template-columns: 1fr; gap: 12px; }
+  .stat { padding: 20px; }
   .hero h1 { font-size: clamp(48px, 14vw, 80px); }
 }
 
