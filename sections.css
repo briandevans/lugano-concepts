@@ -73,16 +73,37 @@
 }
 .hero h1 .line { display: block; }
 .hero h1 .struck {
-  text-decoration: line-through;
-  text-decoration-color: rgba(239, 68, 68, 0.7);
-  text-decoration-thickness: 3px;
+  text-decoration: none;
   color: var(--text-3);
   font-style: normal;
   position: relative;
-  opacity: 0.5;
+  display: inline-block;
+  opacity: 0.45;
   transition: opacity 0.4s ease;
 }
-.hero h1 .struck:hover { opacity: 0.7; }
+.hero h1 .struck::before,
+.hero h1 .struck::after {
+  content: "";
+  position: absolute;
+  left: -2%;
+  top: 50%;
+  width: 104%;
+  height: 4px;
+  background: rgba(239, 68, 68, 0.9);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4), 0 0 24px rgba(239, 68, 68, 0.15);
+}
+/* Diagonal slash top-left to bottom-right */
+.hero h1 .struck::before {
+  transform: translateY(-50%) rotate(-12deg);
+}
+/* Diagonal slash top-right to bottom-left */
+.hero h1 .struck::after {
+  transform: translateY(-50%) rotate(12deg);
+}
+.hero h1 .struck:hover { opacity: 0.6; }
 .hero h1 em {
   color: var(--accent);
   font-style: italic;
