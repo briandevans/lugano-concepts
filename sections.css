@@ -12,10 +12,10 @@
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   z-index: 0;
-  opacity: 0.35;
+  opacity: 1;
   background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 .hero-vignette {
@@ -201,7 +201,7 @@
 .hero h1 .line { display: block; }
 .hero h1 .struck {
   text-decoration: none;
-  color: var(--text);
+  color: rgba(255,255,255,0.25);
   font-style: normal;
   position: relative;
   display: inline-block;
@@ -209,16 +209,17 @@
 .hero h1 .struck::after {
   content: "";
   position: absolute;
-  left: -2%;
-  top: 52%;
-  width: 104%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 2px;
+  left: -3%;
+  top: 8%;
+  width: 106%;
+  height: 84%;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
   pointer-events: none;
   z-index: 1;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3), 0 0 24px rgba(255, 255, 255, 0.1);
-  transform: translateY(-50%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 .hero h1 em {
   color: var(--accent);
