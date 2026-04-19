@@ -238,7 +238,7 @@ body::before {
 /* ---------- Section frame ---------- */
 .section {
   position: relative;
-  padding: clamp(90px, 12vw, 160px) 0;
+  padding: clamp(56px, 7vw, 96px) 0;
   border-top: 1px solid var(--line);
   z-index: 2;
 }
@@ -247,7 +247,7 @@ body::before {
   grid-template-columns: 200px 1fr;
   gap: 40px;
   align-items: start;
-  margin-bottom: 80px;
+  margin-bottom: 48px;
 }
 .section-head .tag {
   font-family: var(--mono);

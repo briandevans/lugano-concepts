@@ -44,7 +44,7 @@
   width: 100%;
   flex: 1;
   display: flex; flex-direction: column; justify-content: center;
-  padding-top: 40px;
+  padding-top: 20px;
 }
 .hero-meta {
   display: flex; justify-content: space-between; align-items: center;
@@ -105,11 +105,11 @@
   color: var(--text-2);
   font-size: clamp(17px, 1.35vw, 20px);
   line-height: 1.55;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
 }
 .hero-sub em { color: var(--text); font-style: italic; font-family: var(--serif); font-size: 1.1em; }
 
-.hero-ctas { display: flex; gap: 32px; align-items: center; margin-bottom: 80px; flex-wrap: wrap; }
+.hero-ctas { display: flex; gap: 32px; align-items: center; margin-bottom: 48px; flex-wrap: wrap; }
 
 .hero-stats {
   position: relative; z-index: 2;
@@ -155,7 +155,7 @@
   border-top: 1px solid var(--line);
 }
 .tri > .col {
-  padding: 48px 36px 48px 0;
+  padding: 32px 28px 32px 0;
   border-right: 1px solid var(--line);
   position: relative;
   transition: background 0.4s ease;
@@ -177,8 +177,7 @@
   font-family: var(--serif);
   font-size: clamp(26px, 2.4vw, 38px);
   line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 24px;
+  letter-spacing: -0.02em;  margin-bottom: 16px;
 }
 .tri .col h3 em { color: var(--accent); font-style: italic; }
 .tri .col p { color: var(--text-2); font-size: 15px; line-height: 1.65; }
@@ -336,10 +335,10 @@
   perspective: 1200px;
 }
 .who-card {
-  padding: 56px 40px 56px 0;
+  padding: 36px 32px 36px 0;
   border-right: 1px solid var(--line);
   position: relative;
-  min-height: 420px;
+  min-height: 280px;
   display: flex; flex-direction: column;
   transition:
     background .4s ease,
@@ -347,7 +346,7 @@
     box-shadow .5s ease;
   transform-style: preserve-3d;
 }
-.who-card:not(:first-child) { padding-left: 40px; }
+.who-card:not(:first-child) { padding-left: 32px; }
 .who-card:last-child { border-right: 0; padding-right: 0; }
 .who-card:hover {
   background: linear-gradient(180deg, rgba(74,222,128,0.04), rgba(255,255,255,0.02), rgba(74,222,128,0.01));
@@ -531,11 +530,11 @@
 /* ---------- PLATFORM — Architecture Diagram ---------- */
 .arch {
   position: relative;
-  padding: 60px 0 40px;
+  padding: 36px 0 24px;
 }
 .arch-legend {
   display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
   font-family: var(--mono);
   font-size: 10px; letter-spacing: 0.2em;
   text-transform: uppercase; color: var(--text-3);
@@ -758,7 +757,7 @@
 
 /* ---------- FINAL CTA ---------- */
 .final {
-  padding: clamp(120px, 16vw, 220px) var(--gutter);
+  padding: clamp(72px, 10vw, 140px) var(--gutter);
   position: relative;
   text-align: center;
   border-top: 1px solid var(--line);
@@ -785,13 +784,13 @@
   margin-bottom: 16px;
 }
 .final h2 em { color: var(--accent); font-style: italic; }
-.final .sub { color: var(--text-2); font-size: 18px; margin-bottom: 56px; max-width: 46ch; margin-left: auto; margin-right: auto; }
+.final .sub { color: var(--text-2); font-size: 18px; margin-bottom: 36px; max-width: 46ch; margin-left: auto; margin-right: auto; }
 .final .ctas { display: flex; gap: 32px; justify-content: center; align-items: center; flex-wrap: wrap; }
 
 /* ---------- FOOTER ---------- */
 .foot {
   border-top: 1px solid var(--line);
-  padding: 48px var(--gutter) 40px;
+  padding: 32px var(--gutter) 28px;
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.14em;
@@ -817,7 +816,7 @@
 .lock-stage {
   position: relative;
   width: calc(100% + var(--gutter) * 2);
-  margin: 24px calc(var(--gutter) * -1) 96px;
+  margin: 24px calc(var(--gutter) * -1) 48px;
   height: clamp(340px, 52vw, 620px);
   background: #000;
   overflow: hidden;
