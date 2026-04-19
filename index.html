@@ -129,7 +129,7 @@
     <div class="section-head">
       <div class="tag reveal">[ WHAT YOU GET ]</div>
       <h2 class="display h-l reveal delay-1">
-        Six guarantees. <span class="italic accent">All verifiable.</span><br />None optional.
+        Six guarantees. <span class="italic accent">All verifiable.</span>
       </h2>
     </div>
 
@@ -138,49 +138,31 @@
       Not promises in a sales deck. Structural facts you can audit.
     </p>
 
-    <div class="grid-6">
-      <article class="g-card reveal g-1">
-        <div class="corners" aria-hidden="true"></div>
-        <span class="watermark" aria-hidden="true">01</span>
-        <div class="num"><span class="tag">01</span></div>
-        <h4>Trustless by design.</h4>
+    <div class="accordion-list">
+      <details class="accord reveal">
+        <summary><h4>Trustless by design.</h4><span class="accord-icon" aria-hidden="true"></span></summary>
         <p>Your data never leaves your control boundary. Not during inference, not during orchestration, not during logging. You do not need to trust us. The architecture makes exfiltration impossible.</p>
-      </article>
-      <article class="g-card reveal g-2">
-        <div class="corners" aria-hidden="true"></div>
-        <span class="watermark" aria-hidden="true">02</span>
-        <div class="num"><span class="tag">02</span></div>
-        <h4>Uncompromised intelligence.</h4>
+      </details>
+      <details class="accord reveal delay-1">
+        <summary><h4>Uncompromised intelligence.</h4><span class="accord-icon" aria-hidden="true"></span></summary>
         <p>You do not need to build your own models. You need the infrastructure to safely run the ones that already exist. Frontier capability, inside your perimeter.</p>
-      </article>
-      <article class="g-card reveal g-3">
-        <div class="corners" aria-hidden="true"></div>
-        <span class="watermark" aria-hidden="true">03</span>
-        <div class="num"><span class="tag">03</span></div>
-        <h4>Drop-in replacement.</h4>
+      </details>
+      <details class="accord reveal delay-1">
+        <summary><h4>Drop-in replacement.</h4><span class="accord-icon" aria-hidden="true"></span></summary>
         <p>Same API interface your team already uses. Swap the endpoint, keep the code. No retraining, no rewriting, no six-month migration project.</p>
-      </article>
-      <article class="g-card reveal g-4">
-        <div class="corners" aria-hidden="true"></div>
-        <span class="watermark" aria-hidden="true">04</span>
-        <div class="num"><span class="tag">04</span></div>
-        <h4>Your infrastructure. Your rules.</h4>
+      </details>
+      <details class="accord reveal delay-2">
+        <summary><h4>Unilateral control.</h4><span class="accord-icon" aria-hidden="true"></span></summary>
         <p>Run on-prem, in your cloud, or in a dedicated environment. No shared tenancy. No commingled data. The perimeter is yours to define and yours to verify.</p>
-      </article>
-      <article class="g-card reveal g-5">
-        <div class="corners" aria-hidden="true"></div>
-        <span class="watermark" aria-hidden="true">05</span>
-        <div class="num"><span class="tag">05</span></div>
-        <h4>Cryptographic proof.</h4>
+      </details>
+      <details class="accord reveal delay-2">
+        <summary><h4>Cryptographic proof.</h4><span class="accord-icon" aria-hidden="true"></span></summary>
         <p>Every operation logged, attributable, and tamper-evident. When regulators ask how you protect data, you hand them verifiable records, not a vendor's word.</p>
-      </article>
-      <article class="g-card reveal g-6">
-        <div class="corners" aria-hidden="true"></div>
-        <span class="watermark" aria-hidden="true">06</span>
-        <div class="num"><span class="tag">06</span></div>
-        <h4>Governance at the protocol layer.</h4>
+      </details>
+      <details class="accord reveal delay-3">
+        <summary><h4>Governance at the protocol layer.</h4><span class="accord-icon" aria-hidden="true"></span></summary>
         <p>Access controls, data routing, and model permissions enforced by the infrastructure itself. Not a dashboard toggle. Not a policy PDF. Code that cannot be overridden.</p>
-      </article>
+      </details>
     </div>
 
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 120px; align-items: start;" class="statement-row">
@@ -209,35 +191,23 @@
       Four steps from your current stack to verifiable private AI. No architecture redesign. No multi-month implementation.
     </p>
 
-    <div class="steps-list">
-      <article class="step reveal">
-        <div class="step-num">01</div>
-        <div>
-          <h4>Change the endpoint.</h4>
-          <p>Point your existing API calls at Lugano.ai. Same interface, same models. Your code barely changes. Your exposure drops to zero.</p>
-        </div>
-      </article>
-      <article class="step reveal delay-1">
-        <div class="step-num">02</div>
-        <div>
-          <h4>Define your rules.</h4>
-          <p>Set access controls, data routing, and compliance requirements through the policy console. Governance enforced at the infrastructure layer, not by a compliance team you hope is paying attention.</p>
-        </div>
-      </article>
-      <article class="step reveal delay-2">
-        <div class="step-num">03</div>
-        <div>
-          <h4>Deploy and verify.</h4>
-          <p>Run in your cloud, on-prem, or in a dedicated environment. Audit trails start automatically. Every operation is cryptographically logged from the first request.</p>
-        </div>
-      </article>
-      <article class="step reveal delay-3">
-        <div class="step-num">04</div>
-        <div>
-          <h4>Scale without compromise.</h4>
-          <p>Add users, models, and use cases. The privacy guarantees hold at any scale because they are structural, not administrative. Verification stays continuous.</p>
-        </div>
-      </article>
+    <div class="steps-compact">
+      <div class="step-row reveal">
+        <h4>Change the endpoint.</h4>
+        <p>Point your existing API calls at Lugano.ai. Same interface, same models. Your code barely changes.</p>
+      </div>
+      <div class="step-row reveal delay-1">
+        <h4>Define your rules.</h4>
+        <p>Set access controls, data routing, and compliance requirements through the policy console.</p>
+      </div>
+      <div class="step-row reveal delay-2">
+        <h4>Deploy and verify.</h4>
+        <p>Audit trails start automatically. Every operation is cryptographically logged from the first request.</p>
+      </div>
+      <div class="step-row reveal delay-3">
+        <h4>Scale without compromise.</h4>
+        <p>The privacy guarantees hold at any scale because they are structural, not administrative.</p>
+      </div>
     </div>
   </div>
 </section>
