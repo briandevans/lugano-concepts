@@ -43,6 +43,135 @@
   display: flex; flex-direction: column; justify-content: center;
   padding-top: 20px;
 }
+.hero-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ---------- HERO VISUAL (Shield Animation) ---------- */
+.hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.hv-shield {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hv-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hv-core {
+  position: relative;
+  width: 80px;
+  height: 90px;
+  z-index: 2;
+}
+/* Spinning dashed rings */
+.hv-spin {
+  animation: hv-rotate 40s linear infinite;
+  transform-origin: 200px 200px;
+}
+.hv-spin-reverse {
+  animation: hv-rotate 30s linear infinite reverse;
+  transform-origin: 200px 200px;
+}
+@keyframes hv-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+/* Checkmark draw animation */
+.hv-check {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: hv-draw 1.5s ease 1s forwards;
+}
+@keyframes hv-draw {
+  to { stroke-dashoffset: 0; }
+}
+/* Orbiting dots */
+.hv-orbit {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+}
+.hv-dot {
+  display: block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+  position: absolute;
+}
+.hv-orbit-1 {
+  animation: hv-orbit-1 20s linear infinite;
+}
+.hv-orbit-1 .hv-dot {
+  top: -180px; left: -2px;
+}
+.hv-orbit-2 {
+  animation: hv-orbit-2 28s linear infinite;
+}
+.hv-orbit-2 .hv-dot {
+  top: -140px; left: -2px;
+  width: 3px; height: 3px;
+  opacity: 0.6;
+}
+.hv-orbit-3 {
+  animation: hv-orbit-3 35s linear infinite;
+}
+.hv-orbit-3 .hv-dot {
+  top: -100px; left: -2px;
+  width: 2px; height: 2px;
+  opacity: 0.4;
+}
+@keyframes hv-orbit-1 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes hv-orbit-2 {
+  from { transform: rotate(120deg); }
+  to { transform: rotate(480deg); }
+}
+@keyframes hv-orbit-3 {
+  from { transform: rotate(240deg); }
+  to { transform: rotate(600deg); }
+}
+/* Center glow */
+.hv-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(74,222,128,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+@media (max-width: 960px) {
+  .hero-split {
+    grid-template-columns: 1fr;
+  }
+  .hero-visual {
+    display: none;
+  }
+}
 .hero-meta {
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 48px;
@@ -148,33 +277,40 @@
 .tri {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--line);
+  gap: 20px;
 }
 .tri > .col {
-  padding: 32px 28px 32px 0;
-  border-right: 1px solid var(--line);
+  padding: 36px 32px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
   position: relative;
-  transition: background 0.4s ease;
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  background: rgba(255,255,255,0.015);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 .tri > .col:hover {
-  background: rgba(74,222,128,0.02);
+  background: rgba(255,255,255,0.03);
+  border-color: var(--line-2);
+  box-shadow: 0 8px 32px -12px rgba(0,0,0,0.4);
 }
-.tri > .col:last-child { border-right: 0; padding-right: 0; }
-.tri > .col:not(:first-child) { padding-left: 36px; }
 .tri .col-head {
   display: flex; align-items: center; gap: 10px;
   font-family: var(--mono);
   font-size: 11px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--text-3);
-  margin-bottom: 32px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
 }
 .tri .col-head .num { color: var(--accent); }
 .tri .col h3 {
   font-family: var(--serif);
-  font-size: clamp(26px, 2.4vw, 38px);
-  line-height: 1.05;
-  letter-spacing: -0.02em;  margin-bottom: 16px;
+  font-size: clamp(24px, 2.2vw, 34px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
 }
 .tri .col h3 em { color: var(--accent); font-style: italic; }
 .tri .col p { color: var(--text-2); font-size: 15px; line-height: 1.65; }
@@ -182,9 +318,7 @@
 
 @media (max-width: 860px) {
   .tri { grid-template-columns: 1fr; }
-  .tri > .col { border-right: 0; border-bottom: 1px solid var(--line); padding: 36px 0; }
-  .tri > .col:not(:first-child) { padding-left: 0; }
-  .tri > .col:last-child { border-bottom: 0; }
+  .tri > .col { padding: 28px 24px; }
 }
 
 /* ---------- GUARANTEES (ACCORDION) ---------- */
