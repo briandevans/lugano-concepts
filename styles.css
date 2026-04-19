@@ -10,9 +10,9 @@
   --text-4: #3f3f3f;
   --accent: #4ADE80;
   --accent-dim: #16a34a;
-  --accent-glow: rgba(74, 222, 128, 0.15);
+  --accent-glow: rgba(74, 222, 128, 0.06);
 
-  --serif: "Instrument Serif", "Tiempos", Georgia, serif;
+  --serif: "Inter", -apple-system, system-ui, sans-serif;
   --sans: "Inter", -apple-system, system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
 
@@ -77,8 +77,8 @@ body::before {
 .eyebrow .dot {
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 12px var(--accent), 0 0 24px rgba(74,222,128,0.2);
-  animation: blink-pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 6px var(--accent);
+  animation: blink-pulse 3s ease-in-out infinite;
 }
 @keyframes blink-pulse {
   0%, 100% { opacity: 0.4; transform: scale(1); }
@@ -88,9 +88,9 @@ body::before {
 
 .display {
   font-family: var(--serif);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 0.95;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
   font-feature-settings: "ss01";
 }
 
@@ -133,11 +133,10 @@ body::before {
   background: #fff; color: #000;
 }
 .btn-primary:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   background: var(--accent);
   box-shadow:
-    0 8px 25px -5px rgba(74,222,128,0.4),
-    0 0 40px -10px rgba(74,222,128,0.2);
+    0 4px 12px -3px rgba(74,222,128,0.2);
 }
 
 .btn-ghost {
@@ -191,8 +190,9 @@ body::before {
 }
 .nav .brand .wm {
   font-family: var(--serif);
-  font-style: italic;
-  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
   letter-spacing: -0.02em;
   line-height: 1;
 }
@@ -228,8 +228,8 @@ body::before {
 .nav .apply:hover {
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: 0 0 16px rgba(74,222,128,0.15);
-  background: rgba(74,222,128,0.04);
+  box-shadow: none;
+  background: rgba(74,222,128,0.03);
 }
 @media (max-width: 840px) {
   .nav .links { display: none; }
