@@ -7,7 +7,7 @@
   <meta name="description" content="Private AI infrastructure. Verifiable by design." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -16,13 +16,19 @@
 
     <!-- NAV -->
     <header class="nav">
-      <div class="nav-brand">Lugano.ai</div>
+      <a href="/" class="nav-brand">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0.5" y="0.5" width="27" height="27" rx="5" stroke="rgba(255,255,255,0.25)" fill="rgba(255,255,255,0.05)"/>
+          <text x="7" y="21" font-family="'Playfair Display', serif" font-size="18" font-weight="600" fill="white">L</text>
+        </svg>
+        <span class="brand-text"><i>Lugano</i><span class="brand-dim">.ai</span></span>
+      </a>
       <nav class="nav-links">
         <a href="#architecture">Architecture</a>
         <a href="#privacy">Privacy</a>
         <a href="#platform">Platform</a>
       </nav>
-      <a href="https://cal.com/lugano-ai/intro" class="nav-cta">Apply for beta</a>
+      <span class="nav-cta disabled">Apply for beta</span>
     </header>
 
     <!-- HERO -->
@@ -45,20 +51,20 @@
     <!-- CONSTRAINTS -->
     <section class="constraints">
       <div class="constraint">
-        <span class="c-label">Execution boundary</span>
-        <span class="c-value">Isolated</span>
+        <span class="c-label">Data / Prompts</span>
+        <span class="c-value">Provably Private</span>
       </div>
       <div class="constraint">
-        <span class="c-label">External access</span>
+        <span class="c-label">Logs</span>
         <span class="c-value">None</span>
       </div>
       <div class="constraint">
         <span class="c-label">Auditability</span>
-        <span class="c-value">Deterministic</span>
+        <span class="c-value">Full</span>
       </div>
       <div class="constraint">
-        <span class="c-label">Vendor visibility</span>
-        <span class="c-value">Zero</span>
+        <span class="c-label">Privacy Rating</span>
+        <span class="c-value">Hardcore</span>
       </div>
     </section>
 
@@ -224,7 +230,7 @@
           <p class="cta-body">Lugano.ai is onboarding teams that refuse to choose between intelligence and sovereignty. Frontier AI with cryptographic privacy. No trust required.</p>
         </div>
         <div class="cta-right">
-          <a href="https://cal.com/lugano-ai/intro" class="cta-btn">Apply for beta</a>
+          <span class="cta-btn disabled">Apply for beta</span>
         </div>
       </div>
     </section>
