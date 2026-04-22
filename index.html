@@ -1,485 +1,246 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lugano.ai — Private AI Infrastructure</title>
-<meta name="description" content="Private AI infrastructure that works out of the box. Deploy frontier models with full data sovereignty and drop-in integration." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="styles.css" />
-<link rel="stylesheet" href="sections.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lugano.ai</title>
+  <meta name="description" content="Private AI infrastructure. Verifiable by design." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-<!-- ================= NAV ================= -->
-<header class="nav">
-  <a href="#top" class="brand" aria-label="Lugano.ai home">
-    <svg class="vault" viewBox="0 0 800 800" aria-hidden="true"></svg>
-    <span class="wm">Lugano<span class="tld">.ai</span></span>
-  </a>
-  <nav class="links" aria-label="Primary">
-    <a href="#architecture">Architecture</a>
-    <a href="#platform">Platform</a>
-    <a href="#privacy">Privacy</a>
-    <a href="#docs">Docs</a>
-  </nav>
-  <a href="#apply" class="apply">Apply for beta</a>
-</header>
+  <div class="frame">
 
-<main id="top">
+    <!-- NAV -->
+    <header class="nav">
+      <div class="nav-brand">Lugano.ai</div>
+      <nav class="nav-links">
+        <a href="#architecture">Architecture</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#platform">Platform</a>
+      </nav>
+      <a href="https://cal.com/lugano-ai/intro" class="nav-cta">Apply for beta</a>
+    </header>
 
-<!-- ================= HERO ================= -->
-<section class="hero" aria-label="Hero">
-  <div class="hero-grid" aria-hidden="true"></div>
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="hero-vignette" aria-hidden="true"></div>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-label">Private AI infrastructure</div>
+      <h1 class="hero-h1">
+        <span class="line">Lugano.ai</span>
+      </h1>
+      <div class="hero-split">
+        <div class="hero-left">
+          <p class="hero-statement">Private AI infrastructure.</p>
+          <p class="hero-statement">Verifiable by design.</p>
+        </div>
+        <div class="hero-right">
+          <p class="hero-body">Privacy you cannot verify is just a policy document. Lugano.ai is private AI infrastructure where every operation is cryptographically auditable and your data never leaves your perimeter.</p>
+        </div>
+      </div>
+    </section>
 
-  <div class="hero-inner">
-    <h1 class="display h-xl reveal delay-1">
-      <span class="line">AI Privacy by</span>
-      <span class="line"><span class="struck">trust me bro</span> <em>proof.</em></span>
-    </h1>
+    <!-- CONSTRAINTS -->
+    <section class="constraints">
+      <div class="constraint">
+        <span class="c-label">Execution boundary</span>
+        <span class="c-value">Isolated</span>
+      </div>
+      <div class="constraint">
+        <span class="c-label">External access</span>
+        <span class="c-value">None</span>
+      </div>
+      <div class="constraint">
+        <span class="c-label">Auditability</span>
+        <span class="c-value">Deterministic</span>
+      </div>
+      <div class="constraint">
+        <span class="c-label">Vendor visibility</span>
+        <span class="c-value">Zero</span>
+      </div>
+    </section>
 
-    <p class="hero-sub reveal delay-2">
-      Privacy you cannot verify is just a policy document.
-      Lugano.ai is private AI infrastructure where every operation is cryptographically auditable,
-      every session is independently authorized, and your data never leaves your perimeter. <em>No trust required.</em> Just proof.
-    </p>
+    <!-- PROBLEM (off-white) -->
+    <section class="problem">
+      <div class="problem-inner">
+        <div class="problem-left">
+          <div class="section-label">The problem</div>
+          <h2 class="problem-h2">The false choice of the cloud era.</h2>
+        </div>
+        <div class="problem-right">
+          <p class="problem-body">You either send proprietary data to a black box you cannot audit, or you run crippled open-source models locally. That is a failure of infrastructure, not a law of physics.</p>
+        </div>
+      </div>
+    </section>
 
-    <div class="hero-ctas reveal delay-3">
-      <a href="#apply" class="btn btn-primary">
-        Apply for beta
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12m0 0L8 2m5 5L8 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg>
-      </a>
-      <a href="#architecture" class="btn btn-ghost">
-        Architecture
-        <span class="arrow" aria-hidden="true"></span>
-      </a>
-    </div>
+    <!-- WHAT WE DO -->
+    <section class="what-section">
+      <div class="what-inner">
+        <div class="what-left">
+          <div class="section-label">What we do</div>
+          <h2 class="what-h2">Frontier intelligence, verifiably private.</h2>
+        </div>
+        <div class="what-right">
+          <p class="what-body">Lugano.ai collapses the false choice. Frontier models running inside your perimeter, with cryptographic proof that your data never left. Not private by policy. Private by architecture you can audit yourself.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section id="architecture" class="arch-section">
+      <div class="section-label">Architecture</div>
+      <h2 class="arch-h2">Six structural properties.<br />All verifiable.</h2>
+
+      <div class="arch-list">
+        <div class="arch-item">
+          <span class="arch-num">01</span>
+          <div class="arch-content">
+            <h3 class="arch-title">Trustless by design.</h3>
+            <p class="arch-body">Your data never leaves your control boundary. Not during inference, not during orchestration, not during logging. The architecture makes exfiltration impossible.</p>
+          </div>
+        </div>
+        <div class="arch-item">
+          <span class="arch-num">02</span>
+          <div class="arch-content">
+            <h3 class="arch-title">Uncompromised intelligence.</h3>
+            <p class="arch-body">You do not need to build your own models. You need the infrastructure to safely run the ones that already exist. Frontier capability, inside your perimeter.</p>
+          </div>
+        </div>
+        <div class="arch-item">
+          <span class="arch-num">03</span>
+          <div class="arch-content">
+            <h3 class="arch-title">Drop-in replacement.</h3>
+            <p class="arch-body">Your team keeps building with the same tools they already know. The difference is invisible to developers and transformative for your risk profile.</p>
+          </div>
+        </div>
+        <div class="arch-item">
+          <span class="arch-num">04</span>
+          <div class="arch-content">
+            <h3 class="arch-title">Unilateral control.</h3>
+            <p class="arch-body">Run on-prem, in your cloud, or in a dedicated environment. No shared tenancy. No commingled data. The perimeter is yours to define and yours to verify.</p>
+          </div>
+        </div>
+        <div class="arch-item">
+          <span class="arch-num">05</span>
+          <div class="arch-content">
+            <h3 class="arch-title">Cryptographic proof.</h3>
+            <p class="arch-body">Every operation logged, attributable, and tamper-evident. When regulators ask how you protect data, you hand them verifiable records.</p>
+          </div>
+        </div>
+        <div class="arch-item">
+          <span class="arch-num">06</span>
+          <div class="arch-content">
+            <h3 class="arch-title">Governance at the protocol layer.</h3>
+            <p class="arch-body">Access controls, data routing, and model permissions enforced by the infrastructure itself. Not a dashboard toggle. Not a policy PDF. Code that cannot be overridden.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section id="privacy" class="privacy-section">
+      <div class="privacy-inner">
+        <div class="privacy-left">
+          <div class="section-label">Privacy</div>
+          <h2 class="privacy-h2">Privacy you can't verify is just a policy.</h2>
+        </div>
+        <div class="privacy-right">
+          <p class="privacy-line">When a vendor says "we don't look at your data," that is a policy.</p>
+          <p class="privacy-line">Policies change. Employees change. Acquisitions happen.</p>
+          <p class="privacy-line">Lugano.ai is built so that looking at your data is architecturally impossible.</p>
+          <p class="privacy-line privacy-line-strong">You do not need to trust us. You verify.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO IT'S FOR (off-white) -->
+    <section class="audience-section">
+      <div class="audience-inner">
+        <div class="section-label dark">Who it's for</div>
+        <h2 class="audience-h2">One product. Every environment.</h2>
+
+        <div class="audience-list">
+          <div class="audience-item">
+            <span class="audience-label">Product teams</span>
+            <h3 class="audience-title">Ship AI features without shipping user data.</h3>
+            <p class="audience-body">Build AI-native products where user data never leaves your perimeter. Your users do not need to trust your vendor. They can verify the architecture themselves.</p>
+          </div>
+          <div class="audience-item">
+            <span class="audience-label">Enterprise</span>
+            <h3 class="audience-title">Deploy AI across operations. Prove your data posture.</h3>
+            <p class="audience-body">Use frontier models across your organization without creating new exposure surfaces. Every deployment generates verifiable proof that your data stayed inside the boundary.</p>
+          </div>
+          <div class="audience-item">
+            <span class="audience-label">Regulated industries</span>
+            <h3 class="audience-title">AI that satisfies auditors, not just product managers.</h3>
+            <p class="audience-body">Infrastructure-level controls built for finance, healthcare, legal, and government. Cryptographic audit trails out of the box. Verifiable records.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLATFORM -->
+    <section id="platform" class="platform-section">
+      <div class="section-label">Platform</div>
+      <h2 class="platform-h2">Everything you need. Nothing you have to build.</h2>
+
+      <div class="platform-list">
+        <div class="platform-item">
+          <span class="platform-num">01</span>
+          <span class="platform-name">Input</span>
+          <span class="platform-desc">A complete private AI stack, ready to use.</span>
+        </div>
+        <div class="platform-item">
+          <span class="platform-num">02</span>
+          <span class="platform-name">Routing</span>
+          <span class="platform-desc">Configure access controls, data routing, and model permissions from a single interface.</span>
+        </div>
+        <div class="platform-item">
+          <span class="platform-num">03</span>
+          <span class="platform-name">Inference</span>
+          <span class="platform-desc">Frontier models running inside your control boundary. No data leaves your perimeter.</span>
+        </div>
+        <div class="platform-item">
+          <span class="platform-num">04</span>
+          <span class="platform-name">Audit</span>
+          <span class="platform-desc">Every operation attributable, every access logged. Tamper-evident records exportable to standard compliance formats.</span>
+        </div>
+        <div class="platform-item">
+          <span class="platform-num">05</span>
+          <span class="platform-name">Output</span>
+          <span class="platform-desc">Works with the tools your team already uses. No rip-and-replace.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="cta-inner">
+        <div class="cta-left">
+          <div class="section-label mono">Private beta</div>
+          <h2 class="cta-h2">Don't trust.<br />Verify.</h2>
+          <p class="cta-body">Lugano.ai is onboarding teams that refuse to choose between intelligence and sovereignty. Frontier AI with cryptographic privacy. No trust required.</p>
+        </div>
+        <div class="cta-right">
+          <a href="https://cal.com/lugano-ai/intro" class="cta-btn">Apply for beta</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="foot">
+      <div class="foot-brand">Lugano.ai</div>
+      <div class="foot-links">
+        <a href="#architecture">Architecture</a>
+        <a href="#platform">Platform</a>
+        <a href="#privacy">Privacy</a>
+        <span>&copy; 2026 Lugano AI</span>
+      </div>
+    </footer>
+
   </div>
 
-  <div class="hero-stats reveal delay-4" aria-label="Product status">
-    <div class="stat">
-      <span class="k">Privacy model</span>
-      <span class="v">Trustless <span class="pulse">verifiable</span></span>
-    </div>
-    <div class="stat">
-      <span class="k">Vendor data access</span>
-      <span class="v">Zero</span>
-    </div>
-    <div class="stat">
-      <span class="k">Status</span>
-      <span class="v">Private <span class="pulse italic">beta</span></span>
-    </div>
-  </div>
-
-</section>
-
-<!-- ================= PROBLEM / SOLUTION ================= -->
-<section class="section" aria-label="Problem and solution">
-  <div class="wrap">
-    <div class="tri">
-      <div class="col reveal">
-        <div class="col-head"><span>Problem</span></div>
-        <h3>The false choice of the cloud era.</h3>
-        <p>You either send proprietary data to a black box you cannot audit, or you run crippled open-source models locally. That is a failure of infrastructure, not a law of physics.</p>
-      </div>
-      <div class="col reveal delay-1">
-        <div class="col-head"><span>What we do</span></div>
-        <h3>Frontier intelligence, <em>verifiably</em> private.</h3>
-        <p>Lugano.ai collapses the false choice. Frontier models running inside your perimeter, with cryptographic proof that your data never left. Not private by policy. Private by architecture you can audit yourself.</p>
-      </div>
-      <div class="col reveal delay-2">
-        <div class="col-head"><span>The risk</span></div>
-        <h3>Every API call is a liability you can't see.</h3>
-        <p>Every prompt your team sends to a third-party model creates a record you do not control. Training data, legal discovery, breach exposure. The risk compounds silently until it doesn't.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= MARQUEE DIVIDER ================= -->
-<div class="marquee-strip" aria-hidden="true">
-  <div class="marquee-track">
-    <span>/// TRUSTLESS PRIVACY</span>
-    <span>/// VERIFIABLE ARCHITECTURE</span>
-    <span>/// ZERO VENDOR ACCESS</span>
-    <span>/// CRYPTOGRAPHIC PROOF</span>
-    <span>/// NO TRUST REQUIRED</span>
-    <span>/// TRUSTLESS PRIVACY</span>
-    <span>/// VERIFIABLE ARCHITECTURE</span>
-    <span>/// ZERO VENDOR ACCESS</span>
-    <span>/// CRYPTOGRAPHIC PROOF</span>
-    <span>/// NO TRUST REQUIRED</span>
-  </div>
-</div>
-
-<!-- ================= WHAT YOU GET ================= -->
-<section class="section" id="architecture" aria-label="Architecture">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="tag reveal">[ ARCHITECTURE ]</div>
-      <h2 class="display h-l reveal delay-1">
-        Six structural properties. <span class="italic accent">All verifiable.</span>
-      </h2>
-    </div>
-
-    <p class="body-lg reveal" style="margin-bottom: 40px; max-width: 56ch;">
-      Every Lugano.ai deployment ships with these properties baked into the infrastructure.
-      Not promises. Structural facts you can audit.
-    </p>
-
-    <div class="accordion-list">
-      <details class="accord reveal">
-        <summary><h4>Trustless by design.</h4><span class="accord-icon" aria-hidden="true"></span></summary>
-        <p>Your data never leaves your control boundary. Not during inference, not during orchestration, not during logging. You do not need to trust us. The architecture makes exfiltration impossible.</p>
-      </details>
-      <details class="accord reveal delay-1">
-        <summary><h4>Uncompromised intelligence.</h4><span class="accord-icon" aria-hidden="true"></span></summary>
-        <p>You do not need to build your own models. You need the infrastructure to safely run the ones that already exist. Frontier capability, inside your perimeter.</p>
-      </details>
-      <details class="accord reveal delay-1">
-        <summary><h4>Drop-in replacement.</h4><span class="accord-icon" aria-hidden="true"></span></summary>
-        <p>Your team keeps building with the same tools they already know. The difference is invisible to developers and transformative for your risk profile.</p>
-      </details>
-      <details class="accord reveal delay-2">
-        <summary><h4>Unilateral control.</h4><span class="accord-icon" aria-hidden="true"></span></summary>
-        <p>Run on-prem, in your cloud, or in a dedicated environment. No shared tenancy. No commingled data. The perimeter is yours to define and yours to verify.</p>
-      </details>
-      <details class="accord reveal delay-2">
-        <summary><h4>Cryptographic proof.</h4><span class="accord-icon" aria-hidden="true"></span></summary>
-        <p>Every operation logged, attributable, and tamper-evident. When regulators ask how you protect data, you hand them verifiable records, not a vendor's word.</p>
-      </details>
-      <details class="accord reveal delay-3">
-        <summary><h4>Governance at the protocol layer.</h4><span class="accord-icon" aria-hidden="true"></span></summary>
-        <p>Access controls, data routing, and model permissions enforced by the infrastructure itself. Not a dashboard toggle. Not a policy PDF. Code that cannot be overridden.</p>
-      </details>
-    </div>
-
-    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 120px; align-items: start;" class="statement-row">
-      <h3 class="display h-m reveal">
-        Privacy you can't verify <span class="italic accent">is just a promise.</span>
-      </h3>
-      <p class="body reveal delay-1" style="font-size: 17px; padding-top: 14px;">
-        Most organizations are stuck choosing between cloud AI they cannot audit and local AI that cannot perform.
-        Lugano.ai gives you frontier capability with cryptographic proof of privacy. Not a promise. A verifiable fact.
-      </p>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- ================= WHO IT'S FOR ================= -->
-<section class="section" id="who" aria-label="Who it's for">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="tag reveal">[ WHO IT'S FOR ]</div>
-      <h2 class="display h-l reveal delay-1">
-        One product. <span class="italic accent">Every environment.</span>
-      </h2>
-    </div>
-
-    <div class="who-grid">
-      <article class="who-card reveal">
-        <div class="icon" aria-hidden="true">
-          <!-- Ship / box icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M3 7l9-4 9 4v10l-9 4-9-4V7z" />
-            <path d="M3 7l9 4 9-4" />
-            <path d="M12 11v10" />
-          </svg>
-        </div>
-        <div class="eyebrow" style="margin-bottom: 14px;">Product teams</div>
-        <h4>Ship AI features without shipping user data.</h4>
-        <p>Build AI-native products where user data never leaves your perimeter. Your users do not need to trust your vendor. They can verify the architecture themselves.</p>
-        <div class="chips">
-          <span class="chip">SaaS</span>
-          <span class="chip">Consumer AI</span>
-          <span class="chip">B2B</span>
-        </div>
-      </article>
-
-      <article class="who-card reveal delay-1">
-        <div class="icon" aria-hidden="true">
-          <!-- Building icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M4 21V5h10v16" />
-            <path d="M14 10h6v11" />
-            <path d="M7 9h4M7 13h4M7 17h4M17 14h0M17 18h0" stroke-linecap="round" />
-          </svg>
-        </div>
-        <div class="eyebrow" style="margin-bottom: 14px;">Enterprise</div>
-        <h4>Deploy AI across operations. Prove your data posture.</h4>
-        <p>Use frontier models across your organization without creating new exposure surfaces. Every deployment generates verifiable proof that your data stayed inside the boundary.</p>
-        <div class="chips">
-          <span class="chip">Operations</span>
-          <span class="chip">Internal tools</span>
-          <span class="chip">Knowledge</span>
-        </div>
-      </article>
-
-      <article class="who-card reveal delay-2">
-        <div class="icon" aria-hidden="true">
-          <!-- Shield icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z" />
-            <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="eyebrow" style="margin-bottom: 14px;">Regulated industries</div>
-        <h4>AI that satisfies auditors, not just product managers.</h4>
-        <p>Infrastructure-level controls built for finance, healthcare, legal, and government. Cryptographic audit trails out of the box. No compliance theater. Verifiable records.</p>
-        <div class="chips">
-          <span class="chip">Finance</span>
-          <span class="chip">Healthcare</span>
-          <span class="chip">Legal</span>
-          <span class="chip">Gov</span>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PRIVACY ================= -->
-<section class="section trust" id="privacy" aria-label="Privacy">
-  <video class="privacy-bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-    <source src="assets/privacy-bg.mp4" type="video/mp4" />
-  </video>
-  <div class="privacy-bg-overlay" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="section-head">
-      <div class="tag reveal">[ PRIVACY ]</div>
-      <div class="trust-head">
-        <h2 class="display h-l reveal delay-1">
-          Privacy you can't verify<br /><span class="em italic">is just a policy.</span>
-        </h2>
-        <p class="body-lg reveal delay-2" style="margin-top: 32px; max-width: 60ch;">
-          When a vendor says "we don't look at your data," that is a policy. Policies change. Employees change. Acquisitions happen.
-          Lugano.ai is built so that looking at your data is architecturally impossible. You do not need to trust us. You verify.
-        </p>
-      </div>
-    </div>
-
-    <div class="trust-grid">
-      <div class="trust-cell reveal">
-        <div class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="5" y="10" width="14" height="10" rx="1"/><path d="M8 10V7a4 4 0 018 0v3"/><circle cx="12" cy="15" r="1" fill="currentColor"/></svg>
-        </div>
-        <h5>Trustless execution</h5>
-        <p>Every session, request, and tool call is independently authorized. No implicit access. No inherited permissions. No faith required.</p>
-      </div>
-      <div class="trust-cell reveal delay-1">
-        <div class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="19" cy="18" r="2.5"/></svg>
-        </div>
-        <h5>Cryptographic audit trails</h5>
-        <p>Every operation attributable, every access logged. Tamper-evident records exportable to standard compliance formats.</p>
-      </div>
-      <div class="trust-cell reveal delay-2">
-        <div class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M3.5 8.5h17M3.5 15.5h17M12 3a13 13 0 010 18M12 3a13 13 0 000 18"/><path d="M5 5l14 14" stroke="currentColor" stroke-width="1.8"/></svg>
-        </div>
-        <h5>No vendor data access</h5>
-        <p>We cannot see your data. Not because we promise not to. Because the architecture makes it impossible. You control retention, access, and deletion.</p>
-      </div>
-      <div class="trust-cell reveal delay-3">
-        <div class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5L16 10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h5>Compliance-native</h5>
-        <p>SOC 2, ISO 27001, GDPR, HIPAA alignment built into the protocol layer. No bolt-on tooling required.</p>
-      </div>
-      <div class="trust-cell reveal delay-4">
-        <div class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="8" height="7" rx="1"/><rect x="13" y="4" width="8" height="7" rx="1"/><rect x="3" y="13" width="8" height="7" rx="1"/><rect x="13" y="13" width="8" height="7" rx="1"/></svg>
-        </div>
-        <h5>Deploy anywhere</h5>
-        <p>On-prem, private cloud, hybrid, or managed. The security model holds across every topology. Same guarantees everywhere.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PLATFORM ================= -->
-<section class="section" id="platform" aria-label="Platform">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="tag reveal">[ PLATFORM ]</div>
-      <h2 class="display h-l reveal delay-1">
-        Everything you need.<br /><span class="italic accent">Nothing you have to build.</span>
-      </h2>
-    </div>
-
-    <p class="body-lg reveal" style="margin-bottom: 48px;">
-      A complete private AI stack, ready to use. Five components, one integrated architecture.
-    </p>
-
-    <div class="arch reveal">
-      <div class="arch-legend">
-        <div class="lg-item"><span class="sw"></span><span>DATA FLOW · INBOUND</span></div>
-        <div class="lg-item"><span>HOVER TO EXPAND · ARCHITECTURE DIAGRAM</span></div>
-      </div>
-
-      <div class="arch-diagram" role="list">
-        <div class="arch-flow" aria-hidden="true"></div>
-
-        <article class="arch-node" role="listitem" tabindex="0">
-          <span class="glow" aria-hidden="true"></span>
-          <div class="idx"><span>CORE</span><span class="status" aria-hidden="true"></span></div>
-          <div class="kicker">Core</div>
-          <h5>Private inference</h5>
-          <p class="body">Frontier models running inside your control boundary. No data leaves your perimeter.</p>
-          <div class="spec"><span>LAYER</span><span class="v">INFERENCE</span></div>
-          <span class="connector" aria-hidden="true">
-            <svg viewBox="0 0 28 24">
-              <path class="conn-line" d="M0 12 L22 12" />
-              <polygon class="conn-head" points="22,8 28,12 22,16" />
-              <circle class="conn-dot conn-packet" cx="0" cy="12" r="2" />
-            </svg>
-          </span>
-        </article>
-
-        <article class="arch-node" role="listitem" tabindex="0">
-          <span class="glow" aria-hidden="true"></span>
-          <div class="idx"><span>CONTROL</span><span class="status" aria-hidden="true"></span></div>
-          <div class="kicker">Control</div>
-          <h5>Policy console</h5>
-          <p class="body">Configure access controls, data routing, and model permissions from a single dashboard.</p>
-          <div class="spec"><span>LAYER</span><span class="v">GOVERNANCE</span></div>
-          <span class="connector" aria-hidden="true">
-            <svg viewBox="0 0 28 24">
-              <path class="conn-line" d="M0 12 L22 12" />
-              <polygon class="conn-head" points="22,8 28,12 22,16" />
-              <circle class="conn-dot conn-packet" cx="0" cy="12" r="2" />
-            </svg>
-          </span>
-        </article>
-
-        <article class="arch-node" role="listitem" tabindex="0">
-          <span class="glow" aria-hidden="true"></span>
-          <div class="idx"><span>VISIBILITY</span><span class="status" aria-hidden="true"></span></div>
-          <div class="kicker">Visibility</div>
-          <h5>Audit dashboard</h5>
-          <p class="body">Real-time compliance status, access patterns, and deployment posture in one view.</p>
-          <div class="spec"><span>LAYER</span><span class="v">OBSERVABILITY</span></div>
-          <span class="connector" aria-hidden="true">
-            <svg viewBox="0 0 28 24">
-              <path class="conn-line" d="M0 12 L22 12" />
-              <polygon class="conn-head" points="22,8 28,12 22,16" />
-              <circle class="conn-dot conn-packet" cx="0" cy="12" r="2" />
-            </svg>
-          </span>
-        </article>
-
-        <article class="arch-node" role="listitem" tabindex="0">
-          <span class="glow" aria-hidden="true"></span>
-          <div class="idx"><span>INTEGRATION</span><span class="status" aria-hidden="true"></span></div>
-          <div class="kicker">Integration</div>
-          <h5>API layer</h5>
-          <p class="body">Works with the tools your team already uses. No rip-and-replace. No retraining.</p>
-          <div class="spec"><span>LAYER</span><span class="v">INTERFACE</span></div>
-          <span class="connector" aria-hidden="true">
-            <svg viewBox="0 0 28 24">
-              <path class="conn-line" d="M0 12 L22 12" />
-              <polygon class="conn-head" points="22,8 28,12 22,16" />
-              <circle class="conn-dot conn-packet" cx="0" cy="12" r="2" />
-            </svg>
-          </span>
-        </article>
-
-        <article class="arch-node" role="listitem" tabindex="0">
-          <span class="glow" aria-hidden="true"></span>
-          <div class="idx"><span>REFERENCE</span><span class="status" aria-hidden="true"></span></div>
-          <div class="kicker">Reference</div>
-          <h5>Documentation</h5>
-          <p class="body">Integration guides, deployment specs, and architecture references. Everything you need to evaluate and deploy.</p>
-          <div class="spec"><span>LAYER</span><span class="v">DEVELOPER</span></div>
-        </article>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= FINAL CTA ================= -->
-<section class="final" id="apply" aria-label="Apply">
-  <div class="final-inner">
-    <div class="eyebrow reveal" style="margin-bottom: 32px; justify-content: center; display: inline-flex;">
-      <span class="dot" aria-hidden="true"></span>
-      <span>Private beta · Now onboarding</span>
-    </div>
-    <h2 class="display reveal delay-1">
-      Don't trust.<br /><span class="italic">Verify.</span>
-    </h2>
-    <p class="sub reveal delay-2">
-      Lugano.ai is onboarding teams that refuse to choose between intelligence and sovereignty.
-      Frontier AI with cryptographic privacy guarantees. No trust required.
-    </p>
-    <div class="ctas reveal delay-3">
-      <a href="#" class="btn btn-primary">
-        Apply for beta
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12m0 0L8 2m5 5L8 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/></svg>
-      </a>
-      <a href="#docs" class="btn btn-ghost">
-        Read the docs
-        <span class="arrow" aria-hidden="true"></span>
-      </a>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<!-- ================= FOOT ================= -->
-<footer class="foot">
-  <div class="brand">
-    <svg class="vault" viewBox="0 0 800 800" aria-hidden="true"></svg>
-    <span class="wm">Lugano<span class="tld">.ai</span></span>
-  </div>
-  <nav aria-label="Footer">
-    <a href="#apply">Beta</a>
-    <a href="#">API</a>
-    <a href="#docs">Documentation</a>
-    <a href="#">Contact</a>
-  </nav>
-  <span class="whisper">© 2026 Lugano AI</span>
-</footer>
-
-<script>
-/* Vault-lock mark generator — halftone L inside a vault-dial ring */
-function buildVaultMark({w=800,h=800,stroke="#fff",dotColor="#fff"}={}){
-  const cx=w/2,cy=h/2;
-  const cols=19,rows=19,spacing=28;
-  const gridW=(cols-1)*spacing;
-  const x0=cx-gridW/2,y0=cy-gridW/2;
-  const inL=(c,r)=>((c>=6&&c<=8&&r>=3&&r<=15)||(c>=6&&c<=14&&r>=13&&r<=15));
-  const distNorm=(c,r)=>{const dx=c-(cols-1)/2,dy=r-(rows-1)/2;return Math.hypot(dx,dy)/((cols-1)/2);};
-  let out='';
-  const R1=gridW/2+28, R2=R1+14;
-  out+=`<circle cx="${cx}" cy="${cy}" r="${R1}" fill="none" stroke="${stroke}" stroke-opacity="0.4" stroke-width="2"/>`;
-  out+=`<circle cx="${cx}" cy="${cy}" r="${R2}" fill="none" stroke="${stroke}" stroke-opacity="0.2" stroke-width="2"/>`;
-  for(let i=0;i<60;i++){
-    const a=(i/60)*Math.PI*2-Math.PI/2;const major=(i%5===0);
-    const inner=R1+4,outer=R1+(major?14:8);
-    const x1=cx+Math.cos(a)*inner,y1=cy+Math.sin(a)*inner;
-    const x2=cx+Math.cos(a)*outer,y2=cy+Math.sin(a)*outer;
-    out+=`<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="${stroke}" stroke-opacity="${major?0.9:0.4}" stroke-width="${major?3:2}" stroke-linecap="round"/>`;
-  }
-  for(let i=0;i<4;i++){const a=i*Math.PI/2-Math.PI/2;const pr=R2+14;const x=cx+Math.cos(a)*pr,y=cy+Math.sin(a)*pr;out+=`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="6" fill="${dotColor}" opacity="0.85"/>`;}
-  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
-    const d=distNorm(c,r);if(d>1.02)continue;
-    const x=x0+c*spacing,y=y0+r*spacing;
-    let radius,opacity;
-    if(inL(c,r)){radius=8.5;opacity=1;}
-    else{const t=1-d;radius=1.2+t*2.2;opacity=0.25+t*0.45;}
-    out+=`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${radius.toFixed(2)}" fill="${dotColor}" opacity="${opacity.toFixed(3)}"/>`;
-  }
-  return out;
-}
-document.querySelectorAll('svg.vault').forEach(s=>s.innerHTML=buildVaultMark());
-</script>
-<script src="app.js"></script>
 </body>
 </html>
