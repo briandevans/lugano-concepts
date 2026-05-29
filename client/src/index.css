@@ -1,7 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
+/* ─────────────────────────────────────────────────────────────
+   LUGANO.AI  — Lake Blue Design System
+   Inspired by: OpenRouter (density), Near.ai (terminal grit),
+                Aleo (editorial scale)
+   Motif: Lugano lake — deep cobalt, glacier cyan, obsidian night
+───────────────────────────────────────────────────────────── */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -27,79 +35,95 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --font-serif: "Playfair Display", serif;
-  --font-sans: "Inter", sans-serif;
+
+  /* Lake Blue Palette */
+  --lake-50:  #e8f4fd;
+  --lake-100: #c5e3f9;
+  --lake-200: #8ec8f3;
+  --lake-300: #4da8e8;
+  --lake-400: #1a8cd8;
+  --lake-500: #0d72c0;
+  --lake-600: #0a5a9e;
+  --lake-700: #084480;
+  --lake-800: #063063;
+  --lake-900: #041e42;
+  --glacier:  #7dd3fc;
+  --cobalt:   #1e40af;
+  --abyss:    #020c1b;
+
+  --font-sans: "Geist", "Inter", system-ui, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", monospace;
 }
 
 :root {
-  /* Obsidian & Platinum Palette - Light Mode (Not primary, but defined) */
-  --primary: #1a1a1a;
-  --primary-foreground: #f5f5f5;
-  --background: #f5f5f5;
-  --foreground: #1a1a1a;
+  --primary: #0d72c0;
+  --primary-foreground: #ffffff;
+  --background: #f8fafc;
+  --foreground: #0a0f1e;
   --card: #ffffff;
-  --card-foreground: #1a1a1a;
+  --card-foreground: #0a0f1e;
   --popover: #ffffff;
-  --popover-foreground: #1a1a1a;
-  --secondary: #e5e5e5;
-  --secondary-foreground: #1a1a1a;
-  --muted: #f5f5f5;
-  --muted-foreground: #737373;
-  --accent: #e5e5e5;
-  --accent-foreground: #1a1a1a;
+  --popover-foreground: #0a0f1e;
+  --secondary: #e2e8f0;
+  --secondary-foreground: #0a0f1e;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #e8f4fd;
+  --accent-foreground: #0d72c0;
   --destructive: #ef4444;
   --destructive-foreground: #fafafa;
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: #1a1a1a;
-  --radius: 0rem; /* Sharp corners for "Vault" feel */
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0d72c0;
+  --radius: 0.5rem;
 }
 
+/* Dark mode — Lugano Night (primary mode for the site) */
 .dark {
-  /* Obsidian & Platinum Palette - Dark Mode (Primary) */
-  --background: #050505; /* Deep Obsidian */
-  --foreground: #e5e5e5; /* Platinum */
-  --card: #0a0a0a;
-  --card-foreground: #e5e5e5;
-  --popover: #0a0a0a;
-  --popover-foreground: #e5e5e5;
-  --primary: #ffffff;
-  --primary-foreground: #000000;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #e5e5e5;
-  --muted: #1a1a1a;
-  --muted-foreground: #a3a3a3; /* Silver */
-  --accent: #262626;
-  --accent-foreground: #ffffff;
+  --background: #020c1b;
+  --foreground: #e2eaf6;
+  --card: #071428;
+  --card-foreground: #e2eaf6;
+  --popover: #071428;
+  --popover-foreground: #e2eaf6;
+  --primary: #3b9edd;
+  --primary-foreground: #020c1b;
+  --secondary: #0d1f3c;
+  --secondary-foreground: #e2eaf6;
+  --muted: #0d1f3c;
+  --muted-foreground: #7a9abf;
+  --accent: #0a2a50;
+  --accent-foreground: #7dd3fc;
   --destructive: #7f1d1d;
   --destructive-foreground: #fafafa;
-  --border: #262626; /* Subtle dark borders */
-  --input: #262626;
-  --ring: #525252;
+  --border: #0d2545;
+  --input: #0d2545;
+  --ring: #3b9edd;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif tracking-tight;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  code, pre, .mono {
+    font-family: var(--font-mono);
   }
 }
 
@@ -110,23 +134,166 @@
     margin-right: auto;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    max-width: 1400px;
+    max-width: 1280px;
   }
-  
-  /* "Vault" Utilities */
-  .vault-border {
-    @apply border border-white/10;
+
+  /* Lake glow — the signature Lugano effect */
+  .lake-glow {
+    box-shadow: 0 0 0 1px rgba(59, 158, 221, 0.15),
+                0 0 40px rgba(13, 114, 192, 0.12),
+                0 0 80px rgba(13, 114, 192, 0.06);
   }
-  
-  .text-platinum {
-    @apply text-[#e5e5e5];
+
+  .lake-glow-strong {
+    box-shadow: 0 0 0 1px rgba(59, 158, 221, 0.3),
+                0 0 60px rgba(13, 114, 192, 0.25),
+                0 0 120px rgba(13, 114, 192, 0.12);
   }
-  
-  .text-silver {
-    @apply text-[#a3a3a3];
+
+  .lake-border {
+    border: 1px solid rgba(59, 158, 221, 0.2);
   }
-  
-  .bg-obsidian {
-    @apply bg-[#050505];
+
+  .lake-border-strong {
+    border: 1px solid rgba(59, 158, 221, 0.45);
+  }
+
+  /* Terminal label — Near.ai inspired */
+  .terminal-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #3b9edd;
+    opacity: 0.8;
+  }
+
+  /* Section eyebrow — Aleo inspired */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #3b9edd;
+  }
+
+  /* Grid overlay — structural decoration */
+  .grid-overlay {
+    background-image:
+      linear-gradient(rgba(59, 158, 221, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 158, 221, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  /* Stat number */
+  .stat-number {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: #ffffff;
+  }
+
+  /* Card base */
+  .lugano-card {
+    background: rgba(7, 20, 40, 0.8);
+    border: 1px solid rgba(13, 37, 69, 0.9);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .lugano-card:hover {
+    border-color: rgba(59, 158, 221, 0.3);
+    box-shadow: 0 0 0 1px rgba(59, 158, 221, 0.15),
+                0 8px 32px rgba(13, 114, 192, 0.15);
+  }
+
+  /* Featured card — highlighted with lake glow border */
+  .lugano-card-featured {
+    background: rgba(7, 20, 40, 0.9);
+    border: 1px solid rgba(59, 158, 221, 0.4);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 0 1px rgba(59, 158, 221, 0.15),
+                0 0 60px rgba(13, 114, 192, 0.2);
+  }
+
+  /* Noise texture overlay for depth */
+  .noise-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+  }
+
+  /* Benchmark badge */
+  .benchmark-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    background: rgba(13, 114, 192, 0.15);
+    border: 1px solid rgba(59, 158, 221, 0.25);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #7dd3fc;
+    letter-spacing: 0.05em;
+  }
+
+  /* Horizontal rule with lake gradient */
+  .lake-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(59, 158, 221, 0.3) 30%, rgba(59, 158, 221, 0.3) 70%, transparent);
+  }
+}
+
+/* ── Animations ─────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+@keyframes pulse-lake {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 158, 221, 0); }
+  50%       { box-shadow: 0 0 0 6px rgba(59, 158, 221, 0.12); }
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-fade-in {
+  animation: fadeIn 0.6s ease both;
+}
+.animate-ticker {
+  animation: ticker 40s linear infinite;
+}
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
