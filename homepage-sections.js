@@ -339,6 +339,29 @@
     });
   };
 
+  const updateApplyWebsiteField = () => {
+    document.querySelectorAll("form label").forEach((label) => {
+      const normalizedText = label.textContent.trim().replace(/\s+/g, " ").toLowerCase();
+
+      if (normalizedText !== "x profile") {
+        return;
+      }
+
+      label.textContent = "Website URL";
+
+      const input = label.parentElement?.querySelector("input");
+
+      if (!input) {
+        return;
+      }
+
+      input.type = "url";
+      input.inputMode = "url";
+      input.autocomplete = "url";
+      input.placeholder = "https://company.com";
+    });
+  };
+
   const normalizeLiveHeadings = () => {
     document.querySelectorAll("#root section").forEach((section) => {
       const label = section.querySelector(".bracket-label");
@@ -609,6 +632,7 @@
 
   const mount = () => {
     updateCtas();
+    updateApplyWebsiteField();
     updateUseCasesNav();
     enhanceCardCipherHover();
     normalizeLiveHeadings();
@@ -629,6 +653,7 @@
 
     parent.insertBefore(buildSections(), insertionPoint);
     updateCtas();
+    updateApplyWebsiteField();
     updateUseCasesNav();
     enhanceCardCipherHover();
     normalizeLiveHeadings();
@@ -660,6 +685,7 @@
     if (root) {
       const observer = new MutationObserver(() => {
         updateCtas();
+        updateApplyWebsiteField();
         updateUseCasesNav();
         enhanceCardCipherHover();
         normalizeLiveHeadings();
@@ -667,6 +693,7 @@
 
         if (mount()) {
           updateCtas();
+          updateApplyWebsiteField();
           updateUseCasesNav();
           enhanceCardCipherHover();
           normalizeLiveHeadings();
@@ -677,6 +704,7 @@
     }
 
     updateCtas();
+    updateApplyWebsiteField();
     updateUseCasesNav();
     enhanceCardCipherHover();
     normalizeLiveHeadings();
