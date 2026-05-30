@@ -3,6 +3,14 @@
   const USE_CASES_SECTION_ID = "use-cases";
   const USE_CASES_HASH = "#/?section=use-cases";
   const MAX_MOUNT_ATTEMPTS = 180;
+  const CARD_SELECTOR = "#root .feature-card, #root .comparison-card, #lugano-extra-sections .lgx-card";
+  const CIPHER_CHARS = "0123456789ABCDEF";
+  const CIPHER_CELL_WIDTH = 7;
+  const CIPHER_CELL_HEIGHT = 14;
+  const CIPHER_FONT_SIZE = 11;
+  const CIPHER_UPDATE_MIN = 1400;
+  const CIPHER_UPDATE_RANGE = 1800;
+  const CIPHER_FLASH_DURATION = 320;
   const CTA_LABELS = new Set([
     "apply for beta",
     "apply for access",
@@ -188,6 +196,18 @@
 
   const listMarkup = (items) =>
     items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+
+  const randomCipherCharacter = () =>
+    CIPHER_CHARS[Math.floor(Math.random() * CIPHER_CHARS.length)];
+
+  const createCipherGrid = (columns, rows) =>
+    Array.from({ length: rows }, () =>
+      Array.from({ length: columns }, () => ({
+        character: randomCipherCharacter(),
+        flashUntil: 0,
+        nextUpdate: performance.now() + Math.random() * CIPHER_UPDATE_RANGE,
+      })),
+    );
 
   const brandMarkMarkup = (item, sizeClass) => {
     if (item.logo) {
@@ -448,9 +468,149 @@
     });
   };
 
+  const resizeCipherCanvas = (state) => {
+    const rect = state.card.getBoundingClientRect();
+    const width = Math.max(1, Math.ceil(rect.width));
+    const height = Math.max(1, Math.ceil(rect.height));
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+
+    if (
+      state.width === width &&
+      state.height === height &&
+      state.pixelRatio === pixelRatio
+    ) {
+      return;
+    }
+
+    state.width = width;
+    state.height = height;
+    state.pixelRatio = pixelRatio;
+    state.columns = Math.ceil(width / CIPHER_CELL_WIDTH);
+    state.rows = Math.ceil(height / CIPHER_CELL_HEIGHT);
+    state.canvas.width = width * pixelRatio;
+    state.canvas.height = height * pixelRatio;
+    state.canvas.style.width = `${width}px`;
+    state.canvas.style.height = `${height}px`;
+    state.context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    state.grid = createCipherGrid(state.columns, state.rows);
+  };
+
+  const drawCipherCanvas = (state, timestamp = performance.now()) => {
+    resizeCipherCanvas(state);
+    state.context.clearRect(0, 0, state.width, state.height);
+    state.context.font = `${CIPHER_FONT_SIZE}px "JetBrains Mono", monospace`;
+    state.context.textBaseline = "top";
+
+    for (let rowIndex = 0; rowIndex < state.rows; rowIndex += 1) {
+      for (let columnIndex = 0; columnIndex < state.columns; columnIndex += 1) {
+        const cell = state.grid[rowIndex][columnIndex];
+
+        if (timestamp > cell.nextUpdate) {
+          cell.character = randomCipherCharacter();
+          cell.flashUntil = timestamp + CIPHER_FLASH_DURATION;
+          cell.nextUpdate =
+            timestamp + CIPHER_UPDATE_MIN + Math.random() * CIPHER_UPDATE_RANGE;
+        }
+
+        const flashProgress = Math.max(0, (cell.flashUntil - timestamp) / CIPHER_FLASH_DURATION);
+        const alpha = 0.06 + flashProgress * 0.16;
+
+        state.context.fillStyle = `rgba(155, 213, 244, ${alpha})`;
+        state.context.fillText(
+          cell.character,
+          columnIndex * CIPHER_CELL_WIDTH,
+          rowIndex * CIPHER_CELL_HEIGHT + 1,
+        );
+      }
+    }
+  };
+
+  const stopCipherAnimation = (state) => {
+    state.active = false;
+
+    if (state.animationFrame) {
+      window.cancelAnimationFrame(state.animationFrame);
+      state.animationFrame = 0;
+    }
+  };
+
+  const startCipherAnimation = (state) => {
+    if (state.active) {
+      return;
+    }
+
+    state.active = true;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      drawCipherCanvas(state);
+      return;
+    }
+
+    const loop = (timestamp) => {
+      if (!state.active) {
+        return;
+      }
+
+      drawCipherCanvas(state, timestamp);
+      state.animationFrame = window.requestAnimationFrame(loop);
+    };
+
+    state.animationFrame = window.requestAnimationFrame(loop);
+  };
+
+  const createCipherState = (card) => {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+
+    if (!context) {
+      return null;
+    }
+
+    canvas.className = "lgx-card-cipher-canvas";
+    canvas.setAttribute("aria-hidden", "true");
+    card.prepend(canvas);
+
+    return {
+      active: false,
+      animationFrame: 0,
+      canvas,
+      card,
+      columns: 0,
+      context,
+      grid: [],
+      height: 0,
+      pixelRatio: 0,
+      rows: 0,
+      width: 0,
+    };
+  };
+
+  const enhanceCardCipherHover = () => {
+    document.querySelectorAll(CARD_SELECTOR).forEach((card) => {
+      if (card.dataset.lgxCipherReady === "true") {
+        return;
+      }
+
+      const state = createCipherState(card);
+
+      if (!state) {
+        return;
+      }
+
+      card.dataset.lgxCipherReady = "true";
+      card.classList.add("lgx-cipher-ready");
+      drawCipherCanvas(state);
+      card.addEventListener("mouseenter", () => startCipherAnimation(state));
+      card.addEventListener("mouseleave", () => stopCipherAnimation(state));
+      card.addEventListener("focusin", () => startCipherAnimation(state));
+      card.addEventListener("focusout", () => stopCipherAnimation(state));
+    });
+  };
+
   const mount = () => {
     updateCtas();
     updateUseCasesNav();
+    enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
 
@@ -470,6 +630,7 @@
     parent.insertBefore(buildSections(), insertionPoint);
     updateCtas();
     updateUseCasesNav();
+    enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
 
@@ -500,12 +661,14 @@
       const observer = new MutationObserver(() => {
         updateCtas();
         updateUseCasesNav();
+        enhanceCardCipherHover();
         normalizeLiveHeadings();
         normalizeSectionBackgrounds();
 
         if (mount()) {
           updateCtas();
           updateUseCasesNav();
+          enhanceCardCipherHover();
           normalizeLiveHeadings();
           normalizeSectionBackgrounds();
         }
@@ -515,6 +678,7 @@
 
     updateCtas();
     updateUseCasesNav();
+    enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
   };
