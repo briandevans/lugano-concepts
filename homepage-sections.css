@@ -18,6 +18,14 @@
   --lgx-card-title-size: clamp(1.24rem, 1.35vw, 1.3rem);
   --lgx-card-body-size: clamp(0.92rem, 1vw, 0.94rem);
   --lgx-card-icon-size: clamp(3rem, 4vw, 3.5rem);
+  --lgx-icon-chip-background: linear-gradient(135deg, rgba(74, 166, 223, 0.18), rgba(74, 166, 223, 0.08));
+  --lgx-icon-chip-border: rgba(155, 213, 244, 0.2);
+  --lgx-icon-chip-shadow:
+    inset 0 0 0 1px rgba(155, 213, 244, 0.1),
+    0 18px 42px rgba(74, 166, 223, 0.08);
+  --lgx-icon-chip-hover-shadow:
+    inset 0 0 0 1px rgba(155, 213, 244, 0.18),
+    0 20px 46px rgba(74, 166, 223, 0.13);
   --lgx-card-surface:
     linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
     var(--lgx-panel);
@@ -191,8 +199,19 @@
 }
 
 #root .icon-chip {
-  background: linear-gradient(135deg, rgba(74, 166, 223, 0.18), rgba(74, 166, 223, 0.08)) !important;
-  box-shadow: inset 0 0 0 1px rgba(155, 213, 244, 0.1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid var(--lgx-icon-chip-border) !important;
+  background: var(--lgx-icon-chip-background) !important;
+  box-shadow: var(--lgx-icon-chip-shadow) !important;
+  color: var(--lgx-blue) !important;
+  transform: translate3d(0, 0, 0) !important;
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 260ms cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 
 .lgx-root {
@@ -658,11 +677,16 @@
   width: var(--lgx-card-icon-size);
   aspect-ratio: 1;
   flex: 0 0 auto;
-  border: 1px solid rgba(155, 213, 244, 0.2);
+  border: 1px solid var(--lgx-icon-chip-border);
   border-radius: 16px;
-  background:
-    radial-gradient(circle at 45% 38%, rgba(155, 213, 244, 0.2), transparent 58%),
-    rgba(9, 25, 38, 0.92);
+  background: var(--lgx-icon-chip-background);
+  box-shadow: var(--lgx-icon-chip-shadow);
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .lgx-icon svg {
@@ -677,9 +701,7 @@
 
 .lgx-brand-icon {
   overflow: hidden;
-  box-shadow:
-    inset 0 0 0 1px rgba(155, 213, 244, 0.08),
-    0 18px 45px rgba(74, 166, 223, 0.08);
+  box-shadow: var(--lgx-icon-chip-shadow);
 }
 
 .lgx-brand-icon img {
@@ -716,6 +738,32 @@
 .lgx-icon-model img {
   width: 64%;
   height: 64%;
+}
+
+#root .feature-card:hover .icon-chip,
+#root .comparison-card:hover .icon-chip,
+#root .prop-card:hover .icon-chip,
+#root .stat-glass-card:hover .icon-chip,
+.lgx-card:hover .lgx-icon {
+  border-color: rgba(155, 213, 244, 0.34) !important;
+  background: linear-gradient(135deg, rgba(74, 166, 223, 0.22), rgba(74, 166, 223, 0.1)) !important;
+  box-shadow: var(--lgx-icon-chip-hover-shadow) !important;
+  transform: translate3d(0, -3px, 0) scale(1.035) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #root .icon-chip,
+  .lgx-icon {
+    transition: none !important;
+  }
+
+  #root .feature-card:hover .icon-chip,
+  #root .comparison-card:hover .icon-chip,
+  #root .prop-card:hover .icon-chip,
+  #root .stat-glass-card:hover .icon-chip,
+  .lgx-card:hover .lgx-icon {
+    transform: none !important;
+  }
 }
 
 .lgx-vertical-card {
