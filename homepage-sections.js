@@ -3,7 +3,8 @@
   const USE_CASES_SECTION_ID = "use-cases";
   const USE_CASES_HASH = "#/?section=use-cases";
   const MAX_MOUNT_ATTEMPTS = 180;
-  const CARD_SELECTOR = "#root .feature-card, #root .comparison-card, #lugano-extra-sections .lgx-card";
+  const CARD_SELECTOR =
+    "#root .feature-card, #root .comparison-card, #root .stat-glass-card, #lugano-extra-sections .lgx-card";
   const CIPHER_CHARS = "0123456789ABCDEF";
   const CIPHER_CELL_WIDTH = 7;
   const CIPHER_CELL_HEIGHT = 14;

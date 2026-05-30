@@ -123,6 +123,8 @@
 }
 
 #root section.flex-col.justify-between:first-of-type {
+  position: relative !important;
+  z-index: 0 !important;
   background: #000103 !important;
 }
 
@@ -151,6 +153,7 @@
   min-height: clamp(9.25rem, 16vh, 10.5rem) !important;
   padding: clamp(1.1rem, 1.7vw, 1.45rem) clamp(1rem, 1.6vw, 1.35rem) !important;
   opacity: 1 !important;
+  overflow: hidden !important;
   transform: none !important;
 }
 
