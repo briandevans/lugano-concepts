@@ -65,6 +65,10 @@
   background-color: var(--lgx-blue) !important;
 }
 
+#root form button[type="submit"] {
+  color: #02070c !important;
+}
+
 #root [style*="rgba(78,201,160"] {
   background-color: rgba(74, 166, 223, 0.08) !important;
   border-color: rgba(155, 213, 244, 0.18) !important;
