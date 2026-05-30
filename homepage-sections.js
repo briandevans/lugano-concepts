@@ -1,5 +1,7 @@
 (() => {
   const ROOT_ID = "lugano-extra-sections";
+  const USE_CASES_SECTION_ID = "use-cases";
+  const USE_CASES_HASH = "#/?section=use-cases";
   const MAX_MOUNT_ATTEMPTS = 180;
   const CTA_LABELS = new Set([
     "apply for beta",
@@ -8,7 +10,7 @@
     "request briefing",
   ]);
 
-  const verticals = [
+  const useCases = [
     {
       title: "Enterprise",
       icon: "enterprise",
@@ -247,13 +249,13 @@
     wrapper.id = ROOT_ID;
     wrapper.className = "lgx-root";
     wrapper.innerHTML = `
-      <section id="verticals" class="lgx-section" aria-labelledby="verticals-title">
+      <section id="${USE_CASES_SECTION_ID}" class="lgx-section" aria-labelledby="use-cases-title">
         <div class="lgx-shell">
           <div class="lgx-centered-heading">
-            <div class="lgx-kicker"><span></span>Who it's for<span></span></div>
-            <h2 id="verticals-title">One product. Every environment.</h2>
+            <div class="lgx-kicker"><span></span>Use Cases<span></span></div>
+            <h2 id="use-cases-title">One product. Every environment.</h2>
           </div>
-          <div class="lgx-vertical-grid">${verticals.map(verticalCardMarkup).join("")}</div>
+          <div class="lgx-vertical-grid">${useCases.map(verticalCardMarkup).join("")}</div>
         </div>
       </section>
 
@@ -281,9 +283,30 @@
     return wrapper;
   };
 
+  const isUseCasesHash = () => {
+    const hash = window.location.hash.toLowerCase();
+
+    if (hash === `#${USE_CASES_SECTION_ID}` || hash === USE_CASES_HASH) {
+      return true;
+    }
+
+    if (!hash.startsWith("#/")) {
+      return false;
+    }
+
+    const [, queryString = ""] = hash.split("?");
+    return new URLSearchParams(queryString).get("section") === USE_CASES_SECTION_ID;
+  };
+
   const shouldMount = () => {
     const hash = window.location.hash.toLowerCase();
-    return hash === "" || hash === "#" || hash === "#/" || hash.startsWith("#/?");
+    return (
+      hash === "" ||
+      hash === "#" ||
+      hash === "#/" ||
+      isUseCasesHash() ||
+      hash.startsWith("#/?")
+    );
   };
 
   const updateCtas = () => {
@@ -326,6 +349,92 @@
     });
   };
 
+  const scrollToSection = (sectionId, shouldUpdateHash = false) => {
+    const section = document.getElementById(sectionId);
+
+    if (!section) {
+      return;
+    }
+
+    const navOffset = document.querySelector("nav")?.getBoundingClientRect().height || 0;
+    const top = section.getBoundingClientRect().top + window.scrollY - navOffset;
+    window.scrollTo({ top, behavior: "smooth" });
+
+    const targetHash =
+      sectionId === USE_CASES_SECTION_ID ? USE_CASES_HASH : `#${sectionId}`;
+
+    if (shouldUpdateHash && window.location.hash !== targetHash) {
+      window.history.pushState(null, "", targetHash);
+    }
+  };
+
+  const bindUseCasesNavItem = (item) => {
+    if (item.dataset.lgxUseCasesBound === "true") {
+      return;
+    }
+
+    item.dataset.lgxUseCasesBound = "true";
+    item.addEventListener("click", (event) => {
+      event.preventDefault();
+      scrollToSection(USE_CASES_SECTION_ID, true);
+
+      const visibleMobileMenu = [...document.querySelectorAll("nav div")].find((element) => {
+        const rect = element.getBoundingClientRect();
+        return (
+          element.textContent.includes("Use Cases") &&
+          getComputedStyle(element).position === "fixed" &&
+          rect.width > 0
+        );
+      });
+
+      if (visibleMobileMenu) {
+        [...document.querySelectorAll("nav button")]
+          .find((button) => button.className.toString().includes("md:hidden"))
+          ?.click();
+      }
+    });
+  };
+
+  const createUseCasesNavItem = (referenceItem) => {
+    const item = document.createElement("a");
+    item.href = USE_CASES_HASH;
+    item.textContent = "Use Cases";
+    item.className = referenceItem.className.toString();
+    item.dataset.lgxUseCasesNav = "true";
+    bindUseCasesNavItem(item);
+    return item;
+  };
+
+  const updateUseCasesNav = () => {
+    const nav = document.querySelector("nav");
+
+    if (!nav) {
+      return;
+    }
+
+    [...nav.querySelectorAll("[data-lgx-use-cases-nav='true']")].forEach(bindUseCasesNavItem);
+
+    [...nav.querySelectorAll("div")].forEach((container) => {
+      const children = [...container.children];
+      const labels = children.map((child) =>
+        child.textContent.trim().replace(/\s+/g, " ").toLowerCase(),
+      );
+      const platformItemIndex = labels.indexOf("platform");
+
+      if (
+        platformItemIndex === -1 ||
+        !labels.includes("privacy") ||
+        !labels.includes("architecture") ||
+        labels.includes("use cases")
+      ) {
+        return;
+      }
+
+      const platformItem = children[platformItemIndex];
+      container.insertBefore(createUseCasesNavItem(platformItem), platformItem);
+    });
+  };
+
   const normalizeSectionBackgrounds = () => {
     const contentSections = [
       ...document.querySelectorAll("#root section, #lugano-extra-sections section"),
@@ -341,6 +450,7 @@
 
   const mount = () => {
     updateCtas();
+    updateUseCasesNav();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
 
@@ -359,8 +469,14 @@
 
     parent.insertBefore(buildSections(), insertionPoint);
     updateCtas();
+    updateUseCasesNav();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
+
+    if (isUseCasesHash()) {
+      window.requestAnimationFrame(() => scrollToSection(USE_CASES_SECTION_ID));
+    }
+
     return true;
   };
 
@@ -383,11 +499,13 @@
     if (root) {
       const observer = new MutationObserver(() => {
         updateCtas();
+        updateUseCasesNav();
         normalizeLiveHeadings();
         normalizeSectionBackgrounds();
 
         if (mount()) {
           updateCtas();
+          updateUseCasesNav();
           normalizeLiveHeadings();
           normalizeSectionBackgrounds();
         }
@@ -396,6 +514,7 @@
     }
 
     updateCtas();
+    updateUseCasesNav();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
   };
