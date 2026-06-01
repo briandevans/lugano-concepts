@@ -121,22 +121,23 @@
       .brand {
         display: inline-flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 0.5rem;
         min-width: 0;
       }
 
       .brand img {
-        width: 32px;
-        height: 32px;
+        width: 20px;
+        height: 20px;
       }
 
-      .brand .brand-wordmark {
-        width: 120px;
-        height: auto;
-      }
-
-      .brand .brand-mark {
-        flex: 0 0 auto;
+      .brand span {
+        color: #fff;
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: 20px;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 28px;
+        letter-spacing: 0;
       }
 
       .nav-links {
@@ -282,7 +283,6 @@
       .stat,
       .card,
       .article,
-      .question,
       .glossary-item {
         border: 1px solid var(--line);
         border-radius: 8px;
@@ -441,7 +441,6 @@
 
       .card,
       .article,
-      .question,
       .glossary-item {
         padding: 1.2rem;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
@@ -651,39 +650,6 @@
         color: var(--text);
       }
 
-      .questions {
-        display: grid;
-        gap: 0;
-        margin: 0;
-        padding-left: 2.6rem;
-        overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: var(--panel);
-        list-style: decimal-leading-zero;
-      }
-
-      .question {
-        min-height: 4.6rem;
-        padding: 1rem 1rem 1rem 0.25rem;
-        border: 0;
-        border-bottom: 1px solid var(--line);
-        border-radius: 0;
-        background: transparent;
-        color: var(--text);
-        line-height: 1.55;
-      }
-
-      .question:last-child {
-        border-bottom: 0;
-      }
-
-      .question::marker {
-        color: var(--blue);
-        font-family: "JetBrains Mono", ui-monospace, monospace;
-        font-size: 0.74rem;
-      }
-
       .footer {
         padding: 3rem 0;
         border-top: 1px solid rgba(155, 213, 244, 0.1);
@@ -746,8 +712,7 @@
         .stats,
         .path-grid,
         .layer-grid,
-        .glossary-grid,
-        .questions {
+        .glossary-grid {
           grid-template-columns: 1fr;
         }
 
@@ -826,13 +791,12 @@
       <div class="shell nav">
         <a class="brand" href="/" aria-label="Lugano home">
           <img class="brand-mark" src="/logo-mark.svg" alt="" />
-          <img class="brand-wordmark" src="/logo-wordmark.svg" alt="" />
+          <span>Lugano.ai</span>
         </a>
         <nav class="nav-links" aria-label="Documentation">
           <a href="/">Home</a>
           <a href="#atlas">Failure atlas</a>
           <a href="#guides">Guides</a>
-          <a href="#questions">Questions</a>
         </nav>
       </div>
     </header>
@@ -843,7 +807,7 @@
           <p class="kicker">AI Privacy Documentation</p>
           <h1>Evaluate privacy across the full AI request path.</h1>
           <p>
-            Use these guides to review how prompts, files, tools, identity, runtime operators, logs, and verification artifacts shape AI
+            Use these guides to understand how prompts, files, tools, identity, runtime operators, logs, and verification artifacts shape AI
             privacy.
           </p>
           <div class="hero-actions">
@@ -888,9 +852,9 @@
         <div class="shell">
           <div class="section-head">
             <p class="eyebrow">Learning paths</p>
-            <h2>Start from your review role.</h2>
+            <h2>Start from your role.</h2>
             <p>
-              Each path groups the guides most relevant to a common privacy review workflow.
+              Each path groups the guides most relevant to a common privacy learning goal.
             </p>
           </div>
           <div class="path-grid">
@@ -929,12 +893,11 @@
             </article>
             <article class="card">
               <span class="icon">04</span>
-              <p class="meta-label">Procurement teams</p>
-              <h3>Ask for evidence</h3>
-              <p>Turn privacy review into concrete artifacts without asking vendors to reveal their protected implementation details.</p>
+              <p class="meta-label">Decision makers</p>
+              <h3>Evidence literacy</h3>
+              <p>Understand what privacy artifacts can explain without exposing protected implementation details.</p>
               <ul>
                 <li><a href="#article-vendor-procurement-checklist">Vendor procurement checklist</a></li>
-                <li><a href="#questions">Review checklist</a></li>
                 <li><a href="#glossary">Glossary</a></li>
               </ul>
             </article>
@@ -1023,8 +986,8 @@
             <p class="eyebrow">Documentation library</p>
             <h2>Guides by privacy surface.</h2>
             <p>
-              Review the places where AI systems expose data, the controls that reduce exposure, and the evidence a reviewer can ask for
-              without learning Lugano's unreleased implementation.
+              Explore where AI systems expose data, which controls reduce exposure, and how verification artifacts explain privacy posture
+              without revealing Lugano's unreleased implementation.
             </p>
           </div>
           <div class="article-grid">
@@ -1319,30 +1282,6 @@
               <p>Evidence should be request-specific enough to be useful without forcing reviewers to see secret inputs.</p>
             </article>
           </div>
-        </div>
-      </section>
-
-      <section class="section-alt" id="questions">
-        <div class="shell">
-          <div class="section-head">
-            <p class="eyebrow">Review checklist</p>
-            <h2>Questions for AI privacy review.</h2>
-            <p>
-              Use these prompts when comparing architectures, reviewing a vendor, or defining internal requirements for sensitive AI workflows.
-            </p>
-          </div>
-          <ol class="questions">
-            <li class="question">Which systems can see raw prompts, raw outputs, uploaded files, tool arguments, and tool outputs?</li>
-            <li class="question">Which logs, traces, analytics events, queues, support tools, or backups can contain sensitive content?</li>
-            <li class="question">What is retained for abuse monitoring, billing, debugging, quality review, or incident response?</li>
-            <li class="question">Can identity, billing, IP address, and tenant metadata be separated from content records?</li>
-            <li class="question">Which tool calls are allowed, what data can they receive, and where do those external systems log it?</li>
-            <li class="question">How are RAG documents, chunks, embeddings, indexes, previews, and deletion requests governed?</li>
-            <li class="question">What hardware or runtime measurement exists, and what exactly does that measurement prove?</li>
-            <li class="question">What request-specific record proves the approved route, model, policy, and retention posture?</li>
-            <li class="question">Which claims can be checked independently without revealing the confidential prompt or file?</li>
-            <li class="question">Which claims are intentionally not being made because the evidence does not support them yet?</li>
-          </ol>
         </div>
       </section>
 
