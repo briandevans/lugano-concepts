@@ -605,6 +605,7 @@
             <h2>Start here</h2>
             <ul>
               <li><a href="#overview">Overview</a></li>
+              <li><a href="#no-training">No-training setting</a></li>
               <li><a href="#request-path">AI request path</a></li>
               <li><a href="#learning-paths">Learning paths</a></li>
               <li><a href="#atlas">Failure atlas</a></li>
@@ -633,7 +634,7 @@
           <section class="sidebar-group">
             <h2>Control layers</h2>
             <ul>
-              <li><a href="#article-model-hosting-gpus-runtime-operators">Model Hosting, GPUs, and Runtime Operators</a></li>
+              <li><a href="#article-model-hosting-gpus-compute-operators">Model Hosting, GPUs, and Compute Operators</a></li>
               <li><a href="#article-hardware-software-privacy-layers">Hardware and Software Privacy Layers</a></li>
             </ul>
           </section>
@@ -652,7 +653,7 @@
           <p class="kicker">AI Privacy Documentation</p>
           <h1>AI privacy across the full request path</h1>
           <p>
-            Learn where AI systems expose prompts, files, identity, tool arguments, runtime metadata, logs, and verification records.
+            Learn where AI systems expose prompts, files, identity, tool arguments, compute metadata, logs, and verification records.
             This center is organized as a reference guide, not a marketing page or a set of collapsible previews.
           </p>
         </header>
@@ -660,8 +661,8 @@
         <section class="docs-section" id="overview">
           <h2>Overview</h2>
           <p>
-            A private AI architecture is only as strong as the least controlled part of the request path. The model endpoint matters,
-            but so do the client, gateway, tool runtime, storage layer, observability stack, support workflow, and evidence chain.
+            A private AI architecture is only as strong as the least controlled part of the request path. The model service matters,
+            but so do the client, application layer, tool layer, storage layer, observability stack, support workflow, and supporting records.
           </p>
           <p>
             The documentation below teaches those surfaces directly. Each guide names a privacy failure mode, explains why it happens,
@@ -672,6 +673,33 @@
             <span>10 failure surfaces</span>
             <span>6 control layers</span>
           </div>
+        </section>
+
+        <section class="docs-section" id="no-training">
+          <h2>No-training is not private AI</h2>
+          <p>
+            A setting that says prompts are not used to train future models is a model-improvement setting. It is not, by itself,
+            a full privacy boundary.
+          </p>
+          <p>
+            The same prompt can still move through product history, abuse monitoring, debugging systems, support tools, analytics
+            events, tool calls, file pipelines, queues, backups, and employee-access workflows unless each surface is separately
+            controlled.
+          </p>
+          <dl class="definition-table">
+            <div>
+              <dt>What the toggle usually covers</dt>
+              <dd>Whether customer prompts and outputs are used to improve or train future model behavior.</dd>
+            </div>
+            <div>
+              <dt>What it does not answer</dt>
+              <dd>Whether plaintext is retained, who can access it, which vendors process it, where tool calls send it, and what records survive after the request.</dd>
+            </div>
+            <div>
+              <dt>What to look for instead</dt>
+              <dd>A clear map of every system that can see sensitive content, retention limits for each surface, employee-access controls, and evidence that the stated policy was followed.</dd>
+            </div>
+          </dl>
         </section>
 
         <section class="docs-section" id="request-path">
@@ -686,20 +714,20 @@
               <span>Browser state, uploaded files, account metadata, IP address, and device context.</span>
             </li>
             <li>
-              <strong>Gateway and policy</strong>
-              <span>Routing decisions, model selection, admission rules, request ids, and tenant controls.</span>
+              <strong>Application policy</strong>
+              <span>Routing decisions, model selection, access rules, tenant controls, and review records.</span>
             </li>
             <li>
               <strong>Tools and agents</strong>
               <span>Function arguments, MCP servers, plugins, browsers, APIs, and intermediate outputs.</span>
             </li>
             <li>
-              <strong>Runtime and storage</strong>
+              <strong>Compute and storage</strong>
               <span>Model host, hardware boundary, queues, caches, transcripts, vectors, and backups.</span>
             </li>
             <li>
               <strong>Evidence and review</strong>
-              <span>Receipts, policy versions, control digests, verification results, and scoped claims.</span>
+              <span>Policy records, retention notes, evidence summaries, access records, and scoped claims.</span>
             </li>
           </ol>
         </section>
@@ -712,7 +740,7 @@
               <div>
                 <span>Founders, buyers, and board readers</span>
                 <h3>Executive primer</h3>
-                <p>Understand what privacy claims should mean before evaluating vendors or internal architectures.</p>
+                <p>Understand what privacy claims should mean before evaluating vendors or sensitive AI workflows.</p>
               </div>
               <ul>
                 <li><a href="#article-ai-privacy-threat-model">AI Privacy Threat Model</a></li>
@@ -724,7 +752,7 @@
               <div>
                 <span>Security, privacy, and compliance teams</span>
                 <h3>Security fundamentals</h3>
-                <p>Track exposure surfaces across tools, logs, RAG data, runtime operators, identity, and records.</p>
+                <p>Track exposure surfaces across tools, logs, RAG data, compute operators, identity, and records.</p>
               </div>
               <ul>
                 <li><a href="#article-prompt-response-retention">Prompt and Response Retention</a></li>
@@ -746,12 +774,12 @@
             </section>
             <section class="path-row">
               <div>
-                <span>Platform, infrastructure, and runtime teams</span>
+                <span>Platform, infrastructure, and compute teams</span>
                 <h3>Infrastructure foundations</h3>
-                <p>Separate software policy, runtime location, hardware measurement, and verification artifacts.</p>
+                <p>Separate software policy, compute placement, hardware measurement, and verification artifacts.</p>
               </div>
               <ul>
-                <li><a href="#article-model-hosting-gpus-runtime-operators">Model Hosting, GPUs, and Runtime Operators</a></li>
+                <li><a href="#article-model-hosting-gpus-compute-operators">Model Hosting, GPUs, and Compute Operators</a></li>
                 <li><a href="#article-hardware-software-privacy-layers">Hardware and Software Privacy Layers</a></li>
                 <li><a href="#article-verification-artifacts">Verification Artifacts and Audit Records</a></li>
               </ul>
@@ -783,8 +811,8 @@
             </div>
             <div class="atlas-row" role="row">
               <strong role="cell">Prompt routing</strong>
-              <span role="cell">Raw prompts, model choices, policy decisions, gateway traces, retry queues.</span>
-              <span role="cell">A gateway logs the full request while promising the downstream model has no retention.</span>
+              <span role="cell">Raw prompts, model choices, policy decisions, application traces, retry queues.</span>
+              <span role="cell">An application logs the full request while promising the downstream model has no retention.</span>
               <span role="cell">Which component first sees plaintext and which records prove minimization?</span>
             </div>
             <div class="atlas-row" role="row">
@@ -800,10 +828,10 @@
               <span role="cell">How are ingestion, retrieval, deletion, and authorization tied together?</span>
             </div>
             <div class="atlas-row" role="row">
-              <strong role="cell">Model runtime</strong>
+              <strong role="cell">Model service</strong>
               <span role="cell">Inputs, outputs, KV cache, batch neighbors, provider telemetry, crash dumps.</span>
-              <span role="cell">A model route is private in policy, but the runtime has unmanaged debug visibility.</span>
-              <span role="cell">What evidence identifies the runtime, route, and active policy for a request?</span>
+              <span role="cell">A model service is private in policy, but the hosting environment has unmanaged debug visibility.</span>
+              <span role="cell">What evidence identifies the hosting environment and active privacy policy for a request?</span>
             </div>
             <div class="atlas-row" role="row">
               <strong role="cell">Observability</strong>
@@ -819,9 +847,9 @@
             </div>
             <div class="atlas-row" role="row">
               <strong role="cell">Audit artifacts</strong>
-              <span role="cell">Receipts, commitments, policy ids, timestamps, disclosure bundles, verifier results.</span>
+              <span role="cell">Request records, content references, timestamps, evidence summaries, review results.</span>
               <span role="cell">The system says it was private, but cannot produce request-specific evidence later.</span>
-              <span role="cell">Can a reviewer independently check the claim without seeing the secret content?</span>
+              <span role="cell">Can a reviewer independently check the claim without seeing the sensitive content?</span>
             </div>
           </div>
         </section>
@@ -856,7 +884,7 @@
               <h3>Control layers</h3>
               <p>Software, hardware, network, and operational controls that reduce exposure surfaces.</p>
               <ul>
-                <li><a href="#article-model-hosting-gpus-runtime-operators">Model Hosting, GPUs, and Runtime Operators</a><span>What runtime operators can see and how placement, tenancy, and acceleration paths affect privacy.</span></li>
+                <li><a href="#article-model-hosting-gpus-compute-operators">Model Hosting, GPUs, and Compute Operators</a><span>What compute operators can see and how placement, tenancy, and acceleration paths affect privacy.</span></li>
                 <li><a href="#article-hardware-software-privacy-layers">Hardware and Software Privacy Layers</a><span>How hardware isolation, measured execution, software policy, and key custody fit together.</span></li>
               </ul>
             </section>
@@ -865,7 +893,7 @@
               <p>Artifacts and learning patterns that make privacy claims easier to understand.</p>
               <ul>
                 <li><a href="#article-verification-artifacts">Verification Artifacts and Audit Records</a><span>What serious privacy claims should let a reviewer check after the fact.</span></li>
-                <li><a href="#article-vendor-procurement-checklist">Vendor Procurement Checklist</a><span>A practical review sequence for private AI claims without asking for proprietary internals.</span></li>
+                <li><a href="#article-vendor-procurement-checklist">Vendor Procurement Checklist</a><span>A practical review sequence for private AI claims using evidence and plain-language boundaries.</span></li>
               </ul>
             </section>
           </div>
@@ -877,7 +905,7 @@
             <section class="guide-section" id="article-ai-privacy-threat-model">
               <span class="meta">Foundations</span>
               <h3>AI Privacy Threat Model</h3>
-              <p>An AI request can cross a browser, identity provider, gateway, orchestration runtime, model endpoint, storage layer, analytics system, and observability stack. A vendor can protect one layer and still leak sensitive data through another.</p>
+              <p>An AI request can cross a browser, identity provider, application layer, orchestration service, model service, storage layer, analytics system, and observability stack. A vendor can protect one layer and still leak sensitive data through another.</p>
               <p>The better question is who can observe the request path, which systems retain it, which operators can replay it, and what evidence proves those answers after the request has completed.</p>
               <div class="callout"><strong>Working definition</strong><p>AI privacy means minimizing plaintext exposure, separating identity from content where possible, and producing evidence for the parts of the path that were controlled.</p></div>
             </section>
@@ -893,7 +921,7 @@
               <h3>Tool Calls and Agent Actions</h3>
               <p>A model answer may be private while the tool call that enabled it is not. Agents can send sensitive arguments to search providers, ticketing systems, shell commands, hosted browsers, email APIs, calendars, wallets, databases, MCP servers, or custom plugins.</p>
               <p>Every tool should have an allowlist, scope, approval rule, data minimization policy, and logging policy. High-risk tools should record what was approved before execution.</p>
-              <div class="callout risk"><strong>Agent privacy trap</strong><p>A workflow routes chat through a private model, then sends the same confidential facts to a third-party scraper or unmanaged plugin.</p></div>
+              <div class="callout risk"><strong>Agent privacy trap</strong><p>A workflow uses a private model, then sends the same confidential facts to a third-party scraper or unmanaged plugin.</p></div>
             </section>
             <section class="guide-section" id="article-rag-files-vector-databases">
               <span class="meta">Failure points</span>
@@ -904,7 +932,7 @@
             <section class="guide-section" id="article-browser-device-extension-exposure">
               <span class="meta">Failure points</span>
               <h3>Browser, Device, and Extension Exposure</h3>
-              <p>The browser is often the first privacy boundary. Local storage, sync services, clipboard history, screenshots, extension permissions, and endpoint monitoring can all observe sensitive content before a server ever sees it.</p>
+              <p>The browser is often the first privacy boundary. Local storage, sync services, clipboard history, screenshots, extension permissions, and device monitoring can all observe sensitive content before a server ever sees it.</p>
               <p>Client-side controls should minimize what is stored, show what leaves the device, and avoid assuming that local processing automatically means private processing.</p>
             </section>
             <section class="guide-section" id="article-network-identity-metadata">
@@ -919,11 +947,11 @@
               <p>Logs, traces, metrics, session replay, and support tooling are built to make systems understandable. AI workloads often place sensitive content exactly where debugging tools want detail.</p>
               <p>Strong operations programs use redaction before telemetry, role-scoped access, retention limits, immutable access records, and evidence for support actions.</p>
             </section>
-            <section class="guide-section" id="article-model-hosting-gpus-runtime-operators">
+            <section class="guide-section" id="article-model-hosting-gpus-compute-operators">
               <span class="meta">Control layers</span>
-              <h3>Model Hosting, GPUs, and Runtime Operators</h3>
-              <p>The runtime operator controls the process that executes the model. Placement, tenancy, accelerator access, memory handling, crash dumps, and provider telemetry all shape what can be observed.</p>
-              <p>Reviewers should ask what evidence identifies the runtime, route, model, active policy, and retention posture for a specific request.</p>
+              <h3>Model Hosting, GPUs, and Compute Operators</h3>
+              <p>The compute operator controls the environment that serves the model. Placement, tenancy, accelerator access, memory handling, crash dumps, and provider telemetry all shape what can be observed.</p>
+              <p>Reviewers should ask what evidence identifies the hosting environment, model family, active privacy policy, and retention posture for a specific request.</p>
             </section>
             <section class="guide-section" id="article-hardware-software-privacy-layers">
               <span class="meta">Control layers</span>
@@ -934,28 +962,28 @@
             <section class="guide-section" id="article-verification-artifacts">
               <span class="meta">Verification</span>
               <h3>Verification Artifacts and Audit Records</h3>
-              <p>Stronger systems bind request id, route id, policy version, model id, timestamp, retention posture, and verification result into a record that can be checked later.</p>
+              <p>Stronger systems preserve enough context to show which policy, model family, retention posture, timestamp, and review result applied to a request.</p>
               <p>The best evidence is narrow and useful: it tells a reviewer exactly what was controlled, what was not claimed, and which independent checks are available.</p>
             </section>
             <section class="guide-section" id="article-vendor-procurement-checklist">
               <span class="meta">Verification</span>
               <h3>Vendor Procurement Checklist</h3>
-              <p>Start with a data-flow diagram, then ask which systems see plaintext, which systems retain content, which subprocessors are involved, which employees can access records, and which artifact proves a request used the approved route.</p>
-              <p>A mature vendor can explain claim scope without exposing protected implementation details. The answer should distinguish product policy, software controls, hardware boundaries, logging behavior, key custody, and review evidence.</p>
+              <p>Start with a data-flow diagram, then ask which systems see plaintext, which systems retain content, which subprocessors are involved, which employees can access records, and which records show the stated controls were followed.</p>
+              <p>A mature vendor can explain claim scope clearly. The answer should distinguish product policy, software controls, hardware boundaries, logging behavior, key custody, and review evidence.</p>
             </section>
           </div>
         </section>
 
         <section class="docs-section" id="controls">
           <h2>Control layers and evidence</h2>
-          <p>Strong privacy language separates the control from the proof that the control operated.</p>
+          <p>Strong privacy language separates the control from the evidence that the control operated.</p>
           <dl class="definition-table">
-            <div><dt>Software policy</dt><dd>Admission rules, model allowlists, tool permissions, retention limits, redaction paths, and route controls.<span>Evidence: policy version, control digest, route id, and approval record.</span></dd></div>
-            <div><dt>Runtime placement</dt><dd>Where the model executes, who operates it, which tenant boundary applies, and what telemetry exists.<span>Evidence: runtime id, deployment digest, model id, and location hint.</span></dd></div>
-            <div><dt>Hardware boundary</dt><dd>What is measured, where keys are released, and what plaintext remains outside the measured environment.<span>Evidence: measurement, attestation result, verifier output, and exclusion notes.</span></dd></div>
-            <div><dt>Tool governance</dt><dd>Which tools can run, what data they can receive, and where external systems log arguments or outputs.<span>Evidence: tool allowlist, approval event, arguments digest, and execution status.</span></dd></div>
+            <div><dt>Software policy</dt><dd>Admission rules, model allowlists, tool permissions, retention limits, redaction paths, and routing controls.<span>Evidence: policy record, approval record, and control summary.</span></dd></div>
+            <div><dt>Compute placement</dt><dd>Where the model executes, who operates it, which tenant boundary applies, and what telemetry exists.<span>Evidence: hosting description, model family, operating boundary, and location category.</span></dd></div>
+            <div><dt>Hardware boundary</dt><dd>What is measured, where sensitive material can exist, and what remains outside the protected environment.<span>Evidence: measurement description, review result, and exclusion notes.</span></dd></div>
+            <div><dt>Tool governance</dt><dd>Which tools can run, what data they can receive, and where external systems log arguments or outputs.<span>Evidence: tool allowlist, approval event, data-sharing category, and execution status.</span></dd></div>
             <div><dt>Telemetry minimization</dt><dd>How logs, traces, analytics, support exports, and crash reports avoid sensitive content by default.<span>Evidence: log policy, retention posture, redaction result, and access record.</span></dd></div>
-            <div><dt>Verification record</dt><dd>How a reviewer checks the route, policy, model, retention posture, and claim scope after completion.<span>Evidence: receipt, disclosure bundle, verifier result, and claim label.</span></dd></div>
+            <div><dt>Verification record</dt><dd>How a reviewer checks the policy, model family, retention posture, and claim scope after completion.<span>Evidence: request record, evidence summary, review result, and claim label.</span></dd></div>
           </dl>
         </section>
 
@@ -965,8 +993,8 @@
             <div><dt>Plaintext exposure</dt><dd>Any point where sensitive content exists in readable form for software, operators, logs, or external tools.</dd></div>
             <div><dt>Retention</dt><dd>The period and surface where content, metadata, derived records, or backups remain after a request completes.</dd></div>
             <div><dt>Tool boundary</dt><dd>The approval, execution, logging, and vendor surface around an agent action outside the core model call.</dd></div>
-            <div><dt>Attestation</dt><dd>Evidence that a measured runtime or hardware-backed environment matched an expected state at a point in time.</dd></div>
-            <div><dt>Commitment</dt><dd>A cryptographic reference to content or configuration that can be checked later without revealing the original secret.</dd></div>
+            <div><dt>Attestation</dt><dd>Evidence that a measured environment or hardware-backed environment matched an expected state at a point in time.</dd></div>
+            <div><dt>Content reference</dt><dd>A privacy-preserving reference to content or configuration that can support later review without exposing the original sensitive material by default.</dd></div>
             <div><dt>Claim boundary</dt><dd>The exact scope of what a privacy statement covers, what evidence supports it, and what it does not cover.</dd></div>
           </dl>
         </section>
