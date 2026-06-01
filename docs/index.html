@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lugano Documentation - AI Privacy Education Center</title>
+    <title>Lugano Documentation - AI Privacy Documentation</title>
     <meta
       name="description"
       content="A Lugano documentation center for AI privacy failure points, tool-call exposure, retention, hardware controls, software controls, and verification patterns."
@@ -130,15 +130,13 @@
         height: 32px;
       }
 
-      .brand span {
-        font-size: 1.02rem;
-        font-weight: 600;
-        letter-spacing: 0.01em;
+      .brand .brand-wordmark {
+        width: 120px;
+        height: auto;
       }
 
-      .brand em {
-        color: var(--blue);
-        font-style: normal;
+      .brand .brand-mark {
+        flex: 0 0 auto;
       }
 
       .nav-links {
@@ -170,7 +168,7 @@
         grid-template-columns: minmax(0, 1.04fr) minmax(320px, 0.96fr);
         gap: clamp(2rem, 5vw, 4.5rem);
         align-items: center;
-        padding: clamp(4.5rem, 9vw, 7.5rem) 0 clamp(3rem, 7vw, 5rem);
+        padding: clamp(3rem, 7vw, 5rem) 0 clamp(2.5rem, 5vw, 4rem);
       }
 
       .kicker,
@@ -208,9 +206,11 @@
       }
 
       h1 {
-        max-width: 12ch;
-        font-size: clamp(3.4rem, 8vw, 6.9rem);
-        line-height: 0.92;
+        max-width: 18ch;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: clamp(2.45rem, 5vw, 4.2rem);
+        font-weight: 600;
+        line-height: 1.05;
       }
 
       .hero-copy p {
@@ -393,8 +393,10 @@
 
       .section-head h2 {
         margin-top: 0.75rem;
-        font-size: clamp(2.4rem, 5vw, 4.8rem);
-        line-height: 0.96;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-size: clamp(1.8rem, 2.8vw, 2.55rem);
+        font-weight: 600;
+        line-height: 1.14;
       }
 
       .section-head p {
@@ -423,10 +425,18 @@
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
-      .article-grid,
       .layer-grid,
       .glossary-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .article-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
       }
 
       .card,
@@ -519,9 +529,26 @@
 
       .article {
         scroll-margin-top: 96px;
+        padding: 0;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .article:last-child {
+        border-bottom: 0;
       }
 
       .article summary {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(9rem, 0.28fr) minmax(0, 1fr) auto;
+        gap: 0.35rem 1rem;
+        align-items: start;
+        min-height: 5.4rem;
+        padding: 1rem 3rem 1rem 1.15rem;
         cursor: pointer;
         list-style: none;
       }
@@ -531,7 +558,9 @@
       }
 
       .article summary::after {
-        float: right;
+        position: absolute;
+        top: 1rem;
+        right: 1.15rem;
         color: var(--blue);
         content: "+";
         font-family: "JetBrains Mono", ui-monospace, monospace;
@@ -545,7 +574,29 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
-        margin-top: 0.85rem;
+        grid-column: 3;
+        grid-row: 1 / span 2;
+        justify-content: flex-end;
+        margin-top: 0;
+        padding-right: 1.5rem;
+      }
+
+      .article summary .meta-label {
+        grid-column: 1;
+        margin: 0;
+      }
+
+      .article summary h3,
+      .article summary > p {
+        grid-column: 2;
+      }
+
+      .article summary h3 {
+        margin-top: 0;
+      }
+
+      .article summary > p {
+        margin-top: 0;
       }
 
       .pill {
@@ -564,7 +615,8 @@
       .article-body {
         display: grid;
         gap: 1rem;
-        margin-top: 1.2rem;
+        max-width: 72ch;
+        margin: 0 1.15rem 1.15rem calc(28% + 2rem);
         padding-top: 1rem;
         border-top: 1px solid var(--line);
       }
@@ -601,28 +653,35 @@
 
       .questions {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.9rem;
-        counter-reset: question;
+        gap: 0;
+        margin: 0;
+        padding-left: 2.6rem;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        list-style: decimal-leading-zero;
       }
 
       .question {
-        position: relative;
         min-height: 4.6rem;
-        padding-left: 3.2rem;
+        padding: 1rem 1rem 1rem 0.25rem;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        border-radius: 0;
+        background: transparent;
         color: var(--text);
         line-height: 1.55;
-        counter-increment: question;
       }
 
-      .question::before {
-        position: absolute;
-        top: 1.2rem;
-        left: 1rem;
+      .question:last-child {
+        border-bottom: 0;
+      }
+
+      .question::marker {
         color: var(--blue);
         font-family: "JetBrains Mono", ui-monospace, monospace;
         font-size: 0.74rem;
-        content: counter(question, decimal-leading-zero);
       }
 
       .footer {
@@ -657,7 +716,6 @@
         }
 
         .path-grid,
-        .article-grid,
         .layer-grid,
         .glossary-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -687,11 +745,32 @@
         .signal,
         .stats,
         .path-grid,
-        .article-grid,
         .layer-grid,
         .glossary-grid,
         .questions {
           grid-template-columns: 1fr;
+        }
+
+        .article summary {
+          grid-template-columns: 1fr;
+          padding-right: 3rem;
+        }
+
+        .article .meta,
+        .article summary .meta-label,
+        .article summary h3,
+        .article summary > p {
+          grid-column: 1;
+        }
+
+        .article .meta {
+          grid-row: auto;
+          justify-content: flex-start;
+          padding-right: 0;
+        }
+
+        .article-body {
+          margin: 0 1.15rem 1.15rem;
         }
 
         .request-path span::after {
@@ -746,13 +825,13 @@
     <header class="site-header">
       <div class="shell nav">
         <a class="brand" href="/" aria-label="Lugano home">
-          <img src="/logo-mark.svg" alt="" />
-          <span>Lugano<em>.ai</em></span>
+          <img class="brand-mark" src="/logo-mark.svg" alt="" />
+          <img class="brand-wordmark" src="/logo-wordmark.svg" alt="" />
         </a>
         <nav class="nav-links" aria-label="Documentation">
           <a href="/">Home</a>
           <a href="#atlas">Failure atlas</a>
-          <a href="#articles">Articles</a>
+          <a href="#guides">Guides</a>
           <a href="#questions">Questions</a>
         </nav>
       </div>
@@ -761,14 +840,14 @@
     <main id="main">
       <div class="shell hero">
         <div class="hero-copy">
-          <p class="kicker">AI Privacy Education Center</p>
-          <h1>The private AI knowledgebase for every point of failure.</h1>
+          <p class="kicker">AI Privacy Documentation</p>
+          <h1>Evaluate privacy across the full AI request path.</h1>
           <p>
-            Learn how prompts, tools, files, runtimes, devices, logs, and hardware claims can leak data, then turn that map into better
-            questions for any private AI architecture.
+            Use these guides to review how prompts, files, tools, identity, runtime operators, logs, and verification artifacts shape AI
+            privacy.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#article-ai-privacy-threat-model">Start with the threat model</a>
+            <a class="button button-primary" href="#article-ai-privacy-threat-model">Start with threat modeling</a>
             <a class="button button-secondary" href="#atlas">View failure atlas</a>
           </div>
         </div>
@@ -791,7 +870,7 @@
           <div class="stats" aria-label="Documentation center scope">
             <div class="stat">
               <strong>11</strong>
-              <span>deep articles</span>
+              <span>reference guides</span>
             </div>
             <div class="stat">
               <strong>9</strong>
@@ -809,9 +888,9 @@
         <div class="shell">
           <div class="section-head">
             <p class="eyebrow">Learning paths</p>
-            <h2>Choose the reader journey.</h2>
+            <h2>Start from your review role.</h2>
             <p>
-              Each path is written for humans who need practical privacy literacy before reviewing, buying, or deploying AI systems.
+              Each path groups the guides most relevant to a common privacy review workflow.
             </p>
           </div>
           <div class="path-grid">
@@ -855,7 +934,7 @@
               <p>Turn privacy review into concrete artifacts without asking vendors to reveal their protected implementation details.</p>
               <ul>
                 <li><a href="#article-vendor-procurement-checklist">Vendor procurement checklist</a></li>
-                <li><a href="#questions">Procurement questions</a></li>
+                <li><a href="#questions">Review checklist</a></li>
                 <li><a href="#glossary">Glossary</a></li>
               </ul>
             </article>
@@ -938,23 +1017,23 @@
         </div>
       </section>
 
-      <section class="section-alt" id="articles">
+      <section class="section-alt" id="guides">
         <div class="shell">
-          <div class="section-head center">
-            <p class="eyebrow">Knowledgebase</p>
-            <h2>Readable articles, not marketing blurbs.</h2>
+          <div class="section-head">
+            <p class="eyebrow">Documentation library</p>
+            <h2>Guides by privacy surface.</h2>
             <p>
-              Open each article for practical privacy language, failure patterns, and review prompts. The goal is literacy without exposing
-              any proprietary Lugano implementation.
+              Review the places where AI systems expose data, the controls that reduce exposure, and the evidence a reviewer can ask for
+              without learning Lugano's unreleased implementation.
             </p>
           </div>
           <div class="article-grid">
             <details class="article" id="article-ai-privacy-threat-model" open>
               <summary>
                 <p class="meta-label">Foundations</p>
-                <h3>Start Here: The AI Privacy Threat Model</h3>
+                <h3>AI Privacy Threat Model</h3>
                 <p>A practical map of the people, systems, and logs that can see an AI request.</p>
-                <div class="meta"><span class="pill">7 min</span><span class="pill">Security leaders</span></div>
+                <div class="meta"><span class="pill">Security leaders</span></div>
               </summary>
               <div class="article-body">
                 <h4>Privacy starts before the model</h4>
@@ -981,7 +1060,7 @@
                 <p class="meta-label">Failure points</p>
                 <h3>Prompt and Response Retention</h3>
                 <p>How content survives in chat history, provider logs, queues, transcripts, and support tooling.</p>
-                <div class="meta"><span class="pill">6 min</span><span class="pill">Data protection</span></div>
+                <div class="meta"><span class="pill">Data protection</span></div>
               </summary>
               <div class="article-body">
                 <h4>Retention is broader than training</h4>
@@ -1006,7 +1085,7 @@
                 <p class="meta-label">Failure points</p>
                 <h3>Tool Calls and Agent Actions</h3>
                 <p>Why private inference is incomplete when plugins, MCP servers, browsers, and actions expose data.</p>
-                <div class="meta"><span class="pill">8 min</span><span class="pill">Agent builders</span></div>
+                <div class="meta"><span class="pill">Agent builders</span></div>
               </summary>
               <div class="article-body">
                 <h4>Tools expand the blast radius</h4>
@@ -1031,7 +1110,7 @@
                 <p class="meta-label">Failure points</p>
                 <h3>RAG, Files, and Vector Databases</h3>
                 <p>How retrieval leaks through ingestion, embeddings, chunk stores, search indexes, and previews.</p>
-                <div class="meta"><span class="pill">7 min</span><span class="pill">Workspace teams</span></div>
+                <div class="meta"><span class="pill">Workspace teams</span></div>
               </summary>
               <div class="article-body">
                 <h4>The document path is a second data plane</h4>
@@ -1051,7 +1130,7 @@
                 <p class="meta-label">Failure points</p>
                 <h3>Identity, Metadata, and Analytics</h3>
                 <p>How privacy can fail even when prompt text is minimized or encrypted.</p>
-                <div class="meta"><span class="pill">6 min</span><span class="pill">Product teams</span></div>
+                <div class="meta"><span class="pill">Product teams</span></div>
               </summary>
               <div class="article-body">
                 <h4>Metadata tells a story</h4>
@@ -1071,7 +1150,7 @@
                 <p class="meta-label">Failure points</p>
                 <h3>Observability and Support Access</h3>
                 <p>How traces, session replay, employee access, and incident tooling can become the privacy boundary.</p>
-                <div class="meta"><span class="pill">7 min</span><span class="pill">Operators</span></div>
+                <div class="meta"><span class="pill">Operators</span></div>
               </summary>
               <div class="article-body">
                 <h4>Debuggability creates copies</h4>
@@ -1091,7 +1170,7 @@
                 <p class="meta-label">Control layers</p>
                 <h3>Hardware Privacy and TEEs</h3>
                 <p>What hardware-backed privacy can prove, and where software, networking, and operations still matter.</p>
-                <div class="meta"><span class="pill">8 min</span><span class="pill">Infrastructure teams</span></div>
+                <div class="meta"><span class="pill">Infrastructure teams</span></div>
               </summary>
               <div class="article-body">
                 <h4>Hardware is a boundary, not the whole system</h4>
@@ -1112,7 +1191,7 @@
                 <p class="meta-label">Control layers</p>
                 <h3>Local and Edge Device Privacy</h3>
                 <p>Why local processing helps, and why device logs, sync, extensions, and malware still matter.</p>
-                <div class="meta"><span class="pill">6 min</span><span class="pill">Device teams</span></div>
+                <div class="meta"><span class="pill">Device teams</span></div>
               </summary>
               <div class="article-body">
                 <h4>Local is not automatically private</h4>
@@ -1133,7 +1212,7 @@
                 <p class="meta-label">Control layers</p>
                 <h3>Network and Browser Boundaries</h3>
                 <p>How DNS, proxies, browser extensions, web search, and remote browsing create observability.</p>
-                <div class="meta"><span class="pill">6 min</span><span class="pill">Security engineers</span></div>
+                <div class="meta"><span class="pill">Security engineers</span></div>
               </summary>
               <div class="article-body">
                 <h4>The network sees patterns</h4>
@@ -1154,7 +1233,7 @@
                 <p class="meta-label">Verification</p>
                 <h3>Vendor Procurement Checklist</h3>
                 <p>A practical review sequence for private AI claims without asking for proprietary internals.</p>
-                <div class="meta"><span class="pill">9 min</span><span class="pill">Buyers</span></div>
+                <div class="meta"><span class="pill">Buyers</span></div>
               </summary>
               <div class="article-body">
                 <h4>Ask for scoped artifacts</h4>
@@ -1174,7 +1253,7 @@
                 <p class="meta-label">Verification</p>
                 <h3>Verification Artifacts and Audit Records</h3>
                 <p>What serious privacy claims should let a reviewer check after the fact.</p>
-                <div class="meta"><span class="pill">7 min</span><span class="pill">Auditors</span></div>
+                <div class="meta"><span class="pill">Auditors</span></div>
               </summary>
               <div class="article-body">
                 <h4>Evidence should survive the request</h4>
@@ -1202,10 +1281,10 @@
         <div class="shell">
           <div class="section-head">
             <p class="eyebrow">Control layers</p>
-            <h2>What better privacy architecture records.</h2>
+            <h2>Control layers and evidence.</h2>
             <p>
-              The strongest systems make controls visible after the fact through route records, admission decisions, audit packets, and
-              truthful claim labels.
+              Strong privacy documentation separates software policy, runtime placement, tool governance, storage behavior, and verification
+              records.
             </p>
           </div>
           <div class="layer-grid">
@@ -1246,10 +1325,10 @@
       <section class="section-alt" id="questions">
         <div class="shell">
           <div class="section-head">
-            <p class="eyebrow">Procurement-grade questions</p>
-            <h2>Ask for artifacts, not adjectives.</h2>
+            <p class="eyebrow">Review checklist</p>
+            <h2>Questions for AI privacy review.</h2>
             <p>
-              These questions turn privacy review into a concrete evidence request without assuming any vendor's internal architecture.
+              Use these prompts when comparing architectures, reviewing a vendor, or defining internal requirements for sensitive AI workflows.
             </p>
           </div>
           <ol class="questions">
@@ -1271,7 +1350,7 @@
         <div class="shell">
           <div class="section-head">
             <p class="eyebrow">Glossary</p>
-            <h2>Precise words prevent overclaims.</h2>
+            <h2>Terminology.</h2>
           </div>
           <div class="glossary-grid">
             <article class="glossary-item">
