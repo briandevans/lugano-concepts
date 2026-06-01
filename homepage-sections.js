@@ -449,6 +449,15 @@
     return item;
   };
 
+  const createDocsNavItem = (referenceItem) => {
+    const item = document.createElement("a");
+    item.href = "/docs";
+    item.textContent = "Docs";
+    item.className = referenceItem.className.toString();
+    item.dataset.lgxDocsNav = "true";
+    return item;
+  };
+
   const updateUseCasesNav = () => {
     const nav = document.querySelector("nav");
 
@@ -476,6 +485,58 @@
 
       const platformItem = children[platformItemIndex];
       container.insertBefore(createUseCasesNavItem(platformItem), platformItem);
+    });
+  };
+
+  const updateDocsNav = () => {
+    const nav = document.querySelector("nav");
+
+    if (!nav) {
+      return;
+    }
+
+    [...nav.querySelectorAll("div")].forEach((container) => {
+      const children = [...container.children];
+      const labels = children.map((child) =>
+        child.textContent.trim().replace(/\s+/g, " ").toLowerCase(),
+      );
+      const platformItemIndex = labels.indexOf("platform");
+
+      if (platformItemIndex === -1 || labels.includes("docs")) {
+        return;
+      }
+
+      const platformItem = children[platformItemIndex];
+      container.insertBefore(createDocsNavItem(platformItem), platformItem.nextSibling);
+    });
+  };
+
+  const updateFooterDocsLink = () => {
+    document.querySelectorAll("footer").forEach((footer) => {
+      const existingDocsLink = [...footer.querySelectorAll("a")].find(
+        (link) => link.textContent.trim().toLowerCase() === "docs",
+      );
+
+      if (existingDocsLink) {
+        existingDocsLink.setAttribute("href", "/docs");
+        return;
+      }
+
+      const referenceLink = footer.querySelector("a");
+
+      if (!referenceLink?.parentElement) {
+        return;
+      }
+
+      const docsLink = document.createElement("a");
+      docsLink.href = "/docs";
+      docsLink.textContent = "Docs";
+      docsLink.className = referenceLink.className.toString();
+      docsLink.setAttribute(
+        "style",
+        referenceLink.getAttribute("style") || "color: inherit; text-decoration: none;",
+      );
+      referenceLink.parentElement.appendChild(docsLink);
     });
   };
 
@@ -635,6 +696,8 @@
     updateCtas();
     updateApplyWebsiteField();
     updateUseCasesNav();
+    updateDocsNav();
+    updateFooterDocsLink();
     enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
@@ -656,6 +719,8 @@
     updateCtas();
     updateApplyWebsiteField();
     updateUseCasesNav();
+    updateDocsNav();
+    updateFooterDocsLink();
     enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
@@ -688,6 +753,8 @@
         updateCtas();
         updateApplyWebsiteField();
         updateUseCasesNav();
+        updateDocsNav();
+        updateFooterDocsLink();
         enhanceCardCipherHover();
         normalizeLiveHeadings();
         normalizeSectionBackgrounds();
@@ -696,6 +763,8 @@
           updateCtas();
           updateApplyWebsiteField();
           updateUseCasesNav();
+          updateDocsNav();
+          updateFooterDocsLink();
           enhanceCardCipherHover();
           normalizeLiveHeadings();
           normalizeSectionBackgrounds();
@@ -707,6 +776,8 @@
     updateCtas();
     updateApplyWebsiteField();
     updateUseCasesNav();
+    updateDocsNav();
+    updateFooterDocsLink();
     enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();

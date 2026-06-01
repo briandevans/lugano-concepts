@@ -1,0 +1,1317 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lugano Documentation - AI Privacy Education Center</title>
+    <meta
+      name="description"
+      content="A Lugano documentation center for AI privacy failure points, tool-call exposure, retention, hardware controls, software controls, and verification patterns."
+    />
+    <link rel="canonical" href="https://lugano.ai/docs/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #000103;
+        --bg-raised: #05090d;
+        --bg-band: #080f16;
+        --panel: rgba(8, 17, 25, 0.92);
+        --panel-soft: rgba(9, 19, 28, 0.74);
+        --line: rgba(155, 213, 244, 0.16);
+        --line-strong: rgba(155, 213, 244, 0.36);
+        --text: #f4f7f9;
+        --muted: #91a3b1;
+        --dim: #536574;
+        --blue: #76bce7;
+        --blue-bright: #9bd5f4;
+        --blue-soft: rgba(74, 166, 223, 0.14);
+        --gold: #c7b88b;
+        --risk: #f4bd62;
+        --max: 1272px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background:
+          radial-gradient(circle at 78% 6%, rgba(74, 166, 223, 0.12), transparent 32rem),
+          linear-gradient(180deg, #000103 0%, #05090d 42rem, #000103 100%);
+        color: var(--text);
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(155, 213, 244, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(155, 213, 244, 0.035) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.72), transparent 78%);
+        content: "";
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:focus-visible,
+      button:focus-visible,
+      summary:focus-visible {
+        outline: 2px solid var(--blue);
+        outline-offset: 4px;
+      }
+
+      .skip-link {
+        position: absolute;
+        top: -48px;
+        left: 16px;
+        z-index: 50;
+        padding: 10px 14px;
+        border: 1px solid var(--line-strong);
+        border-radius: 6px;
+        background: var(--bg-raised);
+        color: var(--text);
+      }
+
+      .skip-link:focus {
+        top: 16px;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid rgba(155, 213, 244, 0.1);
+        background: rgba(0, 1, 3, 0.86);
+        backdrop-filter: blur(22px) saturate(160%);
+      }
+
+      .shell {
+        width: min(var(--max), calc(100% - clamp(2rem, 6vw, 6rem)));
+        margin: 0 auto;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.25rem;
+        min-height: 74px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+      }
+
+      .brand img {
+        width: 32px;
+        height: 32px;
+      }
+
+      .brand span {
+        font-size: 1.02rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+
+      .brand em {
+        color: var(--blue);
+        font-style: normal;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.45rem;
+      }
+
+      .nav-links a {
+        min-height: 2.3rem;
+        padding: 0.58rem 0.75rem;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        color: rgba(226, 234, 246, 0.68);
+        font-size: 0.82rem;
+        font-weight: 500;
+      }
+
+      .nav-links a:hover {
+        border-color: var(--line);
+        color: var(--text);
+        background: rgba(155, 213, 244, 0.055);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.04fr) minmax(320px, 0.96fr);
+        gap: clamp(2rem, 5vw, 4.5rem);
+        align-items: center;
+        padding: clamp(4.5rem, 9vw, 7.5rem) 0 clamp(3rem, 7vw, 5rem);
+      }
+
+      .kicker,
+      .eyebrow,
+      .meta-label {
+        color: var(--blue);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .kicker {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 0 0 1.25rem;
+      }
+
+      .kicker::before {
+        width: 3rem;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(155, 213, 244, 0.62));
+        content: "";
+      }
+
+      h1,
+      h2,
+      .display {
+        margin: 0;
+        font-family: "Instrument Serif", Georgia, serif;
+        font-weight: 400;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        max-width: 12ch;
+        font-size: clamp(3.4rem, 8vw, 6.9rem);
+        line-height: 0.92;
+      }
+
+      .hero-copy p {
+        max-width: 680px;
+        margin: 1.5rem 0 0;
+        color: var(--muted);
+        font-size: clamp(1.02rem, 1.45vw, 1.22rem);
+        font-weight: 300;
+        line-height: 1.6;
+        overflow-wrap: break-word;
+      }
+
+      .hero-copy,
+      .request-map {
+        min-width: 0;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.85rem;
+        padding: 0.82rem 1rem;
+        border: 1px solid var(--line-strong);
+        border-radius: 6px;
+        font-size: 0.86rem;
+        font-weight: 600;
+      }
+
+      .button-primary {
+        border-color: rgba(155, 213, 244, 0.48);
+        background: var(--blue);
+        color: #02070c;
+      }
+
+      .button-secondary {
+        background: rgba(155, 213, 244, 0.055);
+        color: var(--text);
+      }
+
+      .request-map {
+        position: relative;
+        display: grid;
+        gap: 0.8rem;
+        padding: clamp(1rem, 2vw, 1.35rem);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(155, 213, 244, 0.12), transparent 50%),
+          var(--panel);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045), 0 30px 80px rgba(0, 0, 0, 0.28);
+      }
+
+      .request-path {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 0.42rem;
+      }
+
+      .request-path span,
+      .signal span,
+      .stat,
+      .card,
+      .article,
+      .question,
+      .glossary-item {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .request-path span {
+        position: relative;
+        display: grid;
+        min-height: 4.5rem;
+        place-items: center;
+        color: var(--text);
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+
+      .request-path span::after {
+        position: absolute;
+        top: 50%;
+        right: -0.5rem;
+        width: 0.55rem;
+        height: 1px;
+        background: var(--line-strong);
+        content: "";
+      }
+
+      .request-path span:last-child::after {
+        content: none;
+      }
+
+      .signal {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.55rem;
+      }
+
+      .signal span {
+        display: grid;
+        min-height: 4.2rem;
+        place-items: center;
+        color: var(--muted);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+      }
+
+      .signal [data-state="controlled"] {
+        border-color: var(--line-strong);
+        color: var(--blue-bright);
+      }
+
+      .signal [data-state="risk"] {
+        border-color: rgba(244, 189, 98, 0.34);
+        background: rgba(104, 63, 17, 0.18);
+        color: var(--risk);
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--line);
+      }
+
+      .stat {
+        display: grid;
+        gap: 0.25rem;
+        padding: 1.1rem;
+        border: 0;
+        border-radius: 0;
+      }
+
+      .stat strong {
+        color: var(--text);
+        font-size: 1.55rem;
+        line-height: 1;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      section {
+        position: relative;
+        padding: clamp(4.5rem, 8vw, 7rem) 0;
+        border-top: 1px solid rgba(155, 213, 244, 0.08);
+      }
+
+      .section-alt {
+        background:
+          radial-gradient(circle at 20% 0%, rgba(155, 213, 244, 0.05), transparent 26rem),
+          var(--bg-band);
+      }
+
+      .section-head {
+        max-width: 900px;
+        margin-bottom: 2rem;
+      }
+
+      .section-head.center {
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+      }
+
+      .section-head h2 {
+        margin-top: 0.75rem;
+        font-size: clamp(2.4rem, 5vw, 4.8rem);
+        line-height: 0.96;
+      }
+
+      .section-head p {
+        max-width: 720px;
+        margin: 1rem 0 0;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.35vw, 1.2rem);
+        font-weight: 300;
+        line-height: 1.58;
+      }
+
+      .center p {
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .path-grid,
+      .article-grid,
+      .layer-grid,
+      .glossary-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .path-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .article-grid,
+      .layer-grid,
+      .glossary-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card,
+      .article,
+      .question,
+      .glossary-item {
+        padding: 1.2rem;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+      }
+
+      .card h3,
+      .article h3,
+      .glossary-item h3 {
+        margin: 0.7rem 0 0;
+        color: var(--text);
+        font-size: 1.05rem;
+        line-height: 1.32;
+      }
+
+      .card p,
+      .article p,
+      .glossary-item p {
+        margin: 0.8rem 0 0;
+        color: var(--muted);
+        line-height: 1.58;
+      }
+
+      .card ul {
+        display: grid;
+        gap: 0.42rem;
+        margin: 1rem 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .card li a {
+        color: var(--blue-bright);
+        font-weight: 500;
+      }
+
+      .icon {
+        display: inline-grid;
+        width: 2.85rem;
+        height: 2.85rem;
+        place-items: center;
+        border: 1px solid rgba(155, 213, 244, 0.2);
+        border-radius: 8px;
+        background: linear-gradient(135deg, rgba(74, 166, 223, 0.18), rgba(74, 166, 223, 0.08));
+        color: var(--blue-bright);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.85rem;
+      }
+
+      .atlas {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .atlas-row {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr 1.2fr 1.2fr;
+        gap: 1rem;
+        padding: 1rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .atlas-row:last-child {
+        border-bottom: 0;
+      }
+
+      .atlas-head {
+        background: rgba(155, 213, 244, 0.055);
+        color: var(--dim);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .atlas-row strong {
+        color: var(--text);
+      }
+
+      .atlas-row span {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .article {
+        scroll-margin-top: 96px;
+      }
+
+      .article summary {
+        cursor: pointer;
+        list-style: none;
+      }
+
+      .article summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .article summary::after {
+        float: right;
+        color: var(--blue);
+        content: "+";
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+      }
+
+      .article[open] summary::after {
+        content: "-";
+      }
+
+      .article .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.85rem;
+      }
+
+      .pill {
+        display: inline-flex;
+        min-height: 1.85rem;
+        align-items: center;
+        padding: 0.32rem 0.55rem;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        color: var(--muted);
+        background: rgba(155, 213, 244, 0.04);
+        font-size: 0.78rem;
+        font-weight: 500;
+      }
+
+      .article-body {
+        display: grid;
+        gap: 1rem;
+        margin-top: 1.2rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .article-body h4 {
+        margin: 0;
+        color: var(--text);
+        font-size: 0.96rem;
+      }
+
+      .article-body p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.62;
+      }
+
+      .callout {
+        padding: 0.95rem;
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        background: var(--blue-soft);
+      }
+
+      .callout.risk {
+        border-color: rgba(244, 189, 98, 0.34);
+        background: rgba(104, 63, 17, 0.18);
+      }
+
+      .callout strong {
+        display: block;
+        margin-bottom: 0.35rem;
+        color: var(--text);
+      }
+
+      .questions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.9rem;
+        counter-reset: question;
+      }
+
+      .question {
+        position: relative;
+        min-height: 4.6rem;
+        padding-left: 3.2rem;
+        color: var(--text);
+        line-height: 1.55;
+        counter-increment: question;
+      }
+
+      .question::before {
+        position: absolute;
+        top: 1.2rem;
+        left: 1rem;
+        color: var(--blue);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        content: counter(question, decimal-leading-zero);
+      }
+
+      .footer {
+        padding: 3rem 0;
+        border-top: 1px solid rgba(155, 213, 244, 0.1);
+        background: #010810;
+      }
+
+      .footer-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer a,
+      .footer p {
+        color: rgba(145, 163, 177, 0.76);
+        font-size: 0.86rem;
+      }
+
+      @media (max-width: 1080px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .path-grid,
+        .article-grid,
+        .layer-grid,
+        .glossary-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 820px) {
+        .shell {
+          width: auto;
+          margin-right: 0;
+          margin-left: 0;
+          padding-right: 1rem;
+          padding-left: 1rem;
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 0.9rem 0;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .request-path,
+        .signal,
+        .stats,
+        .path-grid,
+        .article-grid,
+        .layer-grid,
+        .glossary-grid,
+        .questions {
+          grid-template-columns: 1fr;
+        }
+
+        .request-path span::after {
+          top: auto;
+          right: auto;
+          bottom: -0.55rem;
+          left: 50%;
+          width: 1px;
+          height: 0.55rem;
+        }
+
+        .atlas-head {
+          display: none;
+        }
+
+        .atlas-row {
+          grid-template-columns: 1fr;
+          gap: 0.35rem;
+        }
+
+        h1 {
+          max-width: 100%;
+          font-size: clamp(2.25rem, 10vw, 3rem);
+          line-height: 1;
+          text-wrap: balance;
+          overflow-wrap: break-word;
+        }
+
+        .hero-copy p {
+          max-width: 100%;
+          font-size: 0.98rem;
+        }
+
+        .request-map {
+          width: 100%;
+        }
+
+        .kicker {
+          flex-wrap: wrap;
+          font-size: 0.66rem;
+          letter-spacing: 0.14em;
+        }
+
+        .kicker::before {
+          width: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to documentation</a>
+    <header class="site-header">
+      <div class="shell nav">
+        <a class="brand" href="/" aria-label="Lugano home">
+          <img src="/logo-mark.svg" alt="" />
+          <span>Lugano<em>.ai</em></span>
+        </a>
+        <nav class="nav-links" aria-label="Documentation">
+          <a href="/">Home</a>
+          <a href="#atlas">Failure atlas</a>
+          <a href="#articles">Articles</a>
+          <a href="#questions">Questions</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="shell hero">
+        <div class="hero-copy">
+          <p class="kicker">AI Privacy Education Center</p>
+          <h1>The private AI knowledgebase for every point of failure.</h1>
+          <p>
+            Learn how prompts, tools, files, runtimes, devices, logs, and hardware claims can leak data, then turn that map into better
+            questions for any private AI architecture.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#article-ai-privacy-threat-model">Start with the threat model</a>
+            <a class="button button-secondary" href="#atlas">View failure atlas</a>
+          </div>
+        </div>
+        <div class="request-map" aria-label="AI privacy request path">
+          <div class="request-path">
+            <span>Client</span>
+            <span>Gateway</span>
+            <span>Tools</span>
+            <span>Runtime</span>
+            <span>Evidence</span>
+          </div>
+          <div class="signal">
+            <span data-state="controlled">policy</span>
+            <span data-state="risk">tool call</span>
+            <span data-state="controlled">record</span>
+            <span data-state="risk">logs</span>
+            <span data-state="controlled">verifier</span>
+            <span>metadata</span>
+          </div>
+          <div class="stats" aria-label="Documentation center scope">
+            <div class="stat">
+              <strong>11</strong>
+              <span>deep articles</span>
+            </div>
+            <div class="stat">
+              <strong>9</strong>
+              <span>failure surfaces</span>
+            </div>
+            <div class="stat">
+              <strong>7</strong>
+              <span>control layers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="section-alt" id="paths">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">Learning paths</p>
+            <h2>Choose the reader journey.</h2>
+            <p>
+              Each path is written for humans who need practical privacy literacy before reviewing, buying, or deploying AI systems.
+            </p>
+          </div>
+          <div class="path-grid">
+            <article class="card">
+              <span class="icon">01</span>
+              <p class="meta-label">Security leaders</p>
+              <h3>Threat model first</h3>
+              <p>Map who can observe a request before deciding whether a system is meaningfully private.</p>
+              <ul>
+                <li><a href="#article-ai-privacy-threat-model">AI privacy threat model</a></li>
+                <li><a href="#article-observability-support-access">Observability and support access</a></li>
+                <li><a href="#article-verification-artifacts">Verification artifacts</a></li>
+              </ul>
+            </article>
+            <article class="card">
+              <span class="icon">02</span>
+              <p class="meta-label">Agent builders</p>
+              <h3>Tools, agents, and data exhaust</h3>
+              <p>Understand why private inference is incomplete when actions and plugins create their own logs.</p>
+              <ul>
+                <li><a href="#article-tool-calls-agent-actions">Tool calls and agent actions</a></li>
+                <li><a href="#article-rag-files-vector-databases">RAG, files, and vector databases</a></li>
+                <li><a href="#article-network-browser-boundaries">Network and browser boundaries</a></li>
+              </ul>
+            </article>
+            <article class="card">
+              <span class="icon">03</span>
+              <p class="meta-label">Technical buyers</p>
+              <h3>Control layers</h3>
+              <p>Separate hardware, software, network, identity, and operational controls instead of treating privacy as one switch.</p>
+              <ul>
+                <li><a href="#article-hardware-privacy-tees">Hardware privacy and TEEs</a></li>
+                <li><a href="#article-local-edge-device-privacy">Local and edge device privacy</a></li>
+                <li><a href="#article-identity-metadata-analytics">Identity, metadata, and analytics</a></li>
+              </ul>
+            </article>
+            <article class="card">
+              <span class="icon">04</span>
+              <p class="meta-label">Procurement teams</p>
+              <h3>Ask for evidence</h3>
+              <p>Turn privacy review into concrete artifacts without asking vendors to reveal their protected implementation details.</p>
+              <ul>
+                <li><a href="#article-vendor-procurement-checklist">Vendor procurement checklist</a></li>
+                <li><a href="#questions">Procurement questions</a></li>
+                <li><a href="#glossary">Glossary</a></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="atlas">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">Failure atlas</p>
+            <h2>Private AI fails at the boundaries.</h2>
+            <p>
+              The model is only one privacy actor. A serious documentation center shows the whole path, including tools, metadata,
+              observability, and runtime operations.
+            </p>
+          </div>
+          <div class="atlas" role="table" aria-label="AI privacy failure surfaces">
+            <div class="atlas-row atlas-head" role="row">
+              <span role="columnheader">Layer</span>
+              <span role="columnheader">What can leak</span>
+              <span role="columnheader">Common failure</span>
+              <span role="columnheader">Control question</span>
+            </div>
+            <div class="atlas-row" role="row">
+              <strong role="cell">Client and browser</strong>
+              <span role="cell">Prompt text, files, screenshots, cookies, local storage, extension access.</span>
+              <span role="cell">The server is private, but the browser plugin or local cache keeps sensitive content.</span>
+              <span role="cell">What does the client store, and which extensions or scripts can see it?</span>
+            </div>
+            <div class="atlas-row" role="row">
+              <strong role="cell">Identity and access</strong>
+              <span role="cell">Names, emails, tenant ids, API keys, IP addresses, device ids, billing events.</span>
+              <span role="cell">Content is protected, but identity and metadata still reveal business intent.</span>
+              <span role="cell">Can identity be separated from content where it is not needed?</span>
+            </div>
+            <div class="atlas-row" role="row">
+              <strong role="cell">Prompt routing</strong>
+              <span role="cell">Raw prompts, model choices, policy decisions, gateway traces, retry queues.</span>
+              <span role="cell">A gateway logs the full request while promising the downstream model has no retention.</span>
+              <span role="cell">Which component first sees plaintext and which records prove minimization?</span>
+            </div>
+            <div class="atlas-row" role="row">
+              <strong role="cell">Tool calls</strong>
+              <span role="cell">Tool arguments, outputs, screenshots, URLs, repository names, CRM records, emails.</span>
+              <span role="cell">Private model inference is followed by a third-party search, browser, or MCP call.</span>
+              <span role="cell">Are tool arguments scoped, approved, and logged with the same privacy boundary?</span>
+            </div>
+            <div class="atlas-row" role="row">
+              <strong role="cell">RAG and files</strong>
+              <span role="cell">Documents, chunks, embeddings, OCR text, previews, citations, deleted records.</span>
+              <span role="cell">Embeddings outlive source documents or cross tenant/workspace boundaries.</span>
+              <span role="cell">How are ingestion, retrieval, deletion, and authorization tied together?</span>
+            </div>
+            <div class="atlas-row" role="row">
+              <strong role="cell">Model runtime</strong>
+              <span role="cell">Inputs, outputs, KV cache, batch neighbors, provider telemetry, crash dumps.</span>
+              <span role="cell">A model route is private in policy, but the runtime has unmanaged debug visibility.</span>
+              <span role="cell">What evidence identifies the runtime, route, and active policy for a request?</span>
+            </div>
+            <div class="atlas-row" role="row">
+              <strong role="cell">Observability</strong>
+              <span role="cell">Traces, errors, analytics events, session replays, performance counters, support exports.</span>
+              <span role="cell">Plaintext is redacted in one log but copied into another system for debugging.</span>
+              <span role="cell">Which logs are content-aware, and who can access them?</span>
+            </div>
+            <div class="atlas-row" role="row">
+              <strong role="cell">Hardware boundary</strong>
+              <span role="cell">Host memory, accelerator paths, attestation details, firmware state, side channels.</span>
+              <span role="cell">A hardware privacy claim is made without naming what it covers or excludes.</span>
+              <span role="cell">What is measured, who verifies it, and where does plaintext exist outside it?</span>
+            </div>
+            <div class="atlas-row" role="row">
+              <strong role="cell">Audit artifacts</strong>
+              <span role="cell">Receipts, commitments, policy ids, timestamps, disclosure bundles, verifier results.</span>
+              <span role="cell">The system says it was private, but cannot produce request-specific evidence later.</span>
+              <span role="cell">Can a reviewer independently check the claim without seeing the secret content?</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-alt" id="articles">
+        <div class="shell">
+          <div class="section-head center">
+            <p class="eyebrow">Knowledgebase</p>
+            <h2>Readable articles, not marketing blurbs.</h2>
+            <p>
+              Open each article for practical privacy language, failure patterns, and review prompts. The goal is literacy without exposing
+              any proprietary Lugano implementation.
+            </p>
+          </div>
+          <div class="article-grid">
+            <details class="article" id="article-ai-privacy-threat-model" open>
+              <summary>
+                <p class="meta-label">Foundations</p>
+                <h3>Start Here: The AI Privacy Threat Model</h3>
+                <p>A practical map of the people, systems, and logs that can see an AI request.</p>
+                <div class="meta"><span class="pill">7 min</span><span class="pill">Security leaders</span></div>
+              </summary>
+              <div class="article-body">
+                <h4>Privacy starts before the model</h4>
+                <p>
+                  An AI request can cross a browser, identity provider, gateway, orchestration runtime, model endpoint, storage layer,
+                  analytics system, and observability stack. A vendor can protect one layer and still leak sensitive data through another.
+                </p>
+                <p>
+                  The stronger question is not only whether the model provider trains on your data. Ask who can observe the path, which
+                  systems retain it, which operators can replay it, and what evidence proves those answers later.
+                </p>
+                <div class="callout">
+                  <strong>Working definition</strong>
+                  <p>
+                    AI privacy means minimizing plaintext exposure, separating identity from content where possible, and producing evidence
+                    for the parts of the path that were controlled.
+                  </p>
+                </div>
+              </div>
+            </details>
+
+            <details class="article" id="article-prompt-response-retention">
+              <summary>
+                <p class="meta-label">Failure points</p>
+                <h3>Prompt and Response Retention</h3>
+                <p>How content survives in chat history, provider logs, queues, transcripts, and support tooling.</p>
+                <div class="meta"><span class="pill">6 min</span><span class="pill">Data protection</span></div>
+              </summary>
+              <div class="article-body">
+                <h4>Retention is broader than training</h4>
+                <p>
+                  A provider may exclude prompts from training while still retaining request payloads for abuse monitoring, debugging,
+                  billing disputes, quality review, latency analysis, or incident response. Those systems can be reasonable, but they are
+                  still exposure surfaces.
+                </p>
+                <p>
+                  Applications can also create copies before a request reaches the model: transcripts, retry queues, traces, customer support
+                  exports, webhooks, background jobs, browser storage, and crash reports.
+                </p>
+                <div class="callout risk">
+                  <strong>Common failure</strong>
+                  <p>A product says prompts are not used for training, but the same plaintext is stored in analytics or support exports.</p>
+                </div>
+              </div>
+            </details>
+
+            <details class="article" id="article-tool-calls-agent-actions">
+              <summary>
+                <p class="meta-label">Failure points</p>
+                <h3>Tool Calls and Agent Actions</h3>
+                <p>Why private inference is incomplete when plugins, MCP servers, browsers, and actions expose data.</p>
+                <div class="meta"><span class="pill">8 min</span><span class="pill">Agent builders</span></div>
+              </summary>
+              <div class="article-body">
+                <h4>Tools expand the blast radius</h4>
+                <p>
+                  A model answer may be private while the tool call that enabled it is not. Agents can send sensitive arguments to search
+                  providers, ticketing systems, shell commands, hosted browsers, email APIs, calendars, wallets, databases, MCP servers, or
+                  custom plugins.
+                </p>
+                <p>
+                  Every tool should have an allowlist, scope, approval rule, data minimization policy, and logging policy. High-risk tools
+                  should record what was approved before execution.
+                </p>
+                <div class="callout risk">
+                  <strong>Agent privacy trap</strong>
+                  <p>A workflow routes chat through a private model, then sends the same confidential facts to a third-party scraper.</p>
+                </div>
+              </div>
+            </details>
+
+            <details class="article" id="article-rag-files-vector-databases">
+              <summary>
+                <p class="meta-label">Failure points</p>
+                <h3>RAG, Files, and Vector Databases</h3>
+                <p>How retrieval leaks through ingestion, embeddings, chunk stores, search indexes, and previews.</p>
+                <div class="meta"><span class="pill">7 min</span><span class="pill">Workspace teams</span></div>
+              </summary>
+              <div class="article-body">
+                <h4>The document path is a second data plane</h4>
+                <p>
+                  Retrieval adds upload, parsing, OCR, chunking, embedding, indexing, ranking, and citation rendering. Each stage can store
+                  plaintext, derived text, metadata, or previews.
+                </p>
+                <p>
+                  Embeddings are not a substitute for access control. They can encode sensitive semantics, expose document membership, and
+                  persist after the source file is deleted unless index lifecycle is explicit.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-identity-metadata-analytics">
+              <summary>
+                <p class="meta-label">Failure points</p>
+                <h3>Identity, Metadata, and Analytics</h3>
+                <p>How privacy can fail even when prompt text is minimized or encrypted.</p>
+                <div class="meta"><span class="pill">6 min</span><span class="pill">Product teams</span></div>
+              </summary>
+              <div class="article-body">
+                <h4>Metadata tells a story</h4>
+                <p>
+                  Tenant id, user id, IP address, timestamps, model ids, document names, tool names, token counts, error classes, and billing
+                  events can reveal what a team is doing. In regulated or competitive settings, that context can be sensitive.
+                </p>
+                <p>
+                  Better systems avoid joining identity and content by default, reduce unnecessary analytics, and give reviewers a clear map
+                  of which metadata exists and why.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-observability-support-access">
+              <summary>
+                <p class="meta-label">Failure points</p>
+                <h3>Observability and Support Access</h3>
+                <p>How traces, session replay, employee access, and incident tooling can become the privacy boundary.</p>
+                <div class="meta"><span class="pill">7 min</span><span class="pill">Operators</span></div>
+              </summary>
+              <div class="article-body">
+                <h4>Debuggability creates copies</h4>
+                <p>
+                  Logs, traces, metrics, dashboards, session replay, and support tooling are built to make systems understandable. That is
+                  useful, but AI workloads often place sensitive content exactly where debugging tools want detail.
+                </p>
+                <p>
+                  Strong operations programs use redaction before telemetry, break-glass workflows, role-scoped access, retention limits,
+                  immutable access records, and customer-visible evidence for support actions.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-hardware-privacy-tees">
+              <summary>
+                <p class="meta-label">Control layers</p>
+                <h3>Hardware Privacy and TEEs</h3>
+                <p>What hardware-backed privacy can prove, and where software, networking, and operations still matter.</p>
+                <div class="meta"><span class="pill">8 min</span><span class="pill">Infrastructure teams</span></div>
+              </summary>
+              <div class="article-body">
+                <h4>Hardware is a boundary, not the whole system</h4>
+                <p>
+                  Trusted execution environments, measured boot, secure enclaves, HSMs, TPMs, and accelerator isolation can reduce operator
+                  visibility and produce useful evidence. They do not automatically solve client leakage, tool leakage, storage retention, or
+                  support access.
+                </p>
+                <p>
+                  Ask what is measured, who verifies the measurement, where keys are released, what plaintext exists outside the boundary, and
+                  which claims are request-specific rather than generic architecture descriptions.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-local-edge-device-privacy">
+              <summary>
+                <p class="meta-label">Control layers</p>
+                <h3>Local and Edge Device Privacy</h3>
+                <p>Why local processing helps, and why device logs, sync, extensions, and malware still matter.</p>
+                <div class="meta"><span class="pill">6 min</span><span class="pill">Device teams</span></div>
+              </summary>
+              <div class="article-body">
+                <h4>Local is not automatically private</h4>
+                <p>
+                  Local inference or pre-processing can keep data away from cloud providers, but the device becomes part of the trusted
+                  boundary. Clipboard history, browser extensions, crash reports, sync services, endpoint monitoring, and local malware can
+                  still observe sensitive material.
+                </p>
+                <p>
+                  Practical controls include local redaction, explicit file handling, secure storage defaults, extension isolation, managed
+                  update channels, and clear user-visible state for what leaves the device.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-network-browser-boundaries">
+              <summary>
+                <p class="meta-label">Control layers</p>
+                <h3>Network and Browser Boundaries</h3>
+                <p>How DNS, proxies, browser extensions, web search, and remote browsing create observability.</p>
+                <div class="meta"><span class="pill">6 min</span><span class="pill">Security engineers</span></div>
+              </summary>
+              <div class="article-body">
+                <h4>The network sees patterns</h4>
+                <p>
+                  DNS lookups, SNI, IP addresses, request timing, proxy logs, browser automation, and web search queries can reveal intent even
+                  when payload content is protected. Agentic browsing makes this sharper because the system may visit URLs on behalf of the
+                  user.
+                </p>
+                <p>
+                  Reviewers should ask which network intermediaries exist, whether browser sessions are isolated, how cookies and credentials
+                  are handled, and whether web search is treated as an external disclosure.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-vendor-procurement-checklist">
+              <summary>
+                <p class="meta-label">Verification</p>
+                <h3>Vendor Procurement Checklist</h3>
+                <p>A practical review sequence for private AI claims without asking for proprietary internals.</p>
+                <div class="meta"><span class="pill">9 min</span><span class="pill">Buyers</span></div>
+              </summary>
+              <div class="article-body">
+                <h4>Ask for scoped artifacts</h4>
+                <p>
+                  Start with a data-flow diagram, then ask which systems see plaintext, which systems retain content, which subprocessors are
+                  involved, which employees can access records, and which artifact proves a request used the approved route.
+                </p>
+                <p>
+                  A mature vendor can explain claim scope without exposing protected implementation details. The answer should distinguish
+                  product policy, software controls, hardware boundaries, logging behavior, key custody, and review evidence.
+                </p>
+              </div>
+            </details>
+
+            <details class="article" id="article-verification-artifacts">
+              <summary>
+                <p class="meta-label">Verification</p>
+                <h3>Verification Artifacts and Audit Records</h3>
+                <p>What serious privacy claims should let a reviewer check after the fact.</p>
+                <div class="meta"><span class="pill">7 min</span><span class="pill">Auditors</span></div>
+              </summary>
+              <div class="article-body">
+                <h4>Evidence should survive the request</h4>
+                <p>
+                  Stronger systems bind request id, route id, policy version, model id, timestamp, retention posture, and verification result
+                  into a record that can be checked later. The record should not require exposing the raw secret content to prove the claim.
+                </p>
+                <p>
+                  The best evidence is narrow and useful: it tells a reviewer exactly what was controlled, what was not claimed, and which
+                  independent checks are available.
+                </p>
+                <div class="callout">
+                  <strong>Documentation posture</strong>
+                  <p>
+                    Public documentation can educate reviewers on the shape of evidence without revealing private production mechanics.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section id="controls">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">Control layers</p>
+            <h2>What better privacy architecture records.</h2>
+            <p>
+              The strongest systems make controls visible after the fact through route records, admission decisions, audit packets, and
+              truthful claim labels.
+            </p>
+          </div>
+          <div class="layer-grid">
+            <article class="card">
+              <span class="icon">SW</span>
+              <h3>Software policy</h3>
+              <p>Admission rules, model allowlists, tool permissions, retention limits, and redaction paths should be explicit.</p>
+            </article>
+            <article class="card">
+              <span class="icon">HW</span>
+              <h3>Hardware boundary</h3>
+              <p>Hardware claims should name what is measured, where keys are released, and what remains outside the boundary.</p>
+            </article>
+            <article class="card">
+              <span class="icon">ID</span>
+              <h3>Identity separation</h3>
+              <p>Systems should avoid joining user identity and sensitive content unless the workflow truly requires it.</p>
+            </article>
+            <article class="card">
+              <span class="icon">TL</span>
+              <h3>Telemetry minimization</h3>
+              <p>Observability should collect the least sensitive detail that still lets operators keep the service reliable.</p>
+            </article>
+            <article class="card">
+              <span class="icon">TO</span>
+              <h3>Tool governance</h3>
+              <p>Agent tools should be scoped, approved, logged, and reviewed as first-class privacy boundaries.</p>
+            </article>
+            <article class="card">
+              <span class="icon">AU</span>
+              <h3>Audit records</h3>
+              <p>Evidence should be request-specific enough to be useful without forcing reviewers to see secret inputs.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-alt" id="questions">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">Procurement-grade questions</p>
+            <h2>Ask for artifacts, not adjectives.</h2>
+            <p>
+              These questions turn privacy review into a concrete evidence request without assuming any vendor's internal architecture.
+            </p>
+          </div>
+          <ol class="questions">
+            <li class="question">Which systems can see raw prompts, raw outputs, uploaded files, tool arguments, and tool outputs?</li>
+            <li class="question">Which logs, traces, analytics events, queues, support tools, or backups can contain sensitive content?</li>
+            <li class="question">What is retained for abuse monitoring, billing, debugging, quality review, or incident response?</li>
+            <li class="question">Can identity, billing, IP address, and tenant metadata be separated from content records?</li>
+            <li class="question">Which tool calls are allowed, what data can they receive, and where do those external systems log it?</li>
+            <li class="question">How are RAG documents, chunks, embeddings, indexes, previews, and deletion requests governed?</li>
+            <li class="question">What hardware or runtime measurement exists, and what exactly does that measurement prove?</li>
+            <li class="question">What request-specific record proves the approved route, model, policy, and retention posture?</li>
+            <li class="question">Which claims can be checked independently without revealing the confidential prompt or file?</li>
+            <li class="question">Which claims are intentionally not being made because the evidence does not support them yet?</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="glossary">
+        <div class="shell">
+          <div class="section-head">
+            <p class="eyebrow">Glossary</p>
+            <h2>Precise words prevent overclaims.</h2>
+          </div>
+          <div class="glossary-grid">
+            <article class="glossary-item">
+              <h3>Plaintext exposure</h3>
+              <p>Any point where sensitive content exists in readable form for software, operators, logs, or external tools.</p>
+            </article>
+            <article class="glossary-item">
+              <h3>Retention</h3>
+              <p>The period and surface where content, metadata, derived records, or backups remain after a request completes.</p>
+            </article>
+            <article class="glossary-item">
+              <h3>Tool boundary</h3>
+              <p>The approval, execution, logging, and vendor surface around an agent action outside the core model call.</p>
+            </article>
+            <article class="glossary-item">
+              <h3>Attestation</h3>
+              <p>Evidence that a measured runtime or hardware-backed environment matched an expected state at a point in time.</p>
+            </article>
+            <article class="glossary-item">
+              <h3>Commitment</h3>
+              <p>A cryptographic reference to content or configuration that can be checked later without revealing the original secret.</p>
+            </article>
+            <article class="glossary-item">
+              <h3>Claim boundary</h3>
+              <p>The exact scope of what a privacy statement covers, what evidence supports it, and what it does not cover.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-row">
+        <p>&copy; 2026 Lugano.ai - AI privacy education center</p>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/">Home</a>
+          <a href="/docs">Docs</a>
+          <a href="mailto:contact@lugano.ai">Contact</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
