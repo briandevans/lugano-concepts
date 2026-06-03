@@ -30,7 +30,7 @@
       bullets: [
         "Use frontier models across your organization without new exposure surfaces",
         "Protect IP, trade secrets, and sensitive workflows",
-        "Deploy on-prem, in your cloud, or in a dedicated environment",
+        "We handle everything for you. Verifiably private.",
       ],
     },
     {
