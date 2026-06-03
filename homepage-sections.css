@@ -175,6 +175,7 @@
 
 #root section.flex-col.justify-between:first-of-type button + div .flex.items-center.gap-3 > div:first-child {
   position: relative !important;
+  border-radius: 0.25rem !important;
 }
 
 #root section.flex-col.justify-between:first-of-type button + div .flex.items-center.gap-3 > div:first-child > svg {
@@ -185,26 +186,17 @@
   position: absolute !important;
   top: 50% !important;
   left: 50% !important;
-  width: 0.72rem !important;
-  height: 0.72rem !important;
-  border: 1.5px solid #4EC9A0 !important;
-  border-radius: 0.125rem !important;
-  box-sizing: border-box !important;
-  content: "" !important;
-  transform: translate(-50%, -50%) !important;
-}
-
-#root section.flex-col.justify-between:first-of-type button + div .flex.items-center.gap-3 > div:first-child::after {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  display: block !important;
-  width: 0.42rem !important;
-  height: 0.26rem !important;
-  border-bottom: 2px solid #4EC9A0 !important;
-  border-left: 2px solid #4EC9A0 !important;
+  display: none !important;
+  width: 0.54rem !important;
+  height: 0.32rem !important;
+  border-bottom: 2.4px solid #061017 !important;
+  border-left: 2.4px solid #061017 !important;
   content: "" !important;
   transform: translate(-50%, -62%) rotate(-45deg) !important;
+}
+
+#root section.flex-col.justify-between:first-of-type button + div .flex.items-center.gap-3 > div:first-child:has(> svg)::before {
+  display: block !important;
 }
 
 #root section.flex-col.justify-between:first-of-type:has(button + div[style*="max-height: 400px"]) {
