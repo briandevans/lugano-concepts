@@ -565,23 +565,49 @@
   };
 
   const updateArchitectureModelCopy = () => {
-    const targetHeading = [...document.querySelectorAll("#architecture .prop-card h3")].find(
-      (heading) => heading.textContent.trim() === "Uncompromised intelligence.",
-    );
+    const architectureUpdates = [
+      {
+        titles: ["Trustless by design."],
+        title: "Trustless by design.",
+        description:
+          "You don't have to trust us. Everything is verifiable. No data leaked during inference, not during orchestration, no logging. The architecture makes exfiltration impossible.",
+      },
+      {
+        titles: ["Uncompromised intelligence.", "Every AI model."],
+        title: "Every AI model.",
+        description:
+          "Kimi K2.6, DeepSeek V4, GLM-5.1, MiniMax M2.7, Qwen3.7, MiMo-V2.5, and many more.",
+      },
+      {
+        titles: ["Unilateral control.", "Verify Everything."],
+        title: "Verify Everything.",
+        description:
+          "We are the most robust solution for privacy attestation. Verify anything and everything. Full mathematical verifications.",
+      },
+    ];
 
-    if (!targetHeading) {
-      return;
-    }
+    const headings = [...document.querySelectorAll("#architecture .prop-card h3")];
 
-    const card = targetHeading.closest(".prop-card");
-    const description = card?.querySelector("p");
+    architectureUpdates.forEach((update) => {
+      const targetHeading = headings.find((heading) =>
+        update.titles.includes(heading.textContent.trim()),
+      );
 
-    targetHeading.textContent = "Every AI model.";
+      if (!targetHeading) {
+        return;
+      }
 
-    if (description) {
-      description.textContent =
-        "Kimi K2.6, DeepSeek V4, GLM-5.1, MiniMax M2.7, Qwen3.7, MiMo-V2.5, and many more.";
-    }
+      const card = targetHeading.closest(".prop-card");
+      const description = card?.querySelector("p");
+
+      if (targetHeading.textContent.trim() !== update.title) {
+        targetHeading.textContent = update.title;
+      }
+
+      if (description && description.textContent.trim() !== update.description) {
+        description.textContent = update.description;
+      }
+    });
   };
 
   const resizeCipherCanvas = (state) => {
