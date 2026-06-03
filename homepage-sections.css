@@ -185,8 +185,8 @@
   position: absolute !important;
   top: 50% !important;
   left: 50% !important;
-  width: 0.62rem !important;
-  height: 0.62rem !important;
+  width: 0.72rem !important;
+  height: 0.72rem !important;
   border: 1.5px solid #4EC9A0 !important;
   border-radius: 0.125rem !important;
   box-sizing: border-box !important;
@@ -198,17 +198,22 @@
   position: absolute !important;
   top: 50% !important;
   left: 50% !important;
-  display: none !important;
-  width: 0.34rem !important;
-  height: 0.21rem !important;
-  border-bottom: 1.5px solid #4EC9A0 !important;
-  border-left: 1.5px solid #4EC9A0 !important;
+  display: block !important;
+  width: 0.42rem !important;
+  height: 0.26rem !important;
+  border-bottom: 2px solid #4EC9A0 !important;
+  border-left: 2px solid #4EC9A0 !important;
   content: "" !important;
   transform: translate(-50%, -62%) rotate(-45deg) !important;
 }
 
-#root section.flex-col.justify-between:first-of-type button + div .flex.items-center.gap-3 > div:first-child:has(> svg)::after {
-  display: block !important;
+#root section.flex-col.justify-between:first-of-type:has(button + div[style*="max-height: 400px"]) {
+  overflow: visible !important;
+}
+
+#root section.flex-col.justify-between:first-of-type:has(button + div[style*="max-height: 400px"]) + section {
+  margin-top: 0 !important;
+  padding-top: clamp(2rem, 4vh, 3rem) !important;
 }
 
 @media (min-width: 761px) and (min-height: 900px) {
