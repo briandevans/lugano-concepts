@@ -23,6 +23,8 @@
     {
       title: "Enterprise",
       icon: "enterprise",
+      image: "use-case-assets/enterprise-private-perimeter.webp",
+      imageAlt: "A glass enterprise building inside a glowing private network perimeter",
       summary:
         "Deploy AI across operations. Prove your data posture.",
       bullets: [
@@ -34,6 +36,8 @@
     {
       title: "Government and Defense",
       icon: "defense",
+      image: "use-case-assets/government-defense-enclave.webp",
+      imageAlt: "A hardened sovereign AI enclave surrounded by encrypted defense-grade circuitry",
       summary:
         "Sovereign AI, classified workloads, compliance-first infrastructure",
       bullets: [
@@ -46,6 +50,8 @@
     {
       title: "Regulated Industries",
       icon: "regulated",
+      image: "use-case-assets/regulated-audit-network.webp",
+      imageAlt: "A regulated operations network with cryptographic audit paths and verification nodes",
       summary: "AI that satisfies auditors, not just product managers.",
       bullets: [
         "Satisfy auditors across finance, healthcare, legal, and government",
@@ -230,12 +236,17 @@
 
   const verticalCardMarkup = (item) => `
     <article class="lgx-card lgx-vertical-card${item.featured ? " is-featured" : ""}">
-      <div class="lgx-card-head">
-        <div class="lgx-icon">${iconMarkup(item.icon)}</div>
-        <h3>${escapeHtml(item.title)}</h3>
+      <figure class="lgx-card-media">
+        <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.imageAlt)}" loading="lazy" decoding="async" width="1792" height="1024">
+      </figure>
+      <div class="lgx-card-body">
+        <div class="lgx-card-head">
+          <div class="lgx-icon">${iconMarkup(item.icon)}</div>
+          <h3>${escapeHtml(item.title)}</h3>
+        </div>
+        <p>${escapeHtml(item.summary)}</p>
+        <ul>${listMarkup(item.bullets)}</ul>
       </div>
-      <p>${escapeHtml(item.summary)}</p>
-      <ul>${listMarkup(item.bullets)}</ul>
     </article>`;
 
   const agentCardMarkup = (item) => `
