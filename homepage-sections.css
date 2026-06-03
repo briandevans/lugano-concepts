@@ -930,6 +930,10 @@
 }
 
 @media (max-width: 760px) {
+  #root section.flex-col.justify-between:first-of-type {
+    overflow: visible !important;
+  }
+
   #root #architecture > div {
     grid-template-columns: 1fr !important;
   }
@@ -947,13 +951,13 @@
   }
 
   #root section.flex-col.justify-between:first-of-type + section {
-    margin-top: clamp(-22rem, -42vh, -18rem) !important;
-    padding-top: 0.5rem !important;
-    padding-bottom: 1.5rem !important;
+    margin-top: 0 !important;
+    padding-top: clamp(1.25rem, 4vh, 2rem) !important;
+    padding-bottom: clamp(2.25rem, 6vh, 3.25rem) !important;
   }
 
   #root section.flex-col.justify-between:first-of-type + section .grid {
-    gap: 0.75rem !important;
+    gap: clamp(0.85rem, 3vw, 1rem) !important;
   }
 
   #root section.flex-col.justify-between:first-of-type + section .stat-glass-card {
