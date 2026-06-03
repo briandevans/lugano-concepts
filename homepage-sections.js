@@ -564,6 +564,20 @@
     });
   };
 
+  const updateHeroLeadCopy = () => {
+    const oldCopy =
+      "Unverifiable privacy is just marketing. Lugano.ai is private AI infrastructure: cryptographically auditable, perimeter-locked, zero-trust by default.";
+    const newCopy =
+      "Unverifiable privacy is just marketing. Lugano.ai is provably private AI infrastructure: any model, cryptographically auditable, zero-trust by default.";
+    const target = [...document.querySelectorAll("#root section p")].find((paragraph) =>
+      [oldCopy, newCopy].includes(paragraph.textContent.trim()),
+    );
+
+    if (target && target.textContent.trim() !== newCopy) {
+      target.textContent = newCopy;
+    }
+  };
+
   const updateArchitectureModelCopy = () => {
     const architectureUpdates = [
       {
@@ -758,6 +772,7 @@
     enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
+    updateHeroLeadCopy();
     updateArchitectureModelCopy();
 
     if (!shouldMount() || document.getElementById(ROOT_ID)) {
@@ -782,6 +797,7 @@
     enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
+    updateHeroLeadCopy();
     updateArchitectureModelCopy();
 
     if (isUseCasesHash()) {
@@ -817,6 +833,7 @@
         enhanceCardCipherHover();
         normalizeLiveHeadings();
         normalizeSectionBackgrounds();
+        updateHeroLeadCopy();
         updateArchitectureModelCopy();
 
         if (mount()) {
@@ -828,6 +845,7 @@
           enhanceCardCipherHover();
           normalizeLiveHeadings();
           normalizeSectionBackgrounds();
+          updateHeroLeadCopy();
           updateArchitectureModelCopy();
         }
       });
@@ -842,6 +860,7 @@
     enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
+    updateHeroLeadCopy();
     updateArchitectureModelCopy();
   };
 
