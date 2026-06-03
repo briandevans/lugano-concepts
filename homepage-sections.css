@@ -182,16 +182,33 @@
 }
 
 #root section.flex-col.justify-between:first-of-type button + div .flex.items-center.gap-3 > div:first-child::before {
-  width: 0.375rem !important;
-  height: 0.25rem !important;
-  border-bottom: 1.5px solid transparent !important;
-  border-left: 1.5px solid transparent !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 0.62rem !important;
+  height: 0.62rem !important;
+  border: 1.5px solid #4EC9A0 !important;
+  border-radius: 0.125rem !important;
+  box-sizing: border-box !important;
   content: "" !important;
+  transform: translate(-50%, -50%) !important;
 }
 
-#root section.flex-col.justify-between:first-of-type button + div .flex.items-center.gap-3 > div:first-child:has(> svg)::before {
-  border-color: #4EC9A0 !important;
-  transform: translateY(-0.05rem) rotate(-45deg) !important;
+#root section.flex-col.justify-between:first-of-type button + div .flex.items-center.gap-3 > div:first-child::after {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  display: none !important;
+  width: 0.34rem !important;
+  height: 0.21rem !important;
+  border-bottom: 1.5px solid #4EC9A0 !important;
+  border-left: 1.5px solid #4EC9A0 !important;
+  content: "" !important;
+  transform: translate(-50%, -62%) rotate(-45deg) !important;
+}
+
+#root section.flex-col.justify-between:first-of-type button + div .flex.items-center.gap-3 > div:first-child:has(> svg)::after {
+  display: block !important;
 }
 
 @media (min-width: 761px) and (min-height: 900px) {
