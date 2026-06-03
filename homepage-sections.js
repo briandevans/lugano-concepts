@@ -564,6 +564,26 @@
     });
   };
 
+  const updateArchitectureModelCopy = () => {
+    const targetHeading = [...document.querySelectorAll("#architecture .prop-card h3")].find(
+      (heading) => heading.textContent.trim() === "Uncompromised intelligence.",
+    );
+
+    if (!targetHeading) {
+      return;
+    }
+
+    const card = targetHeading.closest(".prop-card");
+    const description = card?.querySelector("p");
+
+    targetHeading.textContent = "Every AI model.";
+
+    if (description) {
+      description.textContent =
+        "Kimi K2.6, DeepSeek V4, GLM-5.1, MiniMax M2.7, Qwen3.7, MiMo-V2.5, and many more.";
+    }
+  };
+
   const resizeCipherCanvas = (state) => {
     const rect = state.card.getBoundingClientRect();
     const width = Math.max(1, Math.ceil(rect.width));
@@ -712,6 +732,7 @@
     enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
+    updateArchitectureModelCopy();
 
     if (!shouldMount() || document.getElementById(ROOT_ID)) {
       return true;
@@ -735,6 +756,7 @@
     enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
+    updateArchitectureModelCopy();
 
     if (isUseCasesHash()) {
       window.requestAnimationFrame(() => scrollToSection(USE_CASES_SECTION_ID));
@@ -769,6 +791,7 @@
         enhanceCardCipherHover();
         normalizeLiveHeadings();
         normalizeSectionBackgrounds();
+        updateArchitectureModelCopy();
 
         if (mount()) {
           updateCtas();
@@ -779,6 +802,7 @@
           enhanceCardCipherHover();
           normalizeLiveHeadings();
           normalizeSectionBackgrounds();
+          updateArchitectureModelCopy();
         }
       });
       observer.observe(root, { childList: true, subtree: true });
@@ -792,6 +816,7 @@
     enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
+    updateArchitectureModelCopy();
   };
 
   if (document.readyState === "loading") {
