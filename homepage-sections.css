@@ -1048,6 +1048,7 @@
 
 @media (max-width: 760px) {
   #root section.flex-col.justify-between:first-of-type {
+    min-height: auto !important;
     overflow: visible !important;
   }
 
