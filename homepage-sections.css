@@ -1048,8 +1048,14 @@
 
 @media (max-width: 760px) {
   #root section.flex-col.justify-between:first-of-type {
-    min-height: auto !important;
-    overflow: visible !important;
+    min-height: clamp(42rem, 80svh, 46rem) !important;
+    overflow: hidden !important;
+  }
+
+  #root section.flex-col.justify-between:first-of-type > .absolute {
+    top: clamp(4.4rem, 10svh, 5.6rem) !important;
+    bottom: auto !important;
+    height: clamp(9.5rem, 22svh, 12rem) !important;
   }
 
   #root #architecture > div {
@@ -1064,13 +1070,13 @@
     flex: none !important;
     justify-content: flex-start !important;
     min-height: auto !important;
-    padding-top: clamp(5rem, 11vh, 5.75rem) !important;
-    padding-bottom: 1.25rem !important;
+    padding-top: clamp(13.25rem, 30svh, 15.5rem) !important;
+    padding-bottom: clamp(2.25rem, 5svh, 3rem) !important;
   }
 
   #root section.flex-col.justify-between:first-of-type + section {
     margin-top: 0 !important;
-    padding-top: clamp(1.25rem, 4vh, 2rem) !important;
+    padding-top: clamp(2rem, 5svh, 2.75rem) !important;
     padding-bottom: clamp(2.25rem, 6vh, 3.25rem) !important;
   }
 
