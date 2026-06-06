@@ -80,74 +80,163 @@ const AGENTS = [
   },
 ];
 
-const MODELS = [
+const OPEN_SOURCE_MODELS = [
   {
     name: "Kimi K2.6",
     org: "Moonshot AI",
+    logo: "K",
+    rank: 1,
     params: "1T MoE",
     context: "262K ctx",
-    score: "47",
-    badge: "#1 Open Weights",
+    badge: "Best All-Round",
     highlight: true,
     color: "#3b9edd",
-    benchmarks: { mmlu: "89.2", humaneval: "87.4", math: "91.3" },
-  },
-  {
-    name: "GLM-5.1",
-    org: "Z.AI",
-    params: "200K ctx",
-    context: "128K out",
-    score: "50",
-    badge: "Top Reasoning",
-    highlight: false,
-    color: "#06b6d4",
-    benchmarks: { mmlu: "91.1", humaneval: "85.6", math: "90.7" },
+    bestFor: "Best all-round model",
+    benchmarks: [
+      { label: "Context", value: "262K" },
+      { label: "Tools", value: "Yes" },
+      { label: "Vision", value: "Yes" },
+    ],
   },
   {
     name: "DeepSeek V4 Pro",
     org: "DeepSeek",
+    logo: "DS",
+    rank: 2,
     params: "1.6T / 49B",
     context: "1M ctx",
-    score: "52",
-    badge: "Best Value",
+    badge: "Best Instruction",
     highlight: false,
     color: "#38bdf8",
-    benchmarks: { mmlu: "88.5", humaneval: "86.1", math: "89.4" },
+    bestFor: "Best instruction following + API cost",
+    benchmarks: [
+      { label: "Agentic", value: "SOTA" },
+      { label: "Context", value: "1M" },
+      { label: "Modes", value: "Dual" },
+    ],
   },
   {
-    name: "Qwen3-Coder",
-    org: "Alibaba",
-    params: "480B / 35B",
-    context: "256K ctx",
-    score: "45",
-    badge: "Best for Code",
+    name: "MiniMax M3",
+    org: "MiniMax",
+    logo: "MM",
+    rank: 3,
+    params: "MSA",
+    context: "1M ctx",
+    badge: "Best OS Coding",
     highlight: false,
     color: "#818cf8",
-    benchmarks: { mmlu: "85.3", humaneval: "92.1", math: "88.0" },
+    bestFor: "Best OS coding agent",
+    benchmarks: [
+      { label: "Browse", value: "83.5" },
+      { label: "Context", value: "1M" },
+      { label: "Modal", value: "Native" },
+    ],
   },
   {
-    name: "Llama 4 Maverick",
-    org: "Meta",
-    params: "400B / 17B",
-    context: "1M ctx",
-    score: "43",
-    badge: "Multimodal",
+    name: "GLM-5.1",
+    org: "Z.AI",
+    logo: "Z",
+    rank: 4,
+    params: "Flagship",
+    context: "200K ctx",
+    badge: "Long Horizon",
     highlight: false,
-    color: "#60a5fa",
-    benchmarks: { mmlu: "84.7", humaneval: "82.3", math: "85.6" },
+    color: "#06b6d4",
+    bestFor: "Great at long-horizon tasks",
+    benchmarks: [
+      { label: "Horizon", value: "8h" },
+      { label: "Output", value: "128K" },
+      { label: "Tools", value: "MCP" },
+    ],
   },
   {
-    name: "Gemma 4 31B",
-    org: "Google",
-    params: "31B Dense",
-    context: "128K ctx",
-    score: "41",
-    badge: "Apache 2.0",
+    name: "MiMo V2.5-Pro",
+    org: "Xiaomi MiMo",
+    logo: "Mi",
+    rank: 5,
+    params: "MIT weights",
+    context: "1M ctx",
+    badge: "Best Harness",
     highlight: false,
     color: "#34d399",
-    benchmarks: { mmlu: "83.1", humaneval: "79.8", math: "84.2" },
+    bestFor: "Best harness integration",
+    benchmarks: [
+      { label: "ClawEval", value: "#1" },
+      { label: "GDPVal", value: "#1" },
+      { label: "License", value: "MIT" },
+    ],
+  },
+  {
+    name: "DeepSeek V4 Flash",
+    org: "DeepSeek",
+    logo: "DS",
+    rank: 6,
+    params: "284B / 13B",
+    context: "1M ctx",
+    badge: "Long + Fast",
+    highlight: false,
+    color: "#60a5fa",
+    bestFor: "Great at long analysis + speed",
+    benchmarks: [
+      { label: "Speed", value: "Fast" },
+      { label: "Context", value: "1M" },
+      { label: "Agent", value: "Near Pro" },
+    ],
+  },
+  {
+    name: "Qwen3.6-27B",
+    org: "Alibaba Qwen",
+    logo: "Q",
+    rank: 8,
+    params: "27B Dense",
+    context: "262K ctx",
+    badge: "On-Device Dense",
+    highlight: false,
+    color: "#a78bfa",
+    bestFor: "Best on-device dense model",
+    benchmarks: [
+      { label: "Native", value: "262K" },
+      { label: "Extend", value: "1M" },
+      { label: "License", value: "Apache" },
+    ],
+  },
+  {
+    name: "Gemma 4 12B",
+    org: "Google",
+    logo: "G",
+    rank: 9,
+    params: "11.95B",
+    context: "256K ctx",
+    badge: "Best SLM",
+    highlight: false,
+    color: "#f59e0b",
+    bestFor: "Best SLM on-device",
+    benchmarks: [
+      { label: "Unified", value: "12B" },
+      { label: "Audio", value: "Yes" },
+      { label: "LCB", value: "72.0" },
+    ],
+  },
+  {
+    name: "MiniMax M2.7",
+    org: "MiniMax",
+    logo: "MM",
+    rank: 10,
+    params: "229B",
+    context: "Agent Teams",
+    badge: "Self-Improve",
+    highlight: false,
+    color: "#22d3ee",
+    bestFor: "Best self-improvement agent",
+    benchmarks: [
+      { label: "SWE-Pro", value: "56.22" },
+      { label: "Terminal", value: "57.0" },
+      { label: "Skills", value: "97%" },
+    ],
   },
 ];
+
+const MODELS = OPEN_SOURCE_MODELS.slice(0, 6);
 
 const ARCHITECTURE_PILLARS = [
   {
@@ -216,6 +305,18 @@ export default function Home() {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (window.location.pathname.replace(/\/$/, "") !== "/docs") {
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById("docs")?.scrollIntoView({ block: "start" });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   return (
@@ -941,9 +1042,9 @@ export default function Home() {
 
           {/* Model grid */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "16px" }}>
-            {MODELS.map((m, i) => (
+            {MODELS.map((m) => (
               <div
-                key={i}
+                key={m.name}
                 style={{
                   borderRadius: "14px",
                   padding: "28px",
@@ -988,7 +1089,7 @@ export default function Home() {
                 {/* Header row */}
                 <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "20px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-                    {/* Model color dot */}
+                    {/* Provider mark */}
                     <div style={{
                       width: 44, height: 44, borderRadius: 10,
                       background: `${m.color}18`,
@@ -996,7 +1097,9 @@ export default function Home() {
                       display: "flex", alignItems: "center", justifyContent: "center",
                       flexShrink: 0,
                     }}>
-                      <div style={{ width: 14, height: 14, borderRadius: "50%", background: m.color, boxShadow: `0 0 10px ${m.color}80` }} />
+                      <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.7rem", fontWeight: 700, color: m.color, letterSpacing: "0.02em" }}>
+                        {m.logo}
+                      </span>
                     </div>
                     <div>
                       <div style={{ fontSize: "1rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.01em", marginBottom: "2px" }}>
@@ -1040,7 +1143,7 @@ export default function Home() {
                   ))}
                 </div>
 
-                {/* Benchmark scores */}
+                {/* Model metrics */}
                 <div style={{
                   padding: "14px 16px",
                   background: "rgba(2, 12, 27, 0.6)",
@@ -1048,12 +1151,8 @@ export default function Home() {
                   border: "1px solid rgba(13, 37, 69, 0.8)",
                   display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px",
                 }}>
-                  {[
-                    { label: "MMLU", value: m.benchmarks.mmlu },
-                    { label: "HumanEval", value: m.benchmarks.humaneval },
-                    { label: "MATH", value: m.benchmarks.math },
-                  ].map((b, j) => (
-                    <div key={j} style={{ textAlign: "center" }}>
+                  {m.benchmarks.map((b) => (
+                    <div key={b.label} style={{ textAlign: "center" }}>
                       <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(122, 154, 191, 0.6)", marginBottom: "4px" }}>
                         {b.label}
                       </div>
@@ -1070,7 +1169,7 @@ export default function Home() {
           {/* View all CTA */}
           <div style={{ textAlign: "center", marginTop: "48px" }}>
             <a
-              href="mailto:contact@lugano.ai"
+              href="#docs"
               style={{
                 display: "inline-flex", alignItems: "center", gap: "8px",
                 fontSize: "0.875rem", fontWeight: 600,
@@ -1095,6 +1194,123 @@ export default function Home() {
               View all models
               <ArrowRight size={14} strokeWidth={2.5} />
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── DOCS MODEL CATALOG ──────────────────────────────── */}
+      <section id="docs" style={{ padding: "0 0 104px", background: ABYSS, position: "relative" }}>
+        <div className="container">
+          <div style={{ maxWidth: "980px", margin: "0 auto" }}>
+            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "24px", marginBottom: "24px", flexWrap: "wrap" }}>
+              <div>
+                <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#3b9edd", marginBottom: "12px" }}>
+                  Docs / Open-Source Model Catalog
+                </div>
+                <h3 style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 800, color: "#fff", letterSpacing: "-0.035em", marginBottom: "10px" }}>
+                  Ranked coverage for private deployment
+                </h3>
+                <p style={{ fontSize: "0.95rem", color: "rgba(226,234,246,0.52)", lineHeight: 1.65, maxWidth: "620px" }}>
+                  The docs catalog includes the current overall list, while the homepage highlights the top six in rank order.
+                </p>
+              </div>
+              <span style={{
+                display: "inline-flex", alignItems: "center",
+                padding: "6px 12px",
+                border: "1px solid rgba(59, 158, 221, 0.24)",
+                borderRadius: "6px",
+                color: "#7dd3fc",
+                background: "rgba(59, 158, 221, 0.08)",
+                fontFamily: "'Geist Mono', monospace",
+                fontSize: "0.68rem",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+              }}>
+                {OPEN_SOURCE_MODELS.length} models tracked
+              </span>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {OPEN_SOURCE_MODELS.map((model) => (
+                <div
+                  key={model.name}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "16px",
+                    flexWrap: "wrap",
+                    padding: "18px 20px",
+                    borderRadius: "12px",
+                    background: "rgba(7, 20, 40, 0.62)",
+                    border: "1px solid rgba(13, 37, 69, 0.85)",
+                    boxShadow: model.highlight ? "0 0 40px rgba(13, 114, 192, 0.12)" : "none",
+                  }}
+                >
+                  <div style={{
+                    width: 46, height: 46, borderRadius: 10,
+                    background: `${model.color}16`,
+                    border: `1px solid ${model.color}35`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    color: model.color,
+                    fontFamily: "'Geist Mono', monospace",
+                    fontSize: "0.75rem",
+                    fontWeight: 700,
+                    flexShrink: 0,
+                  }}>
+                    #{model.rank}
+                  </div>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", flex: "1 1 220px", minWidth: 0 }}>
+                    <div style={{
+                      width: 36, height: 36, borderRadius: 8,
+                      background: `${model.color}16`,
+                      border: `1px solid ${model.color}30`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      color: model.color,
+                      fontFamily: "'Geist Mono', monospace",
+                      fontSize: "0.65rem",
+                      fontWeight: 700,
+                      flexShrink: 0,
+                    }}>
+                      {model.logo}
+                    </div>
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ color: "#fff", fontSize: "0.95rem", fontWeight: 700, letterSpacing: "-0.01em" }}>
+                        {model.name}
+                      </div>
+                      <div style={{ color: "rgba(122, 154, 191, 0.72)", fontFamily: "'Geist Mono', monospace", fontSize: "0.66rem", letterSpacing: "0.04em" }}>
+                        {model.org}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ flex: "1.35 1 280px", color: "rgba(226,234,246,0.72)", fontSize: "0.86rem", lineHeight: 1.55 }}>
+                    {model.bestFor}
+                  </div>
+
+                  <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", flex: "1 1 260px" }}>
+                    {[model.params, model.context, model.badge].map((tag) => (
+                      <span
+                        key={tag}
+                        style={{
+                          padding: "4px 9px",
+                          background: "rgba(13, 114, 192, 0.1)",
+                          border: "1px solid rgba(59, 158, 221, 0.15)",
+                          borderRadius: "4px",
+                          fontFamily: "'Geist Mono', monospace",
+                          fontSize: "0.66rem",
+                          color: "#7dd3fc",
+                          letterSpacing: "0.04em",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
