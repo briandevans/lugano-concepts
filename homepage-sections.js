@@ -18,6 +18,7 @@
   const HERO_ENCRYPTED_REVEAL_DELAY_MS = 88;
   const HERO_ENCRYPTED_FLIP_DELAY_MS = 68;
   const HERO_ENCRYPTED_START_DELAY_MS = 820;
+  const HERO_ENCRYPTED_REDUCED_MOTION_DURATION_MS = 1800;
   const CTA_LABELS = new Set([
     "apply for beta",
     "apply for access",
@@ -658,8 +659,20 @@
     headline.setAttribute("data-lgx-encrypted-hero-headline", "running");
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      restoreEncryptedHeadline(entries);
-      headline.setAttribute("data-lgx-encrypted-hero-headline", "complete");
+      renderEncryptedHeadlineFrame(entries, 0);
+      const restoreTimer = window.setTimeout(() => {
+        restoreEncryptedHeadline(entries);
+        headline.setAttribute("data-lgx-encrypted-hero-headline", "complete");
+      }, HERO_ENCRYPTED_REDUCED_MOTION_DURATION_MS);
+
+      window.addEventListener(
+        "pagehide",
+        () => {
+          window.clearTimeout(restoreTimer);
+          restoreEncryptedHeadline(entries);
+        },
+        { once: true },
+      );
       return;
     }
 
