@@ -12,13 +12,6 @@
   const CIPHER_UPDATE_MIN = 1400;
   const CIPHER_UPDATE_RANGE = 1800;
   const CIPHER_FLASH_DURATION = 320;
-  const HERO_HEADLINE_SELECTOR = "#root section.flex-col.justify-between:first-of-type h1";
-  const HERO_ENCRYPTED_CHARSET =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-={}[];:,.<>/?";
-  const HERO_ENCRYPTED_REVEAL_DELAY_MS = 88;
-  const HERO_ENCRYPTED_FLIP_DELAY_MS = 68;
-  const HERO_ENCRYPTED_START_DELAY_MS = 820;
-  const HERO_ENCRYPTED_REDUCED_MOTION_DURATION_MS = 1800;
   const CTA_LABELS = new Set([
     "apply for beta",
     "apply for access",
@@ -213,9 +206,6 @@
 
   const randomCipherCharacter = () =>
     CIPHER_CHARS[Math.floor(Math.random() * CIPHER_CHARS.length)];
-
-  const randomHeroEncryptedCharacter = () =>
-    HERO_ENCRYPTED_CHARSET[Math.floor(Math.random() * HERO_ENCRYPTED_CHARSET.length)];
 
   const createCipherGrid = (columns, rows) =>
     Array.from({ length: rows }, () =>
@@ -588,134 +578,6 @@
     }
   };
 
-  const collectHeadlineTextNodes = (headline) => {
-    const walker = document.createTreeWalker(
-      headline,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode: (node) =>
-          node.textContent ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT,
-      },
-    );
-    const nodes = [];
-    let current = walker.nextNode();
-
-    while (current) {
-      nodes.push({
-        node: current,
-        original: current.textContent,
-      });
-      current = walker.nextNode();
-    }
-
-    return nodes;
-  };
-
-  const renderEncryptedHeadlineFrame = (entries, revealedCharacterCount) => {
-    let offset = 0;
-
-    entries.forEach((entry) => {
-      let nextText = "";
-
-      for (let index = 0; index < entry.original.length; index += 1) {
-        const character = entry.original[index];
-        const absoluteIndex = offset + index;
-        nextText +=
-          absoluteIndex < revealedCharacterCount || /\s/.test(character)
-            ? character
-            : randomHeroEncryptedCharacter();
-      }
-
-      entry.node.textContent = nextText;
-      offset += entry.original.length;
-    });
-  };
-
-  const restoreEncryptedHeadline = (entries) => {
-    entries.forEach((entry) => {
-      entry.node.textContent = entry.original;
-    });
-  };
-
-  const mountEncryptedHeroHeadline = () => {
-    const headline = document.querySelector(HERO_HEADLINE_SELECTOR);
-
-    if (!headline || headline.dataset.lgxEncryptedHeroHeadline) {
-      return;
-    }
-
-    const entries = collectHeadlineTextNodes(headline);
-    const totalCharacters = entries.reduce(
-      (count, entry) => count + entry.original.length,
-      0,
-    );
-
-    if (totalCharacters === 0) {
-      return;
-    }
-
-    headline.classList.add("lgx-hero-encrypted-headline");
-    headline.setAttribute("aria-label", headline.innerText.replace(/\s+/g, " ").trim());
-    headline.setAttribute("data-lgx-encrypted-hero-headline", "running");
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      renderEncryptedHeadlineFrame(entries, 0);
-      const restoreTimer = window.setTimeout(() => {
-        restoreEncryptedHeadline(entries);
-        headline.setAttribute("data-lgx-encrypted-hero-headline", "complete");
-      }, HERO_ENCRYPTED_REDUCED_MOTION_DURATION_MS);
-
-      window.addEventListener(
-        "pagehide",
-        () => {
-          window.clearTimeout(restoreTimer);
-          restoreEncryptedHeadline(entries);
-        },
-        { once: true },
-      );
-      return;
-    }
-
-    const startTime = performance.now() + HERO_ENCRYPTED_START_DELAY_MS;
-    let animationFrame = 0;
-    let lastRevealCount = -1;
-    let lastFlipTick = -1;
-
-    const step = (timestamp) => {
-      const elapsed = Math.max(0, timestamp - startTime);
-      const revealCount = Math.min(
-        totalCharacters,
-        Math.floor(elapsed / HERO_ENCRYPTED_REVEAL_DELAY_MS),
-      );
-      const flipTick = Math.floor(timestamp / HERO_ENCRYPTED_FLIP_DELAY_MS);
-
-      if (revealCount !== lastRevealCount || flipTick !== lastFlipTick) {
-        renderEncryptedHeadlineFrame(entries, revealCount);
-        lastRevealCount = revealCount;
-        lastFlipTick = flipTick;
-      }
-
-      if (revealCount >= totalCharacters) {
-        restoreEncryptedHeadline(entries);
-        headline.setAttribute("data-lgx-encrypted-hero-headline", "complete");
-        return;
-      }
-
-      animationFrame = window.requestAnimationFrame(step);
-    };
-
-    animationFrame = window.requestAnimationFrame(step);
-
-    window.addEventListener(
-      "pagehide",
-      () => {
-        window.cancelAnimationFrame(animationFrame);
-        restoreEncryptedHeadline(entries);
-      },
-      { once: true },
-    );
-  };
-
   const updateArchitectureModelCopy = () => {
     const architectureUpdates = [
       {
@@ -907,7 +769,6 @@
     updateUseCasesNav();
     updateDocsNav();
     updateFooterDocsLink();
-    mountEncryptedHeroHeadline();
     enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
@@ -933,7 +794,6 @@
     updateUseCasesNav();
     updateDocsNav();
     updateFooterDocsLink();
-    mountEncryptedHeroHeadline();
     enhanceCardCipherHover();
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
