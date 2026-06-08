@@ -64,8 +64,8 @@
   const agents = [
     {
       title: "Hermes Agent",
-      logo: "brand-assets/nous-research.webp",
-      logoAlt: "NousResearch logo",
+      logo: "brand-assets/hermes-agent.webp",
+      logoAlt: "Hermes Agent logo",
       summary:
         "Private software delivery agents with repository memory, tool access, and auditable action logs.",
     },
