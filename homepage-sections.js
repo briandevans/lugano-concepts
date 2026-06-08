@@ -15,9 +15,9 @@
   const HERO_HEADLINE_SELECTOR = "#root section.flex-col.justify-between:first-of-type h1";
   const HERO_ENCRYPTED_CHARSET =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-={}[];:,.<>/?";
-  const HERO_ENCRYPTED_REVEAL_DELAY_MS = 34;
-  const HERO_ENCRYPTED_FLIP_DELAY_MS = 42;
-  const HERO_ENCRYPTED_START_DELAY_MS = 520;
+  const HERO_ENCRYPTED_REVEAL_DELAY_MS = 88;
+  const HERO_ENCRYPTED_FLIP_DELAY_MS = 68;
+  const HERO_ENCRYPTED_START_DELAY_MS = 820;
   const CTA_LABELS = new Set([
     "apply for beta",
     "apply for access",
