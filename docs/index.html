@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -22,11 +22,11 @@
         --bg-soft: #05090d;
         --panel: rgba(8, 17, 25, 0.82);
         --panel-soft: rgba(9, 20, 30, 0.72);
-        --line: rgba(155, 213, 244, 0.16);
-        --line-strong: rgba(155, 213, 244, 0.32);
-        --text: #f4f7f9;
-        --muted: #91a3b1;
-        --dim: #536574;
+        --line: rgba(118, 188, 231, 0.18);
+        --line-strong: rgba(118, 188, 231, 0.32);
+        --text: #f5f8fa;
+        --muted: #a9bac7;
+        --dim: #6f8492;
         --blue: #76bce7;
         --blue-bright: #9bd5f4;
         --blue-soft: rgba(74, 166, 223, 0.12);
@@ -51,7 +51,7 @@
           radial-gradient(circle at 12% 18%, rgba(74, 166, 223, 0.055), transparent 24rem),
           linear-gradient(180deg, #000103 0%, #05090d 32rem, #000103 100%);
         color: var(--text);
-        font-family: "IBM Plex Sans", system-ui, sans-serif;
+        font-family: "Geist", "Inter", "IBM Plex Sans", system-ui, sans-serif;
         -webkit-font-smoothing: antialiased;
       }
 
@@ -786,6 +786,229 @@
         }
       }
     </style>
+    <style>
+      /* Review-portal additions: search, start cards, edition labels,
+         public/NDA markers, right-side table of contents, persistent CTA. */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .nav-review-cta {
+        min-height: 2.3rem;
+        padding: 0.58rem 0.95rem;
+        border-radius: 999px;
+        background: #f5f8fa;
+        color: #03070b !important;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+
+      .nav-review-cta:hover {
+        background: #ffffff;
+        border-color: transparent !important;
+      }
+
+      .docs-search {
+        display: grid;
+        gap: 0.5rem;
+        padding-top: 0.85rem;
+      }
+
+      .docs-search input {
+        width: 100%;
+        min-height: 2.4rem;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(3, 7, 11, 0.65);
+        color: var(--text);
+        font-family: inherit;
+        font-size: 0.84rem;
+      }
+
+      .docs-search input:focus {
+        outline: none;
+        border-color: var(--line-strong);
+      }
+
+      .docs-search input::placeholder {
+        color: var(--dim);
+      }
+
+      .docs-search-empty {
+        margin: 0;
+        color: var(--dim);
+        font-size: 0.78rem;
+      }
+
+      .sidebar li[hidden],
+      .sidebar-group[hidden] {
+        display: none;
+      }
+
+      .docs-edition {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin: 1rem 0 0;
+        color: var(--dim);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .doc-marker {
+        display: inline-block;
+        padding: 0.18rem 0.55rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(118, 188, 231, 0.07);
+        color: var(--blue);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.6rem;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        vertical-align: middle;
+      }
+
+      .doc-marker-nda {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: var(--muted);
+      }
+
+      .start-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        margin-top: 1.4rem;
+      }
+
+      .start-card {
+        display: grid;
+        gap: 0.45rem;
+        padding: 1rem 1.1rem;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--panel-soft);
+        transition: border-color 0.18s ease;
+      }
+
+      .start-card:hover {
+        border-color: var(--line-strong);
+      }
+
+      .start-card-kicker {
+        color: var(--blue);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.62rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .start-card strong {
+        color: var(--text);
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .start-card span:last-child {
+        color: var(--muted);
+        font-size: 0.8rem;
+        line-height: 1.5;
+      }
+
+      .nda-panel {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--panel);
+        padding: 1.6rem 1.7rem;
+      }
+
+      .nda-panel .doc-marker {
+        position: absolute;
+        top: 1.45rem;
+        right: 1.5rem;
+      }
+
+      .nda-cta {
+        display: inline-block;
+        width: fit-content;
+        justify-self: start;
+        margin-top: 0.9rem;
+        padding: 0.62rem 1.05rem;
+        border-radius: 8px;
+        background: #f5f8fa;
+        color: #03070b;
+        font-size: 0.84rem;
+        font-weight: 600;
+        transition: transform 0.18s ease;
+      }
+
+      .nda-cta:hover {
+        transform: translateY(-1px);
+      }
+
+      .page-toc {
+        position: fixed;
+        top: 6.5rem;
+        right: max(1.25rem, calc((100vw - var(--max)) / 2 - 13rem));
+        width: 11rem;
+        display: none;
+        padding: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(5, 11, 17, 0.74);
+      }
+
+      .page-toc ul {
+        display: grid;
+        gap: 0.45rem;
+        margin: 0.75rem 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .page-toc a {
+        color: var(--muted);
+        font-size: 0.78rem;
+        transition: color 0.15s ease;
+      }
+
+      .page-toc a:hover,
+      .page-toc a.is-active {
+        color: var(--text);
+      }
+
+      @media (min-width: 1640px) {
+        .page-toc {
+          display: block;
+        }
+      }
+
+      @media (max-width: 880px) {
+        .start-cards {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-review-cta {
+          order: -1;
+        }
+      }
+    </style>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to documentation</a>
@@ -801,6 +1024,7 @@
           <a href="#top-models">Top Models</a>
           <a href="#reference-guides">Guides</a>
           <a href="#glossary">Glossary</a>
+          <a class="nav-review-cta" href="/#briefing">Request technical review</a>
         </nav>
       </div>
     </header>
@@ -810,6 +1034,17 @@
         <div class="sidebar-intro">
           <p class="kicker">Documentation</p>
           <p>AI privacy failure points, controls, and verification patterns.</p>
+          <div class="docs-search">
+            <label class="sr-only" for="docs-search-input">Search documentation</label>
+            <input
+              id="docs-search-input"
+              type="search"
+              placeholder="Search docs"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <p class="docs-search-empty" id="docs-search-empty" hidden>No matching pages.</p>
+          </div>
         </div>
         <nav>
           <section class="sidebar-group">
@@ -868,6 +1103,27 @@
             Learn where AI systems expose prompts, files, identity, tool arguments, compute metadata, logs, and verification records.
             This center is organized as a reference guide, not a marketing page or a set of collapsible previews.
           </p>
+          <p class="docs-edition" aria-label="Edition and update date">
+            <span class="doc-marker">Public</span>
+            <span>Public edition &middot; Updated June 8, 2026</span>
+          </p>
+          <div class="start-cards" aria-label="Start here">
+            <a class="start-card" href="#article-ai-privacy-threat-model">
+              <span class="start-card-kicker">Start here</span>
+              <strong>New to AI privacy</strong>
+              <span>Read the threat model: who can observe an AI request and where it leaks.</span>
+            </a>
+            <a class="start-card" href="#article-vendor-procurement-checklist">
+              <span class="start-card-kicker">Evaluating vendors</span>
+              <strong>Run the procurement checklist</strong>
+              <span>The questions any serious AI privacy vendor should be able to answer.</span>
+            </a>
+            <a class="start-card" href="#article-verification-artifacts">
+              <span class="start-card-kicker">Verifying claims</span>
+              <strong>Check the evidence</strong>
+              <span>What audit records and verification artifacts should let a reviewer confirm.</span>
+            </a>
+          </div>
         </header>
 
         <section class="docs-section" id="overview">
@@ -1343,70 +1599,70 @@
           <h2>Reference guides</h2>
           <div class="guide-sections">
             <section class="guide-section" id="article-ai-privacy-threat-model">
-              <span class="meta">Foundations</span>
+              <span class="meta">Foundations <span class="doc-marker">Public</span></span>
               <h3>AI Privacy Threat Model</h3>
               <p>An AI request can cross a browser, identity provider, application layer, orchestration service, model service, storage layer, analytics system, and observability stack. A vendor can protect one layer and still leak sensitive data through another.</p>
               <p>The better question is who can observe the request path, which systems retain it, which operators can replay it, and what evidence proves those answers after the request has completed.</p>
               <div class="callout"><strong>Working definition</strong><p>AI privacy means minimizing plaintext exposure, separating identity from content where possible, and producing evidence for the parts of the path that were controlled.</p></div>
             </section>
             <section class="guide-section" id="article-prompt-response-retention">
-              <span class="meta">Failure points</span>
+              <span class="meta">Failure points <span class="doc-marker">Public</span></span>
               <h3>Prompt and Response Retention</h3>
               <p>A provider may exclude prompts from training while still retaining request payloads for abuse monitoring, debugging, billing disputes, quality review, latency analysis, or incident response. Those systems can be reasonable, but they are still exposure surfaces.</p>
               <p>Applications can also create copies before a request reaches the model: transcripts, retry queues, traces, customer support exports, webhooks, background jobs, browser storage, and crash reports.</p>
               <div class="callout risk"><strong>Common failure</strong><p>A product says prompts are not used for training, but the same plaintext is stored in analytics events or support exports.</p></div>
             </section>
             <section class="guide-section" id="article-tool-calls-agent-actions">
-              <span class="meta">Failure points</span>
+              <span class="meta">Failure points <span class="doc-marker">Public</span></span>
               <h3>Tool Calls and Agent Actions</h3>
               <p>A model answer may be private while the tool call that enabled it is not. Agents can send sensitive arguments to search providers, ticketing systems, shell commands, hosted browsers, email APIs, calendars, wallets, databases, MCP servers, or custom plugins.</p>
               <p>Every tool should have an allowlist, scope, approval rule, data minimization policy, and logging policy. High-risk tools should record what was approved before execution.</p>
               <div class="callout risk"><strong>Agent privacy trap</strong><p>A workflow uses a private model, then sends the same confidential facts to a third-party scraper or unmanaged plugin.</p></div>
             </section>
             <section class="guide-section" id="article-rag-files-vector-databases">
-              <span class="meta">Failure points</span>
+              <span class="meta">Failure points <span class="doc-marker">Public</span></span>
               <h3>RAG, Files, and Vector Databases</h3>
               <p>Retrieval adds upload, parsing, OCR, chunking, embedding, indexing, ranking, and citation rendering. Each stage can store plaintext, derived text, metadata, or previews.</p>
               <p>Embeddings are not a substitute for access control. They can encode sensitive semantics, expose document membership, and persist after the source file is deleted unless index lifecycle is explicit.</p>
             </section>
             <section class="guide-section" id="article-browser-device-extension-exposure">
-              <span class="meta">Failure points</span>
+              <span class="meta">Failure points <span class="doc-marker">Public</span></span>
               <h3>Browser, Device, and Extension Exposure</h3>
               <p>The browser is often the first privacy boundary. Local storage, sync services, clipboard history, screenshots, extension permissions, and device monitoring can all observe sensitive content before a server ever sees it.</p>
               <p>Client-side controls should minimize what is stored, show what leaves the device, and avoid assuming that local processing automatically means private processing.</p>
             </section>
             <section class="guide-section" id="article-network-identity-metadata">
-              <span class="meta">Failure points</span>
+              <span class="meta">Failure points <span class="doc-marker">Public</span></span>
               <h3>Network, Identity, and Metadata</h3>
               <p>DNS lookups, IP addresses, request timing, account ids, tenant metadata, model names, document names, and billing events can reveal intent even when payload content is protected.</p>
               <p>Better systems separate identity from content where possible, minimize analytics joins, and make metadata retention explicit.</p>
             </section>
             <section class="guide-section" id="article-logging-observability-analytics">
-              <span class="meta">Failure points</span>
+              <span class="meta">Failure points <span class="doc-marker">Public</span></span>
               <h3>Logging, Observability, and Analytics</h3>
               <p>Logs, traces, metrics, session replay, and support tooling are built to make systems understandable. AI workloads often place sensitive content exactly where debugging tools want detail.</p>
               <p>Strong operations programs use redaction before telemetry, role-scoped access, retention limits, immutable access records, and evidence for support actions.</p>
             </section>
             <section class="guide-section" id="article-model-hosting-gpus-compute-operators">
-              <span class="meta">Control layers</span>
+              <span class="meta">Control layers <span class="doc-marker">Public</span></span>
               <h3>Model Hosting, GPUs, and Compute Operators</h3>
               <p>The compute operator controls the environment that serves the model. Placement, tenancy, accelerator access, memory handling, crash dumps, and provider telemetry all shape what can be observed.</p>
               <p>Reviewers should ask what evidence identifies the hosting environment, model family, active privacy policy, and retention posture for a specific request.</p>
             </section>
             <section class="guide-section" id="article-hardware-software-privacy-layers">
-              <span class="meta">Control layers</span>
+              <span class="meta">Control layers <span class="doc-marker">Public</span></span>
               <h3>Hardware and Software Privacy Layers</h3>
               <p>Trusted execution environments, measured boot, secure enclaves, HSMs, TPMs, and accelerator isolation can reduce operator visibility and produce useful evidence. They do not automatically solve client leakage, tool leakage, storage retention, or support access.</p>
               <p>Software policy, key custody, network boundaries, and operational records have to line up with the hardware story for a privacy claim to be meaningful.</p>
             </section>
             <section class="guide-section" id="article-verification-artifacts">
-              <span class="meta">Verification</span>
+              <span class="meta">Verification <span class="doc-marker">Public</span></span>
               <h3>Verification Artifacts and Audit Records</h3>
               <p>Stronger systems preserve enough context to show which policy, model family, retention posture, timestamp, and review result applied to a request.</p>
               <p>The best evidence is narrow and useful: it tells a reviewer exactly what was controlled, what was not claimed, and which independent checks are available.</p>
             </section>
             <section class="guide-section" id="article-vendor-procurement-checklist">
-              <span class="meta">Verification</span>
+              <span class="meta">Verification <span class="doc-marker">Public</span></span>
               <h3>Vendor Procurement Checklist</h3>
               <p>Start with a data-flow diagram, then ask which systems see plaintext, which systems retain content, which subprocessors are involved, which employees can access records, and which records show the stated controls were followed.</p>
               <p>A mature vendor can explain claim scope clearly. The answer should distinguish product policy, software controls, hardware boundaries, logging behavior, key custody, and review evidence.</p>
@@ -1438,8 +1694,35 @@
             <div><dt>Claim boundary</dt><dd>The exact scope of what a privacy statement covers, what evidence supports it, and what it does not cover.</dd></div>
           </dl>
         </section>
+
+        <section class="docs-section nda-panel" id="technical-review" aria-labelledby="nda-title">
+          <span class="doc-marker doc-marker-nda">NDA</span>
+          <h2 id="nda-title">Deeper material under NDA</h2>
+          <p>
+            The public docs give the outline. The architecture brief, sample proof receipts, and a
+            full technical walkthrough are available to qualified teams under NDA.
+          </p>
+          <a class="nda-cta" href="/#briefing">Request technical review</a>
+        </section>
       </article>
     </main>
+
+    <nav class="page-toc" aria-label="On this page">
+      <p class="kicker">On this page</p>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#no-training">No-training setting</a></li>
+        <li><a href="#request-path">Request path</a></li>
+        <li><a href="#learning-paths">Learning paths</a></li>
+        <li><a href="#atlas">Failure atlas</a></li>
+        <li><a href="#top-models">Top models</a></li>
+        <li><a href="#guides">Guide index</a></li>
+        <li><a href="#reference-guides">Reference guides</a></li>
+        <li><a href="#controls">Control layers</a></li>
+        <li><a href="#glossary">Terminology</a></li>
+        <li><a href="#technical-review">NDA review</a></li>
+      </ul>
+    </nav>
 
     <footer class="footer">
       <div class="shell footer-row">
@@ -1451,5 +1734,73 @@
         </nav>
       </div>
     </footer>
+
+    <script>
+      (() => {
+        // Sidebar search — filters navigation entries by title.
+        const input = document.getElementById("docs-search-input");
+        const empty = document.getElementById("docs-search-empty");
+        const groups = [...document.querySelectorAll(".sidebar-group")];
+
+        if (input) {
+          input.addEventListener("input", () => {
+            const query = input.value.trim().toLowerCase();
+            let matches = 0;
+
+            groups.forEach((group) => {
+              let groupMatches = 0;
+
+              group.querySelectorAll("li").forEach((item) => {
+                const hit = !query || item.textContent.toLowerCase().includes(query);
+                item.hidden = !hit;
+
+                if (hit) {
+                  groupMatches += 1;
+                }
+              });
+
+              group.hidden = groupMatches === 0;
+              matches += groupMatches;
+            });
+
+            if (empty) {
+              empty.hidden = matches > 0;
+            }
+          });
+        }
+
+        // Right-side table of contents — highlight the section in view.
+        const tocLinks = [...document.querySelectorAll(".page-toc a")];
+
+        if (tocLinks.length && "IntersectionObserver" in window) {
+          const byId = new Map(
+            tocLinks.map((link) => [link.getAttribute("href").slice(1), link]),
+          );
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  tocLinks.forEach((link) => link.classList.remove("is-active"));
+                  const link = byId.get(entry.target.id);
+
+                  if (link) {
+                    link.classList.add("is-active");
+                  }
+                }
+              });
+            },
+            { rootMargin: "-15% 0px -70% 0px" },
+          );
+
+          byId.forEach((link, id) => {
+            const section = document.getElementById(id);
+
+            if (section) {
+              observer.observe(section);
+            }
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
