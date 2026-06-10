@@ -18,6 +18,23 @@
     "request access",
     "request briefing",
   ]);
+  const HERO_PROOF_LABEL_ORDER = [
+    "TDX quote verified",
+    "GPU attestation verified",
+    "ZK proof verified",
+    "Formal proof checked",
+    "Nonce binding verified",
+    "Signing key bound",
+    "Receipt verification",
+    "Disclosure verification",
+    "Payload integrity",
+    "No prompt logs",
+  ];
+  const HERO_PROOF_REPLACEMENT_ROWS = [
+    { label: "ZK proof verified", digest: "zk-v1" },
+    { label: "Formal proof checked", digest: "constraints" },
+    { label: "No prompt logs", digest: "0 retained" },
+  ];
 
   const useCases = [
     {
@@ -578,6 +595,135 @@
     }
   };
 
+  const getHeroSection = () =>
+    document.querySelector("#root section.flex-col.justify-between:first-of-type");
+
+  const getProofButton = (hero) =>
+    [...hero.querySelectorAll("button")].find((button) =>
+      button.textContent.trim().replace(/\s+/g, " ").includes("Verified Private"),
+    );
+
+  const getDirectHeroChildContaining = (heroContent, target) =>
+    [...heroContent.children].find((child) => child.contains(target));
+
+  const getAttestationRows = (proofCard) =>
+    [...proofCard.querySelectorAll(".flex.items-center.gap-3")]
+      .filter((row) => row.tagName.toLowerCase() !== "button")
+      .map((row) => {
+        const spans = [...row.querySelectorAll("span")];
+        const label = spans.at(-2)?.textContent.trim() || "";
+        const digest = spans.at(-1)?.textContent.trim() || "";
+
+        return { digest, label };
+      })
+      .filter(({ digest, label }) => Boolean(label) && Boolean(digest));
+
+  const getDisplayedAttestationRows = (rows) => {
+    const rowByLabel = new Map(
+      [...rows, ...HERO_PROOF_REPLACEMENT_ROWS].map((row) => [row.label, row]),
+    );
+
+    return HERO_PROOF_LABEL_ORDER.map((label) => rowByLabel.get(label)).filter(Boolean);
+  };
+
+  const proofCheckMarkup = () => `
+    <svg viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M3.25 8.35 6.35 11.4 12.85 4.6" />
+    </svg>`;
+
+  const staticProofPanelMarkup = (rows) => `
+    <div class="lgx-proof-panel-inner">
+      <div class="lgx-proof-panel-top">
+        <span class="lgx-proof-status">
+          <span class="lgx-proof-status-dot" aria-hidden="true"></span>
+          Verified Private AI
+        </span>
+        <span class="lgx-proof-count">${rows.length}+ checks</span>
+      </div>
+      <div class="lgx-proof-ledger">
+        ${rows
+          .map(
+            ({ digest, label }) => `
+              <div class="lgx-proof-row" data-lugano-attestation-row>
+                <span class="lgx-proof-check">${proofCheckMarkup()}</span>
+                <span class="lgx-proof-label">${escapeHtml(label)}</span>
+                <code class="lgx-proof-digest">${escapeHtml(digest)}</code>
+              </div>`,
+          )
+          .join("")}
+      </div>
+    </div>`;
+
+  const enhanceHeroProofLayout = () => {
+    const hero = getHeroSection();
+    const heroContent = hero?.querySelector(":scope > .relative.z-10");
+
+    if (!hero || !heroContent) {
+      return;
+    }
+
+    const existingPanel = hero.querySelector("[data-lugano-proof-panel='static']");
+    const proofButton = existingPanel ? null : getProofButton(hero);
+    const proofCard = existingPanel || proofButton?.parentElement;
+    const proofShell =
+      proofCard && getDirectHeroChildContaining(heroContent, proofCard);
+
+    if (!proofCard || !proofShell) {
+      return;
+    }
+
+    hero.classList.add("lgx-hero-split");
+    hero.dataset.luganoHeroLayout = "split-proof";
+    heroContent.dataset.luganoHeroContent = "split-proof";
+
+    const trustSpan = [...hero.querySelectorAll("h1 span")].find(
+      (span) => span.textContent.trim().toLowerCase() === "trust me bro",
+    );
+
+    if (trustSpan) {
+      trustSpan.classList.add("lgx-trust-crossed");
+      trustSpan.style.textDecoration = "none";
+    }
+
+    let copyColumn = heroContent.querySelector(":scope > .lgx-hero-copy");
+    let proofColumn = heroContent.querySelector(":scope > .lgx-hero-proof-column");
+
+    if (!copyColumn || !proofColumn) {
+      copyColumn = document.createElement("div");
+      copyColumn.className = "lgx-hero-copy";
+      proofColumn = document.createElement("div");
+      proofColumn.className = "lgx-hero-proof-column";
+
+      [...heroContent.children].forEach((child) => {
+        if (child === proofShell) {
+          proofColumn.appendChild(child);
+          return;
+        }
+
+        copyColumn.appendChild(child);
+      });
+
+      heroContent.append(copyColumn, proofColumn);
+    }
+
+    proofShell.classList.add("lgx-hero-proof-shell");
+    proofCard.classList.add("lgx-hero-proof-card");
+    proofCard.dataset.luganoProofPanel = "static";
+
+    if (proofCard.dataset.lgxStaticProofReady === "true") {
+      return;
+    }
+
+    const rows = getDisplayedAttestationRows(getAttestationRows(proofCard));
+
+    if (rows.length === 0) {
+      return;
+    }
+
+    proofCard.dataset.lgxStaticProofReady = "true";
+    proofCard.innerHTML = staticProofPanelMarkup(rows);
+  };
+
   const updateArchitectureModelCopy = () => {
     const architectureUpdates = [
       {
@@ -773,6 +919,7 @@
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
     updateHeroLeadCopy();
+    enhanceHeroProofLayout();
     updateArchitectureModelCopy();
 
     if (!shouldMount() || document.getElementById(ROOT_ID)) {
@@ -798,6 +945,7 @@
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
     updateHeroLeadCopy();
+    enhanceHeroProofLayout();
     updateArchitectureModelCopy();
 
     if (isUseCasesHash()) {
@@ -834,6 +982,7 @@
         normalizeLiveHeadings();
         normalizeSectionBackgrounds();
         updateHeroLeadCopy();
+        enhanceHeroProofLayout();
         updateArchitectureModelCopy();
 
         if (mount()) {
@@ -846,6 +995,7 @@
           normalizeLiveHeadings();
           normalizeSectionBackgrounds();
           updateHeroLeadCopy();
+          enhanceHeroProofLayout();
           updateArchitectureModelCopy();
         }
       });
@@ -861,6 +1011,7 @@
     normalizeLiveHeadings();
     normalizeSectionBackgrounds();
     updateHeroLeadCopy();
+    enhanceHeroProofLayout();
     updateArchitectureModelCopy();
   };
 
