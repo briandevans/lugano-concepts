@@ -21,8 +21,8 @@
   const HERO_PROOF_LABEL_ORDER = [
     "TDX quote verified",
     "GPU attestation verified",
-    "ZK proof verified",
-    "Formal proof checked",
+    "Proof verification",
+    "Constraint check",
     "Nonce binding verified",
     "Signing key bound",
     "Receipt verification",
@@ -31,10 +31,13 @@
     "No prompt retention",
   ];
   const HERO_PROOF_REPLACEMENT_ROWS = [
-    { label: "ZK proof verified", digest: "[REDACTED]" },
-    { label: "Formal proof checked", digest: "[REDACTED]" },
+    { label: "Proof verification", digest: "[REDACTED]" },
+    { label: "Constraint check", digest: "[REDACTED]" },
     { label: "No prompt retention", digest: "0 retained" },
   ];
+  const WHY_NOW_SECTION_ID = "why-now";
+  const PRIVACY_POSITIONING_ID = "lugano-privacy-positioning";
+  const PRIVACY_TIERS = ["Tier 1", "Tier 2 Enhanced", "[REDACTED]", "[CLASSIFIED]"];
   const PLATFORM_STEP_UPDATES = {
     "/02": {
       title: "Privacy Routing",
@@ -252,6 +255,15 @@
   const listMarkup = (items) =>
     items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 
+  const tierMarkup = (items) =>
+    items
+      .map((item) => {
+        const isRestricted = item.startsWith("[");
+        const className = isRestricted ? " class=\"is-restricted\"" : "";
+        return `<span${className}>${escapeHtml(item)}</span>`;
+      })
+      .join("");
+
   const randomCipherCharacter = () =>
     CIPHER_CHARS[Math.floor(Math.random() * CIPHER_CHARS.length)];
 
@@ -364,6 +376,41 @@
 
     return wrapper;
   };
+
+  const buildWhyNowStrip = () => {
+    const section = document.createElement("section");
+    section.id = WHY_NOW_SECTION_ID;
+    section.className = "lgx-why-now-section";
+    section.setAttribute("aria-labelledby", "why-now-title");
+    section.innerHTML = `
+      <div class="lgx-shell lgx-why-now-grid">
+        <div class="lgx-why-now-copy">
+          <div class="lgx-kicker"><span></span>Why Now<span></span></div>
+          <h2 id="why-now-title">The industry is obsessed with capability.</h2>
+          <p>The market is blocked by trust.</p>
+        </div>
+        <aside class="lgx-why-now-stat" aria-label="Enterprise AI restriction statistic">
+          <strong>67%</strong>
+          <p>of enterprises restrict AI use over data exposure concerns.</p>
+          <cite>Cisco Data Privacy Benchmark</cite>
+        </aside>
+      </div>`;
+
+    return section;
+  };
+
+  const privacyPositioningMarkup = () => `
+    <div id="${PRIVACY_POSITIONING_ID}" class="lgx-privacy-positioning" aria-label="Lugano privacy positioning">
+      <div class="lgx-incentive-conflict">
+        <p>Model providers monetize your prompts. Verifiable privacy would break their own business model. Lugano doesn't build models.</p>
+        <p>Zero incentive conflict. We sell proof.</p>
+      </div>
+      <div class="lgx-tier-band" aria-label="Privacy tiers">
+        <div class="lgx-tier-row">${tierMarkup(PRIVACY_TIERS)}</div>
+        <p>Deeper tiers disclosed under NDA.</p>
+      </div>
+      <p class="lgx-product-surface">Private Chat <span aria-hidden="true">&middot;</span> Private Agents <span aria-hidden="true">&middot;</span> Private API <span aria-hidden="true">&mdash;</span> in private beta.</p>
+    </div>`;
 
   const isUseCasesHash = () => {
     const hash = window.location.hash.toLowerCase();
@@ -606,12 +653,51 @@
       ...document.querySelectorAll("#root section, #lugano-extra-sections section"),
     ].filter(
       (section) =>
-        section.querySelector("h2") && !section.classList.contains("lgx-section-hidden"),
+        section.querySelector("h2") &&
+        !section.classList.contains("lgx-section-hidden") &&
+        !section.classList.contains("lgx-why-now-section"),
     );
 
     contentSections.forEach((section, index) => {
       section.classList.toggle("lgx-gradient-band", index % 2 === 0);
     });
+  };
+
+  const ensureWhyNowStrip = () => {
+    if (document.getElementById(WHY_NOW_SECTION_ID)) {
+      return;
+    }
+
+    const problemSection = [...document.querySelectorAll("#root section")].find((section) => {
+      if (section.classList.contains("lgx-live-the-problem")) {
+        return true;
+      }
+
+      const label = section.querySelector(".bracket-label")?.textContent.trim();
+      return label === "[ THE PROBLEM ]";
+    });
+
+    if (!problemSection?.parentElement) {
+      return;
+    }
+
+    problemSection.insertAdjacentElement("afterend", buildWhyNowStrip());
+  };
+
+  const enhancePrivacyPositioning = () => {
+    const privacySection = document.getElementById("privacy");
+
+    if (!privacySection || privacySection.querySelector(`#${PRIVACY_POSITIONING_ID}`)) {
+      return;
+    }
+
+    const headingBlock = privacySection.querySelector(".lgx-live-heading");
+
+    if (!headingBlock) {
+      return;
+    }
+
+    headingBlock.insertAdjacentHTML("afterend", privacyPositioningMarkup());
   };
 
   const updateHeroLeadCopy = () => {
@@ -1009,6 +1095,8 @@
     updateFooterDocsLink();
     enhanceCardCipherHover();
     normalizeLiveHeadings();
+    ensureWhyNowStrip();
+    enhancePrivacyPositioning();
     normalizeSectionBackgrounds();
     updateHeroLeadCopy();
     enhanceHeroProofLayout();
@@ -1038,6 +1126,8 @@
     updateFooterDocsLink();
     enhanceCardCipherHover();
     normalizeLiveHeadings();
+    ensureWhyNowStrip();
+    enhancePrivacyPositioning();
     normalizeSectionBackgrounds();
     updateHeroLeadCopy();
     enhanceHeroProofLayout();
@@ -1078,6 +1168,8 @@
         updateFooterDocsLink();
         enhanceCardCipherHover();
         normalizeLiveHeadings();
+        ensureWhyNowStrip();
+        enhancePrivacyPositioning();
         normalizeSectionBackgrounds();
         updateHeroLeadCopy();
         enhanceHeroProofLayout();
@@ -1094,6 +1186,8 @@
           updateFooterDocsLink();
           enhanceCardCipherHover();
           normalizeLiveHeadings();
+          ensureWhyNowStrip();
+          enhancePrivacyPositioning();
           normalizeSectionBackgrounds();
           updateHeroLeadCopy();
           enhanceHeroProofLayout();
@@ -1113,6 +1207,8 @@
     updateFooterDocsLink();
     enhanceCardCipherHover();
     normalizeLiveHeadings();
+    ensureWhyNowStrip();
+    enhancePrivacyPositioning();
     normalizeSectionBackgrounds();
     updateHeroLeadCopy();
     enhanceHeroProofLayout();

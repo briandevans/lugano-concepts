@@ -559,6 +559,106 @@
   content: "";
 }
 
+#root .lgx-why-now-section {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--lgx-line-soft);
+  border-bottom: 1px solid var(--lgx-line-soft);
+  padding: clamp(3.75rem, 6vw, 5.75rem) 0;
+  background:
+    radial-gradient(circle at 78% 0%, rgba(199, 184, 139, 0.07), transparent 24rem),
+    radial-gradient(circle at 14% 18%, rgba(74, 166, 223, 0.08), transparent 26rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+    var(--lgx-bg-band);
+}
+
+#root .lgx-why-now-section::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent, rgba(155, 213, 244, 0.04), transparent),
+    linear-gradient(rgba(155, 213, 244, 0.026) 1px, transparent 1px);
+  background-size: auto, 100% 32px;
+  content: "";
+  mask-image: linear-gradient(90deg, transparent, black 18%, black 82%, transparent);
+}
+
+#root .lgx-why-now-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 23.5rem);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+#root .lgx-why-now-copy .lgx-kicker {
+  justify-content: flex-start;
+}
+
+#root .lgx-why-now-copy h2 {
+  max-width: 780px;
+  margin: 0;
+  color: var(--lgx-text);
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(2.65rem, 5.2vw, 5.15rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+#root .lgx-why-now-copy p {
+  max-width: 640px;
+  margin: 1.1rem 0 0;
+  color: var(--lgx-muted);
+  font-size: clamp(1.05rem, 1.55vw, 1.35rem);
+  font-weight: 300;
+  line-height: 1.45;
+}
+
+#root .lgx-why-now-stat {
+  position: relative;
+  min-width: 0;
+  border: 1px solid rgba(155, 213, 244, 0.2);
+  border-radius: 20px;
+  padding: clamp(1.45rem, 2.5vw, 2rem);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.018)),
+    rgba(5, 9, 13, 0.8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 28px 76px rgba(0, 0, 0, 0.26);
+}
+
+#root .lgx-why-now-stat strong {
+  display: block;
+  color: var(--lgx-blue);
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(4rem, 8vw, 6.4rem);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: 0;
+}
+
+#root .lgx-why-now-stat p {
+  margin: 1rem 0 0;
+  color: rgba(244, 247, 249, 0.82);
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  font-weight: 300;
+  line-height: 1.45;
+}
+
+#root .lgx-why-now-stat cite {
+  display: block;
+  margin-top: 1.35rem;
+  color: rgba(199, 184, 139, 0.82);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+}
+
 .lgx-shell {
   position: relative;
   z-index: 2;
@@ -732,6 +832,103 @@
 
 #root .lgx-live-privacy .comparison-card:last-child {
   justify-self: start !important;
+}
+
+#root .lgx-live-privacy .lgx-privacy-positioning {
+  grid-column: 1 / -1 !important;
+  width: min(100%, 980px);
+  margin: clamp(2rem, 4vw, 3.25rem) auto clamp(1.35rem, 3vw, 2.25rem) !important;
+  display: grid;
+  gap: clamp(0.85rem, 1.6vw, 1.15rem);
+}
+
+#root .lgx-incentive-conflict {
+  border: 1px solid rgba(155, 213, 244, 0.18);
+  border-radius: 18px;
+  padding: clamp(1.25rem, 2vw, 1.65rem);
+  background:
+    linear-gradient(135deg, rgba(155, 213, 244, 0.08), rgba(255, 255, 255, 0.018)),
+    rgba(5, 9, 13, 0.68);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.065),
+    0 24px 68px rgba(0, 0, 0, 0.22);
+}
+
+#root .lgx-incentive-conflict p {
+  max-width: none !important;
+  margin: 0 !important;
+  color: rgba(244, 247, 249, 0.84) !important;
+  font-size: clamp(0.98rem, 1.25vw, 1.12rem) !important;
+  font-weight: 300 !important;
+  line-height: 1.55 !important;
+  text-align: left !important;
+}
+
+#root .lgx-incentive-conflict p + p {
+  margin-top: 0.8rem !important;
+  color: var(--lgx-blue) !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: clamp(0.78rem, 0.9vw, 0.88rem) !important;
+  letter-spacing: 0.06em !important;
+}
+
+#root .lgx-tier-band {
+  display: grid;
+  gap: 0.85rem;
+  border-top: 1px solid rgba(155, 213, 244, 0.14);
+  border-bottom: 1px solid rgba(155, 213, 244, 0.14);
+  padding: clamp(1rem, 1.8vw, 1.35rem) 0;
+}
+
+#root .lgx-tier-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+#root .lgx-tier-row span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.55rem;
+  border: 1px solid rgba(155, 213, 244, 0.18);
+  border-radius: 10px;
+  padding: 0.52rem 0.68rem;
+  color: rgba(244, 247, 249, 0.82);
+  background: rgba(155, 213, 244, 0.045);
+  font-family: "JetBrains Mono", monospace;
+  font-size: clamp(0.66rem, 0.78vw, 0.76rem);
+  letter-spacing: 0.05em;
+  line-height: 1.35;
+  text-align: center;
+}
+
+#root .lgx-tier-row .is-restricted {
+  border-color: rgba(199, 184, 139, 0.32);
+  color: rgba(199, 184, 139, 0.9);
+  background:
+    linear-gradient(135deg, rgba(199, 184, 139, 0.1), rgba(155, 213, 244, 0.035)),
+    rgba(0, 1, 3, 0.34);
+}
+
+#root .lgx-tier-band p,
+#root .lgx-product-surface {
+  max-width: none !important;
+  margin: 0 !important;
+  color: var(--lgx-dim) !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.07em !important;
+  line-height: 1.6 !important;
+  text-align: center !important;
+}
+
+#root .lgx-product-surface {
+  color: rgba(155, 213, 244, 0.76) !important;
+}
+
+#root .lgx-product-surface span {
+  color: rgba(199, 184, 139, 0.78);
 }
 
 #root .lgx-live-platform .lgx-live-heading + .relative {
@@ -1501,6 +1698,24 @@
 
   .lgx-kicker span {
     width: 2rem;
+  }
+
+  #root .lgx-why-now-grid {
+    grid-template-columns: 1fr;
+    gap: 1.65rem;
+  }
+
+  #root .lgx-why-now-copy .lgx-kicker {
+    justify-content: center;
+  }
+
+  #root .lgx-why-now-copy h2,
+  #root .lgx-why-now-copy p {
+    text-align: center;
+  }
+
+  #root .lgx-tier-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .lgx-card-head,
