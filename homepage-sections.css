@@ -800,13 +800,6 @@
   text-align: center !important;
 }
 
-#root .lgx-live-what-we-do .lgx-live-heading > div:not(.bracket-label) .relative {
-  width: min(100%, 680px) !important;
-  margin-right: auto !important;
-  margin-left: auto !important;
-  text-align: center !important;
-}
-
 #root .lgx-live-privacy .lg\:col-span-7.flex.items-center {
   grid-column: 1 / -1 !important;
   justify-content: center !important;

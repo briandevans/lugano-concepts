@@ -38,6 +38,8 @@
   const WHY_NOW_SECTION_ID = "why-now";
   const PRIVACY_POSITIONING_ID = "lugano-privacy-positioning";
   const PRIVACY_TIERS = ["Tier 1", "Tier 2 Enhanced", "[REDACTED]", "[CLASSIFIED]"];
+  const WHAT_WE_DO_DUPLICATE_CALLOUT =
+    "Not private by policy. Private by architecture you can audit yourself.";
   const PLATFORM_STEP_UPDATES = {
     "/02": {
       title: "Privacy Routing",
@@ -695,6 +697,25 @@
     headingBlock.insertAdjacentHTML("afterend", privacyPositioningMarkup());
   };
 
+  const removeWhatWeDoDuplicateCallout = () => {
+    const whatWeDoSection =
+      document.querySelector(".lgx-live-what-we-do") ||
+      [...document.querySelectorAll("#root section")].find(
+        (section) =>
+          section.querySelector(".bracket-label")?.textContent.trim() === "[ WHAT WE DO ]",
+      );
+
+    whatWeDoSection
+      ?.querySelectorAll(".lgx-live-heading > div:not(.bracket-label) > .relative")
+      .forEach((callout) => {
+        const normalizedText = callout.textContent.trim().replace(/\s+/g, " ");
+
+        if (normalizedText === WHAT_WE_DO_DUPLICATE_CALLOUT) {
+          callout.remove();
+        }
+      });
+  };
+
   const updateHeroLeadCopy = () => {
     const oldCopy =
       "Unverifiable privacy is just marketing. Lugano.ai is private AI infrastructure: cryptographically auditable, perimeter-locked, zero-trust by default.";
@@ -1092,6 +1113,7 @@
     normalizeLiveHeadings();
     ensureWhyNowStrip();
     enhancePrivacyPositioning();
+    removeWhatWeDoDuplicateCallout();
     normalizeSectionBackgrounds();
     updateHeroLeadCopy();
     enhanceHeroProofLayout();
@@ -1123,6 +1145,7 @@
     normalizeLiveHeadings();
     ensureWhyNowStrip();
     enhancePrivacyPositioning();
+    removeWhatWeDoDuplicateCallout();
     normalizeSectionBackgrounds();
     updateHeroLeadCopy();
     enhanceHeroProofLayout();
@@ -1165,6 +1188,7 @@
         normalizeLiveHeadings();
         ensureWhyNowStrip();
         enhancePrivacyPositioning();
+        removeWhatWeDoDuplicateCallout();
         normalizeSectionBackgrounds();
         updateHeroLeadCopy();
         enhanceHeroProofLayout();
@@ -1183,6 +1207,7 @@
           normalizeLiveHeadings();
           ensureWhyNowStrip();
           enhancePrivacyPositioning();
+          removeWhatWeDoDuplicateCallout();
           normalizeSectionBackgrounds();
           updateHeroLeadCopy();
           enhanceHeroProofLayout();
@@ -1204,6 +1229,7 @@
     normalizeLiveHeadings();
     ensureWhyNowStrip();
     enhancePrivacyPositioning();
+    removeWhatWeDoDuplicateCallout();
     normalizeSectionBackgrounds();
     updateHeroLeadCopy();
     enhanceHeroProofLayout();
