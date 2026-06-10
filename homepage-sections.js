@@ -19,6 +19,7 @@
   const CIPHER_UPDATE_MIN = 1400;
   const CIPHER_UPDATE_RANGE = 1800;
   const CIPHER_FLASH_DURATION = 320;
+  const CTA_LABEL_TEXT = "Request briefing";
   let enhancementFrame = 0;
   const CTA_LABELS = new Set([
     "apply for beta",
@@ -39,6 +40,13 @@
     "Disclosure verification",
     "Payload integrity",
     "No prompt retention",
+  ];
+  const HEADER_NAV_ORDER = [
+    "Platform",
+    "Architecture",
+    "Privacy",
+    "Use Cases",
+    "Docs",
   ];
   const HERO_PROOF_REPLACEMENT_ROWS = [
     { label: "Proof verification", digest: "[REDACTED]" },
@@ -457,7 +465,7 @@
       const normalizedText = element.textContent.trim().replace(/\s+/g, " ").toLowerCase();
 
       if (CTA_LABELS.has(normalizedText)) {
-        element.textContent = "Request a demo";
+        element.textContent = CTA_LABEL_TEXT;
       }
     });
   };
@@ -631,6 +639,66 @@
 
       const platformItem = children[platformItemIndex];
       container.insertBefore(createDocsNavItem(platformItem), platformItem.nextSibling);
+    });
+  };
+
+  const normalizeHeaderNavOrder = () => {
+    const nav = document.querySelector("nav");
+
+    if (!nav) {
+      return;
+    }
+
+    const orderedLabels = HEADER_NAV_ORDER.map((label) => label.toLowerCase());
+
+    [...nav.querySelectorAll("div")].forEach((container) => {
+      const children = [...container.children];
+      const itemsByLabel = new Map();
+      const ctaItems = [];
+
+      children.forEach((child) => {
+        const normalizedText = child.textContent.trim().replace(/\s+/g, " ").toLowerCase();
+
+        if (orderedLabels.includes(normalizedText) && !itemsByLabel.has(normalizedText)) {
+          itemsByLabel.set(normalizedText, child);
+        }
+
+        if (CTA_LABELS.has(normalizedText) || normalizedText === CTA_LABEL_TEXT.toLowerCase()) {
+          ctaItems.push(child);
+        }
+      });
+
+      if (
+        !itemsByLabel.has("platform") ||
+        !itemsByLabel.has("architecture") ||
+        !itemsByLabel.has("privacy")
+      ) {
+        return;
+      }
+
+      const platformItem = itemsByLabel.get("platform");
+
+      if (!itemsByLabel.has("use cases")) {
+        const useCasesItem = createUseCasesNavItem(platformItem);
+        itemsByLabel.set("use cases", useCasesItem);
+      }
+
+      if (!itemsByLabel.has("docs")) {
+        const docsItem = createDocsNavItem(platformItem);
+        itemsByLabel.set("docs", docsItem);
+      }
+
+      orderedLabels.forEach((label) => {
+        const item = itemsByLabel.get(label);
+
+        if (item) {
+          container.appendChild(item);
+        }
+      });
+
+      ctaItems.forEach((item) => {
+        container.appendChild(item);
+      });
     });
   };
 
@@ -1134,8 +1202,8 @@
       }
     }
 
-    if (action && action.textContent.trim() !== "Request a demo") {
-      action.textContent = "Request a demo";
+    if (action && action.textContent.trim() !== CTA_LABEL_TEXT) {
+      action.textContent = CTA_LABEL_TEXT;
     }
   };
 
@@ -1284,6 +1352,7 @@
     updateApplyWebsiteField();
     updateUseCasesNav();
     updateDocsNav();
+    normalizeHeaderNavOrder();
     updateFooterDocsLink();
     normalizeLiveHeadings();
     ensureWhyNowStrip();
