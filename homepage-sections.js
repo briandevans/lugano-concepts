@@ -56,6 +56,7 @@
   const TEXT_UPDATES = {
     AUDITABILITY: "VERIFICATION / AUDITABILITY",
     Auditability: "Verification / Auditability",
+    "Private by architecture, not by policy.": "AI Privacy by Proof",
   };
   const BASE_USE_CASE_UPDATES = {
     "Regulated industries": {
