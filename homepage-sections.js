@@ -20,6 +20,7 @@
   const CIPHER_UPDATE_MIN = 1400;
   const CIPHER_UPDATE_RANGE = 1800;
   const CIPHER_FLASH_DURATION = 320;
+  let enhancementFrame = 0;
   const CTA_LABELS = new Set([
     "apply for beta",
     "apply for access",
@@ -1254,6 +1255,8 @@
   };
 
   const createCipherState = (card) => {
+    card.dataset.lgxCipherReady = "true";
+
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
 
@@ -1292,9 +1295,8 @@
         return;
       }
 
-      card.dataset.lgxCipherReady = "true";
       card.classList.add("lgx-cipher-ready");
-      drawCipherCanvas(state);
+      window.requestAnimationFrame(() => drawCipherCanvas(state));
       card.addEventListener("mouseenter", () => startCipherAnimation(state));
       card.addEventListener("mouseleave", () => stopCipherAnimation(state));
       card.addEventListener("focusin", () => startCipherAnimation(state));
@@ -1302,13 +1304,12 @@
     });
   };
 
-  const mount = () => {
+  const runEnhancements = () => {
     updateCtas();
     updateApplyWebsiteField();
     updateUseCasesNav();
     updateDocsNav();
     updateFooterDocsLink();
-    enhanceCardCipherHover();
     normalizeLiveHeadings();
     ensureWhyNowStrip();
     enhancePrivacyPositioning();
@@ -1327,6 +1328,21 @@
     updateBaseUseCaseCopy();
     updateCloseCopy();
     enhanceCardCipherHover();
+  };
+
+  const scheduleEnhancements = () => {
+    if (enhancementFrame) {
+      return;
+    }
+
+    enhancementFrame = window.requestAnimationFrame(() => {
+      enhancementFrame = 0;
+      runEnhancements();
+    });
+  };
+
+  const mount = () => {
+    runEnhancements();
 
     if (!shouldMount() || document.getElementById(ROOT_ID)) {
       return true;
@@ -1341,30 +1357,7 @@
     }
 
     parent.insertBefore(buildSections(), insertionPoint);
-    updateCtas();
-    updateApplyWebsiteField();
-    updateUseCasesNav();
-    updateDocsNav();
-    updateFooterDocsLink();
-    enhanceCardCipherHover();
-    normalizeLiveHeadings();
-    ensureWhyNowStrip();
-    enhancePrivacyPositioning();
-    ensurePrivacyLevelsSection();
-    removeWhatWeDoDuplicateCallout();
-    ensurePlatformOrder();
-    normalizeSectionBackgrounds();
-    updateHeroLeadCopy();
-    enhanceHeroProofLayout();
-    updatePlatformHeadingCopy();
-    updateArchitectureModelCopy();
-    fixReceiptJson();
-    updatePlatformStepCopy();
-    updateHeroStatCards();
-    updateStaticTextCopy();
-    updateBaseUseCaseCopy();
-    updateCloseCopy();
-    enhanceCardCipherHover();
+    runEnhancements();
 
     if (isUseCasesHash()) {
       window.requestAnimationFrame(() => scrollToSection(USE_CASES_SECTION_ID));
@@ -1390,84 +1383,11 @@
     tryMount();
 
     if (root) {
-      const observer = new MutationObserver(() => {
-        updateCtas();
-        updateApplyWebsiteField();
-        updateUseCasesNav();
-        updateDocsNav();
-        updateFooterDocsLink();
-        enhanceCardCipherHover();
-        normalizeLiveHeadings();
-        ensureWhyNowStrip();
-        enhancePrivacyPositioning();
-        ensurePrivacyLevelsSection();
-        removeWhatWeDoDuplicateCallout();
-        ensurePlatformOrder();
-        normalizeSectionBackgrounds();
-        updateHeroLeadCopy();
-        enhanceHeroProofLayout();
-        updatePlatformHeadingCopy();
-        updateArchitectureModelCopy();
-        fixReceiptJson();
-        updatePlatformStepCopy();
-        updateStaticTextCopy();
-        updateBaseUseCaseCopy();
-        updateCloseCopy();
-        enhanceCardCipherHover();
-
-        if (mount()) {
-          updateCtas();
-          updateApplyWebsiteField();
-          updateUseCasesNav();
-          updateDocsNav();
-          updateFooterDocsLink();
-          enhanceCardCipherHover();
-          normalizeLiveHeadings();
-          ensureWhyNowStrip();
-          enhancePrivacyPositioning();
-          ensurePrivacyLevelsSection();
-          removeWhatWeDoDuplicateCallout();
-          ensurePlatformOrder();
-          normalizeSectionBackgrounds();
-          updateHeroLeadCopy();
-          enhanceHeroProofLayout();
-          updatePlatformHeadingCopy();
-          updateArchitectureModelCopy();
-          fixReceiptJson();
-          updatePlatformStepCopy();
-          updateStaticTextCopy();
-          updateBaseUseCaseCopy();
-          updateCloseCopy();
-          enhanceCardCipherHover();
-        }
-      });
+      const observer = new MutationObserver(scheduleEnhancements);
       observer.observe(root, { childList: true, subtree: true });
     }
 
-    updateCtas();
-    updateApplyWebsiteField();
-    updateUseCasesNav();
-    updateDocsNav();
-    updateFooterDocsLink();
-    enhanceCardCipherHover();
-    normalizeLiveHeadings();
-    ensureWhyNowStrip();
-    enhancePrivacyPositioning();
-    ensurePrivacyLevelsSection();
-    removeWhatWeDoDuplicateCallout();
-    ensurePlatformOrder();
-    normalizeSectionBackgrounds();
-    updateHeroLeadCopy();
-    enhanceHeroProofLayout();
-    updatePlatformHeadingCopy();
-    updateArchitectureModelCopy();
-    fixReceiptJson();
-    updatePlatformStepCopy();
-    updateHeroStatCards();
-    updateStaticTextCopy();
-    updateBaseUseCaseCopy();
-    updateCloseCopy();
-    enhanceCardCipherHover();
+    scheduleEnhancements();
   };
 
   if (document.readyState === "loading") {

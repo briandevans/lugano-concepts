@@ -47,6 +47,19 @@ test("cipher hover covers screenshot card surfaces", () => {
   assert.doesNotMatch(homepageScript, /Deeper tiers|disclosed under NDA|withheld/i);
 });
 
+test("mutation observer does not recursively remount while adding hover canvases", () => {
+  assert.match(homepageScript, /let enhancementFrame = 0;/);
+  assert.match(homepageScript, /const observer = new MutationObserver\(scheduleEnhancements\);/);
+  assert.doesNotMatch(
+    homepageScript,
+    /new MutationObserver\(\(\) => \{[\s\S]*?if \(mount\(\)\)/,
+  );
+  assert.doesNotMatch(
+    homepageScript,
+    /new MutationObserver\(\(\) => \{[\s\S]*?enhanceCardCipherHover\(\)/,
+  );
+});
+
 test("receipt JSON patch keeps a comma between hash and status", () => {
   assert.match(
     homepageScript,
