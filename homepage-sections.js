@@ -7,6 +7,7 @@
     "#root .feature-card",
     "#root .comparison-card",
     "#root .stat-glass-card",
+    "#root .lgx-why-now-stat",
     "#root .lgx-tier-card",
     "#root .lgx-hero-proof-card",
     "#lugano-extra-sections .lgx-card",
@@ -408,6 +409,11 @@
           <div class="lgx-kicker"><span></span>[ THE TRUST GAP ]<span></span></div>
           <h2 id="why-now-title"><span>The industry is obsessed with capability.</span> <em>The market is blocked by trust.</em></h2>
         </div>
+        <aside class="lgx-why-now-stat" aria-label="Enterprise AI restriction statistic">
+          <strong>67%</strong>
+          <p>of enterprises restrict AI use over data exposure concerns.</p>
+          <cite>Cisco Data Privacy Benchmark</cite>
+        </aside>
       </div>`;
 
     return section;

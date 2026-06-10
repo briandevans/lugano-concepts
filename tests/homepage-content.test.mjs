@@ -50,11 +50,15 @@ test("cipher hover covers screenshot card surfaces", () => {
   assert.doesNotMatch(homepageScript, /Deeper tiers|disclosed under NDA|withheld/i);
 });
 
-test("trust gap statistic card is removed", () => {
+test("trust gap statistic band is restored", () => {
   assert.match(homepageScript, /\[ THE TRUST GAP \]/);
   assert.match(homepageScript, /The market is blocked by trust\./);
-  assert.doesNotMatch(homepageScript, /lgx-why-now-stat|Cisco Data Privacy Benchmark|67%/);
-  assert.doesNotMatch(homepageStyles, /lgx-why-now-stat/);
+  assert.match(homepageScript, /class="lgx-why-now-stat"/);
+  assert.match(homepageScript, /67%/);
+  assert.match(homepageScript, /Cisco Data Privacy Benchmark/);
+  assert.match(homepageScript, /of enterprises restrict AI use over data exposure concerns\./);
+  assert.match(homepageScript, /#root \.lgx-why-now-stat/);
+  assert.match(homepageStyles, /#root \.lgx-why-now-stat/);
 });
 
 test("mutation observer does not recursively remount while adding hover canvases", () => {

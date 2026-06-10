@@ -589,8 +589,9 @@
 
 #root .lgx-why-now-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 23.5rem);
   align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
 }
 
 #root .lgx-why-now-copy .lgx-kicker {
@@ -626,6 +627,51 @@
   font-size: clamp(1.05rem, 1.55vw, 1.35rem);
   font-weight: 300;
   line-height: 1.45;
+}
+
+#root .lgx-why-now-stat {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  border: 1px solid rgba(155, 213, 244, 0.2);
+  border-radius: 20px;
+  padding: clamp(1.45rem, 2.5vw, 2rem);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.018)),
+    rgba(5, 9, 13, 0.8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 28px 76px rgba(0, 0, 0, 0.26);
+  isolation: isolate;
+}
+
+#root .lgx-why-now-stat strong {
+  display: block;
+  color: var(--lgx-blue);
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(4rem, 8vw, 6.4rem);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: 0;
+}
+
+#root .lgx-why-now-stat p {
+  margin: 1rem 0 0;
+  color: rgba(244, 247, 249, 0.82);
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  font-weight: 300;
+  line-height: 1.45;
+}
+
+#root .lgx-why-now-stat cite {
+  display: block;
+  margin-top: 1.35rem;
+  color: rgba(199, 184, 139, 0.82);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
 }
 
 .lgx-shell {
