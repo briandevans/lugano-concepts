@@ -599,6 +599,45 @@
       ?.click();
   };
 
+  const scrollHomeToTopWhenReady = (attempt = 0) => {
+    window.scrollTo({ top: 0, behavior: attempt === 0 ? "smooth" : "auto" });
+
+    if (attempt >= 24) {
+      return;
+    }
+
+    window.setTimeout(() => scrollHomeToTopWhenReady(attempt + 1), 50);
+  };
+
+  const bindLogoHomeNav = () => {
+    const nav = document.querySelector("nav");
+
+    if (!nav) {
+      return;
+    }
+
+    [...nav.querySelectorAll("a")].forEach((link) => {
+      const normalizedText = link.textContent.trim().replace(/\s+/g, " ").toLowerCase();
+
+      if (normalizedText !== "lugano.ai" || link.dataset.lgxHomeNavBound === "true") {
+        return;
+      }
+
+      link.dataset.lgxHomeNavBound = "true";
+      link.href = "#/";
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        closeVisibleMobileMenu();
+
+        if (window.location.hash !== "#/") {
+          window.location.hash = "#/";
+        }
+
+        scrollHomeToTopWhenReady();
+      });
+    });
+  };
+
   const bindSectionNavItem = (item) => {
     const normalizedText = item.textContent.trim().replace(/\s+/g, " ").toLowerCase();
     const sectionId = SECTION_NAV_TARGETS[normalizedText];
@@ -1430,6 +1469,7 @@
     updateUseCasesNav();
     updateDocsNav();
     normalizeHeaderNavOrder();
+    bindLogoHomeNav();
     updateFooterDocsLink();
     normalizeLiveHeadings();
     ensureWhyNowStrip();
