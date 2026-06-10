@@ -15,8 +15,10 @@
   const CTA_LABELS = new Set([
     "apply for beta",
     "apply for access",
+    "request a demo",
     "request access",
     "request briefing",
+    "request demo",
   ]);
   const HERO_PROOF_LABEL_ORDER = [
     "TDX quote verified",
@@ -643,19 +645,27 @@
         Contact: "/#/apply",
         "Privacy Policy": "/privacy/",
         Security: "/security/",
-        "Terms of Service": "/terms/",
+        Terms: "/terms/",
       };
 
       Object.entries(footerLinkTargets).forEach(([label, href]) => {
         [...footer.querySelectorAll("span, a")].forEach((element) => {
           const normalizedText = element.textContent.trim().replace(/\s+/g, " ");
+          const normalizedLabel = normalizedText === "Terms of Service" ? "Terms" : normalizedText;
 
-          if (normalizedText !== label) {
+          if (normalizedLabel !== label) {
             return;
           }
 
           if (element.tagName.toLowerCase() === "a") {
-            element.setAttribute("href", href);
+            if (element.getAttribute("href") !== href) {
+              element.setAttribute("href", href);
+            }
+
+            if (element.textContent.trim() !== label) {
+              element.textContent = label;
+            }
+
             return;
           }
 
@@ -995,7 +1005,7 @@
         titles: ["Unilateral control.", "Verify Everything."],
         title: "Verify Everything.",
         description:
-          "Attestation, key release, sealed execution, receipt: every step emits evidence you can check yourself.",
+          "Attestation, key release, sealed execution, receipt — every step emits evidence you can check yourself.",
       },
     ];
 
