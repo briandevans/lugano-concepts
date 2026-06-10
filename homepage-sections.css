@@ -1187,6 +1187,35 @@
   margin: 0;
 }
 
+.lgx-agent-list {
+  display: grid;
+  gap: 0.68rem;
+  margin: 1.35rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lgx-agent-list li {
+  position: relative;
+  padding-left: 1.35rem;
+  color: var(--lgx-muted);
+  font-size: var(--lgx-card-body-size);
+  font-weight: 300;
+  line-height: 1.45;
+}
+
+.lgx-agent-list li::before {
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: var(--lgx-blue);
+  box-shadow: 0 0 14px rgba(155, 213, 244, 0.5);
+  content: "";
+}
+
 .lgx-model-card {
   display: flex;
   flex-direction: column;

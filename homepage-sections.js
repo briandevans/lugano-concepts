@@ -39,7 +39,7 @@
     "/02": {
       title: "Privacy Routing",
       description:
-        "Access controls, model permissions, and privacy boundaries are enforced at the protocol layer. Sensitive data stays inside the verified path, not behind a dashboard toggle.",
+        "Access controls, model permissions, and privacy boundaries are enforced at the protocol layer. Sensitive data stays inside the verified path.",
     },
     "/04": {
       title: "Attestation Record",
@@ -50,6 +50,15 @@
   const TEXT_UPDATES = {
     AUDITABILITY: "VERIFICATION / AUDITABILITY",
     Auditability: "Verification / Auditability",
+  };
+  const BASE_USE_CASE_UPDATES = {
+    "Regulated industries": {
+      title: "Regulated Industries",
+      subtitle:
+        "Deploy AI against sensitive internal data while preserving reviewable privacy boundaries.",
+      body:
+        "Internal knowledge work. Sensitive analysis. Legal, finance, healthcare, and operations workflows.",
+    },
   };
 
   const useCases = [
@@ -67,16 +76,16 @@
       ],
     },
     {
-      title: "Government and Defense",
+      title: "Government and defense",
       icon: "defense",
       image: "use-case-assets/government-defense-enclave.webp",
       imageAlt: "A hardened sovereign AI enclave surrounded by encrypted defense-grade circuitry",
       summary:
-        "Sovereign AI, classified workloads, compliance-first infrastructure",
+        "Bring cutting edge model capability closer to sovereign, classified, or disconnected environments.",
       bullets: [
-        "Support classified, air-gapped, and disconnected deployments",
-        "FedRAMP, IL5, CJIS, ITAR compliance paths",
-        "Sovereign data residency, control, and mission reliability",
+        "Sovereign deployment patterns.",
+        "Air-gapped or restricted networks.",
+        "Mission-sensitive workflows.",
       ],
       featured: true,
     },
@@ -85,11 +94,12 @@
       icon: "regulated",
       image: "use-case-assets/regulated-audit-network.webp",
       imageAlt: "A regulated operations network with cryptographic audit paths and verification nodes",
-      summary: "AI that satisfies auditors, not just product managers.",
+      summary:
+        "Deploy AI against sensitive internal data while preserving reviewable privacy boundaries.",
       bullets: [
-        "Satisfy auditors across finance, healthcare, legal, and government",
-        "Infrastructure-level controls and cryptographic audit trails",
-        "Verifiable records that prove what happened and what did not",
+        "Internal knowledge work.",
+        "Sensitive analysis.",
+        "Legal, finance, healthcare, and operations workflows.",
       ],
     },
   ];
@@ -109,10 +119,15 @@
         "Open agent runtime for long-horizon research and automation inside isolated infrastructure.",
     },
     {
-      title: "Custom Agents",
+      title: "Private agents",
       emoji: "🤖",
       summary:
-        "Bring your own agent stack and run it behind Lugano's encrypted execution boundary.",
+        "Run agentic workflows without turning tools, logs, and intermediate steps into exposure surfaces.",
+      bullets: [
+        "Private tool use.",
+        "Reduced transcript leakage.",
+        "Reviewable action evidence.",
+      ],
       featured: true,
     },
   ];
@@ -287,6 +302,7 @@
       ${brandMarkMarkup(item, "lgx-icon-large")}
       <h3>${escapeHtml(item.title)}</h3>
       <p>${escapeHtml(item.summary)}</p>
+      ${item.bullets ? `<ul class="lgx-agent-list">${listMarkup(item.bullets)}</ul>` : ""}
     </article>`;
 
   const modelCardMarkup = (item) => `
@@ -319,6 +335,7 @@
           <div class="lgx-centered-heading">
             <div class="lgx-kicker"><span></span>Use Cases<span></span></div>
             <h2 id="use-cases-title">One product. Every environment.</h2>
+            <p>Built for sensitive environments</p>
           </div>
           <div class="lgx-vertical-grid">${useCases.map(verticalCardMarkup).join("")}</div>
         </div>
@@ -821,6 +838,30 @@
     });
   };
 
+  const updateBaseUseCaseCopy = () => {
+    document.querySelectorAll("#root .use-case-card").forEach((card) => {
+      const heading = card.querySelector("h3");
+      const currentTitle = heading?.textContent.trim();
+      const update = currentTitle ? BASE_USE_CASE_UPDATES[currentTitle] : null;
+
+      if (!update || !heading) {
+        return;
+      }
+
+      const paragraphs = card.querySelectorAll("p");
+
+      heading.textContent = update.title;
+
+      if (paragraphs[0]) {
+        paragraphs[0].textContent = update.subtitle;
+      }
+
+      if (paragraphs[1]) {
+        paragraphs[1].textContent = update.body;
+      }
+    });
+  };
+
   const resizeCipherCanvas = (state) => {
     const rect = state.card.getBoundingClientRect();
     const width = Math.max(1, Math.ceil(rect.width));
@@ -974,6 +1015,7 @@
     updateArchitectureModelCopy();
     updatePlatformStepCopy();
     updateStaticTextCopy();
+    updateBaseUseCaseCopy();
 
     if (!shouldMount() || document.getElementById(ROOT_ID)) {
       return true;
@@ -1002,6 +1044,7 @@
     updateArchitectureModelCopy();
     updatePlatformStepCopy();
     updateStaticTextCopy();
+    updateBaseUseCaseCopy();
 
     if (isUseCasesHash()) {
       window.requestAnimationFrame(() => scrollToSection(USE_CASES_SECTION_ID));
@@ -1041,6 +1084,7 @@
         updateArchitectureModelCopy();
         updatePlatformStepCopy();
         updateStaticTextCopy();
+        updateBaseUseCaseCopy();
 
         if (mount()) {
           updateCtas();
@@ -1056,6 +1100,7 @@
           updateArchitectureModelCopy();
           updatePlatformStepCopy();
           updateStaticTextCopy();
+          updateBaseUseCaseCopy();
         }
       });
       observer.observe(root, { childList: true, subtree: true });
@@ -1074,6 +1119,7 @@
     updateArchitectureModelCopy();
     updatePlatformStepCopy();
     updateStaticTextCopy();
+    updateBaseUseCaseCopy();
   };
 
   if (document.readyState === "loading") {
