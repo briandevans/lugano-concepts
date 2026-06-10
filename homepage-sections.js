@@ -31,8 +31,8 @@
     "No prompt retention",
   ];
   const HERO_PROOF_REPLACEMENT_ROWS = [
-    { label: "ZK proof verified", digest: "zk-v1" },
-    { label: "Formal proof checked", digest: "constraints" },
+    { label: "ZK proof verified", digest: "[REDACTED]" },
+    { label: "Formal proof checked", digest: "[REDACTED]" },
     { label: "No prompt retention", digest: "0 retained" },
   ];
   const PLATFORM_STEP_UPDATES = {
@@ -775,7 +775,7 @@
         titles: ["Unilateral control.", "Verify Everything."],
         title: "Verify Everything.",
         description:
-          "We are the most robust solution for privacy attestation. Verify anything and everything. Full mathematical verifications.",
+          "We are the most robust solution for privacy attestation. Verify anything and everything.",
       },
     ];
 
