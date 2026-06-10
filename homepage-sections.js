@@ -48,6 +48,12 @@
     "Use Cases",
     "Docs",
   ];
+  const SECTION_NAV_TARGETS = {
+    architecture: "architecture",
+    platform: "platform",
+    privacy: "privacy",
+    "use cases": USE_CASES_SECTION_ID,
+  };
   const HERO_PROOF_REPLACEMENT_ROWS = [
     { label: "Proof verification", digest: "[REDACTED]" },
     { label: "Constraint check", digest: "[REDACTED]" },
@@ -434,19 +440,28 @@
       </div>
     </div>`;
 
-  const isUseCasesHash = () => {
+  const getSectionHash = (sectionId) => `#/?section=${sectionId}`;
+
+  const getHashSectionId = () => {
     const hash = window.location.hash.toLowerCase();
 
     if (hash === `#${USE_CASES_SECTION_ID}` || hash === USE_CASES_HASH) {
-      return true;
+      return USE_CASES_SECTION_ID;
+    }
+
+    const directSectionId = hash.slice(1);
+
+    if (Object.values(SECTION_NAV_TARGETS).includes(directSectionId)) {
+      return directSectionId;
     }
 
     if (!hash.startsWith("#/")) {
-      return false;
+      return "";
     }
 
     const [, queryString = ""] = hash.split("?");
-    return new URLSearchParams(queryString).get("section") === USE_CASES_SECTION_ID;
+    const sectionId = new URLSearchParams(queryString).get("section") || "";
+    return Object.values(SECTION_NAV_TARGETS).includes(sectionId) ? sectionId : "";
   };
 
   const shouldMount = () => {
@@ -455,7 +470,7 @@
       hash === "" ||
       hash === "#" ||
       hash === "#/" ||
-      isUseCasesHash() ||
+      Boolean(getHashSectionId()) ||
       hash.startsWith("#/?")
     );
   };
@@ -528,55 +543,106 @@
     const section = document.getElementById(sectionId);
 
     if (!section) {
-      return;
+      return false;
     }
 
     const navOffset = document.querySelector("nav")?.getBoundingClientRect().height || 0;
     const top = section.getBoundingClientRect().top + window.scrollY - navOffset;
     window.scrollTo({ top, behavior: "smooth" });
 
-    const targetHash =
-      sectionId === USE_CASES_SECTION_ID ? USE_CASES_HASH : `#${sectionId}`;
+    const targetHash = getSectionHash(sectionId);
 
     if (shouldUpdateHash && window.location.hash !== targetHash) {
       window.history.pushState(null, "", targetHash);
     }
+
+    return true;
   };
 
-  const bindUseCasesNavItem = (item) => {
-    if (item.dataset.lgxUseCasesBound === "true") {
+  const scrollToSectionWhenReady = (sectionId, attempt = 0) => {
+    if (scrollToSection(sectionId)) {
       return;
     }
 
-    item.dataset.lgxUseCasesBound = "true";
+    if (attempt >= MAX_MOUNT_ATTEMPTS) {
+      return;
+    }
+
+    mount();
+    window.requestAnimationFrame(() => scrollToSectionWhenReady(sectionId, attempt + 1));
+  };
+
+  const getVisibleMobileMenu = () =>
+    [...document.querySelectorAll("nav div")].find((element) => {
+      const rect = element.getBoundingClientRect();
+      return (
+        getComputedStyle(element).position === "fixed" &&
+        rect.width > 0 &&
+        rect.height > 0
+      );
+    });
+
+  const closeVisibleMobileMenu = () => {
+    if (!getVisibleMobileMenu()) {
+      return;
+    }
+
+    [...document.querySelectorAll("nav button")]
+      .find((button) => {
+        const rect = button.getBoundingClientRect();
+        return (
+          button.className.toString().includes("md:hidden") &&
+          rect.width > 0 &&
+          rect.height > 0
+        );
+      })
+      ?.click();
+  };
+
+  const bindSectionNavItem = (item) => {
+    const normalizedText = item.textContent.trim().replace(/\s+/g, " ").toLowerCase();
+    const sectionId = SECTION_NAV_TARGETS[normalizedText];
+
+    if (!sectionId || item.dataset.lgxSectionNavBound === "true") {
+      return;
+    }
+
+    item.dataset.lgxSectionNavBound = "true";
+    item.dataset.lgxSectionNav = sectionId;
+
+    if (item.tagName.toLowerCase() === "a") {
+      item.href = getSectionHash(sectionId);
+    }
+
     item.addEventListener("click", (event) => {
       event.preventDefault();
-      scrollToSection(USE_CASES_SECTION_ID, true);
+      closeVisibleMobileMenu();
 
-      const visibleMobileMenu = [...document.querySelectorAll("nav div")].find((element) => {
-        const rect = element.getBoundingClientRect();
-        return (
-          element.textContent.includes("Use Cases") &&
-          getComputedStyle(element).position === "fixed" &&
-          rect.width > 0
-        );
-      });
-
-      if (visibleMobileMenu) {
-        [...document.querySelectorAll("nav button")]
-          .find((button) => button.className.toString().includes("md:hidden"))
-          ?.click();
+      if (!document.getElementById(sectionId)) {
+        window.location.hash = getSectionHash(sectionId);
+        window.requestAnimationFrame(() => scrollToSectionWhenReady(sectionId));
+        return;
       }
+
+      scrollToSection(sectionId, true);
     });
   };
 
-  const createUseCasesNavItem = (referenceItem) => {
+  const createSectionNavItem = (label, referenceItem) => {
     const item = document.createElement("a");
-    item.href = USE_CASES_HASH;
-    item.textContent = "Use Cases";
+    const sectionId = SECTION_NAV_TARGETS[label.toLowerCase()];
+    item.href = getSectionHash(sectionId);
+    item.textContent = label;
     item.className = referenceItem.className.toString();
+    item.setAttribute("style", referenceItem.getAttribute("style") || "");
+    item.dataset.lgxSectionNav = sectionId;
+    bindSectionNavItem(item);
+    return item;
+  };
+
+  const createUseCasesNavItem = (referenceItem) => {
+    const item = createSectionNavItem("Use Cases", referenceItem);
     item.dataset.lgxUseCasesNav = "true";
-    bindUseCasesNavItem(item);
     return item;
   };
 
@@ -596,7 +662,7 @@
       return;
     }
 
-    [...nav.querySelectorAll("[data-lgx-use-cases-nav='true']")].forEach(bindUseCasesNavItem);
+    [...nav.querySelectorAll("[data-lgx-use-cases-nav='true']")].forEach(bindSectionNavItem);
 
     [...nav.querySelectorAll("div")].forEach((container) => {
       const children = [...container.children];
@@ -658,13 +724,24 @@
 
       children.forEach((child) => {
         const normalizedText = child.textContent.trim().replace(/\s+/g, " ").toLowerCase();
+        const navLabel = HEADER_NAV_ORDER.find(
+          (label) => label.toLowerCase() === normalizedText,
+        );
+        let navItem = child;
+
+        if (SECTION_NAV_TARGETS[normalizedText] && child.tagName.toLowerCase() !== "a") {
+          navItem = createSectionNavItem(navLabel || child.textContent.trim(), child);
+          child.replaceWith(navItem);
+        } else {
+          bindSectionNavItem(navItem);
+        }
 
         if (orderedLabels.includes(normalizedText) && !itemsByLabel.has(normalizedText)) {
-          itemsByLabel.set(normalizedText, child);
+          itemsByLabel.set(normalizedText, navItem);
         }
 
         if (CTA_LABELS.has(normalizedText) || normalizedText === CTA_LABEL_TEXT.toLowerCase()) {
-          ctaItems.push(child);
+          ctaItems.push(navItem);
         }
       });
 
@@ -1403,8 +1480,10 @@
     parent.insertBefore(buildSections(), insertionPoint);
     runEnhancements();
 
-    if (isUseCasesHash()) {
-      window.requestAnimationFrame(() => scrollToSection(USE_CASES_SECTION_ID));
+    const hashSectionId = getHashSectionId();
+
+    if (hashSectionId) {
+      window.requestAnimationFrame(() => scrollToSection(hashSectionId));
     }
 
     return true;
