@@ -216,7 +216,7 @@
   gap: clamp(2.25rem, 5.8vw, 5.75rem) !important;
   width: min(100% - clamp(3rem, 8vw, 7rem), 1220px) !important;
   margin: 0 auto !important;
-  padding: clamp(8.75rem, 17vh, 12rem) 0 clamp(6rem, 11vh, 8rem) !important;
+  padding: clamp(7.25rem, 14vh, 9.5rem) 0 clamp(4.35rem, 8vh, 6rem) !important;
   text-align: left !important;
 }
 
@@ -225,6 +225,7 @@
   align-items: flex-start;
   flex-direction: column;
   min-width: 0;
+  transform: translateY(clamp(-2.6rem, -4vh, -1.9rem));
 }
 
 #root .lgx-hero-copy .bracket-label {
@@ -290,6 +291,7 @@
   justify-content: flex-end;
   min-width: 0;
   width: 100%;
+  transform: translateY(clamp(-2.6rem, -4vh, -1.9rem));
 }
 
 #root .lgx-hero-proof-shell {
@@ -458,7 +460,7 @@
 }
 
 #root section.flex-col.justify-between:first-of-type.lgx-hero-split + section {
-  margin-top: clamp(-5.25rem, -8vh, -3rem) !important;
+  margin-top: clamp(-7.25rem, -11vh, -5.25rem) !important;
 }
 
 @media (min-width: 761px) and (min-height: 900px) {
@@ -1314,13 +1316,14 @@
     grid-template-columns: minmax(0, 1fr) !important;
     gap: clamp(2rem, 5vw, 2.75rem) !important;
     width: min(100% - 2rem, 44rem) !important;
-    padding-top: clamp(13rem, 26vh, 15.5rem) !important;
-    padding-bottom: clamp(3rem, 8vh, 4.25rem) !important;
+    padding-top: clamp(11.6rem, 23vh, 13.75rem) !important;
+    padding-bottom: clamp(2.2rem, 5.5vh, 3.2rem) !important;
   }
 
   #root .lgx-hero-copy {
     align-items: center;
     text-align: center;
+    transform: translateY(clamp(-1.35rem, -2.8vh, -0.85rem));
   }
 
   #root .lgx-hero-copy .bracket-label,
@@ -1336,6 +1339,7 @@
 
   #root .lgx-hero-proof-column {
     justify-content: center;
+    transform: translateY(clamp(-1.35rem, -2.8vh, -0.85rem));
   }
 
   #root .lgx-hero-proof-card {
@@ -1343,7 +1347,7 @@
   }
 
   #root section.flex-col.justify-between:first-of-type.lgx-hero-split + section {
-    margin-top: 0 !important;
+    margin-top: clamp(-0.6rem, -1.4vh, -0.2rem) !important;
   }
 }
 
@@ -1381,8 +1385,8 @@
 
   #root section.flex-col.justify-between:first-of-type.lgx-hero-split > .relative.z-10 {
     display: grid !important;
-    padding-top: clamp(12.75rem, 29svh, 15.25rem) !important;
-    padding-bottom: 2.5rem !important;
+    padding-top: clamp(11.45rem, 26svh, 13.5rem) !important;
+    padding-bottom: 2rem !important;
   }
 
   #root .lgx-proof-panel-inner {
