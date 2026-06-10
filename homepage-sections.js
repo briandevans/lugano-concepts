@@ -28,13 +28,29 @@
     "Receipt verification",
     "Disclosure verification",
     "Payload integrity",
-    "No prompt logs",
+    "No prompt retention",
   ];
   const HERO_PROOF_REPLACEMENT_ROWS = [
     { label: "ZK proof verified", digest: "zk-v1" },
     { label: "Formal proof checked", digest: "constraints" },
-    { label: "No prompt logs", digest: "0 retained" },
+    { label: "No prompt retention", digest: "0 retained" },
   ];
+  const PLATFORM_STEP_UPDATES = {
+    "/02": {
+      title: "Privacy Routing",
+      description:
+        "Access controls, model permissions, and privacy boundaries are enforced at the protocol layer. Sensitive data stays inside the verified path, not behind a dashboard toggle.",
+    },
+    "/04": {
+      title: "Attestation Record",
+      description:
+        "Each run returns verifiable privacy attestations across 30+ checks, covering execution state, routing, policy, receipt integrity, disclosure scope, and retention posture.",
+    },
+  };
+  const TEXT_UPDATES = {
+    AUDITABILITY: "VERIFICATION / AUDITABILITY",
+    Auditability: "Verification / Auditability",
+  };
 
   const useCases = [
     {
@@ -770,6 +786,41 @@
     });
   };
 
+  const updatePlatformStepCopy = () => {
+    document.querySelectorAll("#platform .feature-card").forEach((card) => {
+      const number = [...card.querySelectorAll("span")]
+        .map((span) => span.textContent.trim())
+        .find((value) => value.startsWith("/"));
+      const update = number ? PLATFORM_STEP_UPDATES[number] : null;
+
+      if (!update) {
+        return;
+      }
+
+      const heading = card.querySelector("h4");
+      const description = card.querySelector("p");
+
+      if (heading && heading.textContent.trim() !== update.title) {
+        heading.textContent = update.title;
+      }
+
+      if (description && description.textContent.trim() !== update.description) {
+        description.textContent = update.description;
+      }
+    });
+  };
+
+  const updateStaticTextCopy = () => {
+    document.querySelectorAll("#root *").forEach((element) => {
+      const directText = element.textContent.trim();
+      const replacement = TEXT_UPDATES[directText];
+
+      if (replacement && element.children.length === 0) {
+        element.textContent = replacement;
+      }
+    });
+  };
+
   const resizeCipherCanvas = (state) => {
     const rect = state.card.getBoundingClientRect();
     const width = Math.max(1, Math.ceil(rect.width));
@@ -921,6 +972,8 @@
     updateHeroLeadCopy();
     enhanceHeroProofLayout();
     updateArchitectureModelCopy();
+    updatePlatformStepCopy();
+    updateStaticTextCopy();
 
     if (!shouldMount() || document.getElementById(ROOT_ID)) {
       return true;
@@ -947,6 +1000,8 @@
     updateHeroLeadCopy();
     enhanceHeroProofLayout();
     updateArchitectureModelCopy();
+    updatePlatformStepCopy();
+    updateStaticTextCopy();
 
     if (isUseCasesHash()) {
       window.requestAnimationFrame(() => scrollToSection(USE_CASES_SECTION_ID));
@@ -984,6 +1039,8 @@
         updateHeroLeadCopy();
         enhanceHeroProofLayout();
         updateArchitectureModelCopy();
+        updatePlatformStepCopy();
+        updateStaticTextCopy();
 
         if (mount()) {
           updateCtas();
@@ -997,6 +1054,8 @@
           updateHeroLeadCopy();
           enhanceHeroProofLayout();
           updateArchitectureModelCopy();
+          updatePlatformStepCopy();
+          updateStaticTextCopy();
         }
       });
       observer.observe(root, { childList: true, subtree: true });
@@ -1013,6 +1072,8 @@
     updateHeroLeadCopy();
     enhanceHeroProofLayout();
     updateArchitectureModelCopy();
+    updatePlatformStepCopy();
+    updateStaticTextCopy();
   };
 
   if (document.readyState === "loading") {
