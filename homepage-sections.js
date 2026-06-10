@@ -389,9 +389,8 @@
     section.innerHTML = `
       <div class="lgx-shell lgx-why-now-grid">
         <div class="lgx-why-now-copy">
-          <div class="lgx-kicker"><span></span>Why Now<span></span></div>
-          <h2 id="why-now-title">The industry is obsessed with capability.</h2>
-          <p>The market is blocked by trust.</p>
+          <div class="lgx-kicker"><span></span>[ THE TRUST GAP ]<span></span></div>
+          <h2 id="why-now-title"><span>The industry is obsessed with capability.</span> <em>The market is blocked by trust.</em></h2>
         </div>
         <aside class="lgx-why-now-stat" aria-label="Enterprise AI restriction statistic">
           <strong>67%</strong>

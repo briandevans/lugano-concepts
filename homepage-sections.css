@@ -607,6 +607,16 @@
   text-wrap: balance;
 }
 
+#root .lgx-why-now-copy h2 span,
+#root .lgx-why-now-copy h2 em {
+  display: block;
+}
+
+#root .lgx-why-now-copy h2 em {
+  color: var(--lgx-blue);
+  font-style: italic;
+}
+
 #root .lgx-why-now-copy p {
   max-width: 640px;
   margin: 1.1rem 0 0;
