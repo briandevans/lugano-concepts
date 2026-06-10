@@ -9,7 +9,6 @@
     "#root .stat-glass-card",
     "#root .lgx-tier-card",
     "#root .lgx-hero-proof-card",
-    "#root .lgx-proof-row",
     "#lugano-extra-sections .lgx-card",
   ].join(", ");
   const CIPHER_CHARS = "0123456789ABCDEF";

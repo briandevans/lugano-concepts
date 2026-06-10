@@ -41,11 +41,11 @@ test("cipher hover covers screenshot card surfaces", () => {
   [
     "#root .lgx-tier-card",
     "#root .lgx-hero-proof-card",
-    "#root .lgx-proof-row",
   ].forEach((selector) => {
     assert.match(selectorMatch[1], new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   });
 
+  assert.doesNotMatch(selectorMatch[1], /#root \.lgx-proof-row/);
   assert.match(homepageScript, /ensurePrivacyLevelsSection/);
   assert.doesNotMatch(homepageScript, /Deeper tiers|disclosed under NDA|withheld/i);
 });
