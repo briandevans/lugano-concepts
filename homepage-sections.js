@@ -419,26 +419,12 @@
     return section;
   };
 
-  const privacyIncentiveCloserMarkup = () => `
-    <div id="${PRIVACY_POSITIONING_ID}" class="lgx-privacy-positioning lgx-incentive-closer" aria-label="Privacy incentive alignment">
-      <p>Model providers monetize your prompts &mdash; verifiable privacy would break their own business model. Lugano doesn't build models.</p>
-      <strong>Zero incentive conflict. We sell proof.</strong>
+  const privacyTierBandMarkup = () => `
+    <div id="${PRIVACY_POSITIONING_ID}" class="lgx-privacy-positioning lgx-tier-positioning">
+      <div class="lgx-tier-band" aria-label="Privacy levels">
+        <div class="lgx-tier-row">${privacyLevelMarkup(PRIVACY_LEVELS)}</div>
+      </div>
     </div>`;
-
-  const buildPrivacyLevelsSection = () => {
-    const section = document.createElement("section");
-    section.id = PRIVACY_LEVELS_SECTION_ID;
-    section.className = "lgx-section lgx-privacy-levels-section";
-    section.setAttribute("aria-label", "Privacy levels");
-    section.innerHTML = `
-      <div class="lgx-shell">
-        <div class="lgx-tier-band" aria-label="Privacy levels">
-          <div class="lgx-tier-row">${privacyLevelMarkup(PRIVACY_LEVELS)}</div>
-        </div>
-      </div>`;
-
-    return section;
-  };
 
   const isUseCasesHash = () => {
     const hash = window.location.hash.toLowerCase();
@@ -774,21 +760,11 @@
       return;
     }
 
-    contentShell.insertAdjacentHTML("beforeend", privacyIncentiveCloserMarkup());
+    contentShell.insertAdjacentHTML("beforeend", privacyTierBandMarkup());
   };
 
   const ensurePrivacyLevelsSection = () => {
-    if (document.getElementById(PRIVACY_LEVELS_SECTION_ID)) {
-      return;
-    }
-
-    const privacySection = document.getElementById("privacy");
-
-    if (!privacySection?.parentElement) {
-      return;
-    }
-
-    privacySection.insertAdjacentElement("afterend", buildPrivacyLevelsSection());
+    document.getElementById(PRIVACY_LEVELS_SECTION_ID)?.remove();
   };
 
   const removeWhatWeDoDuplicateCallout = () => {

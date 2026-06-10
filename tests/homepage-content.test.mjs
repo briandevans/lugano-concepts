@@ -61,6 +61,22 @@ test("trust gap statistic band is restored", () => {
   assert.match(homepageStyles, /#root \.lgx-why-now-stat/);
 });
 
+test("privacy section uses the tier band instead of the incentive copy block", () => {
+  assert.match(homepageScript, /const privacyTierBandMarkup = \(\) => `/);
+  assert.match(homepageScript, /class="lgx-privacy-positioning lgx-tier-positioning"/);
+  assert.match(homepageScript, /<div class="lgx-tier-band" aria-label="Privacy levels">/);
+  assert.match(
+    homepageScript,
+    /contentShell\.insertAdjacentHTML\("beforeend", privacyTierBandMarkup\(\)\);/,
+  );
+  assert.doesNotMatch(
+    homepageScript,
+    /Model providers monetize|verifiable privacy would break their own business model|Lugano doesn't build models|Zero incentive conflict|We sell proof/,
+  );
+  assert.doesNotMatch(homepageScript, /insertAdjacentElement\("afterend", buildPrivacyLevelsSection\(\)\)/);
+  assert.doesNotMatch(homepageStyles, /lgx-incentive-closer/);
+});
+
 test("mutation observer does not recursively remount while adding hover canvases", () => {
   assert.match(homepageScript, /let enhancementFrame = 0;/);
   assert.match(homepageScript, /const observer = new MutationObserver\(scheduleEnhancements\);/);
