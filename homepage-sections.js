@@ -37,7 +37,8 @@
   ];
   const WHY_NOW_SECTION_ID = "why-now";
   const PRIVACY_POSITIONING_ID = "lugano-privacy-positioning";
-  const PRIVACY_TIERS = ["Tier 1", "Tier 2 Enhanced", "[REDACTED]", "[CLASSIFIED]"];
+  const PRIVACY_TIERS_SECTION_ID = "privacy-tiers";
+  const PRIVACY_TIERS = ["Tier 1", "Tier 2", "[REDACTED]", "[CLASSIFIED]"];
   const WHAT_WE_DO_DUPLICATE_CALLOUT =
     "Not private by policy. Private by architecture you can audit yourself.";
   const PLATFORM_STEP_UPDATES = {
@@ -359,6 +360,7 @@
           <div class="lgx-centered-heading">
             <h2 id="agents-title">Make Your Agents Fully Private</h2>
             <p>Any agent framework. Any workflow. Zero data leakage.</p>
+            <p class="lgx-product-surface lgx-agent-product-kicker">Private Chat <span aria-hidden="true">&middot;</span> Private Agents <span aria-hidden="true">&middot;</span> Private API <span aria-hidden="true">&mdash;</span> in private beta.</p>
           </div>
           <div class="lgx-agent-grid">${agents.map(agentCardMarkup).join("")}</div>
         </div>
@@ -371,7 +373,7 @@
             <p>Run the world's best open-source models with zero data exposure</p>
           </div>
           <div class="lgx-model-grid">${models.map(modelCardMarkup).join("")}</div>
-          <div class="lgx-model-note">Benchmarks shown from public Artificial Analysis, provider, and model-card data available on May 29, 2026.</div>
+          <div class="lgx-model-note">Model availability varies by private beta environment. Benchmarks shown from public Artificial Analysis, provider, and model-card data available on May 29, 2026.</div>
         </div>
       </section>`;
 
@@ -400,13 +402,26 @@
     return section;
   };
 
-  const privacyPositioningMarkup = () => `
-    <div id="${PRIVACY_POSITIONING_ID}" class="lgx-privacy-positioning" aria-label="Lugano privacy positioning">
+  const privacyIncentiveCloserMarkup = () => `
+    <div id="${PRIVACY_POSITIONING_ID}" class="lgx-privacy-positioning lgx-incentive-closer" aria-label="Privacy incentive alignment">
+      <p>Model providers monetize your prompts &mdash; verifiable privacy would break their own business model. Lugano doesn't build models.</p>
+      <strong>Zero incentive conflict. We sell proof.</strong>
+    </div>`;
+
+  const buildPrivacyTiersSection = () => {
+    const section = document.createElement("section");
+    section.id = PRIVACY_TIERS_SECTION_ID;
+    section.className = "lgx-section lgx-privacy-tiers-section";
+    section.setAttribute("aria-label", "Privacy tiers");
+    section.innerHTML = `
+      <div class="lgx-shell">
       <div class="lgx-tier-band" aria-label="Privacy tiers">
         <div class="lgx-tier-row">${tierMarkup(PRIVACY_TIERS)}</div>
       </div>
-      <p class="lgx-product-surface">Private Chat <span aria-hidden="true">&middot;</span> Private Agents <span aria-hidden="true">&middot;</span> Private API <span aria-hidden="true">&mdash;</span> in private beta.</p>
-    </div>`;
+      </div>`;
+
+    return section;
+  };
 
   const isUseCasesHash = () => {
     const hash = window.location.hash.toLowerCase();
@@ -618,6 +633,15 @@
 
   const updateFooterDocsLink = () => {
     document.querySelectorAll("footer").forEach((footer) => {
+      [...footer.querySelectorAll("a")].forEach((link) => {
+        const normalizedText = link.textContent.trim().replace(/\s+/g, " ");
+        const href = link.getAttribute("href") || "";
+
+        if (normalizedText === "Lugano.ai" && ["", "#", "#/"].includes(href)) {
+          link.setAttribute("href", "/");
+        }
+      });
+
       const existingDocsLink = [...footer.querySelectorAll("a")].find(
         (link) => link.textContent.trim().toLowerCase() === "docs",
       );
@@ -687,13 +711,27 @@
       return;
     }
 
-    const headingBlock = privacySection.querySelector(".lgx-live-heading");
+    const contentShell = privacySection.querySelector(":scope > div");
 
-    if (!headingBlock) {
+    if (!contentShell) {
       return;
     }
 
-    headingBlock.insertAdjacentHTML("afterend", privacyPositioningMarkup());
+    contentShell.insertAdjacentHTML("beforeend", privacyIncentiveCloserMarkup());
+  };
+
+  const ensurePrivacyTiersSection = () => {
+    if (document.getElementById(PRIVACY_TIERS_SECTION_ID)) {
+      return;
+    }
+
+    const privacySection = document.getElementById("privacy");
+
+    if (!privacySection?.parentElement) {
+      return;
+    }
+
+    privacySection.insertAdjacentElement("afterend", buildPrivacyTiersSection());
   };
 
   const removeWhatWeDoDuplicateCallout = () => {
@@ -713,6 +751,49 @@
           callout.remove();
         }
       });
+  };
+
+  const ensurePlatformOrder = () => {
+    const whatWeDoSection =
+      document.querySelector(".lgx-live-what-we-do") ||
+      [...document.querySelectorAll("#root section")].find(
+        (section) =>
+          section.querySelector(".bracket-label")?.textContent.trim() === "[ WHAT WE DO ]",
+      );
+    const platformSection = document.getElementById("platform");
+
+    if (!whatWeDoSection?.parentElement || !platformSection) {
+      return;
+    }
+
+    if (whatWeDoSection.nextElementSibling !== platformSection) {
+      whatWeDoSection.insertAdjacentElement("afterend", platformSection);
+    }
+  };
+
+  const updatePlatformHeadingCopy = () => {
+    const platformSection = document.getElementById("platform");
+    const headingBlock = platformSection?.querySelector(".lgx-live-heading");
+    const label = headingBlock?.querySelector(".bracket-label");
+    const heading = headingBlock?.querySelector("h2");
+
+    if (!platformSection || !headingBlock) {
+      return;
+    }
+
+    if (label && label.textContent.trim() !== "[ HOW IT WORKS ]") {
+      label.textContent = "[ HOW IT WORKS ]";
+    }
+
+    if (heading && heading.textContent.trim() !== "Privacy by proof, not promise.") {
+      heading.textContent = "Privacy by proof, not promise.";
+    }
+
+    headingBlock.querySelectorAll("p").forEach((paragraph) => {
+      if (paragraph.textContent.trim() === "Nothing you have to build.") {
+        paragraph.remove();
+      }
+    });
   };
 
   const updateHeroLeadCopy = () => {
@@ -868,9 +949,9 @@
       },
       {
         titles: ["Uncompromised intelligence.", "Every AI model."],
-        title: "Every AI model.",
+        title: "Sovereignty by default.",
         description:
-          "Kimi K2.6, DeepSeek V4 Pro, MiniMax M3, GLM-5.1, MiMo-V2.5-Pro, DeepSeek V4 Flash, and many more.",
+          "Run in your cloud, on-prem, or restricted environments without surrendering the control boundary.",
       },
       {
         titles: ["Unilateral control.", "Verify Everything."],
@@ -961,6 +1042,25 @@
         paragraphs[1].textContent = update.body;
       }
     });
+  };
+
+  const updateCloseCopy = () => {
+    const ctaSection = document.getElementById("cta");
+    const description = ctaSection?.querySelector(".lgx-live-heading p");
+    const action = ctaSection?.querySelector(".lgx-live-heading a");
+
+    if (description) {
+      const copy =
+        "Lugano.ai is the verification layer for private AI. Frontier AI with cryptographic privacy. No trust required.";
+
+      if (description.textContent.trim() !== copy) {
+        description.textContent = copy;
+      }
+    }
+
+    if (action && action.textContent.trim() !== "Request a private briefing") {
+      action.textContent = "Request a private briefing";
+    }
   };
 
   const resizeCipherCanvas = (state) => {
@@ -1112,23 +1212,27 @@
     normalizeLiveHeadings();
     ensureWhyNowStrip();
     enhancePrivacyPositioning();
+    ensurePrivacyTiersSection();
     removeWhatWeDoDuplicateCallout();
+    ensurePlatformOrder();
     normalizeSectionBackgrounds();
     updateHeroLeadCopy();
     enhanceHeroProofLayout();
+    updatePlatformHeadingCopy();
     updateArchitectureModelCopy();
     updatePlatformStepCopy();
     updateStaticTextCopy();
     updateBaseUseCaseCopy();
+    updateCloseCopy();
 
     if (!shouldMount() || document.getElementById(ROOT_ID)) {
       return true;
     }
 
-    const platform = document.getElementById("platform");
+    const privacyTiers = document.getElementById(PRIVACY_TIERS_SECTION_ID);
     const cta = document.getElementById("cta");
-    const insertionPoint = platform || cta;
-    const parent = insertionPoint?.parentElement;
+    const insertionPoint = privacyTiers?.nextElementSibling || cta;
+    const parent = privacyTiers?.parentElement || insertionPoint?.parentElement;
 
     if (!parent || !insertionPoint) {
       return false;
@@ -1144,14 +1248,18 @@
     normalizeLiveHeadings();
     ensureWhyNowStrip();
     enhancePrivacyPositioning();
+    ensurePrivacyTiersSection();
     removeWhatWeDoDuplicateCallout();
+    ensurePlatformOrder();
     normalizeSectionBackgrounds();
     updateHeroLeadCopy();
     enhanceHeroProofLayout();
+    updatePlatformHeadingCopy();
     updateArchitectureModelCopy();
     updatePlatformStepCopy();
     updateStaticTextCopy();
     updateBaseUseCaseCopy();
+    updateCloseCopy();
 
     if (isUseCasesHash()) {
       window.requestAnimationFrame(() => scrollToSection(USE_CASES_SECTION_ID));
@@ -1187,14 +1295,18 @@
         normalizeLiveHeadings();
         ensureWhyNowStrip();
         enhancePrivacyPositioning();
+        ensurePrivacyTiersSection();
         removeWhatWeDoDuplicateCallout();
+        ensurePlatformOrder();
         normalizeSectionBackgrounds();
         updateHeroLeadCopy();
         enhanceHeroProofLayout();
+        updatePlatformHeadingCopy();
         updateArchitectureModelCopy();
         updatePlatformStepCopy();
         updateStaticTextCopy();
         updateBaseUseCaseCopy();
+        updateCloseCopy();
 
         if (mount()) {
           updateCtas();
@@ -1206,14 +1318,18 @@
           normalizeLiveHeadings();
           ensureWhyNowStrip();
           enhancePrivacyPositioning();
+          ensurePrivacyTiersSection();
           removeWhatWeDoDuplicateCallout();
+          ensurePlatformOrder();
           normalizeSectionBackgrounds();
           updateHeroLeadCopy();
           enhanceHeroProofLayout();
+          updatePlatformHeadingCopy();
           updateArchitectureModelCopy();
           updatePlatformStepCopy();
           updateStaticTextCopy();
           updateBaseUseCaseCopy();
+          updateCloseCopy();
         }
       });
       observer.observe(root, { childList: true, subtree: true });
@@ -1228,14 +1344,18 @@
     normalizeLiveHeadings();
     ensureWhyNowStrip();
     enhancePrivacyPositioning();
+    ensurePrivacyTiersSection();
     removeWhatWeDoDuplicateCallout();
+    ensurePlatformOrder();
     normalizeSectionBackgrounds();
     updateHeroLeadCopy();
     enhanceHeroProofLayout();
+    updatePlatformHeadingCopy();
     updateArchitectureModelCopy();
     updatePlatformStepCopy();
     updateStaticTextCopy();
     updateBaseUseCaseCopy();
+    updateCloseCopy();
   };
 
   if (document.readyState === "loading") {
