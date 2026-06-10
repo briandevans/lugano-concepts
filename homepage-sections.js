@@ -348,8 +348,7 @@
         <div class="lgx-shell">
           <div class="lgx-centered-heading">
             <div class="lgx-kicker"><span></span>Use Cases<span></span></div>
-            <h2 id="use-cases-title">One product. Every environment.</h2>
-            <p>Built for sensitive environments</p>
+            <h2 id="use-cases-title">Built for sensitive environments</h2>
           </div>
           <div class="lgx-vertical-grid">${useCases.map(verticalCardMarkup).join("")}</div>
         </div>
