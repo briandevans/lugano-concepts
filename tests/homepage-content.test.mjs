@@ -6,6 +6,10 @@ const homepageScript = readFileSync(
   new URL("../homepage-sections.js", import.meta.url),
   "utf8",
 );
+const homepageStyles = readFileSync(
+  new URL("../homepage-sections.css", import.meta.url),
+  "utf8",
+);
 
 test("uses 10+ checks consistently and never reintroduces 30+ checks", () => {
   assert.match(homepageScript, /across 10\+ checks/i);
@@ -35,7 +39,6 @@ test("cipher hover covers screenshot card surfaces", () => {
   assert.ok(selectorMatch, "CARD_SELECTOR should be built from an explicit selector list");
 
   [
-    "#root .lgx-why-now-stat",
     "#root .lgx-tier-card",
     "#root .lgx-hero-proof-card",
     "#root .lgx-proof-row",
@@ -45,6 +48,13 @@ test("cipher hover covers screenshot card surfaces", () => {
 
   assert.match(homepageScript, /ensurePrivacyLevelsSection/);
   assert.doesNotMatch(homepageScript, /Deeper tiers|disclosed under NDA|withheld/i);
+});
+
+test("trust gap statistic card is removed", () => {
+  assert.match(homepageScript, /\[ THE TRUST GAP \]/);
+  assert.match(homepageScript, /The market is blocked by trust\./);
+  assert.doesNotMatch(homepageScript, /lgx-why-now-stat|Cisco Data Privacy Benchmark|67%/);
+  assert.doesNotMatch(homepageStyles, /lgx-why-now-stat/);
 });
 
 test("mutation observer does not recursively remount while adding hover canvases", () => {
