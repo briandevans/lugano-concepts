@@ -3,8 +3,16 @@
   const USE_CASES_SECTION_ID = "use-cases";
   const USE_CASES_HASH = "#/?section=use-cases";
   const MAX_MOUNT_ATTEMPTS = 180;
-  const CARD_SELECTOR =
-    "#root .feature-card, #root .comparison-card, #root .stat-glass-card, #lugano-extra-sections .lgx-card";
+  const CARD_SELECTOR = [
+    "#root .feature-card",
+    "#root .comparison-card",
+    "#root .stat-glass-card",
+    "#root .lgx-why-now-stat",
+    "#root .lgx-tier-card",
+    "#root .lgx-hero-proof-card",
+    "#root .lgx-proof-row",
+    "#lugano-extra-sections .lgx-card",
+  ].join(", ");
   const CIPHER_CHARS = "0123456789ABCDEF";
   const CIPHER_CELL_WIDTH = 7;
   const CIPHER_CELL_HEIGHT = 14;
@@ -38,9 +46,9 @@
     { label: "No prompt retention", digest: "0 retained" },
   ];
   const WHY_NOW_SECTION_ID = "why-now";
+  const PRIVACY_LEVELS_SECTION_ID = "privacy-levels";
   const PRIVACY_POSITIONING_ID = "lugano-privacy-positioning";
-  const PRIVACY_TIERS_SECTION_ID = "privacy-tiers";
-  const PRIVACY_TIERS = ["Tier 1", "Tier 2", "[REDACTED]", "[CLASSIFIED]"];
+  const PRIVACY_LEVELS = ["Tier 1", "Tier 2", "[REDACTED]", "[CLASSIFIED]"];
   const WHAT_WE_DO_DUPLICATE_CALLOUT =
     "Not private by policy. Private by architecture you can audit yourself.";
   const PLATFORM_STEP_UPDATES = {
@@ -266,12 +274,14 @@
   const listMarkup = (items) =>
     items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 
-  const tierMarkup = (items) =>
+  const privacyLevelMarkup = (items) =>
     items
       .map((item) => {
         const isRestricted = item.startsWith("[");
-        const className = isRestricted ? " class=\"is-restricted\"" : "";
-        return `<span${className}>${escapeHtml(item)}</span>`;
+        const className = isRestricted
+          ? "lgx-tier-card is-restricted"
+          : "lgx-tier-card";
+        return `<span class="${className}"><span class="lgx-tier-label">${escapeHtml(item)}</span></span>`;
       })
       .join("");
 
@@ -415,20 +425,16 @@
       <strong>Zero incentive conflict. We sell proof.</strong>
     </div>`;
 
-  const buildPrivacyTiersSection = () => {
+  const buildPrivacyLevelsSection = () => {
     const section = document.createElement("section");
-    section.id = PRIVACY_TIERS_SECTION_ID;
-    section.className = "lgx-section lgx-privacy-tiers-section";
-    section.setAttribute("aria-label", "Privacy tiers");
+    section.id = PRIVACY_LEVELS_SECTION_ID;
+    section.className = "lgx-section lgx-privacy-levels-section";
+    section.setAttribute("aria-label", "Privacy levels");
     section.innerHTML = `
       <div class="lgx-shell">
-        <div class="lgx-tier-heading">
-          <div class="lgx-kicker"><span></span>Privacy tiers<span></span></div>
-          <p>Deeper tiers disclosed under NDA.</p>
+        <div class="lgx-tier-band" aria-label="Privacy levels">
+          <div class="lgx-tier-row">${privacyLevelMarkup(PRIVACY_LEVELS)}</div>
         </div>
-      <div class="lgx-tier-band" aria-label="Privacy tiers">
-        <div class="lgx-tier-row">${tierMarkup(PRIVACY_TIERS)}</div>
-      </div>
       </div>`;
 
     return section;
@@ -465,7 +471,7 @@
       const normalizedText = element.textContent.trim().replace(/\s+/g, " ").toLowerCase();
 
       if (CTA_LABELS.has(normalizedText)) {
-        element.textContent = "Request a private briefing";
+        element.textContent = "Request a demo";
       }
     });
   };
@@ -771,8 +777,8 @@
     contentShell.insertAdjacentHTML("beforeend", privacyIncentiveCloserMarkup());
   };
 
-  const ensurePrivacyTiersSection = () => {
-    if (document.getElementById(PRIVACY_TIERS_SECTION_ID)) {
+  const ensurePrivacyLevelsSection = () => {
+    if (document.getElementById(PRIVACY_LEVELS_SECTION_ID)) {
       return;
     }
 
@@ -782,7 +788,7 @@
       return;
     }
 
-    privacySection.insertAdjacentElement("afterend", buildPrivacyTiersSection());
+    privacySection.insertAdjacentElement("afterend", buildPrivacyLevelsSection());
   };
 
   const removeWhatWeDoDuplicateCallout = () => {
@@ -988,6 +994,8 @@
 
     proofCard.dataset.lgxStaticProofReady = "true";
     proofCard.innerHTML = staticProofPanelMarkup(rows);
+    delete proofCard.dataset.lgxCipherReady;
+    proofCard.classList.remove("lgx-cipher-ready");
   };
 
   const updateArchitectureModelCopy = () => {
@@ -1008,7 +1016,7 @@
         titles: ["Unilateral control.", "Verify Everything."],
         title: "Verify Everything.",
         description:
-          "Attestation, key release, sealed execution, receipt — every step emits evidence you can check yourself.",
+          "Every protected run emits attestation, key release, sealed execution, and receipt records.",
       },
     ];
 
@@ -1150,8 +1158,8 @@
       }
     }
 
-    if (action && action.textContent.trim() !== "Request a private briefing") {
-      action.textContent = "Request a private briefing";
+    if (action && action.textContent.trim() !== "Request a demo") {
+      action.textContent = "Request a demo";
     }
   };
 
@@ -1304,7 +1312,7 @@
     normalizeLiveHeadings();
     ensureWhyNowStrip();
     enhancePrivacyPositioning();
-    ensurePrivacyTiersSection();
+    ensurePrivacyLevelsSection();
     removeWhatWeDoDuplicateCallout();
     ensurePlatformOrder();
     normalizeSectionBackgrounds();
@@ -1318,15 +1326,15 @@
     updateStaticTextCopy();
     updateBaseUseCaseCopy();
     updateCloseCopy();
+    enhanceCardCipherHover();
 
     if (!shouldMount() || document.getElementById(ROOT_ID)) {
       return true;
     }
 
-    const privacyTiers = document.getElementById(PRIVACY_TIERS_SECTION_ID);
     const cta = document.getElementById("cta");
-    const insertionPoint = privacyTiers?.nextElementSibling || cta;
-    const parent = privacyTiers?.parentElement || insertionPoint?.parentElement;
+    const insertionPoint = cta;
+    const parent = insertionPoint?.parentElement;
 
     if (!parent || !insertionPoint) {
       return false;
@@ -1342,7 +1350,7 @@
     normalizeLiveHeadings();
     ensureWhyNowStrip();
     enhancePrivacyPositioning();
-    ensurePrivacyTiersSection();
+    ensurePrivacyLevelsSection();
     removeWhatWeDoDuplicateCallout();
     ensurePlatformOrder();
     normalizeSectionBackgrounds();
@@ -1356,6 +1364,7 @@
     updateStaticTextCopy();
     updateBaseUseCaseCopy();
     updateCloseCopy();
+    enhanceCardCipherHover();
 
     if (isUseCasesHash()) {
       window.requestAnimationFrame(() => scrollToSection(USE_CASES_SECTION_ID));
@@ -1391,7 +1400,7 @@
         normalizeLiveHeadings();
         ensureWhyNowStrip();
         enhancePrivacyPositioning();
-        ensurePrivacyTiersSection();
+        ensurePrivacyLevelsSection();
         removeWhatWeDoDuplicateCallout();
         ensurePlatformOrder();
         normalizeSectionBackgrounds();
@@ -1404,6 +1413,7 @@
         updateStaticTextCopy();
         updateBaseUseCaseCopy();
         updateCloseCopy();
+        enhanceCardCipherHover();
 
         if (mount()) {
           updateCtas();
@@ -1415,7 +1425,7 @@
           normalizeLiveHeadings();
           ensureWhyNowStrip();
           enhancePrivacyPositioning();
-          ensurePrivacyTiersSection();
+          ensurePrivacyLevelsSection();
           removeWhatWeDoDuplicateCallout();
           ensurePlatformOrder();
           normalizeSectionBackgrounds();
@@ -1428,6 +1438,7 @@
           updateStaticTextCopy();
           updateBaseUseCaseCopy();
           updateCloseCopy();
+          enhanceCardCipherHover();
         }
       });
       observer.observe(root, { childList: true, subtree: true });
@@ -1442,7 +1453,7 @@
     normalizeLiveHeadings();
     ensureWhyNowStrip();
     enhancePrivacyPositioning();
-    ensurePrivacyTiersSection();
+    ensurePrivacyLevelsSection();
     removeWhatWeDoDuplicateCallout();
     ensurePlatformOrder();
     normalizeSectionBackgrounds();
@@ -1456,6 +1467,7 @@
     updateStaticTextCopy();
     updateBaseUseCaseCopy();
     updateCloseCopy();
+    enhanceCardCipherHover();
   };
 
   if (document.readyState === "loading") {

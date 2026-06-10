@@ -12,7 +12,7 @@ test("uses 10+ checks consistently and never reintroduces 30+ checks", () => {
   assert.doesNotMatch(homepageScript, /30\+\s*checks/i);
 });
 
-test("normalizes all request CTAs to the private briefing promise", () => {
+test("normalizes all request CTAs to request a demo", () => {
   const labelSetMatch = homepageScript.match(/const CTA_LABELS = new Set\(\[([\s\S]*?)\]\);/);
   assert.ok(labelSetMatch, "CTA_LABELS set should exist");
 
@@ -20,13 +20,31 @@ test("normalizes all request CTAs to the private briefing promise", () => {
 
   assert.ok(labels.includes("request a demo"));
   assert.ok(labels.includes("request demo"));
-  assert.match(homepageScript, /element\.textContent = "Request a private briefing";/);
-  assert.doesNotMatch(homepageScript, /element\.textContent = "Request a demo";/);
+  assert.match(homepageScript, /element\.textContent = "Request a demo";/);
+  assert.doesNotMatch(homepageScript, /private briefing/i);
 });
 
-test("privacy tiers explain the withheld NDA layer", () => {
-  assert.match(homepageScript, /Privacy tiers/);
-  assert.match(homepageScript, /Deeper tiers disclosed under NDA\./);
+test("does not inject withheld-detail teaser boxes", () => {
+  assert.doesNotMatch(homepageScript, /Privacy tiers/);
+  assert.doesNotMatch(homepageScript, /Deeper tiers disclosed under NDA\./);
+  assert.doesNotMatch(homepageScript, /privacy-tiers|PRIVACY_TIERS|tierMarkup/);
+});
+
+test("cipher hover covers screenshot card surfaces", () => {
+  const selectorMatch = homepageScript.match(/const CARD_SELECTOR = \[([\s\S]*?)\]\.join/);
+  assert.ok(selectorMatch, "CARD_SELECTOR should be built from an explicit selector list");
+
+  [
+    "#root .lgx-why-now-stat",
+    "#root .lgx-tier-card",
+    "#root .lgx-hero-proof-card",
+    "#root .lgx-proof-row",
+  ].forEach((selector) => {
+    assert.match(selectorMatch[1], new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  });
+
+  assert.match(homepageScript, /ensurePrivacyLevelsSection/);
+  assert.doesNotMatch(homepageScript, /Deeper tiers|disclosed under NDA|withheld/i);
 });
 
 test("receipt JSON patch keeps a comma between hash and status", () => {
@@ -67,7 +85,7 @@ test("hero stat boxes use the proof-focused copy", () => {
 test("proof and model copy avoid overclaims", () => {
   assert.match(
     homepageScript,
-    /Attestation, key release, sealed execution, receipt — every step emits evidence you can check yourself\./,
+    /Every protected run emits attestation, key release, sealed execution, and receipt records\./,
   );
   assert.match(homepageScript, /Run leading open models inside a verifiable privacy boundary/);
   assert.doesNotMatch(

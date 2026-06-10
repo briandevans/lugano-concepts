@@ -52,15 +52,9 @@ a {
 
 .legal-card {
   margin: clamp(3.5rem, 8vw, 6.5rem) 0;
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  padding: clamp(2rem, 5vw, 4rem);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.018)),
-    var(--panel);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 34px 90px rgba(0, 0, 0, 0.28);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: clamp(2rem, 5vw, 4rem) 0;
 }
 
 .legal-kicker {

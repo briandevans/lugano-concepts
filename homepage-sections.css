@@ -410,6 +410,8 @@
 
 #root .lgx-proof-row {
   display: grid;
+  position: relative;
+  overflow: hidden;
   grid-template-columns: 1.12rem minmax(0, 1fr) auto;
   align-items: center;
   gap: 0.72rem;
@@ -418,6 +420,7 @@
   border-radius: 9px;
   padding: 0.36rem 0.5rem;
   background: linear-gradient(90deg, rgba(155, 213, 244, 0.062), rgba(255, 255, 255, 0.018));
+  isolation: isolate;
 }
 
 #root .lgx-proof-check {
@@ -628,6 +631,7 @@
 
 #root .lgx-why-now-stat {
   position: relative;
+  overflow: hidden;
   min-width: 0;
   border: 1px solid rgba(155, 213, 244, 0.2);
   border-radius: 20px;
@@ -638,6 +642,7 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.09),
     0 28px 76px rgba(0, 0, 0, 0.26);
+  isolation: isolate;
 }
 
 #root .lgx-why-now-stat strong {
@@ -878,45 +883,18 @@
   text-transform: uppercase;
 }
 
-#root .lgx-privacy-tiers-section {
+#root .lgx-privacy-levels-section {
   padding: clamp(2.25rem, 4vw, 3.4rem) 0;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.012), rgba(255, 255, 255, 0)),
     var(--lgx-bg);
 }
 
-#root .lgx-privacy-tiers-section::before {
-  background:
-    linear-gradient(90deg, transparent, rgba(155, 213, 244, 0.04), transparent);
-}
-
-#root .lgx-privacy-tiers-section .lgx-tier-band {
-  width: min(100%, 980px);
-  margin: 0 auto;
-}
-
-#root .lgx-tier-heading {
-  width: min(100%, 980px);
-  margin: 0 auto 1rem;
-  text-align: center;
-}
-
-#root .lgx-tier-heading .lgx-kicker {
-  margin-bottom: 0.55rem;
-}
-
-#root .lgx-tier-heading p {
-  margin: 0;
-  color: var(--lgx-muted);
-  font-family: "JetBrains Mono", monospace;
-  font-size: clamp(0.7rem, 0.82vw, 0.78rem);
-  letter-spacing: 0.06em;
-  line-height: 1.5;
-}
-
 #root .lgx-tier-band {
   display: grid;
   gap: 0.85rem;
+  width: min(100%, 980px);
+  margin: 0 auto;
   border-top: 1px solid rgba(155, 213, 244, 0.14);
   border-bottom: 1px solid rgba(155, 213, 244, 0.14);
   padding: clamp(1rem, 1.8vw, 1.35rem) 0;
@@ -928,8 +906,10 @@
   gap: 0.55rem;
 }
 
-#root .lgx-tier-row span {
+#root .lgx-tier-card {
   display: flex;
+  position: relative;
+  overflow: hidden;
   align-items: center;
   justify-content: center;
   min-height: 2.55rem;
@@ -943,9 +923,10 @@
   letter-spacing: 0.05em;
   line-height: 1.35;
   text-align: center;
+  isolation: isolate;
 }
 
-#root .lgx-tier-row .is-restricted {
+#root .lgx-tier-card.is-restricted {
   border-color: rgba(199, 184, 139, 0.32);
   color: rgba(199, 184, 139, 0.9);
   background:
