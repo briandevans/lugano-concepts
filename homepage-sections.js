@@ -401,13 +401,8 @@
 
   const privacyPositioningMarkup = () => `
     <div id="${PRIVACY_POSITIONING_ID}" class="lgx-privacy-positioning" aria-label="Lugano privacy positioning">
-      <div class="lgx-incentive-conflict">
-        <p>Model providers monetize your prompts &mdash; verifiable privacy would break their own business model. Lugano doesn't build models.</p>
-        <p>Zero incentive conflict. We sell proof.</p>
-      </div>
       <div class="lgx-tier-band" aria-label="Privacy tiers">
         <div class="lgx-tier-row">${tierMarkup(PRIVACY_TIERS)}</div>
-        <p>Deeper tiers disclosed under NDA.</p>
       </div>
       <p class="lgx-product-surface">Private Chat <span aria-hidden="true">&middot;</span> Private Agents <span aria-hidden="true">&middot;</span> Private API <span aria-hidden="true">&mdash;</span> in private beta.</p>
     </div>`;
