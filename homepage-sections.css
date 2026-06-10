@@ -1588,8 +1588,31 @@
 }
 
 @media (min-width: 1060px) {
+  #root nav {
+    z-index: 1000 !important;
+    pointer-events: auto !important;
+  }
+
+  #root nav a,
+  #root nav button {
+    pointer-events: auto !important;
+  }
+
   #root nav > div:first-child > div[class*="md:flex"] {
     display: flex !important;
+  }
+
+  #root nav > div:first-child > div[class*="md:flex"] > a,
+  #root nav > div:first-child > div[class*="md:flex"] > button,
+  #root nav > div:first-child > a:first-child {
+    position: relative !important;
+    z-index: 2 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    min-height: 2.75rem !important;
+    padding-inline: 0.55rem !important;
+    cursor: pointer !important;
+    touch-action: manipulation;
   }
 
   #root nav > div:first-child > a[class*="md:inline-flex"] {

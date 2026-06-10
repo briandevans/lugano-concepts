@@ -54,6 +54,7 @@
     privacy: "privacy",
     "use cases": USE_CASES_SECTION_ID,
   };
+  const HEADER_NAV_CLICK_SELECTOR = "nav a, nav button";
   const HERO_PROOF_REPLACEMENT_ROWS = [
     { label: "Proof verification", digest: "[REDACTED]" },
     { label: "Constraint check", digest: "[REDACTED]" },
@@ -599,6 +600,9 @@
       ?.click();
   };
 
+  const getNormalizedNavText = (element) =>
+    element.textContent.trim().replace(/\s+/g, " ");
+
   const scrollHomeToTopWhenReady = (attempt = 0) => {
     window.scrollTo({ top: 0, behavior: attempt === 0 ? "smooth" : "auto" });
 
@@ -609,6 +613,67 @@
     window.setTimeout(() => scrollHomeToTopWhenReady(attempt + 1), 50);
   };
 
+  const navigateHomeFromHeader = () => {
+    closeVisibleMobileMenu();
+
+    if (window.location.hash !== "#/") {
+      window.location.hash = "#/";
+    }
+
+    scrollHomeToTopWhenReady();
+  };
+
+  const navigateToHeaderSection = (sectionId) => {
+    closeVisibleMobileMenu();
+
+    if (!document.getElementById(sectionId)) {
+      window.location.hash = getSectionHash(sectionId);
+      window.requestAnimationFrame(() => scrollToSectionWhenReady(sectionId));
+      return;
+    }
+
+    scrollToSection(sectionId, true);
+  };
+
+  const bindHeaderNavClickCapture = () => {
+    const nav = document.querySelector("nav");
+
+    if (!nav || nav.dataset.lgxHeaderNavCaptureBound === "true") {
+      return;
+    }
+
+    nav.dataset.lgxHeaderNavCaptureBound = "true";
+    nav.addEventListener(
+      "click",
+      (event) => {
+        const item = event.target.closest(HEADER_NAV_CLICK_SELECTOR);
+
+        if (!item || !nav.contains(item)) {
+          return;
+        }
+
+        const normalizedText = getNormalizedNavText(item).toLowerCase();
+        const sectionId = SECTION_NAV_TARGETS[normalizedText];
+
+        if (normalizedText === "lugano.ai") {
+          event.preventDefault();
+          event.stopPropagation();
+          navigateHomeFromHeader();
+          return;
+        }
+
+        if (!sectionId) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        navigateToHeaderSection(sectionId);
+      },
+      true,
+    );
+  };
+
   const bindLogoHomeNav = () => {
     const nav = document.querySelector("nav");
 
@@ -617,7 +682,7 @@
     }
 
     [...nav.querySelectorAll("a")].forEach((link) => {
-      const normalizedText = link.textContent.trim().replace(/\s+/g, " ").toLowerCase();
+      const normalizedText = getNormalizedNavText(link).toLowerCase();
 
       if (normalizedText !== "lugano.ai" || link.dataset.lgxHomeNavBound === "true") {
         return;
@@ -627,19 +692,13 @@
       link.href = "#/";
       link.addEventListener("click", (event) => {
         event.preventDefault();
-        closeVisibleMobileMenu();
-
-        if (window.location.hash !== "#/") {
-          window.location.hash = "#/";
-        }
-
-        scrollHomeToTopWhenReady();
+        navigateHomeFromHeader();
       });
     });
   };
 
   const bindSectionNavItem = (item) => {
-    const normalizedText = item.textContent.trim().replace(/\s+/g, " ").toLowerCase();
+    const normalizedText = getNormalizedNavText(item).toLowerCase();
     const sectionId = SECTION_NAV_TARGETS[normalizedText];
 
     if (!sectionId || item.dataset.lgxSectionNavBound === "true") {
@@ -655,15 +714,7 @@
 
     item.addEventListener("click", (event) => {
       event.preventDefault();
-      closeVisibleMobileMenu();
-
-      if (!document.getElementById(sectionId)) {
-        window.location.hash = getSectionHash(sectionId);
-        window.requestAnimationFrame(() => scrollToSectionWhenReady(sectionId));
-        return;
-      }
-
-      scrollToSection(sectionId, true);
+      navigateToHeaderSection(sectionId);
     });
   };
 
@@ -705,9 +756,7 @@
 
     [...nav.querySelectorAll("div")].forEach((container) => {
       const children = [...container.children];
-      const labels = children.map((child) =>
-        child.textContent.trim().replace(/\s+/g, " ").toLowerCase(),
-      );
+      const labels = children.map((child) => getNormalizedNavText(child).toLowerCase());
       const platformItemIndex = labels.indexOf("platform");
 
       if (
@@ -733,9 +782,7 @@
 
     [...nav.querySelectorAll("div")].forEach((container) => {
       const children = [...container.children];
-      const labels = children.map((child) =>
-        child.textContent.trim().replace(/\s+/g, " ").toLowerCase(),
-      );
+      const labels = children.map((child) => getNormalizedNavText(child).toLowerCase());
       const platformItemIndex = labels.indexOf("platform");
 
       if (platformItemIndex === -1 || labels.includes("docs")) {
@@ -762,7 +809,7 @@
       const ctaItems = [];
 
       children.forEach((child) => {
-        const normalizedText = child.textContent.trim().replace(/\s+/g, " ").toLowerCase();
+        const normalizedText = getNormalizedNavText(child).toLowerCase();
         const navLabel = HEADER_NAV_ORDER.find(
           (label) => label.toLowerCase() === normalizedText,
         );
@@ -1469,6 +1516,7 @@
     updateUseCasesNav();
     updateDocsNav();
     normalizeHeaderNavOrder();
+    bindHeaderNavClickCapture();
     bindLogoHomeNav();
     updateFooterDocsLink();
     normalizeLiveHeadings();

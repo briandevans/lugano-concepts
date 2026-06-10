@@ -16,7 +16,7 @@ test("uses 10+ checks consistently and never reintroduces 30+ checks", () => {
   assert.doesNotMatch(homepageScript, /30\+\s*checks/i);
 });
 
-test("normalizes all request CTAs to request a demo", () => {
+test("normalizes all request CTAs to request briefing", () => {
   const labelSetMatch = homepageScript.match(/const CTA_LABELS = new Set\(\[([\s\S]*?)\]\);/);
   assert.ok(labelSetMatch, "CTA_LABELS set should exist");
 
@@ -24,7 +24,8 @@ test("normalizes all request CTAs to request a demo", () => {
 
   assert.ok(labels.includes("request a demo"));
   assert.ok(labels.includes("request demo"));
-  assert.match(homepageScript, /element\.textContent = "Request a demo";/);
+  assert.match(homepageScript, /const CTA_LABEL_TEXT = "Request briefing";/);
+  assert.match(homepageScript, /element\.textContent = CTA_LABEL_TEXT;/);
   assert.doesNotMatch(homepageScript, /private briefing/i);
 });
 
