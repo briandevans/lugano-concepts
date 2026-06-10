@@ -21,6 +21,7 @@
   const CIPHER_FLASH_DURATION = 320;
   const CTA_LABEL_TEXT = "Request briefing";
   let enhancementFrame = 0;
+  let lastHeaderPointerActivation = { key: "", timestamp: 0 };
   const CTA_LABELS = new Set([
     "apply for beta",
     "apply for access",
@@ -54,7 +55,8 @@
     privacy: "privacy",
     "use cases": USE_CASES_SECTION_ID,
   };
-  const HEADER_NAV_CLICK_SELECTOR = "nav a, nav button";
+  const HEADER_NAV_ACTIVATION_EVENTS = ["pointerup", "click"];
+  const HEADER_NAV_CLICK_SELECTOR = "a, button";
   const HERO_PROOF_REPLACEMENT_ROWS = [
     { label: "Proof verification", digest: "[REDACTED]" },
     { label: "Constraint check", digest: "[REDACTED]" },
@@ -636,42 +638,69 @@
   };
 
   const bindHeaderNavClickCapture = () => {
-    const nav = document.querySelector("nav");
-
-    if (!nav || nav.dataset.lgxHeaderNavCaptureBound === "true") {
+    if (document.documentElement.dataset.lgxHeaderNavCaptureBound === "true") {
       return;
     }
 
-    nav.dataset.lgxHeaderNavCaptureBound = "true";
-    nav.addEventListener(
-      "click",
-      (event) => {
-        const item = event.target.closest(HEADER_NAV_CLICK_SELECTOR);
+    document.documentElement.dataset.lgxHeaderNavCaptureBound = "true";
 
-        if (!item || !nav.contains(item)) {
-          return;
-        }
+    const handleHeaderActivation = (event) => {
+      if (event.type === "pointerup" && event.button !== 0) {
+        return;
+      }
 
-        const normalizedText = getNormalizedNavText(item).toLowerCase();
-        const sectionId = SECTION_NAV_TARGETS[normalizedText];
+      if (!(event.target instanceof Element)) {
+        return;
+      }
 
-        if (normalizedText === "lugano.ai") {
-          event.preventDefault();
-          event.stopPropagation();
-          navigateHomeFromHeader();
-          return;
-        }
+      const item = event.target.closest(HEADER_NAV_CLICK_SELECTOR);
 
-        if (!sectionId) {
-          return;
-        }
+      if (!item || !item.closest("nav")) {
+        return;
+      }
 
+      const normalizedText = getNormalizedNavText(item).toLowerCase();
+      const sectionId = SECTION_NAV_TARGETS[normalizedText];
+
+      if (normalizedText !== "lugano.ai" && !sectionId) {
+        return;
+      }
+
+      const activationKey = `${normalizedText}:${sectionId || "home"}`;
+      const timestamp = performance.now();
+
+      if (
+        event.type === "click" &&
+        lastHeaderPointerActivation.key === activationKey &&
+        timestamp - lastHeaderPointerActivation.timestamp < 500
+      ) {
         event.preventDefault();
-        event.stopPropagation();
-        navigateToHeaderSection(sectionId);
-      },
-      true,
-    );
+        event.stopImmediatePropagation();
+        return;
+      }
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      if (event.type === "pointerup") {
+        lastHeaderPointerActivation = { key: activationKey, timestamp };
+      }
+
+      if (normalizedText === "lugano.ai") {
+        navigateHomeFromHeader();
+        return;
+      }
+
+      navigateToHeaderSection(sectionId);
+    };
+
+    HEADER_NAV_ACTIVATION_EVENTS.forEach((eventName) => {
+      document.addEventListener(
+        eventName,
+        handleHeaderActivation,
+        true,
+      );
+    });
   };
 
   const bindLogoHomeNav = () => {
