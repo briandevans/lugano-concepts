@@ -50,12 +50,14 @@
     "/04": {
       title: "Attestation Record",
       description:
-        "Each run returns verifiable privacy attestations across 30+ checks, covering execution state, routing, policy, receipt integrity, disclosure scope, and retention posture.",
+        "Each run returns verifiable privacy attestations across 10+ checks, covering execution state, routing, policy, receipt integrity, disclosure scope, and retention posture.",
     },
   };
   const TEXT_UPDATES = {
     AUDITABILITY: "VERIFICATION / AUDITABILITY",
     Auditability: "Verification / Auditability",
+    Hardcore: "10+ Checks",
+    "PRIVACY RATING": "PER INFERENCE",
     "Private by architecture, not by policy.": "AI Privacy by Proof",
   };
   const BASE_USE_CASE_UPDATES = {
@@ -371,7 +373,7 @@
         <div class="lgx-shell">
           <div class="lgx-centered-heading">
             <h2 id="models-title">Private Models Available</h2>
-            <p>Run the world's best open-source models with zero data exposure</p>
+            <p>Run leading open models inside a verifiable privacy boundary</p>
           </div>
           <div class="lgx-model-grid">${models.map(modelCardMarkup).join("")}</div>
           <div class="lgx-model-note">Model availability varies by private beta environment. Benchmarks shown from public Artificial Analysis, provider, and model-card data available on May 29, 2026.</div>
@@ -415,6 +417,10 @@
     section.setAttribute("aria-label", "Privacy tiers");
     section.innerHTML = `
       <div class="lgx-shell">
+        <div class="lgx-tier-heading">
+          <div class="lgx-kicker"><span></span>Privacy tiers<span></span></div>
+          <p>Deeper tiers disclosed under NDA.</p>
+        </div>
       <div class="lgx-tier-band" aria-label="Privacy tiers">
         <div class="lgx-tier-row">${tierMarkup(PRIVACY_TIERS)}</div>
       </div>
@@ -454,7 +460,7 @@
       const normalizedText = element.textContent.trim().replace(/\s+/g, " ").toLowerCase();
 
       if (CTA_LABELS.has(normalizedText)) {
-        element.textContent = "Request a demo";
+        element.textContent = "Request a private briefing";
       }
     });
   };
@@ -633,6 +639,38 @@
 
   const updateFooterDocsLink = () => {
     document.querySelectorAll("footer").forEach((footer) => {
+      const footerLinkTargets = {
+        Contact: "/#/apply",
+        "Privacy Policy": "/privacy/",
+        Security: "/security/",
+        "Terms of Service": "/terms/",
+      };
+
+      Object.entries(footerLinkTargets).forEach(([label, href]) => {
+        [...footer.querySelectorAll("span, a")].forEach((element) => {
+          const normalizedText = element.textContent.trim().replace(/\s+/g, " ");
+
+          if (normalizedText !== label) {
+            return;
+          }
+
+          if (element.tagName.toLowerCase() === "a") {
+            element.setAttribute("href", href);
+            return;
+          }
+
+          const link = document.createElement("a");
+          link.href = href;
+          link.textContent = label;
+          link.className = element.className.toString();
+          link.setAttribute(
+            "style",
+            element.getAttribute("style") || "color: inherit; text-decoration: none;",
+          );
+          element.replaceWith(link);
+        });
+      });
+
       [...footer.querySelectorAll("a")].forEach((link) => {
         const normalizedText = link.textContent.trim().replace(/\s+/g, " ");
         const href = link.getAttribute("href") || "";
@@ -957,7 +995,7 @@
         titles: ["Unilateral control.", "Verify Everything."],
         title: "Verify Everything.",
         description:
-          "We are the most robust solution for privacy attestation. Verify anything and everything.",
+          "Attestation, key release, sealed execution, receipt: every step emits evidence you can check yourself.",
       },
     ];
 
@@ -981,6 +1019,24 @@
 
       if (description && description.textContent.trim() !== update.description) {
         description.textContent = update.description;
+      }
+    });
+  };
+
+  const fixReceiptJson = () => {
+    document.querySelectorAll("#architecture .attestation-receipt").forEach((receipt) => {
+      const lines = [...receipt.querySelectorAll(".receipt-line")];
+      const hashLine = lines.find((line) => line.textContent.includes('"hash"'));
+      const statusLine = lines.find((line) => line.textContent.includes('"status"'));
+
+      if (hashLine && hashLine.dataset.lgxReceiptJsonFixed !== "true") {
+        hashLine.innerHTML = '&nbsp;"hash": "<span class="hash-value">a3f7e2c8b19d...9c41</span>",';
+        hashLine.dataset.lgxReceiptJsonFixed = "true";
+      }
+
+      if (statusLine && statusLine.dataset.lgxReceiptJsonFixed !== "true") {
+        statusLine.innerHTML = '&nbsp;"status": "<span style="color: #4EC9A0;">VERIFIED</span>"<span>}</span>';
+        statusLine.dataset.lgxReceiptJsonFixed = "true";
       }
     });
   };
@@ -1220,6 +1276,7 @@
     enhanceHeroProofLayout();
     updatePlatformHeadingCopy();
     updateArchitectureModelCopy();
+    fixReceiptJson();
     updatePlatformStepCopy();
     updateStaticTextCopy();
     updateBaseUseCaseCopy();
@@ -1256,6 +1313,7 @@
     enhanceHeroProofLayout();
     updatePlatformHeadingCopy();
     updateArchitectureModelCopy();
+    fixReceiptJson();
     updatePlatformStepCopy();
     updateStaticTextCopy();
     updateBaseUseCaseCopy();
@@ -1303,6 +1361,7 @@
         enhanceHeroProofLayout();
         updatePlatformHeadingCopy();
         updateArchitectureModelCopy();
+        fixReceiptJson();
         updatePlatformStepCopy();
         updateStaticTextCopy();
         updateBaseUseCaseCopy();
@@ -1326,6 +1385,7 @@
           enhanceHeroProofLayout();
           updatePlatformHeadingCopy();
           updateArchitectureModelCopy();
+          fixReceiptJson();
           updatePlatformStepCopy();
           updateStaticTextCopy();
           updateBaseUseCaseCopy();
@@ -1352,6 +1412,7 @@
     enhanceHeroProofLayout();
     updatePlatformHeadingCopy();
     updateArchitectureModelCopy();
+    fixReceiptJson();
     updatePlatformStepCopy();
     updateStaticTextCopy();
     updateBaseUseCaseCopy();

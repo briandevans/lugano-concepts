@@ -895,6 +895,25 @@
   margin: 0 auto;
 }
 
+#root .lgx-tier-heading {
+  width: min(100%, 980px);
+  margin: 0 auto 1rem;
+  text-align: center;
+}
+
+#root .lgx-tier-heading .lgx-kicker {
+  margin-bottom: 0.55rem;
+}
+
+#root .lgx-tier-heading p {
+  margin: 0;
+  color: var(--lgx-muted);
+  font-family: "JetBrains Mono", monospace;
+  font-size: clamp(0.7rem, 0.82vw, 0.78rem);
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+}
+
 #root .lgx-tier-band {
   display: grid;
   gap: 0.85rem;

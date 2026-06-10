@@ -1,0 +1,125 @@
+:root {
+  --bg: #000103;
+  --panel: rgba(8, 17, 25, 0.82);
+  --line: rgba(155, 213, 244, 0.18);
+  --text: #f4f7f9;
+  --muted: #91a3b1;
+  --blue: #76bce7;
+  --gold: #c7b88b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 68% 0%, rgba(118, 188, 231, 0.12), transparent 28rem),
+    linear-gradient(180deg, #04080c, var(--bg));
+  color: var(--text);
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+.legal-shell {
+  width: min(100% - clamp(2rem, 7vw, 6rem), 920px);
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) 0;
+}
+
+.legal-nav,
+.legal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.legal-nav a,
+.legal-footer a {
+  color: rgba(244, 247, 249, 0.72);
+  text-decoration: none;
+}
+
+.legal-card {
+  margin: clamp(3.5rem, 8vw, 6.5rem) 0;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: clamp(2rem, 5vw, 4rem);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.018)),
+    var(--panel);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 34px 90px rgba(0, 0, 0, 0.28);
+}
+
+.legal-kicker {
+  margin: 0 0 1.1rem;
+  color: var(--blue);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+h1 {
+  max-width: 780px;
+  margin: 0;
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 0.95;
+}
+
+.legal-lede {
+  max-width: 700px;
+  margin: 1.35rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.35vw, 1.22rem);
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.legal-list {
+  display: grid;
+  gap: 1rem;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legal-list li {
+  border-top: 1px solid rgba(155, 213, 244, 0.12);
+  padding-top: 1rem;
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.legal-list strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.legal-note {
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  color: var(--gold);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+}
