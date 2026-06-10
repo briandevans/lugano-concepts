@@ -492,11 +492,12 @@
         .replace(/^-|-$/g, "");
 
       if (labelSlug) {
-        section.classList.add(`lgx-live-${labelSlug}`);
-
         if (labelSlug === "who-it-s-for") {
-          section.classList.add("lgx-section-hidden");
+          section.remove();
+          return;
         }
+
+        section.classList.add(`lgx-live-${labelSlug}`);
       }
     });
   };
@@ -654,7 +655,6 @@
     ].filter(
       (section) =>
         section.querySelector("h2") &&
-        !section.classList.contains("lgx-section-hidden") &&
         !section.classList.contains("lgx-why-now-section"),
     );
 

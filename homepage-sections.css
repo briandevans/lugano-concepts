@@ -788,10 +788,6 @@
   font-style: italic !important;
 }
 
-#root .lgx-section-hidden {
-  display: none !important;
-}
-
 #root .lgx-live-what-we-do .lgx-live-heading > div:not(.bracket-label) {
   width: min(100%, 760px) !important;
   margin-right: auto !important;
