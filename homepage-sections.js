@@ -56,12 +56,15 @@
     },
   };
   const TEXT_UPDATES = {
-    AUDITABILITY: "VERIFICATION / AUDITABILITY",
     Auditability: "Verification / Auditability",
-    Hardcore: "10+ Checks",
-    "PRIVACY RATING": "PER INFERENCE",
     "Private by architecture, not by policy.": "AI Privacy by Proof",
   };
+  const HERO_STAT_CARD_UPDATES = [
+    { label: "DATA / PROMPTS", value: "Privacy, even from us." },
+    { label: "RETENTION", value: "Can’t leak what we don’t keep." },
+    { label: "EVERY REQUEST", value: "Receipts or it didn’t happen." },
+    { label: "THREAT MODEL", value: "Paranoid by design." },
+  ];
   const BASE_USE_CASE_UPDATES = {
     "Regulated industries": {
       title: "Regulated Industries",
@@ -1086,6 +1089,29 @@
     });
   };
 
+  const updateHeroStatCards = () => {
+    document.querySelectorAll("#root .stat-glass-card").forEach((card, index) => {
+      const update = HERO_STAT_CARD_UPDATES[index];
+
+      if (!update) {
+        return;
+      }
+
+      const textElements = [...card.querySelectorAll(":scope > div")].filter(
+        (element) => element.textContent.trim() && !element.querySelector("[role='img']"),
+      );
+      const [valueElement, labelElement] = textElements.slice(-2);
+
+      if (valueElement && valueElement.textContent.trim() !== update.value) {
+        valueElement.textContent = update.value;
+      }
+
+      if (labelElement && labelElement.textContent.trim() !== update.label) {
+        labelElement.textContent = update.label;
+      }
+    });
+  };
+
   const updateBaseUseCaseCopy = () => {
     document.querySelectorAll("#root .use-case-card").forEach((card) => {
       const heading = card.querySelector("h3");
@@ -1288,6 +1314,7 @@
     updateArchitectureModelCopy();
     fixReceiptJson();
     updatePlatformStepCopy();
+    updateHeroStatCards();
     updateStaticTextCopy();
     updateBaseUseCaseCopy();
     updateCloseCopy();
@@ -1325,6 +1352,7 @@
     updateArchitectureModelCopy();
     fixReceiptJson();
     updatePlatformStepCopy();
+    updateHeroStatCards();
     updateStaticTextCopy();
     updateBaseUseCaseCopy();
     updateCloseCopy();
@@ -1424,6 +1452,7 @@
     updateArchitectureModelCopy();
     fixReceiptJson();
     updatePlatformStepCopy();
+    updateHeroStatCards();
     updateStaticTextCopy();
     updateBaseUseCaseCopy();
     updateCloseCopy();

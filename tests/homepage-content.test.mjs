@@ -48,6 +48,22 @@ test("footer labels are converted to real links", () => {
   assert.doesNotMatch(homepageScript, /"Terms of Service":\s*"\/terms\/"/);
 });
 
+test("hero stat boxes use the proof-focused copy", () => {
+  const expectedStats = [
+    { label: "DATA / PROMPTS", value: "Privacy, even from us." },
+    { label: "RETENTION", value: "Can’t leak what we don’t keep." },
+    { label: "EVERY REQUEST", value: "Receipts or it didn’t happen." },
+    { label: "THREAT MODEL", value: "Paranoid by design." },
+  ];
+
+  expectedStats.forEach(({ label, value }) => {
+    assert.match(homepageScript, new RegExp(label.replace("/", "\\/")));
+    assert.match(homepageScript, new RegExp(value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  });
+
+  assert.doesNotMatch(homepageScript, /PRIVACY RATING|Hardcore|PER INFERENCE/);
+});
+
 test("proof and model copy avoid overclaims", () => {
   assert.match(
     homepageScript,
