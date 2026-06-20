@@ -10,6 +10,10 @@ const homepageStyles = readFileSync(
   new URL("../homepage-sections.css", import.meta.url),
   "utf8",
 );
+const docsIndex = readFileSync(
+  new URL("../docs/index.html", import.meta.url),
+  "utf8",
+);
 
 test("uses 10+ checks consistently and never reintroduces 30+ checks", () => {
   assert.match(homepageScript, /across 10\+ checks/i);
@@ -136,4 +140,17 @@ test("proof and model copy avoid overclaims", () => {
     homepageScript,
     /most robust solution|verify anything and everything|world's best open-source models|zero data exposure/i,
   );
+});
+
+test("GLM-5.2 is the top listed model without expanding the roster", () => {
+  assert.match(homepageScript, /title: "GLM-5\.2"/);
+  assert.match(homepageScript, /specs: "1M context \/ 128K output"/);
+  assert.doesNotMatch(homepageScript, /title: "DeepSeek V4 Flash"/);
+
+  assert.match(
+    docsIndex,
+    /<span class="model-rank">01<\/span>\s*<span class="model-name"><strong>GLM-5\.2<\/strong><span>Z AI<\/span><\/span>/,
+  );
+  assert.match(docsIndex, /https:\/\/docs\.z\.ai\/guides\/llm\/glm-5\.2/);
+  assert.doesNotMatch(docsIndex, /Voxtral TTS Open Weights/);
 });

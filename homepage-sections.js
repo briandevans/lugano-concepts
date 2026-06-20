@@ -173,6 +173,19 @@
 
   const models = [
     {
+      title: "GLM-5.2",
+      maker: "Z.ai",
+      logo: "brand-assets/zai.webp",
+      logoAlt: "Z.ai logo",
+      specs: "1M context / 128K output",
+      benchmarks: [
+        { label: "Best for", value: "Long-horizon" },
+        { label: "Coding", value: "#1 open" },
+        { label: "Tools", value: "MCP" },
+      ],
+      featured: true,
+    },
+    {
       title: "Kimi K2.6",
       maker: "Moonshot AI",
       logo: "brand-assets/kimi.ico",
@@ -183,7 +196,6 @@
         { label: "Tools", value: "Yes" },
         { label: "Vision", value: "Yes" },
       ],
-      featured: true,
     },
     {
       title: "DeepSeek V4 Pro",
@@ -231,18 +243,6 @@
         { label: "Best for", value: "Harness" },
         { label: "ClawEval", value: "#1" },
         { label: "GDPVal", value: "#1" },
-      ],
-    },
-    {
-      title: "DeepSeek V4 Flash",
-      maker: "DeepSeek",
-      logo: "brand-assets/deepseek.ico",
-      logoAlt: "DeepSeek logo",
-      specs: "284B MoE / 13B active",
-      benchmarks: [
-        { label: "Best for", value: "Long + fast" },
-        { label: "Context", value: "1M" },
-        { label: "Agent", value: "Near Pro" },
       ],
     },
   ];
