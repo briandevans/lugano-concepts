@@ -10,6 +10,17 @@ const homepageStyles = readFileSync(
   new URL("../homepage-sections.css", import.meta.url),
   "utf8",
 );
+const homepageIndex = readFileSync(
+  new URL("../index.html", import.meta.url),
+  "utf8",
+);
+const logoMark = readFileSync(
+  new URL("../logo-mark.svg", import.meta.url),
+  "utf8",
+);
+const logoMarkWebp = readFileSync(
+  new URL("../logo-mark.webp", import.meta.url),
+);
 const docsIndex = readFileSync(
   new URL("../docs/index.html", import.meta.url),
   "utf8",
@@ -112,6 +123,28 @@ test("footer labels are converted to real links", () => {
   assert.match(homepageScript, /Security:\s*"\/security\/"/);
   assert.match(homepageScript, /Terms:\s*"\/terms\/"/);
   assert.doesNotMatch(homepageScript, /"Terms of Service":\s*"\/terms\/"/);
+});
+
+test("brand mark and favicon use the magenta Lugano mark", () => {
+  assert.equal(logoMarkWebp.subarray(0, 4).toString("ascii"), "RIFF");
+  assert.equal(logoMarkWebp.subarray(8, 12).toString("ascii"), "WEBP");
+  assert.match(logoMark, /viewBox="0 0 1920 1920"/);
+  assert.match(logoMark, /fill="#E11BDD" fill-opacity="0\.25"/);
+  assert.match(logoMark, /x="584" y="469" width="395" height="434"/);
+  assert.match(logoMark, /x="1032" y="964" width="395" height="434"/);
+  assert.match(
+    homepageIndex,
+    /<link rel="icon" type="image\/webp" href="\.\/logo-mark\.webp\?v=brand-manus-parity-20260622" \/>/,
+  );
+  assert.match(homepageIndex, /homepage-sections\.css\?v=brand-manus-parity-20260622/);
+  assert.match(homepageIndex, /homepage-sections\.js\?v=brand-manus-parity-20260622/);
+  assert.match(
+    homepageScript,
+    /const BRAND_MARK_SRC = "logo-mark\.webp\?v=brand-manus-parity-20260622";/,
+  );
+  assert.doesNotMatch(homepageScript, /BRAND_MARK_SRC = "\//);
+  assert.match(homepageScript, /normalizeBrandMarkAssets/);
+  assert.match(homepageStyles, /--lgx-magenta: #e11bdd;/);
 });
 
 test("hero stat boxes use the proof-focused copy", () => {

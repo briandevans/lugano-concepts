@@ -11,6 +11,9 @@
   --lgx-dim: #536574;
   --lgx-blue: #76bce7;
   --lgx-blue-soft: rgba(74, 166, 223, 0.14);
+  --lgx-magenta: #e11bdd;
+  --lgx-magenta-soft: rgba(225, 27, 221, 0.16);
+  --lgx-magenta-line: rgba(225, 27, 221, 0.36);
   --lgx-gold: #c7b88b;
   --lgx-card-radius: 24px;
   --lgx-content-max: 1272px;
@@ -44,6 +47,12 @@
 #root {
   --text-accent: var(--lgx-blue);
   --color-accent: var(--lgx-blue);
+}
+
+#root a:focus-visible,
+#root button:focus-visible {
+  outline: 2px solid rgba(225, 27, 221, 0.68) !important;
+  outline-offset: 4px !important;
 }
 
 #root [style*="#4EC9A0"],
@@ -268,8 +277,10 @@
   border-radius: 999px;
   pointer-events: none;
   background:
-    linear-gradient(90deg, transparent 0%, rgba(199, 184, 139, 0.88) 14%, #9bd5f4 58%, rgba(199, 184, 139, 0.72) 86%, transparent 100%);
-  box-shadow: 0 0 18px rgba(155, 213, 244, 0.22);
+    linear-gradient(90deg, transparent 0%, rgba(199, 184, 139, 0.82) 14%, rgba(225, 27, 221, 0.72) 45%, #9bd5f4 66%, rgba(199, 184, 139, 0.68) 86%, transparent 100%);
+  box-shadow:
+    0 0 18px rgba(155, 213, 244, 0.2),
+    0 0 22px rgba(225, 27, 221, 0.16);
   content: "";
   transform-origin: 50% 50%;
 }
@@ -1032,7 +1043,9 @@
   border: 1px solid rgba(155, 213, 244, 0.42) !important;
   border-radius: 4px !important;
   background: var(--lgx-blue) !important;
-  box-shadow: 0 16px 44px rgba(74, 166, 223, 0.16) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(225, 27, 221, 0.12),
+    0 16px 44px rgba(74, 166, 223, 0.16) !important;
   color: #02070c !important;
   font-family: "JetBrains Mono", monospace !important;
   font-size: 0.78rem !important;
@@ -1042,6 +1055,32 @@
 
 #root .lgx-live-private-beta .lgx-live-heading a:hover {
   background: #9bd5f4 !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(225, 27, 221, 0.2),
+    0 18px 52px rgba(225, 27, 221, 0.16),
+    0 14px 42px rgba(74, 166, 223, 0.16) !important;
+}
+
+#root .lgx-brand-link {
+  border-radius: 6px;
+}
+
+#root nav .lgx-brand-link {
+  gap: 0.72rem !important;
+  padding-inline: 0.5rem !important;
+}
+
+#root .lgx-brand-mark-image {
+  width: 1.875rem !important;
+  height: 1.875rem !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  transform: translateY(-0.5px);
+}
+
+#root nav .lgx-brand-link:hover .lgx-brand-mark-image,
+#root nav .lgx-brand-link:focus-visible .lgx-brand-mark-image {
+  box-shadow: 0 0 0 1px rgba(225, 27, 221, 0.22) !important;
 }
 
 .lgx-vertical-grid,
@@ -1552,6 +1591,7 @@
     overflow-y: auto !important;
     background:
       linear-gradient(180deg, #05090d, #000103),
+      radial-gradient(circle at 18% 0%, rgba(225, 27, 221, 0.08), transparent 17rem),
       radial-gradient(circle at 50% 0%, rgba(155, 213, 244, 0.11), transparent 20rem) !important;
     border-top: 1px solid rgba(155, 213, 244, 0.14) !important;
     -webkit-backdrop-filter: none !important;
@@ -1621,6 +1661,10 @@
 
   #root nav > div:first-child > button[class*="md:hidden"] {
     display: none !important;
+  }
+
+  #root nav > div:first-child > a.lgx-brand-link:first-child {
+    padding-inline: 0.5rem !important;
   }
 }
 

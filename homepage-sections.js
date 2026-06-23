@@ -1,5 +1,6 @@
 (() => {
   const ROOT_ID = "lugano-extra-sections";
+  const BRAND_MARK_SRC = "logo-mark.webp?v=brand-manus-parity-20260622";
   const USE_CASES_SECTION_ID = "use-cases";
   const USE_CASES_HASH = "#/?section=use-cases";
   const MAX_MOUNT_ATTEMPTS = 180;
@@ -972,6 +973,31 @@
     });
   };
 
+  const normalizeBrandMarkAssets = () => {
+    document.querySelectorAll("nav a, footer a").forEach((link) => {
+      const normalizedText = getNormalizedNavText(link).toLowerCase();
+
+      if (normalizedText === "lugano.ai") {
+        link.classList.add("lgx-brand-link");
+      }
+    });
+
+    document.querySelectorAll("img").forEach((image) => {
+      const source = image.getAttribute("src") || "";
+      const sourcePath = source.split("?")[0];
+
+      if (!sourcePath.endsWith("/logo-mark.svg") && sourcePath !== "logo-mark.svg") {
+        return;
+      }
+
+      image.setAttribute("src", BRAND_MARK_SRC);
+      image.alt = "";
+      image.decoding = "async";
+      image.classList.add("lgx-brand-mark-image");
+      image.closest("a")?.classList.add("lgx-brand-link");
+    });
+  };
+
   const normalizeSectionBackgrounds = () => {
     const contentSections = [
       ...document.querySelectorAll("#root section, #lugano-extra-sections section"),
@@ -1548,6 +1574,7 @@
     bindHeaderNavClickCapture();
     bindLogoHomeNav();
     updateFooterDocsLink();
+    normalizeBrandMarkAssets();
     normalizeLiveHeadings();
     ensureWhyNowStrip();
     enhancePrivacyPositioning();
