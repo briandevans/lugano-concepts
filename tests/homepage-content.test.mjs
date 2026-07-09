@@ -56,12 +56,12 @@ test("cipher hover covers screenshot card surfaces", () => {
 
   [
     "#root .lgx-tier-card",
-    "#root .lgx-hero-proof-card",
   ].forEach((selector) => {
     assert.match(selectorMatch[1], new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   });
 
   assert.doesNotMatch(selectorMatch[1], /#root \.lgx-proof-row/);
+  assert.doesNotMatch(selectorMatch[1], /#root \.lgx-hero-proof-card/);
   assert.match(homepageScript, /ensurePrivacyLevelsSection/);
   assert.doesNotMatch(homepageScript, /Deeper tiers|disclosed under NDA|withheld/i);
 });
@@ -136,8 +136,14 @@ test("brand mark and favicon use the magenta Lugano mark", () => {
     homepageIndex,
     /<link rel="icon" type="image\/webp" href="\.\/logo-mark\.webp\?v=brand-manus-parity-20260622" \/>/,
   );
-  assert.match(homepageIndex, /homepage-sections\.css\?v=brand-manus-parity-20260622/);
-  assert.match(homepageIndex, /homepage-sections\.js\?v=brand-manus-parity-20260622/);
+  assert.match(
+    homepageIndex,
+    /homepage-sections\.css\?v=editorial-proof-hero-preview-20260709/,
+  );
+  assert.match(
+    homepageIndex,
+    /homepage-sections\.js\?v=editorial-proof-hero-preview-20260709/,
+  );
   assert.match(
     homepageScript,
     /const BRAND_MARK_SRC = "logo-mark\.webp\?v=brand-manus-parity-20260622";/,
@@ -145,6 +151,20 @@ test("brand mark and favicon use the magenta Lugano mark", () => {
   assert.doesNotMatch(homepageScript, /BRAND_MARK_SRC = "\//);
   assert.match(homepageScript, /normalizeBrandMarkAssets/);
   assert.match(homepageStyles, /--lgx-magenta: #e11bdd;/);
+});
+
+test("hero keeps the verification ledger as a first-class editorial feature", () => {
+  assert.match(homepageScript, /hero\.classList\.add\("lgx-hero-editorial"\);/);
+  assert.match(homepageScript, /hero\.classList\.remove\("lgx-hero-split"\);/);
+  assert.match(homepageScript, /heroContent\.append\(copyColumn, proofColumn\);/);
+  assert.match(homepageScript, /heroContent\.appendChild\(proofColumn\);/);
+  assert.doesNotMatch(homepageScript, /proofSection\.id = "lugano-proof-ledger";/);
+  assert.doesNotMatch(homepageScript, /hero\.insertAdjacentElement\("afterend", proofSection\);/);
+  assert.match(
+    homepageStyles,
+    /#root section\.flex-col\.justify-between:first-of-type\.lgx-hero-editorial/,
+  );
+  assert.match(homepageStyles, /\.lgx-hero-editorial \.lgx-hero-proof-card/);
 });
 
 test("hero stat boxes use the proof-focused copy", () => {

@@ -10,7 +10,6 @@
     "#root .stat-glass-card",
     "#root .lgx-why-now-stat",
     "#root .lgx-tier-card",
-    "#root .lgx-hero-proof-card",
     "#lugano-extra-sections .lgx-card",
   ].join(", ");
   const CIPHER_CHARS = "0123456789ABCDEF";
@@ -1196,19 +1195,21 @@
       return;
     }
 
-    const existingPanel = hero.querySelector("[data-lugano-proof-panel='static']");
+    const existingPanel = document.querySelector("[data-lugano-proof-panel='static']");
     const proofButton = existingPanel ? null : getProofButton(hero);
     const proofCard = existingPanel || proofButton?.parentElement;
     const proofShell =
-      proofCard && getDirectHeroChildContaining(heroContent, proofCard);
+      document.querySelector("[data-lugano-proof-shell='true']") ||
+      (proofCard && getDirectHeroChildContaining(heroContent, proofCard));
 
     if (!proofCard || !proofShell) {
       return;
     }
 
-    hero.classList.add("lgx-hero-split");
-    hero.dataset.luganoHeroLayout = "split-proof";
-    heroContent.dataset.luganoHeroContent = "split-proof";
+    hero.classList.remove("lgx-hero-split");
+    hero.classList.add("lgx-hero-editorial");
+    hero.dataset.luganoHeroLayout = "editorial-proof-in-hero";
+    heroContent.dataset.luganoHeroContent = "editorial-proof";
 
     const trustSpan = [...hero.querySelectorAll("h1 span")].find(
       (span) => span.textContent.trim().toLowerCase() === "trust me bro",
@@ -1220,7 +1221,7 @@
     }
 
     let copyColumn = heroContent.querySelector(":scope > .lgx-hero-copy");
-    let proofColumn = heroContent.querySelector(":scope > .lgx-hero-proof-column");
+    let proofColumn = document.querySelector(".lgx-hero-proof-column");
 
     if (!copyColumn || !proofColumn) {
       copyColumn = document.createElement("div");
@@ -1240,6 +1241,14 @@
       heroContent.append(copyColumn, proofColumn);
     }
 
+    if (proofColumn.parentElement !== heroContent) {
+      heroContent.appendChild(proofColumn);
+    }
+
+    document.getElementById("lugano-proof-ledger")?.remove();
+
+    proofColumn.classList.remove("lgx-hero-proof-shell");
+    proofShell.dataset.luganoProofShell = "true";
     proofShell.classList.add("lgx-hero-proof-shell");
     proofCard.classList.add("lgx-hero-proof-card");
     proofCard.dataset.luganoProofPanel = "static";
