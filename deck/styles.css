@@ -37,7 +37,21 @@ body.export .slide { display: block; margin: 0 auto; }
   display: flex;
   flex-direction: column;
 }
-.object { flex: 1; min-height: 0; margin-top: 18px; }
+.object {
+  flex: 1;
+  min-height: 0;
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.object > .g2,
+.object > .g3,
+.object > .g4,
+.object > .g22,
+.object > .g23,
+.object > .plate,
+.object > .ticks { width: 100%; height: auto; }
 
 .kicker {
   font-size: 13px; font-weight: 700;
@@ -63,11 +77,11 @@ body.export .slide { display: block; margin: 0 auto; }
   text-transform: uppercase; color: var(--ink-2);
 }
 
-.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; height: 100%; }
-.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; height: 100%; }
-.g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 18px; height: 100%; }
-.g23 { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 18px 28px; height: 100%; }
-.g22 { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 18px 28px; height: 100%; }
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 40px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px 36px; }
+.g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px 28px; }
+.g23 { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto; gap: 28px 36px; }
+.g22 { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 28px 36px; }
 
 .cell {
   border-top: 2px solid var(--ink);
@@ -120,8 +134,8 @@ body.export .slide { display: block; margin: 0 auto; }
   text-transform: uppercase;
 }
 .bar .s { background: var(--ink); color: var(--paper); }
-.bar .e { background: transparent; border-left: 2px solid var(--ink); }
-.bar .g { background: transparent; border-left: 2px solid var(--ink); }
+.bar .e { background: #5a5248; color: var(--paper); border-left: 2px solid var(--ink); }
+.bar .g { background: #8a7d6c; color: var(--paper); border-left: 2px solid var(--ink); }
 
 .ticks { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; height: 100%; }
 .ticks article {
