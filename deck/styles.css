@@ -50,6 +50,7 @@ body.export .slide { display: block; margin: 0 auto; }
 .object > .g4,
 .object > .g22,
 .object > .g23,
+.object > .g42,
 .object > .plate,
 .object > .ticks { width: 100%; height: auto; }
 
@@ -82,6 +83,7 @@ body.export .slide { display: block; margin: 0 auto; }
 .g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px 28px; }
 .g23 { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto; gap: 28px 36px; }
 .g22 { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 28px 36px; }
+.g42 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-rows: auto auto; gap: 28px 24px; }
 
 .cell {
   border-top: 2px solid var(--ink);
