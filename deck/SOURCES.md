@@ -36,6 +36,15 @@ Used only public, checkable facts. Strengths framing is editorial, not a new cla
 - No group entity has issued a token.
 - Licensed partners handle custody and transmission — as in prior Royal drafts.
 
+## Timing / supply (slide 12)
+
+- Do **not** claim Hopper-class GPUs came from a crypto mining wind-down. Miners ran consumer cards, then ASICs. Supply line is secondary / rotating lab-and-cloud fleets.
+- DeepSeek is not used as a “trust collapse” proof. Timing line is that buyers already switch defaults; the next switch is one a CISO can sign.
+
+## Competitive set (slide 11)
+
+Named as existing, not ignored: NVIDIA Confidential Computing, Azure Confidential Computing, Opaque, Tinfoil. The claim is incentive and control-plane, not “we invented the TEE.”
+
 ## Wording we did not invent
 
 - Live silicon: one founder-funded NVIDIA H100 at lugano.ai.
