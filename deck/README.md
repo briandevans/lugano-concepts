@@ -20,6 +20,8 @@ node export.mjs
 
 Writes `export/slide-01.png` … `slide-16.png` and `export/Royal_AI_Group_SAFE.pdf`.
 
+A PowerPoint built from those PNGs lives at `export/Royal_AI_Group_SAFE.pptx`.
+
 ## Diligence
 
 See `SOURCES.md`. Nothing in brackets ships. Unresolved counsel items are omitted or stated as ranges.
