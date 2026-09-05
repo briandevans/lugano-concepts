@@ -89,7 +89,7 @@
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.03em;
-  color: #f3efe6;
+  color: #16140f;
 }
 
 .lg-dot {
@@ -101,10 +101,12 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow: visible;
+  overflow: hidden;
   min-height: 100vh;
-  color: #f3efe6;
-  background: #08090c;
+  color: #16140f;
+  background-color: #e7e4d8;
+  background-image: url("/generated/gelatin_sheet.png");
+  background-size: cover;
 }
 
 .lg-sheet .lg-heat {
@@ -115,7 +117,7 @@
   height: 100%;
   pointer-events: none;
   mix-blend-mode: multiply;
-  opacity: 0.5;
+  opacity: 0.2;
 }
 
 .lg-sprocket {
@@ -141,7 +143,7 @@
   height: 72px;
   border-bottom: 0;
   background: transparent;
-  color: #f3efe6;
+  color: #16140f;
 }
 
 .lg-nav-inner {
@@ -166,14 +168,14 @@
 }
 
 .lg-nav-links a {
-  color: rgba(243, 239, 230, 0.82);
+  color: #16140f;
   font-family: var(--mono);
   font-size: 0.78rem;
   letter-spacing: 0.04em;
 }
 
 .lg-nav-links a:hover {
-  color: #f3efe6;
+  color: var(--swiss);
 }
 
 .lg-nav-cta {
@@ -183,7 +185,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: rgba(243, 239, 230, 0.82) !important;
+  color: #16140f !important;
   font-family: var(--mono);
   font-size: 0.78rem;
   letter-spacing: 0.04em;
@@ -200,7 +202,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: #f4eee0;
+  color: #16140f;
   cursor: pointer;
 }
 
@@ -306,15 +308,15 @@
 
 .lg a.lg-btn.lg-btn-ink,
 .lg-btn-ink {
-  background: #f3efe6;
-  border-color: #f3efe6;
-  color: #08090c !important;
+  background: #16140f;
+  border-color: #16140f;
+  color: #e7e4d8 !important;
 }
 
 .lg a.lg-btn.lg-btn-ink:hover,
 .lg-btn-ink:hover {
   background: transparent;
-  color: #f3efe6 !important;
+  color: #16140f !important;
 }
 
 .lg-btn-ghost {
@@ -322,10 +324,12 @@
   align-items: center;
   min-height: 3.35rem;
   padding: 0.7rem 0;
-  color: #f3efe6;
+  color: #16140f;
   font-family: var(--ui);
   font-size: 0.9rem;
   letter-spacing: 0.01em;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
   border-bottom: 0;
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -339,6 +343,11 @@
 
 .lg-btn-ghost-ink {
   color: var(--ink);
+}
+
+.lg-rest {
+  position: relative;
+  z-index: 1;
 }
 
 .lg-section {
@@ -381,6 +390,22 @@
   color: var(--alpine);
 }
 
+.lg-section-ink .lg-lede {
+  color: var(--fog);
+}
+
+.lg-section-ink .lg-choice article {
+  border-color: var(--rule-paper);
+}
+
+.lg-section-ink .lg-choice h3 {
+  color: var(--paper);
+}
+
+.lg-section-ink .lg-choice p {
+  color: var(--fog);
+}
+
 .lg-paper-grain,
 .lg-section-paper {
   background-image:
@@ -395,9 +420,9 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  overflow: visible;
+  justify-content: center;
   min-height: 0;
-  color: #f3efe6;
+  color: #16140f;
   background: transparent;
 }
 
@@ -445,11 +470,10 @@
   position: relative;
   z-index: 3;
   display: grid;
-  flex: 1;
-  grid-template-columns: minmax(18rem, 0.72fr) minmax(28rem, 1.15fr);
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.95fr);
   align-items: start;
-  gap: clamp(2rem, 4vw, 3.5rem);
-  padding: 2.4rem 0 0;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  padding: 1.5rem 0 3rem;
 }
 
 .lg-copy {
@@ -463,9 +487,9 @@
   flex-direction: column;
   max-width: none;
   margin: 0;
-  color: #f3efe6;
+  color: #16140f;
   font-family: var(--sans);
-  font-size: clamp(3.6rem, 6.4vw, 5.6rem);
+  font-size: clamp(3.8rem, 6.6vw, 5.8rem);
   font-weight: 400;
   line-height: 0.92;
   letter-spacing: -0.038em;
@@ -484,10 +508,31 @@
 .lg-sub {
   max-width: 22rem;
   margin: 1.65rem 0 0;
-  color: #f3efe6;
+  color: #16140f;
   font-family: var(--sans);
   font-size: 1.15rem;
   line-height: 1.35;
+}
+
+.lg-print {
+  position: relative;
+  z-index: 3;
+  min-width: 0;
+  padding-top: 0.2rem;
+}
+
+.lg-print-kicker {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1.35rem;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  letter-spacing: 0.04em;
+}
+
+.lg-print-live {
+  color: var(--swiss);
 }
 
 .lg-stage {

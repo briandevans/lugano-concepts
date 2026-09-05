@@ -35,30 +35,23 @@ function groupHash(value: string) {
 
 function LiveReceipt({ clock }: { clock: string }) {
   return (
-    <div className="lg-stage">
-      <aside className="lg-slip" aria-label="Attestation receipt">
-        <ThermalHeat />
-        <p className="lg-slip-zero">0</p>
-        <p className="lg-slip-status">Retention</p>
-        <header className="lg-slip-head">
-          <p>Attestation</p>
-          <p>Lugano, CH</p>
-        </header>
-        <p className="lg-slip-id">LUG-7F283</p>
-        <p className="lg-slip-meta">{clock}</p>
-        <dl className="lg-slip-dl">
-          {MEASURES.map((row) => (
-            <div key={row.key}>
-              <dt>{row.key}</dt>
-              <dd className="lg-hash">{groupHash(row.value)}</dd>
-            </div>
-          ))}
-        </dl>
-        <a className="lg-slip-foot" href="#architecture">
-          verify LUG-7F283
-        </a>
-      </aside>
-    </div>
+    <aside className="lg-print" aria-label="Attestation receipt">
+      <p className="lg-print-kicker">
+        <span>LUG-7F283</span>
+        <span className="lg-print-live">{clock}</span>
+      </p>
+      <dl className="lg-slip-dl">
+        {MEASURES.slice(0, 4).map((row) => (
+          <div key={row.key}>
+            <dt>{row.key}</dt>
+            <dd className="lg-hash">{groupHash(row.value)}</dd>
+          </div>
+        ))}
+      </dl>
+      <a className="lg-slip-foot" href="#architecture">
+        VERIFY LUG-7F283
+      </a>
+    </aside>
   );
 }
 
@@ -292,7 +285,8 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="lg-sheet">
+      <div className="lg-sheet lg-sheet-paper">
+        <ThermalHeat />
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
@@ -334,11 +328,11 @@ export default function Home() {
           <div className="lg-shell lg-split">
             <div className="lg-copy">
               <div>
+                <p className="lg-slip-zero">0</p>
+                <p className="lg-slip-status">Retention</p>
                 <h1>
                   <span>AI privacy</span>
-                  <span>
-                    by proof<i>.</i>
-                  </span>
+                  <span>by proof</span>
                 </h1>
                 <p className="lg-sub">A cryptographic receipt with every response.</p>
               </div>
@@ -347,7 +341,7 @@ export default function Home() {
                   Request briefing
                 </a>
                 <a className="lg-btn-ghost" href="#platform">
-                  How it works →
+                  How it works
                 </a>
               </div>
             </div>
@@ -358,11 +352,11 @@ export default function Home() {
 
       <main id="main" className="lg-rest">
 
-        <section id="problem" className="lg-section lg-section-cont">
+        <section id="problem" className="lg-section lg-section-ink">
           <div className="lg-shell lg-problem">
             <div>
               <h2 className="lg-display">The false choice of the cloud era</h2>
-              <p className="lg-lede lg-ink-copy">
+              <p className="lg-lede">
                 You either send proprietary data to a black box you cannot audit, or you run
                 crippled open-source models locally. That is a failure of infrastructure, not a
                 law of physics.
