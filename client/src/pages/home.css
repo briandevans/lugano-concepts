@@ -544,8 +544,8 @@
 
 .lg-zero-hero {
   width: auto;
-  height: min(78vh, 36rem);
-  margin: 0;
+  height: min(58vh, 28rem);
+  margin: 0.15rem 0;
 }
 
 .lg-assay-lockup strong {
@@ -641,11 +641,11 @@
 
 .lg-assay-desc {
   display: block;
-  max-width: 16rem;
-  margin-top: 0.85rem;
-  color: #c8c2b6;
+  max-width: 20rem;
+  margin-top: 0.95rem;
+  color: #efeae0;
   font-family: var(--mono);
-  font-size: 0.88rem;
+  font-size: 1.05rem;
   font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
@@ -704,16 +704,15 @@
 .lg-assay-verify {
   display: inline-flex;
   align-items: center;
-  min-height: 0;
+  min-height: 2.5rem;
   margin-top: 1.15rem;
-  padding: 0;
+  padding: 0 0.9rem;
   border: 0;
-  background: transparent;
-  color: #1a1916 !important;
+  background: #c8722e;
+  color: #07080b !important;
   font-family: var(--mono);
-  font-size: 0.88rem;
-  text-decoration: underline;
-  text-underline-offset: 0.22em;
+  font-size: 0.82rem;
+  text-decoration: none;
 }
 
 .lg-assay-zero {

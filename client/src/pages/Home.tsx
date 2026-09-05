@@ -307,7 +307,7 @@ export default function Home() {
         <section id="top" className="lg-assay-hero">
           <h1 className="lg-assay-lockup">
             <em>Held to</em>
-            <ZeroMark className="lg-zero-hero" />
+            <img className="lg-zero-hero" src="/zero-cream.svg" alt="0" />
             <strong>bytes retained</strong>
             <b className="lg-assay-desc">Private inference with a cryptographic receipt.</b>
           </h1>
