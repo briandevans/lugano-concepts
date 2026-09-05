@@ -521,18 +521,18 @@ a {
 
 .hero-glass-clip {
   position: absolute;
-  right: -12%;
-  top: 46%;
-  width: min(560px, 96%);
-  transform: translateY(-50%);
+  inset: 0;
+  z-index: 0;
   pointer-events: none;
-  filter: drop-shadow(0 36px 40px rgba(0, 0, 0, 0.62)) drop-shadow(12px 18px 28px rgba(0, 0, 0, 0.28));
+  filter: drop-shadow(0 28px 36px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 28px rgba(118, 188, 231, 0.10));
 }
 
 .hero-glass-video {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 42%;
   background: transparent;
 }
 
@@ -542,8 +542,7 @@ a {
   }
 
   .hero-glass-clip {
-    background: url("/glass-seal-a.png") center / contain no-repeat;
-    aspect-ratio: 1;
+    background: url("/glass-seal-a.png") 62% 42% / cover no-repeat;
   }
 }
 

@@ -117,6 +117,19 @@ export default function Home() {
     <main id="main">
       {/* 1. Hero */}
       <section className="hero" id="hero">
+        <div className="hero-glass-clip" aria-hidden="true">
+          <video
+            ref={glassVideoRef}
+            className="hero-glass-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/glass-seal-a.png"
+          >
+            <source src="/glass-seal.webm" type="video/webm" />
+          </video>
+        </div>
         <div className="hero-inner">
           <div className="hero-copy">
             <h1 className="hero-title reveal">
@@ -137,19 +150,6 @@ export default function Home() {
           </div>
 
           <div className="hero-artifact reveal" aria-label="Redacted proof capsule — representative artifact">
-            <div className="hero-glass-clip" aria-hidden="true">
-              <video
-                ref={glassVideoRef}
-                className="hero-glass-video"
-                autoPlay
-                muted
-                loop
-                playsInline
-                poster="/glass-seal-a.png"
-              >
-                <source src="/glass-seal.webm" type="video/webm" />
-              </video>
-            </div>
             <div className="proof-capsule" id="proof-capsule">
               <div className="proof-capsule-head">
                 <div>
