@@ -300,10 +300,15 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-mat-well">
-          <p className="lg-mat-lede">
-            Frontier models that run sealed
-            <em>and leave a receipt.</em>
-          </p>
+          <div className="lg-mat-copy">
+            <p className="lg-mat-lede">
+              Frontier models that run sealed
+              <em>and leave a receipt.</em>
+            </p>
+            <a className="lg-mat-cta" href="mailto:contact@lugano.ai">
+              Request access
+            </a>
+          </div>
           <article className="lg-mat-sheet" aria-label="Attestation receipt">
             <header>
               <span className="lg-mat-merchant">

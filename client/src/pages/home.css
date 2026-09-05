@@ -329,23 +329,32 @@
 .lg-mat-well {
   position: relative;
   z-index: 4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(23.5rem, 36vw);
+  align-items: start;
+  width: min(100% - (var(--gutter) * 2), var(--max));
   height: calc(100vh - 64px);
-  padding: 1.6rem 0 2rem;
+  margin: 0 auto;
+  padding: 2.2rem 0 0;
 }
 
 .lg-mat-lede {
-  width: min(24.5rem, 78vw);
-  margin: 0 0 1.1rem;
+  width: min(16ch, 100%);
+  margin: 0;
+  padding-right: 2rem;
   color: #f2eadc;
   font-family: var(--sans);
-  font-size: clamp(2.4rem, 4.6vw, 3.4rem);
+  font-size: clamp(3.6rem, 6.2vw, 5.75rem);
   font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.038em;
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+}
+
+.lg-mat-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
 }
 
 .lg-mat-lede em {
@@ -353,15 +362,24 @@
   font-style: normal;
 }
 
+.lg-mat-cta {
+  color: #f2eadc !important;
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  text-decoration: none;
+  border-bottom: 1px solid #f2eadc;
+  padding-bottom: 0.12rem;
+}
+
 .lg-mat-sheet {
   position: relative;
-  width: min(24.5rem, 78vw);
-  flex: 1;
-  min-height: 0;
-  padding: 1.15rem 1.25rem 6rem;
+  width: 100%;
+  height: 100%;
+  padding: 1.15rem 1.2rem 7rem;
   overflow: hidden;
   color: #2c2924;
-  background: #f6f3ea;
+  background: #f7f4ec;
+  box-shadow: 5px 8px 0 #000;
 }
 
 .lg-mat-sheet .lg-void-heat {
@@ -3404,9 +3422,20 @@
     padding: 1.2rem var(--gutter) 2rem;
   }
 
+  .lg-mat-well {
+    grid-template-columns: 1fr;
+    height: auto;
+    padding: 1.4rem 0 0;
+  }
+
   .lg-mat-lede,
   .lg-mat-sheet {
     width: 100%;
+  }
+
+  .lg-mat-sheet {
+    height: auto;
+    min-height: 70vh;
   }
 
   .lg-mat-hash {
