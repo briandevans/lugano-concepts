@@ -85,7 +85,7 @@
   font-size: 1.4rem;
   line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--ink);
+  color: #f4eee0;
 }
 
 .lg-dot {
@@ -97,10 +97,8 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  color: var(--ink);
-  background-color: #f4eee0;
-  background-image: url("/generated/thermal_ivory_grain.png");
-  background-size: 520px;
+  color: #f4eee0;
+  background: #121410;
 }
 
 .lg-sheet .lg-heat {
@@ -135,9 +133,9 @@
   justify-content: space-between;
   gap: 1.5rem;
   height: 64px;
-  border-bottom: 1px solid rgba(20, 19, 15, 0.12);
+  border-bottom: 1px solid rgba(244, 238, 224, 0.12);
   background: transparent;
-  color: var(--ink);
+  color: #f4eee0;
 }
 
 .lg-nav-inner {
@@ -162,7 +160,7 @@
 }
 
 .lg-nav-links a {
-  color: var(--ink);
+  color: #f4eee0;
   font-family: var(--mono);
   font-size: 0.84rem;
   letter-spacing: 0;
@@ -177,9 +175,9 @@
   align-items: center;
   min-height: 2.05rem;
   padding: 0.32rem 0.7rem;
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid #f4eee0;
   background: transparent;
-  color: var(--ink) !important;
+  color: #f4eee0 !important;
   font-family: var(--mono);
   font-size: 0.78rem;
   letter-spacing: 0.02em;
@@ -192,7 +190,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--ink);
+  color: #f4eee0;
   cursor: pointer;
 }
 
@@ -293,8 +291,8 @@
 
 .lg a.lg-btn.lg-btn-ink,
 .lg-btn-ink {
-  background: var(--ink);
-  color: #f4eee0 !important;
+  background: #f4eee0;
+  color: #121410 !important;
 }
 
 .lg a.lg-btn.lg-btn-ink:hover,
@@ -307,7 +305,7 @@
   align-items: center;
   min-height: 2.7rem;
   padding: 0.5rem 0;
-  color: var(--ink);
+  color: #f4eee0;
   font-family: var(--mono);
   font-size: 0.82rem;
   letter-spacing: 0.02em;
@@ -377,7 +375,7 @@
   z-index: 2;
   isolation: isolate;
   overflow: hidden;
-  color: var(--ink);
+  color: #f4eee0;
   background: transparent;
 }
 
@@ -393,6 +391,7 @@
   display: flex;
   flex-direction: column;
   margin: 0;
+  color: #f4eee0;
   font-family: var(--serif);
   font-optical-sizing: auto;
   font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
@@ -410,7 +409,7 @@
 .lg-sub {
   max-width: 32rem;
   margin: 1.85rem 0 0;
-  color: #1d1a15;
+  color: #f4eee0;
   font-family: var(--serif);
   font-optical-sizing: auto;
   font-size: clamp(1.4rem, 2vw, 1.7rem);
@@ -419,15 +418,19 @@
 
 .lg-slip {
   position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  width: 100%;
-  min-height: 28rem;
-  justify-self: stretch;
-  padding: 1.2rem 1.3rem 1.4rem;
-  color: #1d1a15;
-  background-color: #fbf7ec;
-  border: 1px solid rgba(20, 19, 15, 0.22);
-  box-shadow: none;
+  width: min(23.5rem, 100%);
+  aspect-ratio: 148 / 210;
+  justify-self: end;
+  padding: 1.15rem 1.2rem 1.25rem;
+  color: #121410;
+  background-color: #f4eee0;
+  background-image: url("/generated/thermal_ivory_grain.png");
+  background-size: 360px;
+  border: 0;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 }
 
 .lg-slip .lg-heat {
@@ -481,12 +484,12 @@
 .lg-slip-quote {
   margin: 0 0 1rem;
   padding: 0.7rem 0;
-  border-top: 1px solid rgba(29, 26, 21, 0.2);
-  border-bottom: 1px solid rgba(29, 26, 21, 0.2);
-  overflow-wrap: anywhere;
+  border-top: 1px solid rgba(18, 20, 16, 0.2);
+  border-bottom: 1px solid rgba(18, 20, 16, 0.2);
   font-family: var(--mono);
-  font-size: 0.78rem;
-  line-height: 1.45;
+  font-size: 0.72rem;
+  line-height: 1.55;
+  letter-spacing: 0.04em;
 }
 
 .lg-slip-dl {
@@ -515,11 +518,24 @@
 }
 
 .lg-slip-status {
-  margin: 1.1rem 0 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(18, 20, 16, 0.22);
   font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.lg-slip-status strong {
+  font-family: var(--serif);
+  font-size: 2.1rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  text-transform: none;
 }
 
 .lg-slip-rows {

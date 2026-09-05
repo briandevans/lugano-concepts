@@ -39,7 +39,9 @@ function LiveReceipt({ clock }: { clock: string }) {
       <p className="lg-slip-id">LUG-7F283</p>
       <p className="lg-slip-meta">{clock} UTC</p>
       <p className="lg-slip-quote">
-        8c1a0f27d94b6e50a3c7d18e62f0b94c1d7a35e0b8c2491f6a0d3e75c18b2049
+        8c1a0f27 d94b6e50 a3c7d18e 62f0b94c
+        <br />
+        1d7a35e0 b8c2491f 6a0d3e75 c18b2049
       </p>
       <dl className="lg-slip-dl">
         {MEASURES.map((row) => (
@@ -53,11 +55,10 @@ function LiveReceipt({ clock }: { clock: string }) {
           <dd>0</dd>
         </div>
       </dl>
-      <img
-        className="lg-doc-stamp"
-        src="/generated/verified_stamp_vermilion.png"
-        alt=""
-      />
+      <p className="lg-slip-status">
+        Retention
+        <strong>0</strong>
+      </p>
     </aside>
   );
 }
