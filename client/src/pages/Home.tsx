@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import BenchField from "@/components/BenchField";
 import "./home.css";
 
 const MEASURES = [
@@ -25,13 +26,10 @@ function HashBlock({ value }: { value: string }) {
 
 function ZeroMark({ className }: { className?: string }) {
   return (
-    <img
-      className={className ?? "lg-zero-mark"}
-      src="/zero-mark.svg"
-      alt="0"
-      width="22"
-      height="32"
-    />
+    <svg className={className ?? "lg-zero-mark"} viewBox="0 0 80 120" aria-hidden="true">
+      <ellipse cx="40" cy="60" rx="24" ry="46" fill="none" stroke="currentColor" strokeWidth="11" />
+      <line x1="26" y1="80" x2="54" y2="40" stroke="currentColor" strokeWidth="7" strokeLinecap="square" />
+    </svg>
   );
 }
 
@@ -263,7 +261,12 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="lg-sheet lg-assay">
+      <div className="lg-sheet lg-desk">
+        <div className="lg-desk-field">
+          <img className="lg-field-fallback" src="/generated/turbine_bench.png" alt="" />
+          <BenchField plate="/generated/turbine_bench.png" />
+        </div>
+
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
@@ -304,19 +307,17 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="top" className="lg-assay-hero">
-          <h1 className="lg-assay-lockup">
-            <em>Held to</em>
-            <img className="lg-zero-hero" src="/zero-cream.svg" alt="0" />
-            <strong>bytes retained</strong>
-            <b className="lg-assay-desc">Private inference with a cryptographic receipt.</b>
-          </h1>
-          <article className="lg-assay-record" aria-label="Example attestation">
-            <header className="lg-assay-meta">
-              <span>The receipt is the product.</span>
+        <section id="top" className="lg-desk-stage">
+          <article className="lg-desk-slip" aria-label="Example attestation">
+            <h1>
+              Held to <ZeroMark className="lg-zero-hero" />.
+            </h1>
+            <p>Private inference with a cryptographic receipt.</p>
+            <header>
               <span>LUG-7F283</span>
+              <span>example</span>
             </header>
-            <dl className="lg-assay-dl">
+            <dl>
               <div>
                 <dt>Issued</dt>
                 <dd>12 Mar 2026 14:02 UTC</dd>
@@ -342,7 +343,7 @@ export default function Home() {
                 <dd>lugano.ai/v/LUG-7F283</dd>
               </div>
             </dl>
-            <a className="lg-assay-verify" href="#architecture">
+            <a className="lg-desk-verify" href="#architecture">
               Verify this example
             </a>
           </article>
