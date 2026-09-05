@@ -475,34 +475,42 @@
 .lg-assay-hero {
   position: relative;
   z-index: 4;
-  display: flex;
+  display: grid;
   flex: 1;
-  flex-direction: column;
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 34rem);
+  align-items: end;
+  gap: clamp(2rem, 5vw, 4.5rem);
   min-height: 0;
   width: min(100% - (var(--gutter) * 2), var(--max));
   margin: 0 auto;
-  padding: 1.1rem 0 0;
+  padding: 1.5rem 0 2.2rem;
 }
 
 .lg-assay-record {
   min-width: 0;
+  padding: 1.15rem 1.2rem 1.25rem;
+  border: 1px solid rgba(239, 234, 224, 0.22);
 }
 
 .lg-assay-meta {
-  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  margin: 0 0 1rem;
   color: #8d8880;
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
 }
 
 .lg-assay-sub {
-  max-width: 34rem;
-  margin: 0.8rem 0 1.55rem;
+  max-width: none;
+  margin: 0 0 1.15rem;
   color: #efeae0;
   font-family: var(--serif);
-  font-size: 1.45rem;
+  font-size: 1.55rem;
   font-weight: 400;
-  line-height: 1.3;
+  line-height: 1.2;
 }
 
 .lg-assay-dl {
@@ -520,9 +528,18 @@
 }
 
 .lg-assay-dl dt {
-  padding-top: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-top: 0.15rem;
   color: #8d8880;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
+}
+
+.lg-assay-dl dt i {
+  font-style: normal;
+  font-size: 0.62rem;
+  letter-spacing: 0.02em;
 }
 
 .lg-assay-dl dd {
@@ -555,9 +572,22 @@
 
 .lg-hash-strip {
   display: block;
-  width: min(100%, 28rem);
-  height: 0.7rem;
+  width: 100%;
+  height: 1.1rem;
   fill: #c8c2b6;
+}
+
+.lg-state {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.lg-state::before {
+  content: "";
+  width: 1.65rem;
+  height: 0.55rem;
+  background: #efeae0;
 }
 
 .lg-assay-verify {
@@ -575,32 +605,31 @@
 
 .lg-assay-zero {
   display: flex;
-  flex: 0 0 36vh;
-  align-items: flex-end;
-  gap: 1.15rem;
-  height: 36vh;
-  margin-top: auto;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  min-width: 0;
   overflow: hidden;
 }
 
 .lg-assay-zero span {
-  padding-bottom: 1.15rem;
+  margin-top: 0.55rem;
   color: #efeae0;
   font-family: var(--mono);
-  font-size: 0.82rem;
-  letter-spacing: 0.1em;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .lg-assay-zero b {
+  display: block;
   color: var(--filament);
   font-family: var(--mono);
   font-feature-settings: "zero" 1;
-  font-size: clamp(11rem, 30vw, 20rem);
+  font-size: clamp(10rem, 24vw, 17rem);
   font-weight: 500;
-  line-height: 0.68;
+  line-height: 0.72;
   letter-spacing: -0.07em;
-  transform: translateY(10%);
 }
 
 .lg-ledger-page {

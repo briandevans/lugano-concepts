@@ -37,7 +37,12 @@ function HashBlock({ value }: { value: string }) {
           <b key={group}>{group}</b>
         ))}
       </span>
-      <svg className="lg-hash-strip" viewBox={`0 0 ${bytes.length} 8`} aria-hidden="true">
+      <svg
+        className="lg-hash-strip"
+        viewBox={`0 0 ${bytes.length} 8`}
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
         {bytes.map((byte, index) => {
           const height = (Number.parseInt(byte, 16) / 255) * 8;
           return <rect key={`${byte}-${index}`} x={index} y={8 - height} width="0.82" height={height} />;
@@ -314,33 +319,45 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-assay-hero">
-          <article className="lg-assay-record" aria-label="Guest measurement record">
-            <p className="lg-assay-meta">Guest measurement record {clock}</p>
+          <p className="lg-assay-zero">
+            <b>0</b>
+            <span>Bytes retained</span>
+          </p>
+          <article className="lg-assay-record" aria-label="Attestation receipt">
+            <header className="lg-assay-meta">
+              <span>Attestation receipt</span>
+              <span>№ LUG-7F283</span>
+              <span>{clock}</span>
+            </header>
             <p className="lg-assay-sub">Every response returns a cryptographic receipt.</p>
             <dl className="lg-assay-dl">
               <div>
                 <dt>Prompt</dt>
-                <dd>sealed</dd>
+                <dd className="lg-state">sealed</dd>
               </div>
               <div>
                 <dt>Model</dt>
-                <dd>private</dd>
+                <dd className="lg-state">private</dd>
               </div>
-              {MEASURES.slice(0, 2).map((row) => (
-                <div key={row.key}>
-                  <dt>{row.key}</dt>
-                  <HashBlock value={row.value} />
-                </div>
-              ))}
+              <div>
+                <dt>
+                  MRTD
+                  <i>TD measurement</i>
+                </dt>
+                <HashBlock value={MEASURES[0].value} />
+              </div>
+              <div>
+                <dt>
+                  RTMR0
+                  <i>runtime register</i>
+                </dt>
+                <HashBlock value={MEASURES[1].value} />
+              </div>
             </dl>
             <a className="lg-assay-verify" href="#architecture">
-              Verify sample LUG-7F283
+              Verify this receipt
             </a>
           </article>
-          <p className="lg-assay-zero">
-            <span>Bytes retained</span>
-            <b>0</b>
-          </p>
         </section>
       </div>
 
