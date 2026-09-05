@@ -381,10 +381,16 @@
 
 .lg-split {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
-  align-items: start;
-  gap: clamp(2rem, 5vw, 4rem);
-  padding: 3.75rem 0 4.25rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: clamp(2.25rem, 4vw, 3.5rem);
+  padding: 3.25rem 0 3.5rem;
+}
+
+.lg-copy {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 .lg-copy h1 {
@@ -407,13 +413,14 @@
 }
 
 .lg-sub {
-  max-width: 32rem;
+  max-width: 28rem;
   margin: 1.85rem 0 0;
   color: #f4eee0;
   font-family: var(--serif);
   font-optical-sizing: auto;
-  font-size: clamp(1.4rem, 2vw, 1.7rem);
-  line-height: 1.35;
+  font-variation-settings: "opsz" 36, "SOFT" 0;
+  font-size: clamp(1.45rem, 2.1vw, 1.85rem);
+  line-height: 1.28;
 }
 
 .lg-slip {
@@ -421,16 +428,29 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  width: min(23.5rem, 100%);
+  width: min(22.5rem, 100%);
   aspect-ratio: 148 / 210;
   justify-self: end;
-  padding: 1.15rem 1.2rem 1.25rem;
+  padding: 1.15rem 1.15rem 1.2rem 1.85rem;
   color: #121410;
-  background-color: #f4eee0;
+  background-color: #efe6c9;
   background-image: url("/generated/thermal_ivory_grain.png");
   background-size: 360px;
   border: 0;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.42);
+}
+
+.lg-slip::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  width: 0.95rem;
+  pointer-events: none;
+  background: radial-gradient(circle at 0.38rem 0.7rem, #121410 0.22rem, transparent 0.24rem);
+  background-size: 0.95rem 1.15rem;
+  content: "";
 }
 
 .lg-slip .lg-heat {
@@ -531,10 +551,13 @@
 }
 
 .lg-slip-status strong {
+  align-self: baseline;
+  color: var(--swiss);
   font-family: var(--serif);
-  font-size: 2.1rem;
+  font-size: 2.35rem;
   font-weight: 400;
   letter-spacing: -0.03em;
+  line-height: 0.8;
   text-transform: none;
 }
 
@@ -768,7 +791,8 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 1.15rem 1.5rem;
-  margin-top: 2.1rem;
+  margin-top: auto;
+  padding-top: 2.25rem;
 }
 
 .lg-hero-live {
@@ -1167,8 +1191,8 @@
 /* ── Problem ──────────────────────────────────────────── */
 .lg-problem {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: clamp(2rem, 6vw, 5rem);
+  grid-template-columns: minmax(0, 36rem);
+  gap: 2rem;
   align-items: start;
 }
 

@@ -4,16 +4,20 @@ import ThermalHeat from "@/components/ThermalHeat";
 import "./home.css";
 
 function useUtcClock() {
-  const [clock, setClock] = useState(() => new Date().toISOString().slice(11, 19));
+  const [clock, setClock] = useState(() => formatClock(new Date()));
 
   useEffect(() => {
     const id = window.setInterval(() => {
-      setClock(new Date().toISOString().slice(11, 19));
+      setClock(formatClock(new Date()));
     }, 1000);
     return () => window.clearInterval(id);
   }, []);
 
   return clock;
+}
+
+function formatClock(date: Date) {
+  return `${date.toISOString().slice(0, 10)}  ${date.toISOString().slice(11, 19)} UTC`;
 }
 
 const MEASURES = [
@@ -37,7 +41,7 @@ function LiveReceipt({ clock }: { clock: string }) {
         <p>Lugano, CH</p>
       </header>
       <p className="lg-slip-id">LUG-7F283</p>
-      <p className="lg-slip-meta">{clock} UTC</p>
+      <p className="lg-slip-meta">{clock}</p>
       <p className="lg-slip-quote">
         8c1a0f27 d94b6e50 a3c7d18e 62f0b94c
         <br />
@@ -50,10 +54,6 @@ function LiveReceipt({ clock }: { clock: string }) {
             <dd title={row.value}>{shortHash(row.value)}</dd>
           </div>
         ))}
-        <div>
-          <dt>RETENTION</dt>
-          <dd>0</dd>
-        </div>
       </dl>
       <p className="lg-slip-status">
         Retention
@@ -297,7 +297,7 @@ export default function Home() {
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-              <span className="lg-wordmark">Lugano<span className="lg-dot">.</span>ai</span>
+              <span className="lg-wordmark">Lugano.ai</span>
             </a>
             <nav className="lg-nav-links" aria-label="Primary">
               {NAV.map((item) => (
@@ -672,7 +672,7 @@ export default function Home() {
       <footer className="lg-footer">
         <div className="lg-shell lg-footer-row">
           <a className="lg-brand" href="#top">
-            <span className="lg-wordmark">Lugano<span className="lg-dot">.</span>ai</span>
+            <span className="lg-wordmark">Lugano.ai</span>
           </a>
           <nav aria-label="Footer">
             <a href="mailto:contact@lugano.ai">Contact</a>
