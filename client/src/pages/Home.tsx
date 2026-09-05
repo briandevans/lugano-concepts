@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import LakeField from "@/components/LakeField";
+import TiltPlate from "@/components/TiltPlate";
 import "./home.css";
 
 const PROOF_ROWS = [
@@ -302,66 +304,72 @@ export default function Home() {
       </header>
 
       <main id="main">
-        <section id="top" className="lg-shell lg-hero">
-          <div>
-            <p className="lg-hero-kicker">Private AI infrastructure</p>
-            <h1>
-              AI Privacy by{" "}
-              <span className="lg-strike">trust me bro</span>
-              <span className="lg-hero-proof-word"> proof.</span>
-            </h1>
-            <p>
-              Unverifiable privacy is just marketing. Lugano.ai is provably private AI
-              infrastructure: any model, cryptographically auditable, zero-trust by default.
-            </p>
-            <div className="lg-hero-actions">
-              <a className="lg-btn" href="mailto:contact@lugano.ai">
-                Request briefing
-              </a>
-              <a className="lg-btn-ghost" href="#platform">
-                How it works
-              </a>
+        <section id="top" className="lg-hero-wrap">
+          <LakeField />
+          <div className="lg-hero-veil" />
+          <div className="lg-shell lg-hero">
+            <div>
+              <p className="lg-hero-kicker">Private AI infrastructure</p>
+              <h1>
+                AI Privacy by{" "}
+                <span className="lg-strike">trust me bro</span>
+                <span className="lg-hero-proof-word"> proof.</span>
+              </h1>
+              <p>
+                Unverifiable privacy is just marketing. Lugano.ai is provably private AI
+                infrastructure: any model, cryptographically auditable, zero-trust by default.
+              </p>
+              <div className="lg-hero-actions">
+                <a className="lg-btn" href="mailto:contact@lugano.ai">
+                  Request briefing
+                </a>
+                <a className="lg-btn-ghost" href="#platform">
+                  How it works
+                </a>
+              </div>
+              <dl className="lg-hero-meta">
+                {HERO_META.map((item) => (
+                  <div key={item.label}>
+                    <dt>{item.label}</dt>
+                    <dd>{item.value}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
-            <dl className="lg-hero-meta">
-              {HERO_META.map((item) => (
-                <div key={item.label}>
-                  <dt>{item.label}</dt>
-                  <dd>{item.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
 
-          <aside className="lg-cert" aria-label="Verification ledger">
-            <div className="lg-cert-inner">
-              <div className="lg-cert-top">
-                <div>
-                  <strong>Verified private AI</strong>
-                  <span>10+ checks · live attestation</span>
+            <TiltPlate>
+              <aside className="lg-cert" aria-label="Verification ledger">
+                <div className="lg-cert-inner">
+                  <div className="lg-cert-top">
+                    <div>
+                      <strong>Verified private AI</strong>
+                      <span>10+ checks · live attestation</span>
+                    </div>
+                    <img className="lg-seal-photo" src="/generated/magenta_wax_seal.png" alt="" />
+                  </div>
+                  {PROOF_ROWS.map((row) => (
+                    <div className="lg-proof-row" key={row.label}>
+                      <span className="lg-tick" aria-hidden="true">
+                        <svg viewBox="0 0 12 12">
+                          <path d="M2 6.2 4.8 9 10 3" />
+                        </svg>
+                      </span>
+                      <b>{row.label}</b>
+                      {row.digest === "redacted" ? (
+                        <span className="lg-redact">██████</span>
+                      ) : (
+                        <i>{row.digest}</i>
+                      )}
+                    </div>
+                  ))}
+                  <div className="lg-cert-foot">
+                    <span>Series 09 · sealed</span>
+                    <span>No prompt retention</span>
+                  </div>
                 </div>
-                <div className="lg-seal">ok</div>
-              </div>
-              {PROOF_ROWS.map((row) => (
-                <div className="lg-proof-row" key={row.label}>
-                  <span className="lg-tick" aria-hidden="true">
-                    <svg viewBox="0 0 12 12">
-                      <path d="M2 6.2 4.8 9 10 3" />
-                    </svg>
-                  </span>
-                  <b>{row.label}</b>
-                  {row.digest === "redacted" ? (
-                    <span className="lg-redact">██████</span>
-                  ) : (
-                    <i>{row.digest}</i>
-                  )}
-                </div>
-              ))}
-              <div className="lg-cert-foot">
-                <span>Series 09 · sealed</span>
-                <span>No prompt retention</span>
-              </div>
-            </div>
-          </aside>
+              </aside>
+            </TiltPlate>
+          </div>
         </section>
 
         <section id="problem" className="lg-section lg-section-paper">
@@ -375,20 +383,24 @@ export default function Home() {
                 law of physics.
               </p>
             </div>
-            <div className="lg-choice">
-              <article>
-                <h3>The black box</h3>
-                <p>Frontier models, hosted elsewhere. Capability you cannot inspect. Data you cannot get back.</p>
-              </article>
-              <article>
-                <h3>The local compromise</h3>
-                <p>Air-gapped, underpowered, and always a generation behind. Privacy bought with capability.</p>
-              </article>
+            <div className="lg-still">
+              <img src="/generated/sealed_envelope.png" alt="" />
+              <div className="lg-choice">
+                <article>
+                  <h3>The black box</h3>
+                  <p>Frontier models, hosted elsewhere. Capability you cannot inspect. Data you cannot get back.</p>
+                </article>
+                <article>
+                  <h3>The local compromise</h3>
+                  <p>Air-gapped, underpowered, and always a generation behind. Privacy bought with capability.</p>
+                </article>
+              </div>
             </div>
           </div>
         </section>
 
-        <section id="why-now" className="lg-section lg-section-ink">
+        <section id="why-now" className="lg-section lg-section-ink lg-gap-section">
+          <img className="lg-bleed" src="/generated/water_caustic.png" alt="" />
           <div className="lg-shell lg-gap">
             <div>
               <Folio n="03" label="The trust gap" />
@@ -415,6 +427,9 @@ export default function Home() {
                 perimeter, with cryptographic proof that your data never left. Not private by
                 policy. Private by architecture you can audit yourself.
               </p>
+              <figure className="lg-film">
+                <img src="/generated/ledger_vault.png" alt="Private archive of sealed ledgers" />
+              </figure>
             </div>
           </div>
         </section>
@@ -459,6 +474,7 @@ export default function Home() {
               </div>
             </div>
             <aside className="lg-receipt" aria-label="Attestation receipt">
+              <img className="lg-receipt-metal" src="/generated/zirconium_plate.png" alt="" />
               <header>
                 <span>// attestation receipt</span>
                 <span>tee · sealed</span>
@@ -650,7 +666,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="private-beta" className="lg-section lg-section-paper">
+        <section id="private-beta" className="lg-section lg-close-section">
+          <img className="lg-close-photo" src="/generated/hero_alpine_lake.png" alt="" />
+          <div className="lg-close-veil" />
           <div className="lg-shell lg-close">
             <Folio n="11" label="Private beta" />
             <h2 className="lg-display">
@@ -663,7 +681,7 @@ export default function Home() {
               Lugano.ai is the verification layer for private AI. Frontier AI with cryptographic
               privacy. No trust required.
             </p>
-            <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
+            <a className="lg-btn" href="mailto:contact@lugano.ai">
               Request briefing
             </a>
           </div>
