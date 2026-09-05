@@ -277,12 +277,12 @@
   display: none;
 }
 
-/* ── Desk fold: one object on the steel ───────────────── */
+/* ── Desk fold: headline on the plate, slip as evidence ─ */
 .lg-sheet.lg-desk {
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-  color: #f2efe8;
+  color: #f3f0ea;
   background: #07080b;
 }
 
@@ -290,7 +290,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: #0a0c0e url("/generated/turbine_bench.png") 48% 62% / cover no-repeat;
+  background: #0a0c0e url("/generated/steel_plan.png") center / cover no-repeat;
 }
 
 .lg-desk-field .lg-field,
@@ -301,7 +301,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 48% 62%;
+  object-position: center;
 }
 
 .lg-desk-field .lg-field-fallback {
@@ -316,106 +316,140 @@
 
 .lg-desk .lg-nav {
   z-index: 8;
-  color: #f2efe8;
+  color: #f3f0ea;
 }
 
 .lg-desk .lg-wordmark {
-  color: #f2efe8;
+  color: #f3f0ea;
 }
 
 .lg-desk .lg-nav-links a {
-  color: #c6c2b8;
+  color: #c4c0b6;
   font-family: var(--sans);
   font-size: 0.82rem;
   letter-spacing: 0;
 }
 
 .lg-desk .lg-nav-links a:hover {
-  color: #f2efe8;
+  color: #f3f0ea;
 }
 
 .lg-desk .lg-nav-cta {
-  color: #f2efe8 !important;
+  min-height: 2rem;
+  padding: 0 0.85rem;
+  background: #f3f0ea;
+  color: #141310 !important;
   font-family: var(--sans);
   font-size: 0.82rem;
   letter-spacing: 0;
-  text-decoration: underline;
-  text-underline-offset: 0.22em;
+  text-decoration: none;
 }
 
 .lg-desk-stage {
   position: relative;
   z-index: 4;
-  display: flex;
   flex: 1;
-  align-items: center;
-  justify-content: center;
   min-height: 0;
   width: min(100% - (var(--gutter) * 2), var(--max));
   margin: 0 auto;
-  padding: 0 0 7vh;
-  perspective: 1680px;
 }
 
-.lg-desk-slip {
-  position: relative;
+.lg-desk-lockup {
+  position: absolute;
+  left: 0;
+  bottom: 8vh;
   z-index: 5;
-  width: min(22.5rem, 92%);
-  padding: 1.35rem 1.2rem 1.2rem;
-  color: #141310;
-  background-color: #e8e6df;
-  background-image: url("/generated/salt_thermal_grain.png");
-  background-size: cover;
-  background-position: center;
-  transform: rotateX(15deg) rotateY(-7deg) rotateZ(-1.6deg);
-  transform-origin: 50% 100%;
-  transform-style: preserve-3d;
-  box-shadow:
-    0 0.5px 0 rgba(255, 255, 255, 0.45) inset,
-    1px 1px 0 #c7c4bc,
-    0 22px 48px rgba(0, 0, 0, 0.52),
-    0 4px 10px rgba(0, 0, 0, 0.28);
+  max-width: 16ch;
+  margin: 0;
+  color: #f3f0ea;
 }
 
-.lg-desk-slip h1 {
-  margin: 0 0 0.45rem;
-  color: #141310;
-  font-family: var(--sans);
-  font-size: clamp(2.15rem, 3.4vw, 2.75rem);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-}
-
-.lg-desk-slip h1 span {
-  display: inline-flex;
+.lg-desk-lockup em {
+  display: flex;
   align-items: center;
-  white-space: nowrap;
+  gap: 0.08em;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: clamp(4.1rem, 8vw, 6.6rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
 }
 
-.lg-desk-slip .lg-zero-hero {
+.lg-desk-lockup .lg-zero-hero {
   width: 0.72em;
   height: 1.05em;
-  color: #141310;
+  color: #f3f0ea;
   vertical-align: -0.12em;
 }
 
-.lg-desk-slip > p {
-  margin: 0 0 1.05rem;
-  color: #3a3832;
+.lg-desk-lockup b {
+  display: block;
+  margin-top: 0.55rem;
+  color: #f3f0ea;
   font-family: var(--sans);
-  font-size: 0.95rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.lg-desk-lockup span {
+  display: block;
+  max-width: 18rem;
+  margin-top: 0.7rem;
+  color: #b8b4aa;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 400;
   line-height: 1.35;
+}
+
+.lg-desk-slip {
+  position: absolute;
+  top: 6%;
+  right: 0;
+  z-index: 5;
+  width: 21.5rem;
+  padding: 1.55rem 1.15rem 1.1rem;
+  color: #141310;
+  background-color: #ebe4d2;
+  background-image: url("/generated/thermal_warm_sheet.png");
+  background-size: cover;
+  background-position: center;
+  transform: rotate(-3deg);
+  box-shadow:
+    0 1px 0 rgba(255, 248, 230, 0.55) inset,
+    0 1px 0 #c9c0ae,
+    0 2px 3px rgba(0, 0, 0, 0.22),
+    0 14px 28px rgba(0, 0, 0, 0.38);
+}
+
+.lg-desk-perf {
+  display: block;
+  height: 10px;
+  margin: -1.55rem -1.15rem 0.85rem;
+  background:
+    radial-gradient(circle at 7px 0, transparent 4px, #ebe4d2 4.2px) 0 0 / 14px 10px repeat-x;
 }
 
 .lg-desk-slip header {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 0 0 0.35rem;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0 0 0.55rem;
   padding-bottom: 0.55rem;
-  border-bottom: 1px solid rgba(20, 19, 16, 0.16);
-  color: #3a3832;
+  border-bottom: 1px solid rgba(20, 19, 16, 0.18);
+}
+
+.lg-desk-slip header strong {
+  color: #141310;
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.lg-desk-slip header span {
+  color: #4a473e;
   font-family: var(--mono);
   font-size: 0.72rem;
 }
@@ -429,33 +463,33 @@
   grid-template-columns: 5.2rem minmax(0, 1fr);
   gap: 0.65rem;
   align-items: start;
-  padding: 0.42rem 0;
-  border-bottom: 1px solid rgba(20, 19, 16, 0.12);
+  padding: 0.48rem 0;
+  border-bottom: 1px solid rgba(20, 19, 16, 0.14);
   font-family: var(--mono);
 }
 
 .lg-desk-slip dt {
-  padding-top: 0.12rem;
-  color: #5a574f;
-  font-size: 0.7rem;
+  padding-top: 0.14rem;
+  color: #5c584e;
+  font-size: 0.74rem;
 }
 
 .lg-desk-slip dd {
   margin: 0;
   color: #141310;
-  font-size: 0.76rem;
-  line-height: 1.35;
+  font-size: 0.82rem;
+  line-height: 1.4;
 }
 
 .lg-desk-slip .lg-hash-grid {
   display: grid;
   grid-template-columns: repeat(3, max-content);
-  gap: 0.1rem 0.45rem;
+  gap: 0.12rem 0.5rem;
 }
 
 .lg-desk-slip .lg-hash-grid b {
   color: #141310;
-  font-size: 0.68rem;
+  font-size: 0.76rem;
   font-weight: 400;
   letter-spacing: 0.02em;
 }
@@ -464,19 +498,6 @@
   color: transparent;
   background: #141310;
   font-size: 0.62rem;
-}
-
-.lg-desk-verify {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2.35rem;
-  margin-top: 1rem;
-  padding: 0 0.8rem;
-  background: #141310;
-  color: #f2efe8 !important;
-  font-family: var(--mono);
-  font-size: 0.78rem;
 }
 
 /* ── Shared type ──────────────────────────────────────── */
@@ -3004,14 +3025,29 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 980px) {
-  .lg-desk-stage {
-    justify-content: center;
-    padding: 0.5rem 0 2.4rem;
-    perspective: none;
+  .lg-sheet.lg-desk {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .lg-desk-lockup {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    padding: 1.4rem 0 1.2rem;
+  }
+
+  .lg-desk-lockup em {
+    font-size: clamp(3.2rem, 14vw, 4.6rem);
   }
 
   .lg-desk-slip {
-    width: min(22.5rem, 100%);
+    position: relative;
+    top: auto;
+    right: auto;
+    width: min(21.5rem, 100%);
+    margin: 0 0 2rem;
     transform: none;
   }
 

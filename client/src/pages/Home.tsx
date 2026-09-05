@@ -263,7 +263,7 @@ export default function Home() {
 
       <div className="lg-sheet lg-desk">
         <div className="lg-desk-field">
-          <img className="lg-field-fallback" src="/generated/turbine_bench.png" alt="" />
+          <img className="lg-field-fallback" src="/generated/steel_plan.png" alt="" />
           <BenchField />
         </div>
 
@@ -282,7 +282,7 @@ export default function Home() {
                 </a>
               ))}
               <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-                Briefing
+                Request briefing
               </a>
             </nav>
             <button
@@ -308,18 +308,18 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-desk-stage">
+          <h1 className="lg-desk-lockup">
+            <em>
+              Held to <ZeroMark className="lg-zero-hero" />.
+            </em>
+            <b>bytes retained</b>
+            <span>Private inference with a cryptographic receipt.</span>
+          </h1>
           <article className="lg-desk-slip" aria-label="Example attestation">
-            <h1>
-              <span>
-                Held to
-                <ZeroMark className="lg-zero-hero" />
-                .
-              </span>
-            </h1>
-            <p>Private inference with a cryptographic receipt.</p>
+            <i className="lg-desk-perf" aria-hidden="true" />
             <header>
-              <span>LUG-7F283</span>
-              <span>example</span>
+              <strong>Lugano</strong>
+              <span>LUG-7F283 · example</span>
             </header>
             <dl>
               <div>
@@ -332,7 +332,7 @@ export default function Home() {
               </div>
               <div>
                 <dt>Model</dt>
-                <dd className="lg-redact">not retained</dd>
+                <dd>sealed · GLM-5.2</dd>
               </div>
               <div>
                 <dt>MRTD</dt>
@@ -347,9 +347,6 @@ export default function Home() {
                 <dd>lugano.ai/v/LUG-7F283</dd>
               </div>
             </dl>
-            <a className="lg-desk-verify" href="#architecture">
-              Verify this example
-            </a>
           </article>
         </section>
       </div>
