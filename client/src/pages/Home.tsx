@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import ThermalFilm from "@/components/ThermalFilm";
 import "./home.css";
 
 const MEASURES = [
@@ -21,6 +22,22 @@ function ZeroMark({ className }: { className?: string }) {
 
 function hashGroups(value: string) {
   return value.match(/.{8}/g) ?? [];
+}
+
+function ProofBars({ value }: { value: string }) {
+  const widths = [...value].map((ch) => (parseInt(ch, 16) % 3) + 1);
+  let x = 0;
+  const bars = widths.map((w, i) => {
+    const rect =
+      i % 2 === 0 ? <rect key={i} x={x} y="0" width={w} height="26" fill="#2a2722" /> : null;
+    x += w + 1;
+    return rect;
+  });
+  return (
+    <svg className="lg-oz-bars" viewBox={`0 0 ${x} 26`} preserveAspectRatio="none" aria-hidden="true">
+      {bars}
+    </svg>
+  );
 }
 
 function formatIssued(date: Date) {
@@ -261,7 +278,7 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="lg-sheet lg-mat">
+      <div className="lg-sheet lg-oz">
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
@@ -299,82 +316,93 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="top" className="lg-mat-well">
-          <div className="lg-mat-copy">
-            <p className="lg-mat-lede">
-              Frontier models that run sealed
-              <em>and leave a receipt.</em>
+        <section id="top" className="lg-oz-well">
+          <div className="lg-oz-copy">
+            <p className="lg-oz-lede">
+              Frontier models
+              <span>that run sealed</span>
+              <span>and leave a receipt.</span>
             </p>
-            <a className="lg-mat-cta" href="mailto:contact@lugano.ai">
+            <p className="lg-oz-sub">Sealed inference. A TDX quote. Zero bytes kept.</p>
+            <a className="lg-oz-cta" href="mailto:contact@lugano.ai">
               Request access
             </a>
           </div>
-          <article className="lg-mat-sheet" aria-label="Attestation receipt">
-            <header>
-              <span className="lg-mat-merchant">
+          <div className="lg-oz-stage">
+            <article className="lg-oz-slip" aria-label="Attestation receipt">
+              <ThermalFilm />
+              <div className="lg-oz-perf" aria-hidden="true" />
+              <p className="lg-oz-shop">
                 Lugan
                 <ZeroMark />
-              </span>
-              <span>ATTESTATION</span>
-            </header>
-            <header>
-              <span>LUG-7F283</span>
-              <span>SHA-384</span>
-            </header>
-            <dl>
-              <div>
-                <dt>Issued</dt>
-                <i />
-                <dd>{issued}</dd>
-              </div>
-              <div>
-                <dt>Service</dt>
-                <i />
-                <dd>sealed inference</dd>
-              </div>
-              <div>
-                <dt>Prompt</dt>
-                <i />
-                <dd>not retained</dd>
-              </div>
-              <div>
-                <dt>Model</dt>
-                <i />
-                <dd>sealed · GLM-5.2</dd>
-              </div>
-              <div className="lg-mat-reg">
-                <dt>MRTD</dt>
-                <dd className="lg-mat-hash">
-                  {hashGroups(MEASURES[0].value).map((group, index) => (
-                    <b key={`mrtd-${index}`}>{group}</b>
-                  ))}
-                </dd>
-              </div>
-              <div>
-                <dt>RTMR 0–3</dt>
-                <i />
-                <dd>sealed</dd>
-              </div>
-              <div>
-                <dt>Signed</dt>
-                <i />
-                <dd>TDX quote</dd>
-              </div>
-            </dl>
-            <div className="lg-mat-end">
-              <div className="lg-mat-total">
+              </p>
+              <p className="lg-oz-kind">Attestation</p>
+              <p className="lg-oz-ticket">LUG-7F283</p>
+              <p className="lg-oz-when">{issued}</p>
+              <hr className="lg-oz-rule" />
+              <dl>
+                <div>
+                  <dt>Service</dt>
+                  <i />
+                  <dd>sealed inference</dd>
+                </div>
+                <div>
+                  <dt>Prompt</dt>
+                  <i />
+                  <dd>not retained</dd>
+                </div>
+                <div>
+                  <dt>Model</dt>
+                  <i />
+                  <dd>GLM-5.2 · sealed</dd>
+                </div>
+                <div>
+                  <dt>Signed</dt>
+                  <i />
+                  <dd>TDX quote</dd>
+                </div>
+                <div className="lg-oz-reg">
+                  <dt>MRTD · SHA-384</dt>
+                  <dd className="lg-oz-hash">
+                    {hashGroups(MEASURES[0].value).map((group, index) => (
+                      <b key={`mrtd-${index}`}>{group}</b>
+                    ))}
+                  </dd>
+                </div>
+              </dl>
+              <div className="lg-oz-total">
                 <span>Total retained</span>
+                <i />
                 <b>
-                  <ZeroMark className="lg-zero-hero" />
+                  <ZeroMark className="lg-oz-zero" />
                   <small>B</small>
                 </b>
               </div>
-              <a className="lg-mat-verify" href="#architecture">
-                Verify this proof
-              </a>
-              <img className="lg-mat-tear" src="/generated/cream_thermal_tear.png" alt="" />
-            </div>
-          </article>
+              <ProofBars value={MEASURES[0].value} />
+              <div className="lg-oz-foot">
+                <img src="/generated/verifier_qr.png" alt="" />
+                <div>
+                  <a href="#architecture">Verify this proof</a>
+                  <span>lugano.ai/v/LUG-7F283</span>
+                </div>
+              </div>
+              <div className="lg-oz-continues" aria-hidden="true">
+                <p>LUG-7F284</p>
+                <dl>
+                  <div>
+                    <dt>Issued</dt>
+                    <i />
+                    <dd>queued</dd>
+                  </div>
+                  <div>
+                    <dt>Service</dt>
+                    <i />
+                    <dd>sealed inference</dd>
+                  </div>
+                </dl>
+              </div>
+            </article>
+          </div>
         </section>
       </div>
 
