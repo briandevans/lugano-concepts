@@ -27,6 +27,7 @@ Use Instrument Serif for high-level claims and IBM Plex Sans for body copy. JetB
 - Hero engraving: `/assets/lugano-engraving-v1.webp`, with `/assets/lugano-engraving-v1-mobile.webp` for the narrow crop.
 - Use-case engravings: `/assets/lugano-enterprise-engraving.webp`, `/assets/lugano-sovereign-engraving.webp`, and `/assets/lugano-regulated-engraving.webp`.
 - Keep these assets unfiltered. Their cobalt, ivory, and engraving detail are the intended palette; only the small card-image hover scale is retained.
+- The hero panorama is static; its water animation, pointer parallax, and animation control have been removed.
 
 All four illustrations were created with the built-in image-generation tool. The native outputs are 1672 × 941. The hero keeps that resolution; the mobile variant and 1000px use-case assets are optimized WebP derivatives.
 

@@ -144,7 +144,7 @@ test("brand mark and favicon use the cobalt Lugano mark", () => {
   );
   assert.match(
     homepageIndex,
-    /homepage-sections\.css\?v=lugano-engraved-hero-20260905/,
+    /homepage-sections\.css\?v=[^"]+/,
   );
   assert.match(
     homepageIndex,

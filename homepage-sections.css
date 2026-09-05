@@ -2384,8 +2384,7 @@
 }
 
 #root .lgx-hero-art-picture,
-#root .lgx-hero-art,
-#root .lgx-hero-water {
+#root .lgx-hero-art {
   position: absolute;
   inset: 0;
   display: block;
@@ -2393,25 +2392,10 @@
   height: 100%;
 }
 
-#root .lgx-hero-art-picture,
-#root .lgx-hero-water {
-  transform: translate(
-    var(--lgx-hero-parallax-x, 0px),
-    var(--lgx-hero-parallax-y, 0px)
-  );
-  transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
 #root .lgx-hero-art {
   object-fit: cover;
   object-position: center bottom;
   filter: none !important;
-}
-
-#root .lgx-hero-water {
-  z-index: 1;
-  pointer-events: none;
 }
 
 #root section.flex-col.justify-between:first-of-type.lgx-hero-editorial > .relative.z-10 {
@@ -2711,31 +2695,6 @@
   transform: translateX(-50%);
 }
 
-#root section.flex-col.justify-between:first-of-type.lgx-hero-editorial .lgx-hero-caption-rule {
-  width: 1.6rem;
-  height: 1px;
-  background: rgba(25, 73, 135, 0.38);
-}
-
-#root section.flex-col.justify-between:first-of-type.lgx-hero-editorial .lgx-hero-motion-toggle {
-  appearance: none;
-  border: 0;
-  border-bottom: 1px solid rgba(25, 73, 135, 0.34);
-  border-radius: 0;
-  padding: 0.08rem 0;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  letter-spacing: inherit;
-  text-transform: inherit;
-}
-
-#root section.flex-col.justify-between:first-of-type.lgx-hero-editorial .lgx-hero-motion-toggle:hover {
-  border-bottom-color: #194987;
-  color: #194987;
-}
-
 #root section.flex-col.justify-between:first-of-type.lgx-hero-editorial + section {
   position: relative;
   z-index: 3;
@@ -2875,22 +2834,6 @@
     gap: 0.58rem;
     margin-top: 0.82rem;
     font-size: 0.59rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #root .lgx-hero-art-picture,
-  #root .lgx-hero-water {
-    transform: none !important;
-    transition: none !important;
-  }
-
-  #root .lgx-hero-water {
-    display: none;
-  }
-
-  #root [data-lgx-hero-motion="manual"] .lgx-hero-water {
-    display: block !important;
   }
 }
 

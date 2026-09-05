@@ -22,9 +22,6 @@
   const CTA_LABEL_TEXT = "Waitlist";
   const HERO_ART_DESKTOP_SRC = "assets/lugano-engraving-v1.webp";
   const HERO_ART_MOBILE_SRC = "assets/lugano-engraving-v1-mobile.webp";
-  const HERO_WATER_START = 0.79;
-  const HERO_WATER_END = 0.995;
-  const HERO_PARALLAX_LIMIT = 6;
   const HERO_PROOF_FACTS = [
     "Cryptographically auditable",
     "Any model",
@@ -43,7 +40,6 @@
     { label: "No prompt retention", digest: "0 retained" },
   ];
   let enhancementFrame = 0;
-  let heroDepthController = null;
   let heroRouteFrame = 0;
   let applyScrollFrame = 0;
   let applyScrollRoute = "";
@@ -1348,12 +1344,7 @@
     caption = document.createElement("div");
     caption.className = "lgx-hero-caption";
     caption.dataset.luganoHeroCaption = "true";
-    caption.innerHTML = `
-      <span class="lgx-hero-location">Lugano, Switzerland</span>
-      <span class="lgx-hero-caption-rule" aria-hidden="true"></span>
-      <button class="lgx-hero-motion-toggle" type="button" aria-pressed="false">
-        Pause landscape animation
-      </button>`;
+    caption.innerHTML = `<span class="lgx-hero-location">Lugano, Switzerland</span>`;
     heroContent.appendChild(caption);
     return caption;
   };
@@ -1387,273 +1378,11 @@
     heading.dataset.lgxHeroHeading = "full-proof";
   };
 
-  const clearHeroWater = (state) => {
-    state.context.clearRect(0, 0, state.width, state.height);
-  };
-
-  const resizeHeroWater = (state) => {
-    const rect = state.stage.getBoundingClientRect();
-    const width = Math.max(1, Math.round(rect.width));
-    const height = Math.max(1, Math.round(rect.height));
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
-
-    if (
-      state.width === width &&
-      state.height === height &&
-      state.pixelRatio === pixelRatio
-    ) {
-      return;
-    }
-
-    state.width = width;
-    state.height = height;
-    state.pixelRatio = pixelRatio;
-    state.canvas.width = width * pixelRatio;
-    state.canvas.height = height * pixelRatio;
-    state.canvas.style.width = `${width}px`;
-    state.canvas.style.height = `${height}px`;
-    state.context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-  };
-
-  const drawHeroWater = (state, timestamp) => {
-    const { image, context, height, width } = state;
-
-    if (!image.complete || !image.naturalWidth || !width || !height) {
-      return;
-    }
-
-    clearHeroWater(state);
-
-    const lakeTop = Math.round(height * HERO_WATER_START);
-    const lakeBottom = Math.round(height * HERO_WATER_END);
-    const sliceHeight = Math.max(4, Math.ceil((lakeBottom - lakeTop) / 17));
-    const waveTime = timestamp * 0.0011;
-
-    context.save();
-    context.globalAlpha = 0.12;
-
-    for (let y = lakeTop, index = 0; y < lakeBottom; y += sliceHeight, index += 1) {
-      const offset =
-        Math.sin(waveTime + index * 0.78) * 2.35 + Math.sin(waveTime * 0.54 + index) * 1.1;
-
-      context.save();
-      context.beginPath();
-      context.rect(0, y, width, Math.min(sliceHeight + 1, lakeBottom - y));
-      context.clip();
-      context.drawImage(image, offset, 0, width, height);
-      context.restore();
-    }
-
-    context.restore();
-  };
-
-  const destroyHeroDepth = () => {
-    heroDepthController?.destroy();
-    heroDepthController = null;
-  };
-
-  const ensureHeroDepth = (hero, artStage, caption) => {
-    if (heroDepthController?.hero === hero && heroDepthController.stage === artStage) {
-      return;
-    }
-
-    destroyHeroDepth();
-
-    const image = artStage.querySelector(".lgx-hero-art");
-    const motionToggle = caption?.querySelector(".lgx-hero-motion-toggle");
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d", { alpha: true });
-
-    if (
-      !image ||
-      !context ||
-      typeof ResizeObserver !== "function" ||
-      typeof IntersectionObserver !== "function"
-    ) {
-      motionToggle?.remove();
-      return;
-    }
-
-    canvas.className = "lgx-hero-water";
-    canvas.setAttribute("aria-hidden", "true");
-    artStage.appendChild(canvas);
-
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const state = {
-      active: false,
-      canvas,
-      caption,
-      context,
-      hero,
-      image,
-      manualMotionOptIn: false,
-      motionToggle,
-      pixelRatio: 0,
-      raf: 0,
-      reducedMotion,
-      stage: artStage,
-      userPaused: reducedMotion.matches,
-      visible: true,
-      width: 0,
-      height: 0,
-    };
-
-    const stop = () => {
-      state.active = false;
-
-      if (state.raf) {
-        window.cancelAnimationFrame(state.raf);
-        state.raf = 0;
-      }
-
-      clearHeroWater(state);
-    };
-
-    const run = (timestamp) => {
-      if (!state.active) {
-        return;
-      }
-
-      drawHeroWater(state, timestamp);
-      state.raf = window.requestAnimationFrame(run);
-    };
-
-    const start = () => {
-      if (state.active) {
-        return;
-      }
-
-      state.active = true;
-      state.raf = window.requestAnimationFrame(run);
-    };
-
-    const resetParallax = () => {
-      state.stage.style.setProperty("--lgx-hero-parallax-x", "0px");
-      state.stage.style.setProperty("--lgx-hero-parallax-y", "0px");
-    };
-
-    const updateMotionToggle = () => {
-      if (!state.motionToggle) {
-        return;
-      }
-
-      const isPlaying = !state.userPaused;
-      state.motionToggle.setAttribute("aria-pressed", String(isPlaying));
-      state.motionToggle.textContent = isPlaying
-        ? "Pause landscape animation"
-        : "Play landscape animation";
-    };
-
-    const updateMotion = () => {
-      const canAnimate =
-        !state.userPaused &&
-        (!state.reducedMotion.matches || state.manualMotionOptIn) &&
-        state.visible &&
-        !document.hidden &&
-        state.image.complete &&
-        state.image.naturalWidth > 0;
-
-      if (canAnimate) {
-        start();
-      } else {
-        stop();
-        resetParallax();
-      }
-    };
-
-    const onPointerMove = (event) => {
-      if (
-        state.userPaused ||
-        (state.reducedMotion.matches && !state.manualMotionOptIn) ||
-        event.pointerType === "touch"
-      ) {
-        return;
-      }
-
-      const rect = state.stage.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width - 0.5) * HERO_PARALLAX_LIMIT * 2;
-      const y = ((event.clientY - rect.top) / rect.height - 0.5) * HERO_PARALLAX_LIMIT * 1.25;
-      state.stage.style.setProperty("--lgx-hero-parallax-x", `${x.toFixed(2)}px`);
-      state.stage.style.setProperty("--lgx-hero-parallax-y", `${y.toFixed(2)}px`);
-    };
-
-    const onImageLoad = () => {
-      resizeHeroWater(state);
-      updateMotion();
-    };
-
-    const onToggle = () => {
-      state.userPaused = !state.userPaused;
-      state.manualMotionOptIn = state.reducedMotion.matches && !state.userPaused;
-      if (state.manualMotionOptIn) {
-        state.hero.dataset.lgxHeroMotion = "manual";
-      } else {
-        delete state.hero.dataset.lgxHeroMotion;
-      }
-      updateMotionToggle();
-      updateMotion();
-    };
-
-    const resizeObserver = new ResizeObserver(() => {
-      resizeHeroWater(state);
-    });
-    const intersectionObserver = new IntersectionObserver(
-      ([entry]) => {
-        state.visible = entry.isIntersecting;
-        updateMotion();
-      },
-      { threshold: 0.01 },
-    );
-    const onVisibilityChange = () => updateMotion();
-    const onMotionPreferenceChange = () => {
-      if (state.reducedMotion.matches) {
-        state.userPaused = true;
-        state.manualMotionOptIn = false;
-        delete state.hero.dataset.lgxHeroMotion;
-      }
-
-      updateMotionToggle();
-      updateMotion();
-    };
-
-    resizeHeroWater(state);
-    resizeObserver.observe(artStage);
-    intersectionObserver.observe(artStage);
-    image.addEventListener("load", onImageLoad);
-    artStage.addEventListener("pointermove", onPointerMove, { passive: true });
-    artStage.addEventListener("pointerleave", resetParallax, { passive: true });
-    document.addEventListener("visibilitychange", onVisibilityChange);
-    reducedMotion.addEventListener?.("change", onMotionPreferenceChange);
-    reducedMotion.addListener?.(onMotionPreferenceChange);
-    motionToggle?.addEventListener("click", onToggle);
-    updateMotionToggle();
-    updateMotion();
-
-    state.destroy = () => {
-      stop();
-      resizeObserver.disconnect();
-      intersectionObserver.disconnect();
-      image.removeEventListener("load", onImageLoad);
-      artStage.removeEventListener("pointermove", onPointerMove);
-      artStage.removeEventListener("pointerleave", resetParallax);
-      document.removeEventListener("visibilitychange", onVisibilityChange);
-      reducedMotion.removeEventListener?.("change", onMotionPreferenceChange);
-      reducedMotion.removeListener?.(onMotionPreferenceChange);
-      motionToggle?.removeEventListener("click", onToggle);
-      delete hero.dataset.lgxHeroMotion;
-      resetParallax();
-      canvas.remove();
-    };
-
-    heroDepthController = state;
-  };
-
   const enhanceHeroProofLayout = () => {
     const hero = getHeroSection();
     const heroContent = hero?.querySelector(":scope > .relative.z-10");
 
     if (!hero || !heroContent) {
-      destroyHeroDepth();
       removeHeroVerificationLedger();
       return;
     }
@@ -1675,7 +1404,7 @@
     heroContent.dataset.luganoHeroContent = "engraved-proof";
     updateHeroTypography(hero);
 
-    const artStage = ensureHeroArt(hero);
+    ensureHeroArt(hero);
 
     let copyColumn = heroContent.querySelector(":scope > .lgx-hero-copy");
     let proofColumn = heroContent.querySelector(":scope > .lgx-hero-proof-column");
@@ -1717,11 +1446,7 @@
       proofCard.classList.remove("lgx-cipher-ready");
     }
 
-    const caption = ensureHeroCaption(heroContent);
-
-    if (artStage) {
-      ensureHeroDepth(hero, artStage, caption);
-    }
+    ensureHeroCaption(heroContent);
   };
 
   const bindHeroRouteLifecycle = () => {
@@ -1732,7 +1457,6 @@
     document.documentElement.dataset.lgxHeroRouteLifecycleBound = "true";
 
     const refreshHero = () => {
-      destroyHeroDepth();
       cancelApplyScrollReset();
 
       if (heroRouteFrame) {
