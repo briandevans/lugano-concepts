@@ -1,7 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import GlassSeal from "@/components/GlassSeal";
 import "./live.css";
 
 export default function Home() {
+  const glassVideoRef = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
     if (document.querySelector("script[data-lugano-home]")) {
       return;
@@ -11,6 +14,22 @@ export default function Home() {
     script.async = false;
     script.dataset.luganoHome = "1";
     document.body.appendChild(script);
+  }, []);
+
+  useEffect(() => {
+    const video = glassVideoRef.current;
+    if (!video) return;
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => {
+      if (media.matches) {
+        video.pause();
+      } else {
+        void video.play();
+      }
+    };
+    sync();
+    media.addEventListener("change", sync);
+    return () => media.removeEventListener("change", sync);
   }, []);
 
   return (
@@ -99,6 +118,7 @@ export default function Home() {
     <main id="main">
       {/* 1. Hero */}
       <section className="hero" id="hero">
+        <GlassSeal />
         <div className="hero-inner">
           <div className="hero-copy">
             <h1 className="hero-title reveal">
@@ -119,6 +139,19 @@ export default function Home() {
           </div>
 
           <div className="hero-artifact reveal" aria-label="Redacted proof capsule — representative artifact">
+            <div className="hero-glass-clip" aria-hidden="true">
+              <video
+                ref={glassVideoRef}
+                className="hero-glass-video"
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster="/glass-seal-a.png"
+              >
+                <source src="/glass-seal.webm" type="video/webm" />
+              </video>
+            </div>
             <div className="proof-capsule" id="proof-capsule">
               <div className="proof-capsule-head">
                 <div>
