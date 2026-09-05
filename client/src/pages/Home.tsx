@@ -21,20 +21,28 @@ function formatClock(date: Date) {
 }
 
 const MEASURES = [
-  { key: "MRTD", value: "3fa91c70e2b64d18a7c0e5f1b9d24680c31e8a5f70b2d4e19c6a83f0e15b27d4" },
-  { key: "RTMR0", value: "91e0c4ab72f63d15b8a04e27c6d1f9a3e5b8702c14d9a6f0b3c7e18d52a4f06e" },
-  { key: "RTMR1", value: "c2d8f0a16e4b7395a0c1d7e24f8b6035d19a7c2e48b0f3a6e15d82c9b7043f1a" },
-  { key: "REPORTDATA", value: "07b3e9a1d5c82f406e1a94c7b2d0f835a6c1e04d79b2f1a8c3e5d06b9147a2f0" },
-  { key: "AK.BIND", value: "b8f17d20c4a9e35f16d0a2c78e4b9153f0c6a1d7e29b83504c1f6a2d90e3b748" },
-  { key: "TEE.TCB", value: "5e0c1a94d7b283f06a1e4c9b72d0f835c18a6e04d79b2f1a0c3e5d16b9147a2f" },
+  { key: "MRTD", value: "3fa91c70e2b64d18a7c0e5f1b9d24680c31e8a5f70b2d4e19c6a83f0e15b27d491e0c4ab72f63d15b8a04e27c6d1f9a3" },
+  { key: "RTMR0", value: "91e0c4ab72f63d15b8a04e27c6d1f9a3e5b8702c14d9a6f0b3c7e18d52a4f06ec2d8f0a16e4b7395a0c1d7e24f8b6035" },
+  { key: "RTMR1", value: "c2d8f0a16e4b7395a0c1d7e24f8b6035d19a7c2e48b0f3a6e15d82c9b7043f1a07b3e9a1d5c82f406e1a94c7b2d0f835" },
+  { key: "RTMR2", value: "07b3e9a1d5c82f406e1a94c7b2d0f835a6c1e04d79b2f1a8c3e5d06b9147a2f0b8f17d20c4a9e35f16d0a2c78e4b9153" },
+  { key: "RTMR3", value: "b8f17d20c4a9e35f16d0a2c78e4b9153f0c6a1d7e29b83504c1f6a2d90e3b7485e0c1a94d7b283f06a1e4c9b72d0f835" },
+  {
+    key: "REPORTDATA",
+    value: "07b3e9a1d5c82f406e1a94c7b2d0f835a6c1e04d79b2f1a8c3e5d06b9147a2f0b8f17d20c4a9e35f16d0a2c78e4b9153f0c6a1d7e29b83504c1f6a2d90e3b7485e0c1a94",
+  },
 ] as const;
 
 function HashBlock({ value }: { value: string }) {
   const groups = value.match(/.{8}/g) ?? [];
+  const lines = [];
+  for (let i = 0; i < groups.length; i += 4) {
+    lines.push(groups.slice(i, i + 4).join(" "));
+  }
   return (
     <dd className="lg-hash">
-      <span>{groups.slice(0, 4).join(" ")}</span>
-      <span>{groups.slice(4, 8).join(" ")}</span>
+      {lines.map((line) => (
+        <span key={line}>{line}</span>
+      ))}
     </dd>
   );
 }
@@ -47,17 +55,16 @@ function LiveReceipt({ clock }: { clock: string }) {
         <span>{clock}</span>
       </p>
       <dl className="lg-slip-dl">
-        <div>
-          <dt>RETENTION</dt>
-          <dd className="lg-hash lg-hash-zero">0</dd>
-        </div>
-        {MEASURES.slice(0, 4).map((row) => (
+        {MEASURES.slice(0, 5).map((row) => (
           <div key={row.key}>
             <dt>{row.key}</dt>
             <HashBlock value={row.value} />
           </div>
         ))}
       </dl>
+      <a className="lg-slip-foot" href="#architecture">
+        verify lugano.ai/v/LUG-7F283
+      </a>
     </aside>
   );
 }
@@ -293,7 +300,6 @@ export default function Home() {
       </a>
 
       <div className="lg-sheet lg-sheet-paper">
-        <ThermalHeat />
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
@@ -336,18 +342,14 @@ export default function Home() {
         <section id="top" className="lg-hero-wrap">
           <div className="lg-shell lg-split">
             <div className="lg-copy">
-              <div>
-                <h1>
-                  <span>AI privacy</span>
-                  <span>by proof</span>
-                </h1>
-                <p className="lg-sub">Every response returns a cryptographic receipt.</p>
-              </div>
+              <p className="lg-slip-zero">0</p>
+              <h1>
+                <span>AI privacy</span>
+                <span>by proof</span>
+              </h1>
+              <p className="lg-sub">Every response returns a cryptographic receipt.</p>
               <div className="lg-hero-actions">
-                <a className="lg-btn lg-btn-ink" href="#architecture">
-                  Verify LUG-7F283
-                </a>
-                <a className="lg-btn-ghost" href="mailto:contact@lugano.ai">
+                <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
                   Request briefing
                 </a>
               </div>
