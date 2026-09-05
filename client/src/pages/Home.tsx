@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import ThermalFilm from "../components/ThermalFilm";
 import "./home.css";
 
 const MEASURES = [
@@ -331,7 +330,7 @@ export default function Home() {
             </a>
           </div>
           <article className="lg-nm-slip" aria-label="Attestation receipt">
-            <ThermalFilm className="lg-nm-heat" />
+            <img className="lg-nm-slot" src="/generated/charcoal_slot_lip.png" alt="" />
             <div className="lg-nm-body">
               <p className="lg-nm-kind">Attestation</p>
               <p className="lg-nm-ticket">LUG-7F283</p>

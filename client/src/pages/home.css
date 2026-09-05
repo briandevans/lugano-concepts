@@ -1955,13 +1955,13 @@
   position: relative;
   z-index: 4;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 19rem;
-  column-gap: 2.35rem;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr) 20.5rem;
+  column-gap: 2.6rem;
+  align-items: start;
   width: min(100% - (var(--gutter) * 2), 88rem);
   height: calc(100vh - 72px);
   margin: 0 auto;
-  padding: 0.35rem 0 0;
+  padding: 1.35rem 0 0;
   overflow: hidden;
 }
 
@@ -1969,9 +1969,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
-  min-height: 0;
-  padding: 0.15rem 0 2.4rem;
+  padding: 1.55rem 0 0;
 }
 
 .lg-nm-lede {
@@ -1992,7 +1990,7 @@
 }
 
 .lg-nm-sub {
-  margin: 0;
+  margin: 1.7rem 0 0;
   max-width: 28rem;
   color: #c8c2b6;
   font-family: var(--sans);
@@ -2005,6 +2003,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 3.45rem;
+  margin-top: 2.4rem;
   padding: 0 1.55rem;
   background: #ece7dc;
   color: #161513 !important;
@@ -2024,34 +2023,26 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 19rem;
-  height: calc(100% + 3.2rem);
+  width: 20.5rem;
   color: #2a2722;
   background-color: #efebe1;
   background-image: url("/generated/thermal_paper_fiber.png");
   background-size: 180px;
-  box-shadow: 1px 0 0 #d2cdc0;
+  box-shadow: 1px 0 0 #d2cdc0, 0 1px 0 rgba(0, 0, 0, 0.28);
 }
 
-.lg-nm-heat {
-  position: absolute;
-  inset: 0 0 3rem 0;
-  z-index: 1;
+.lg-nm-slot {
+  display: block;
   width: 100%;
-  height: auto;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  opacity: 0.55;
+  height: 2.15rem;
+  object-fit: cover;
+  object-position: center 22%;
 }
 
 .lg-nm-body {
   position: relative;
   z-index: 2;
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  min-height: 0;
-  padding: 1.05rem 1.05rem 0.35rem;
+  padding: 0.55rem 1.15rem 0.2rem;
 }
 
 .lg-nm-kind,
@@ -2128,9 +2119,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  flex: 1 1 auto;
-  justify-content: center;
-  min-height: 7.5rem;
+  gap: 0.1rem;
+  margin: 0.15rem 0 0.75rem;
 }
 
 .lg-nm-total > span {
@@ -2161,9 +2151,9 @@
   margin: 0;
   color: #2a2722;
   font-family: var(--receipt);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.42;
 }
 
 .lg-nm-hash span {
@@ -5099,8 +5089,7 @@
   }
 
   .lg-nm-slip {
-    width: min(19rem, 100%);
-    height: auto;
+    width: min(20.5rem, 100%);
   }
 
   .lg-sheet.lg-ld {
