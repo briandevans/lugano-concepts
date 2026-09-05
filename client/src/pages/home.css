@@ -235,6 +235,7 @@
   color: var(--ash);
 }
 
+.lg a.lg-btn,
 .lg-btn {
   display: inline-flex;
   align-items: center;
@@ -243,7 +244,7 @@
   padding: 0.7rem 1.2rem;
   border: 0;
   background: var(--paper);
-  color: var(--ink);
+  color: var(--ink) !important;
   font-family: var(--sans);
   font-size: 0.92rem;
   font-weight: 500;
@@ -340,7 +341,7 @@
 }
 
 .lg-field-fallback {
-  filter: saturate(0.9) contrast(1.08) brightness(0.78);
+  filter: saturate(0.62) contrast(1.18) brightness(1.02) hue-rotate(-12deg);
 }
 
 .lg-hero-veil {
@@ -349,24 +350,23 @@
   z-index: 2;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(12, 13, 10, 0.62) 0%, rgba(12, 13, 10, 0.22) 54%, rgba(12, 13, 10, 0.06) 100%),
-    linear-gradient(180deg, rgba(12, 13, 10, 0.18) 0%, transparent 28%, rgba(12, 13, 10, 0.28) 100%);
+    linear-gradient(90deg, rgba(10, 14, 14, 0.78) 0%, rgba(10, 14, 14, 0.28) 46%, rgba(10, 14, 14, 0.04) 72%),
+    linear-gradient(180deg, rgba(10, 14, 14, 0.22) 0%, transparent 24%, rgba(10, 14, 14, 0.2) 100%);
 }
 
 .lg-hero {
   position: relative;
   z-index: 3;
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(19rem, 22.5rem);
-  align-items: end;
-  gap: clamp(2rem, 6vw, 5.5rem);
-  padding: clamp(3.5rem, 8vh, 6.5rem) 0 clamp(4.5rem, 9vh, 7rem);
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 24rem);
+  align-items: start;
+  gap: clamp(2rem, 5.5vw, 4.5rem);
+  padding: clamp(4.25rem, 9vh, 7.25rem) 0 clamp(3.25rem, 6vh, 4.5rem);
 }
 
 .lg-tilt {
-  transform: perspective(1400px) rotateY(-7deg) rotateX(3deg);
+  transform: none;
   transform-style: preserve-3d;
-  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .lg-hero-kicker {
@@ -379,10 +379,10 @@
 }
 
 .lg-hero h1 {
-  max-width: 13ch;
+  max-width: 11ch;
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(3.4rem, 8.2vw, 7rem);
+  font-size: clamp(3.6rem, 7.4vw, 6.4rem);
   font-weight: 400;
   line-height: 0.9;
   letter-spacing: -0.03em;
@@ -394,33 +394,20 @@
   color: color-mix(in srgb, var(--paper) 38%, #6b6860);
 }
 
-.lg-strike::before,
-.lg-strike::after {
-  position: absolute;
-  left: -0.04em;
-  right: -0.04em;
-  height: 1.5px;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--metal) 8%,
-    var(--seal) 46%,
-    var(--alpine-bright) 78%,
-    transparent 100%
-  );
-  content: "";
-}
-
 .lg-strike::before {
-  top: 54%;
-  transform: rotate(-4.5deg);
+  position: absolute;
+  left: -0.02em;
+  right: -0.02em;
+  top: 52%;
+  height: 2px;
+  pointer-events: none;
+  background: var(--seal);
+  content: "";
+  transform: rotate(-3deg);
 }
 
-.lg-strike::after {
-  top: 46%;
-  opacity: 0.55;
-  transform: rotate(3.2deg);
+.lg-strike {
+  color: color-mix(in srgb, var(--paper) 28%, #5a5852);
 }
 
 .lg-hero-proof-word {
@@ -443,13 +430,32 @@
   margin-top: 1.85rem;
 }
 
-.lg-hero-meta {
+.lg-quay {
+  position: relative;
+  z-index: 3;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.15rem 1.75rem;
-  margin-top: 3.25rem;
-  padding-top: 1.4rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem 1.75rem;
+  padding: 1.35rem 0 1.75rem;
   border-top: 1px solid var(--rule-paper);
+  background: linear-gradient(180deg, transparent, rgba(10, 14, 14, 0.42));
+}
+
+.lg-hero-meta,
+.lg-quay {
+  dt {
+    color: var(--metal);
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  dd {
+    margin: 0.28rem 0 0;
+    font-family: var(--serif);
+    font-size: 1.18rem;
+    line-height: 1.2;
+  }
 }
 
 .lg-hero-meta dt {
@@ -470,6 +476,7 @@
 /* Certificate */
 .lg-cert {
   position: relative;
+  overflow: visible;
   color: var(--ink);
   background: var(--paper);
   box-shadow:
@@ -519,12 +526,14 @@
 }
 
 .lg-seal-photo {
-  width: 3.4rem;
-  height: 3.4rem;
+  position: absolute;
+  top: -1.15rem;
+  right: -0.85rem;
+  width: 4.6rem;
+  height: 4.6rem;
   object-fit: cover;
-  border-radius: 50%;
-  box-shadow: 0 8px 18px rgba(18, 20, 16, 0.22);
-  transform: rotate(-8deg) translateZ(24px);
+  box-shadow: 0 10px 22px rgba(18, 20, 16, 0.28);
+  transform: rotate(-9deg);
 }
 
 .lg-proof-row {
@@ -546,10 +555,11 @@
 .lg-tick {
   display: grid;
   place-items: center;
-  width: 0.9rem;
-  height: 0.9rem;
-  background: var(--alpine);
-  color: var(--paper);
+  width: 0.72rem;
+  height: 0.72rem;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
 }
 
 .lg-tick svg {
@@ -575,9 +585,9 @@
 }
 
 .lg-redact {
-  padding: 0 0.2rem;
-  background: color-mix(in srgb, var(--ink) 88%, transparent);
-  color: transparent;
+  padding: 0;
+  background: none;
+  color: var(--ash);
   user-select: none;
 }
 

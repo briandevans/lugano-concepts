@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import LakeField from "@/components/LakeField";
-import TiltPlate from "@/components/TiltPlate";
 import "./home.css";
 
 const PROOF_ROWS = [
   { label: "TDX quote verified", digest: "4971…ba575" },
   { label: "GPU attestation verified", digest: "c8f2…3e41a" },
-  { label: "Proof verification", digest: "redacted" },
-  { label: "Constraint check", digest: "redacted" },
   { label: "Nonce binding verified", digest: "a1d9…7f283" },
   { label: "Signing key bound", digest: "e3b7…9c064" },
   { label: "Receipt verification", digest: "f6a4…2d817" },
-  { label: "Disclosure verification", digest: "7f93…6c4e2" },
-  { label: "Payload integrity", digest: "b2a6…8d5f1" },
   { label: "No prompt retention", digest: "0 retained" },
 ] as const;
 
@@ -307,8 +302,8 @@ export default function Home() {
                 <span className="lg-hero-proof-word"> proof.</span>
               </h1>
               <p>
-                Unverifiable privacy is just marketing. Lugano.ai is provably private AI
-                infrastructure: any model, cryptographically auditable, zero-trust by default.
+                Frontier models run inside a hardware-sealed enclave. Every response ships a
+                cryptographic receipt. Your prompts never persist.
               </p>
               <div className="lg-hero-actions">
                 <a className="lg-btn" href="mailto:contact@lugano.ai">
@@ -318,49 +313,43 @@ export default function Home() {
                   How it works
                 </a>
               </div>
-              <dl className="lg-hero-meta">
-                {HERO_META.map((item) => (
-                  <div key={item.label}>
-                    <dt>{item.label}</dt>
-                    <dd>{item.value}</dd>
-                  </div>
-                ))}
-              </dl>
             </div>
 
-            <TiltPlate>
-              <aside className="lg-cert" aria-label="Verification ledger">
-                <div className="lg-cert-inner">
-                  <div className="lg-cert-top">
-                    <div>
-                      <strong>Verified private AI</strong>
-                      <span>10+ checks · live attestation</span>
-                    </div>
-                    <img className="lg-seal-photo" src="/generated/magenta_wax_seal.png" alt="" />
-                  </div>
-                  {PROOF_ROWS.map((row) => (
-                    <div className="lg-proof-row" key={row.label}>
-                      <span className="lg-tick" aria-hidden="true">
-                        <svg viewBox="0 0 12 12">
-                          <path d="M2 6.2 4.8 9 10 3" />
-                        </svg>
-                      </span>
-                      <b>{row.label}</b>
-                      {row.digest === "redacted" ? (
-                        <span className="lg-redact">██████</span>
-                      ) : (
-                        <i>{row.digest}</i>
-                      )}
-                    </div>
-                  ))}
-                  <div className="lg-cert-foot">
-                    <span>Series 09 · sealed</span>
-                    <span>No prompt retention</span>
+            <aside className="lg-cert" aria-label="Verification ledger">
+              <img className="lg-seal-photo" src="/generated/magenta_wax_seal.png" alt="" />
+              <div className="lg-cert-inner">
+                <div className="lg-cert-top">
+                  <div>
+                    <strong>Attestation receipt</strong>
+                    <span>tee-7f283 · 04:12:09 utc</span>
                   </div>
                 </div>
-              </aside>
-            </TiltPlate>
+                {PROOF_ROWS.map((row) => (
+                  <div className="lg-proof-row" key={row.label}>
+                    <span className="lg-tick" aria-hidden="true">
+                      <svg viewBox="0 0 12 12">
+                        <path d="M2 6.2 4.8 9 10 3" />
+                      </svg>
+                    </span>
+                    <b>{row.label}</b>
+                    <i>{row.digest}</i>
+                  </div>
+                ))}
+                <div className="lg-cert-foot">
+                  <span>Carbon copy 04</span>
+                  <span>+4 checks on file</span>
+                </div>
+              </div>
+            </aside>
           </div>
+          <dl className="lg-shell lg-quay">
+            {HERO_META.map((item) => (
+              <div key={item.label}>
+                <dt>{item.label}</dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         <section id="problem" className="lg-section lg-section-paper">
