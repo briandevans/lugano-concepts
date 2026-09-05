@@ -29,8 +29,14 @@ const MEASURES = [
   { key: "TEE.TCB", value: "5e0c1a94d7b283f06a1e4c9b72d0f835c18a6e04d79b2f1a0c3e5d16b9147a2f" },
 ] as const;
 
-function groupHash(value: string) {
-  return value.match(/.{8}/g)?.join(" ") ?? value;
+function HashBlock({ value }: { value: string }) {
+  const groups = value.match(/.{8}/g) ?? [];
+  return (
+    <dd className="lg-hash">
+      <span>{groups.slice(0, 4).join(" ")}</span>
+      <span>{groups.slice(4, 8).join(" ")}</span>
+    </dd>
+  );
 }
 
 function LiveReceipt({ clock }: { clock: string }) {
@@ -38,18 +44,22 @@ function LiveReceipt({ clock }: { clock: string }) {
     <aside className="lg-print" aria-label="Attestation receipt">
       <p className="lg-print-kicker">
         <span>LUG-7F283</span>
-        <span className="lg-print-live">{clock}</span>
+        <span>{clock}</span>
       </p>
       <dl className="lg-slip-dl">
+        <div>
+          <dt>RETENTION</dt>
+          <dd className="lg-hash lg-hash-zero">0</dd>
+        </div>
         {MEASURES.slice(0, 4).map((row) => (
           <div key={row.key}>
             <dt>{row.key}</dt>
-            <dd className="lg-hash">{groupHash(row.value)}</dd>
+            <HashBlock value={row.value} />
           </div>
         ))}
       </dl>
       <a className="lg-slip-foot" href="#architecture">
-        VERIFY LUG-7F283
+        VERIFY
       </a>
     </aside>
   );
@@ -290,7 +300,9 @@ export default function Home() {
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-              <span className="lg-wordmark">Lugano</span>
+              <span className="lg-wordmark">
+                Lugan<span className="lg-zero-mark">0</span>
+              </span>
             </a>
             <nav className="lg-nav-links" aria-label="Primary">
               {NAV.map((item) => (
@@ -328,20 +340,18 @@ export default function Home() {
           <div className="lg-shell lg-split">
             <div className="lg-copy">
               <div>
-                <p className="lg-slip-zero">0</p>
-                <p className="lg-slip-status">Retention</p>
                 <h1>
                   <span>AI privacy</span>
                   <span>by proof</span>
                 </h1>
-                <p className="lg-sub">A cryptographic receipt with every response.</p>
+                <p className="lg-sub">Every response returns a cryptographic receipt.</p>
               </div>
               <div className="lg-hero-actions">
-                <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
-                  Request briefing
+                <a className="lg-btn lg-btn-ink" href="#architecture">
+                  Verify LUG-7F283
                 </a>
-                <a className="lg-btn-ghost" href="#platform">
-                  How it works
+                <a className="lg-btn-ghost" href="mailto:contact@lugano.ai">
+                  Request briefing
                 </a>
               </div>
             </div>
@@ -667,7 +677,9 @@ export default function Home() {
       <footer className="lg-footer">
         <div className="lg-shell lg-footer-row">
           <a className="lg-brand" href="#top">
-            <span className="lg-wordmark">Lugano</span>
+            <span className="lg-wordmark">
+              Lugan<span className="lg-zero-mark">0</span>
+            </span>
           </a>
           <nav aria-label="Footer">
             <a href="mailto:contact@lugano.ai">Contact</a>
