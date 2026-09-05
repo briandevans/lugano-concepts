@@ -318,19 +318,21 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-nm-well">
-          <p className="lg-nm-lede">
-            Frontier models
-            <span>that run sealed</span>
-            <span>and leave a receipt.</span>
-          </p>
-          <div className="lg-nm-row">
-            <div className="lg-nm-copy">
-              <p className="lg-nm-sub">Every run returns a TDX quote and discards the prompt.</p>
-              <a className="lg-nm-cta" href="mailto:contact@lugano.ai">
-                Request access
-              </a>
-            </div>
-            <article className="lg-nm-slip" aria-label="Attestation receipt">
+          <div className="lg-nm-copy">
+            <p className="lg-nm-lede">
+              Frontier models
+              <span>that run sealed</span>
+              <span>and leave a receipt.</span>
+            </p>
+            <p className="lg-nm-sub">
+              Every run returns a TDX quote,
+              <span>and discards the prompt.</span>
+            </p>
+            <a className="lg-nm-cta" href="mailto:contact@lugano.ai">
+              Request access
+            </a>
+          </div>
+          <article className="lg-nm-slip" aria-label="Attestation receipt">
             <div className="lg-nm-body">
               <p className="lg-nm-kind">Attestation</p>
               <p className="lg-nm-ticket">LUG-7F283</p>
@@ -359,11 +361,7 @@ export default function Home() {
               </dl>
               <hr className="lg-nm-rule" />
               <div className="lg-nm-total">
-                <p className="lg-nm-tally">
-                  <span>Total retained</span>
-                  <i />
-                  <b>0 B</b>
-                </p>
+                <span>Total retained</span>
                 <b className="lg-nm-amt">
                   <span className="lg-oh">0</span>
                   <span>B</span>
@@ -381,7 +379,6 @@ export default function Home() {
               </div>
             </div>
           </article>
-          </div>
         </section>
       </div>
 
