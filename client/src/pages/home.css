@@ -332,8 +332,8 @@
 
 .lg-section-cont {
   color: var(--ink);
-  background: #f4eee0;
-  padding-top: 6.5rem;
+  background: #e8dfc8;
+  padding-top: 10rem;
   border-top: 0;
 }
 
@@ -394,12 +394,13 @@
 .lg-copy h1 {
   display: flex;
   flex-direction: column;
+  max-width: 11ch;
   margin: 0;
   color: #f4eee0;
   font-family: var(--serif);
   font-optical-sizing: auto;
   font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
-  font-size: clamp(4.6rem, 8.2vw, 7.2rem);
+  font-size: clamp(4.8rem, 8.6vw, 7.6rem);
   font-weight: 400;
   line-height: 0.94;
   letter-spacing: -0.042em;
@@ -411,7 +412,7 @@
 }
 
 .lg-sub {
-  max-width: 28rem;
+  max-width: 34rem;
   margin: 1.85rem 0 0;
   color: #f4eee0;
   font-family: var(--serif);
@@ -429,32 +430,15 @@
   width: min(22.5rem, 100%);
   aspect-ratio: 148 / 210;
   justify-self: end;
-  margin-bottom: -7.5rem;
+  margin-bottom: -11rem;
   padding: 1.15rem 1.2rem 1.35rem;
   color: #121410;
-  background-color: #f6edd4;
+  background-color: #fff8ee;
   background-image: url("/generated/thermal_ivory_grain.png");
   background-size: 360px;
   border: 0;
   box-shadow: 0 32px 70px rgba(0, 0, 0, 0.48);
   transform: none;
-}
-
-.lg-slip::after {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  z-index: 3;
-  height: 14px;
-  pointer-events: none;
-  background-color: #f6edd4;
-  clip-path: polygon(
-    0 0, 100% 0,
-    100% 25%, 92% 100%, 84% 25%, 76% 100%, 68% 25%, 60% 100%,
-    52% 25%, 44% 100%, 36% 25%, 28% 100%, 20% 25%, 12% 100%, 0 25%
-  );
-  content: "";
 }
 
 .lg-slip .lg-heat {
@@ -550,9 +534,9 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-top: auto;
-  padding-top: 0.85rem;
-  border-top: 1px solid rgba(18, 20, 16, 0.22);
+  margin: 0 0 1.1rem;
+  padding: 0 0 0.85rem;
+  border-bottom: 1px solid rgba(18, 20, 16, 0.22);
   font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: 0.08em;

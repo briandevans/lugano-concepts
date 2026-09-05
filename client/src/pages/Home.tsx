@@ -30,36 +30,31 @@ const MEASURES = [
 ] as const;
 
 function groupHash(value: string) {
-  return `${value.slice(0, 16)} ${value.slice(16, 32)} ${value.slice(32, 48)} ${value.slice(48)}`;
+  return `${value.slice(0, 8)}…${value.slice(-5)}`;
 }
 
 function LiveReceipt({ clock }: { clock: string }) {
   return (
     <aside className="lg-slip" aria-label="Attestation receipt">
       <ThermalHeat />
+      <p className="lg-slip-status">
+        Retention
+        <strong>0</strong>
+      </p>
       <header className="lg-slip-head">
         <p>Attestation</p>
         <p>Lugano, CH</p>
       </header>
       <p className="lg-slip-id">LUG-7F283</p>
       <p className="lg-slip-meta">{clock}</p>
-      <p className="lg-slip-quote">
-        8c1a0f27 d94b6e50 a3c7d18e 62f0b94c
-        <br />
-        1d7a35e0 b8c2491f 6a0d3e75 c18b2049
-      </p>
       <dl className="lg-slip-dl">
-        {MEASURES.map((row) => (
+        {MEASURES.slice(0, 3).map((row) => (
           <div key={row.key}>
             <dt>{row.key}</dt>
             <dd className="lg-hash">{groupHash(row.value)}</dd>
           </div>
         ))}
       </dl>
-      <p className="lg-slip-status">
-        Retention
-        <strong>0</strong>
-      </p>
     </aside>
   );
 }
@@ -298,7 +293,7 @@ export default function Home() {
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-              <span className="lg-wordmark">Lugano.ai</span>
+              <span className="lg-wordmark">Lugano</span>
             </a>
             <nav className="lg-nav-links" aria-label="Primary">
               {NAV.map((item) => (
@@ -673,7 +668,7 @@ export default function Home() {
       <footer className="lg-footer">
         <div className="lg-shell lg-footer-row">
           <a className="lg-brand" href="#top">
-            <span className="lg-wordmark">Lugano.ai</span>
+            <span className="lg-wordmark">Lugano</span>
           </a>
           <nav aria-label="Footer">
             <a href="mailto:contact@lugano.ai">Contact</a>
