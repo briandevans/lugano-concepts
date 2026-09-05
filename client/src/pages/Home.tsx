@@ -289,13 +289,19 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-desk-stage">
-          <h1 className="lg-desk-lockup">
-            <em>
-              <ZeroMark className="lg-zero-hero" /> bytes retained.
-            </em>
-            <span>Private inference with a cryptographic receipt.</span>
-          </h1>
+          <div className="lg-desk-copy">
+            <h1 className="lg-desk-lockup">
+              <em>
+                <ZeroMark className="lg-zero-hero" /> bytes retained
+              </em>
+              <span>Private inference with a cryptographic receipt.</span>
+            </h1>
+            <a className="lg-desk-cta" href="#architecture">
+              Verify a receipt →
+            </a>
+          </div>
           <article className="lg-desk-slip" aria-label="Specimen attestation">
+            <i className="lg-desk-perf" aria-hidden="true" />
             <dl>
               <div>
                 <dt>Issued</dt>
@@ -312,7 +318,7 @@ export default function Home() {
                 <i />
                 <dd>sealed · GLM-5.2</dd>
               </div>
-              <div>
+              <div className="lg-desk-reg">
                 <dt>MRTD</dt>
                 <dd className="lg-hash-full">
                   {(MEASURES[0].value.match(/.{8}/g) ?? []).map((group) => (
@@ -320,7 +326,7 @@ export default function Home() {
                   ))}
                 </dd>
               </div>
-              <div>
+              <div className="lg-desk-reg">
                 <dt>RTMR0</dt>
                 <dd className="lg-hash-full">
                   {(MEASURES[1].value.match(/.{8}/g) ?? []).map((group) => (
@@ -329,9 +335,10 @@ export default function Home() {
                 </dd>
               </div>
               <div className="lg-desk-total">
-                <dt>Bytes retained</dt>
+                <dt>Total retained</dt>
                 <dd>
                   <ZeroMark className="lg-zero-total" />
+                  <small>B</small>
                 </dd>
               </div>
             </dl>
@@ -342,7 +349,7 @@ export default function Home() {
                 width="72"
                 height="72"
               />
-              <a href="#architecture">lugano.ai/v/LUG-7F283</a>
+              <span>lugano.ai/v/LUG-7F283</span>
             </footer>
           </article>
         </section>
