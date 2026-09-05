@@ -25,46 +25,18 @@ function useUtcClock() {
   return clock;
 }
 
-function LiveReceipt({ clock }: { clock: string }) {
+function HashBars() {
+  const widths = [2, 1, 1, 3, 1, 2, 1, 1, 3, 2, 1, 1, 2, 3, 1, 1, 2, 1, 3, 1, 2, 2, 1, 1, 3, 1, 2, 1, 1, 2, 3, 1, 1, 2, 1, 2, 1, 3, 1];
+  let x = 0;
+  const bars = widths.map((width, index) => {
+    const rect = <rect key={index} x={x} y="0" width={width} height="36" />;
+    x += width + 1;
+    return rect;
+  });
   return (
-    <div className="lg-ticket-col">
-      <aside className="lg-ticket" aria-label="Attestation receipt">
-        <ThermalHeat />
-        <div className="lg-ticket-sprocket" aria-hidden="true" />
-        <div className="lg-ticket-print">
-          <header className="lg-ticket-head">
-            <strong>Attestation receipt</strong>
-            <span>CLR</span>
-          </header>
-          <p className="lg-ticket-meta">
-            LUG-7F283 · {clock} UTC · CH · TDX
-          </p>
-          <ol className="lg-ticket-rows">
-            {PROOF_ROWS.map((row) => (
-              <li
-                className={`lg-proof-row${"climax" in row && row.climax ? " is-climax" : ""}`}
-                key={row.label}
-              >
-                <span className="lg-tick" aria-hidden="true">
-                  <svg viewBox="0 0 12 12">
-                    <path d="M2.1 6.3 4.7 9.1 10 2.8" />
-                  </svg>
-                </span>
-                <b>{row.label}</b>
-                <i>{row.digest}</i>
-              </li>
-            ))}
-          </ol>
-          <p className="lg-ticket-ok">VERIFIED</p>
-          <p className="lg-ticket-end">END OF RECORD · DO NOT RETAIN</p>
-        </div>
-        <img
-          className="lg-ticket-tear"
-          src="/generated/thermal_tear_edge.png"
-          alt=""
-        />
-      </aside>
-    </div>
+    <svg className="lg-bars" viewBox={`0 0 ${x} 36`} aria-hidden="true">
+      {bars}
+    </svg>
   );
 }
 
@@ -294,59 +266,82 @@ export default function Home() {
         />
       </Helmet>
 
-      <a className="lg-skip" href="#main">
+      <a className="lg-skip" href="#top">
         Skip to content
       </a>
 
-      <header className="lg-nav">
-        <div className="lg-nav-inner">
-          <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-            <span className="lg-wordmark">
-              Lugano.ai
-            </span>
-          </a>
-          <nav className="lg-nav-links" aria-label="Primary">
+      <div className="lg-sheet">
+        <ThermalHeat />
+        <div className="lg-sprocket" aria-hidden="true" />
+        <header className="lg-nav">
+          <div className="lg-nav-inner">
+            <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
+              <span className="lg-wordmark">Lugano.ai</span>
+            </a>
+            <nav className="lg-nav-links" aria-label="Primary">
+              {NAV.map((item) => (
+                <a key={item.href} href={item.href}>
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+            <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
+              Contact
+            </a>
+            <button
+              className="lg-menu-btn"
+              type="button"
+              aria-expanded={menuOpen}
+              aria-label="Open menu"
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              <span />
+            </button>
+          </div>
+          <div className={`lg-mobile-panel${menuOpen ? " is-open" : ""}`}>
             {NAV.map((item) => (
-              <a key={item.href} href={item.href}>
+              <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
                 {item.label}
               </a>
             ))}
-          </nav>
-          <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-            Contact
-          </a>
-          <button
-            className="lg-menu-btn"
-            type="button"
-            aria-expanded={menuOpen}
-            aria-label="Open menu"
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            <span />
-          </button>
-        </div>
-        <div className={`lg-mobile-panel${menuOpen ? " is-open" : ""}`}>
-          {NAV.map((item) => (
-            <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
-              {item.label}
+            <a href="mailto:contact@lugano.ai" onClick={() => setMenuOpen(false)}>
+              Request briefing
             </a>
-          ))}
-          <a href="mailto:contact@lugano.ai" onClick={() => setMenuOpen(false)}>
-            Request briefing
-          </a>
-        </div>
-      </header>
+          </div>
+        </header>
 
-      <main id="main">
         <section id="top" className="lg-hero-wrap">
-          <div className="lg-shell lg-hero lg-hero-bleed">
-            <div className="lg-hero-copy">
-              <Folio n="01" label="Clearance" />
+            <div className="lg-shell lg-doc">
+              <p className="lg-doc-meta">
+                LUG-7F283 · {clock} UTC · CH · TDX
+              </p>
               <h1>
                 <span>AI privacy</span>
                 <span>by proof.</span>
               </h1>
-              <p>Every response returns a cryptographic receipt. Prompts are not retained.</p>
+              <p className="lg-doc-lede">
+                Every response returns a cryptographic receipt. Prompts are not retained.
+              </p>
+              <div className="lg-doc-proof">
+                <ol className="lg-doc-rows">
+                  {PROOF_ROWS.map((row) => (
+                    <li
+                      className={"climax" in row && row.climax ? "is-climax" : ""}
+                      key={row.label}
+                    >
+                      <span className="lg-mark">[x]</span>
+                      <b>{row.label}</b>
+                      <i>{row.digest}</i>
+                    </li>
+                  ))}
+                </ol>
+                <img
+                  className="lg-doc-stamp"
+                  src="/generated/verified_stamp_vermilion.png"
+                  alt=""
+                />
+              </div>
+              <HashBars />
               <div className="lg-hero-actions">
                 <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
                   Request briefing
@@ -355,14 +350,12 @@ export default function Home() {
                   How it works
                 </a>
               </div>
-              <p className="lg-hero-live">
-                <span className="lg-live-dot" aria-hidden="true" />
-                {clock} UTC · 6 checks · 0 retained
-              </p>
             </div>
-            <LiveReceipt clock={clock} />
-          </div>
         </section>
+        <div className="lg-tear" aria-hidden="true" />
+      </div>
+
+      <main id="main" className="lg-rest">
 
         <section id="problem" className="lg-section lg-section-cont">
           <div className="lg-shell lg-problem">
@@ -691,6 +684,7 @@ export default function Home() {
           <p>© 2026 Lugano.ai</p>
         </div>
       </footer>
+      </main>
     </div>
   );
 }

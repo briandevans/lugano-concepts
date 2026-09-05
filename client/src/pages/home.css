@@ -83,6 +83,39 @@
 }
 
 /* ── Nav ──────────────────────────────────────────────── */
+.lg-sheet {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--ink);
+  background-color: #f4eee0;
+  background-image: url("/generated/thermal_ivory_grain.png");
+  background-size: 520px;
+}
+
+.lg-sheet .lg-heat {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+.lg-sprocket {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  width: 1.7rem;
+  pointer-events: none;
+  background: radial-gradient(circle at 0.55rem 0.82rem, #c9b892 0.3rem, transparent 0.32rem);
+  background-size: 1.7rem 1.64rem;
+}
+
 .lg-nav {
   position: sticky;
   top: 0;
@@ -92,10 +125,8 @@
   justify-content: space-between;
   gap: 1.5rem;
   height: 64px;
-  border-bottom: 0;
-  background-color: #c9b892;
-  background-image: url("/generated/kraft_blotter_grain.png");
-  background-size: 720px;
+  border-bottom: 1px solid rgba(20, 19, 15, 0.12);
+  background: transparent;
   color: var(--ink);
 }
 
@@ -122,9 +153,9 @@
 
 .lg-nav-links a {
   color: var(--ink);
-  font-family: var(--sans);
-  font-size: 0.9rem;
-  letter-spacing: 0;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
 }
 
 .lg-nav-links a:hover {
@@ -135,10 +166,11 @@
   display: inline-flex;
   align-items: center;
   min-height: 2.05rem;
-  padding: 0.32rem 0.75rem;
-  background: var(--ink);
-  color: var(--thermal) !important;
-  font-family: var(--sans);
+  padding: 0.32rem 0.7rem;
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  color: var(--ink) !important;
+  font-family: var(--mono);
   font-size: 0.78rem;
   letter-spacing: 0.02em;
 }
@@ -194,8 +226,8 @@
   gap: 0.7rem;
   margin-bottom: 1.15rem;
   color: var(--ash);
-  font-family: var(--sans);
-  font-size: 0.78rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
   letter-spacing: 0.04em;
 }
 
@@ -235,21 +267,21 @@
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  min-height: 2.85rem;
-  padding: 0.55rem 1.1rem;
-  border: 0;
-  background: var(--paper);
+  min-height: 2.7rem;
+  padding: 0.5rem 1rem;
+  border: 1.5px solid var(--ink);
+  background: transparent;
   color: var(--ink) !important;
-  font-family: var(--sans);
-  font-size: 0.92rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 .lg a.lg-btn.lg-btn-ink,
 .lg-btn-ink {
   background: var(--ink);
-  color: var(--thermal) !important;
+  color: #f4eee0 !important;
 }
 
 .lg a.lg-btn.lg-btn-ink:hover,
@@ -260,12 +292,12 @@
 .lg-btn-ghost {
   display: inline-flex;
   align-items: center;
-  min-height: 2.85rem;
-  padding: 0.55rem 0;
+  min-height: 2.7rem;
+  padding: 0.5rem 0;
   color: var(--ink);
-  font-family: var(--sans);
-  font-size: 0.92rem;
-  letter-spacing: 0;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
   border-bottom: 0;
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -325,12 +357,11 @@
 /* ── Hero ─────────────────────────────────────────────── */
 .lg-hero-wrap {
   position: relative;
+  z-index: 2;
   isolation: isolate;
-  overflow: hidden;
+  overflow: visible;
   color: var(--ink);
-  background-color: #c9b892;
-  background-image: url("/generated/kraft_blotter_grain.png");
-  background-size: 720px;
+  background: transparent;
 }
 
 .lg-field,
@@ -364,31 +395,25 @@
 .lg-hero {
   position: relative;
   z-index: 3;
-  padding: 4.75rem 0 0;
+  padding: 0;
 }
 
-.lg-hero-bleed {
-  display: grid;
-  grid-template-columns: minmax(20rem, 34rem) minmax(0, 1.15fr);
-  align-items: start;
-  column-gap: clamp(2rem, 5vw, 4.5rem);
-  min-height: calc(100svh - 64px);
+.lg-doc {
+  position: relative;
+  z-index: 3;
+  padding: 2.4rem 0 2.6rem;
+  padding-left: 0.4rem;
 }
 
-.lg-hero-copy {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  min-height: calc(100svh - 64px - 4.75rem);
-  padding-top: 0.15rem;
-  padding-bottom: 2.4rem;
+.lg-doc-meta {
+  margin: 0 0 1.35rem;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
 }
 
-.lg-hero-copy .lg-folio {
-  margin-bottom: 1.35rem;
-  color: var(--ash);
-}
-
+.lg-doc h1,
 .lg-hero h1 {
   display: flex;
   flex-direction: column;
@@ -397,24 +422,104 @@
   color: var(--ink);
   font-family: var(--serif);
   font-optical-sizing: auto;
-  font-size: clamp(4.6rem, 8.4vw, 7.4rem);
+  font-size: clamp(4.4rem, 8vw, 7rem);
   font-weight: 400;
   line-height: 0.86;
   letter-spacing: -0.038em;
 }
 
+.lg-doc h1 span,
 .lg-hero h1 span {
   display: block;
   white-space: nowrap;
 }
 
-.lg-hero-copy > p {
-  max-width: 28rem;
-  margin: 1.5rem 0 0;
-  color: var(--ash);
-  font-family: var(--sans);
-  font-size: clamp(1.22rem, 1.8vw, 1.48rem);
-  line-height: 1.4;
+.lg-doc-lede {
+  max-width: 34rem;
+  margin: 1.35rem 0 0;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+  line-height: 1.45;
+}
+
+.lg-doc-proof {
+  position: relative;
+  max-width: 44rem;
+  margin-top: 2.1rem;
+}
+
+.lg-doc-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lg-doc-rows li {
+  display: grid;
+  grid-template-columns: 2.1rem minmax(0, 1fr) 8.2rem;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.58rem 0;
+  border-bottom: 1px solid rgba(42, 38, 28, 0.22);
+  font-family: var(--mono);
+  font-size: 0.98rem;
+  color: #1d1a15;
+}
+
+.lg-doc-rows .lg-mark {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.lg-doc-rows b {
+  font-weight: 400;
+}
+
+.lg-doc-rows i {
+  text-align: right;
+  font-style: normal;
+}
+
+.lg-doc-rows li.is-climax i {
+  color: #9a2216;
+  font-weight: 500;
+}
+
+.lg-doc-stamp {
+  position: absolute;
+  right: -0.4rem;
+  bottom: -1.8rem;
+  z-index: 4;
+  width: min(14rem, 46%);
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  transform: rotate(-5deg);
+}
+
+.lg-bars {
+  display: block;
+  width: min(22rem, 72%);
+  height: 2.05rem;
+  margin: 1.85rem 0 0;
+  fill: #1d1a15;
+}
+
+.lg-tear {
+  position: relative;
+  z-index: 2;
+  height: 18px;
+  background-color: #f4eee0;
+  background-image: url("/generated/thermal_ivory_grain.png");
+  background-size: 520px;
+  clip-path: polygon(
+    0 0, 100% 0,
+    100% 35%, 96.5% 100%, 93% 35%, 89.5% 100%, 86% 35%, 82.5% 100%,
+    79% 35%, 75.5% 100%, 72% 35%, 68.5% 100%, 65% 35%, 61.5% 100%,
+    58% 35%, 54.5% 100%, 51% 35%, 47.5% 100%, 44% 35%, 40.5% 100%,
+    37% 35%, 33.5% 100%, 30% 35%, 26.5% 100%, 23% 35%, 19.5% 100%,
+    16% 35%, 12.5% 100%, 9% 35%, 5.5% 100%, 2% 35%, 0 100%
+  );
 }
 
 .lg-hero-actions {
@@ -1531,25 +1636,14 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 980px) {
-  .lg-hero-bleed {
-    grid-template-columns: 1fr;
-    min-height: 0;
-    padding-bottom: 2rem;
-  }
-
+  .lg-doc h1 span,
   .lg-hero h1 span {
     white-space: normal;
   }
 
-  .lg-ticket {
-    width: min(34rem, 100%);
-    min-height: 42rem;
-    margin-right: 0;
-    margin-bottom: -3rem;
-  }
-
-  .lg-hero-copy {
-    min-height: 0;
+  .lg-doc-stamp {
+    width: 11rem;
+    right: 0;
   }
 
   .lg-hero,
