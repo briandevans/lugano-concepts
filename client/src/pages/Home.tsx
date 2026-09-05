@@ -262,8 +262,7 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="lg-sheet lg-void">
-        <div className="lg-void-light" aria-hidden="true" />
+      <div className="lg-sheet lg-mat">
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
@@ -301,105 +300,84 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="top" className="lg-void-stage">
-          <div className="lg-void-copy">
+        <section id="top" className="lg-mat-well">
+          <article className="lg-mat-sheet" aria-label="Attestation receipt">
+            <img className="lg-mat-serration" src="/generated/cream_thermal_tear.png" alt="" />
+            <PrintHead />
+            <header>
+              <span>LUGANO</span>
+              <span>ATTESTATION</span>
+            </header>
+            <header>
+              <span>LUG-7F283</span>
+              <span>SHA-384</span>
+            </header>
+            <dl>
+              <div>
+                <dt>Issued</dt>
+                <i />
+                <dd>{issued}</dd>
+              </div>
+              <div>
+                <dt>Service</dt>
+                <i />
+                <dd>sealed inference</dd>
+              </div>
+              <div>
+                <dt>Prompt</dt>
+                <i />
+                <dd>not retained</dd>
+              </div>
+              <div>
+                <dt>Model</dt>
+                <i />
+                <dd>sealed · GLM-5.2</dd>
+              </div>
+              <div className="lg-mat-reg">
+                <dt>MRTD</dt>
+                <dd className="lg-mat-hash">
+                  {hashGroups(MEASURES[0].value).map((group, index) => (
+                    <b key={`mrtd-${index}`}>{group}</b>
+                  ))}
+                </dd>
+              </div>
+              <div>
+                <dt>RTMR 0–3</dt>
+                <i />
+                <dd>sealed</dd>
+              </div>
+              <div>
+                <dt>Signed</dt>
+                <i />
+                <dd>TDX quote · SHA-384</dd>
+              </div>
+            </dl>
             <h1>
-              <ZeroMark className="lg-zero-hero" />
+              <span>Total retained</span>
               <b>
-                bytes
-                <i>retained</i>
+                <ZeroMark className="lg-zero-hero" />
+                <small>B</small>
               </b>
             </h1>
-            <p>Frontier models that run sealed&nbsp;— and leave a receipt.</p>
-            <a className="lg-void-cta" href="mailto:contact@lugano.ai">
-              Request a specimen
-            </a>
-          </div>
-          <aside className="lg-void-object" aria-label="Attestation printer">
-            <div className="lg-void-scene">
+            <p>Frontier models that run sealed and leave a receipt.</p>
+            <footer>
               <img
-                className="lg-void-printer"
-                src="/generated/printer_long_slip.png"
-                alt=""
+                src="/generated/verifier_qr.png"
+                alt="QR code for lugano.ai/v/LUG-7F283"
+                width="64"
+                height="64"
               />
-              <article className="lg-void-slip">
-              <PrintHead />
-              <header>
-                <span>LUGANO</span>
-                <span>ATTESTATION</span>
-              </header>
-              <header>
-                <span>LUG-7F283</span>
-                <span>SHA-384</span>
-              </header>
-              <dl>
-                <div>
-                  <dt>Issued</dt>
-                  <i />
-                  <dd>{issued}</dd>
-                </div>
-                <div>
-                  <dt>Service</dt>
-                  <i />
-                  <dd>sealed inference</dd>
-                </div>
-                <div>
-                  <dt>Prompt</dt>
-                  <i />
-                  <dd>not retained</dd>
-                </div>
-                <div>
-                  <dt>Model</dt>
-                  <i />
-                  <dd>sealed · GLM-5.2</dd>
-                </div>
-                <div className="lg-void-reg">
-                  <dt>MRTD</dt>
-                  <dd className="lg-void-hash">
-                    {hashGroups(MEASURES[0].value).map((group, index) => (
-                      <b key={`mrtd-${index}`}>{group}</b>
-                    ))}
-                  </dd>
-                </div>
-                <div>
-                  <dt>RTMR 0–3</dt>
-                  <i />
-                  <dd>sealed</dd>
-                </div>
-                <div>
-                  <dt>Signed</dt>
-                  <i />
-                  <dd>TDX quote · SHA-384</dd>
-                </div>
-                <div className="lg-void-total">
-                  <dt>Total retained</dt>
-                  <i />
-                  <dd>
-                    <ZeroMark className="lg-zero-total" />
-                    <small>B</small>
-                  </dd>
-                </div>
-              </dl>
-              <footer>
-                <img
-                  src="/generated/verifier_qr.png"
-                  alt="QR code for lugano.ai/v/LUG-7F283"
-                  width="52"
-                  height="52"
-                />
-                <div>
-                  <span>lugano.ai/v/LUG-7F283</span>
-                  <a className="lg-void-verify" href="#architecture">
-                    Verify this proof
-                  </a>
-                </div>
-              </footer>
-              <p className="lg-void-feed" aria-hidden="true">
-                * * * * * * * * *
-              </p>
-              </article>
-            </div>
-          </aside>
+              <div>
+                <span>lugano.ai/v/LUG-7F283</span>
+                <a className="lg-mat-verify" href="#architecture">
+                  Verify this proof
+                </a>
+                <a className="lg-mat-cta" href="mailto:contact@lugano.ai">
+                  Request a specimen
+                </a>
+              </div>
+            </footer>
+          </article>
         </section>
       </div>
 

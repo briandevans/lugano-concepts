@@ -277,6 +277,256 @@
   display: none;
 }
 
+/* ── Mat fold: the sheet is the page ──────────────────── */
+.lg-sheet.lg-mat {
+  position: relative;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  color: #f2eadc;
+  background: #08080a;
+}
+
+.lg-mat .lg-nav {
+  position: relative;
+  z-index: 8;
+  color: #f2eadc;
+  height: 64px;
+}
+
+.lg-mat .lg-wordmark {
+  display: inline-flex;
+  align-items: center;
+  color: #f2eadc;
+  font-family: var(--sans);
+  font-size: 1.32rem;
+  font-weight: 500;
+}
+
+.lg-mat .lg-zero-mark {
+  width: 0.68em;
+  height: 0.96em;
+  color: #f2eadc;
+}
+
+.lg-mat .lg-nav-links a,
+.lg-mat .lg-nav-cta {
+  color: #f2eadc !important;
+  font-family: var(--sans);
+  font-size: 0.98rem;
+  letter-spacing: 0;
+  background: transparent;
+  padding: 0;
+  min-height: 0;
+  text-decoration: none;
+}
+
+.lg-mat .lg-nav-links a:hover,
+.lg-mat .lg-nav-cta:hover {
+  color: #fff !important;
+}
+
+.lg-mat-well {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 64px);
+}
+
+.lg-mat-sheet {
+  position: relative;
+  width: min(50rem, 84vw);
+  height: 100%;
+  padding: 1.15rem 2.35rem 8rem;
+  overflow: hidden;
+  color: #3a362e;
+  background-color: #e6decc;
+  background-image: url("/generated/thermal_banding_sheet.png");
+  background-size: cover;
+  box-shadow:
+    inset 14px 0 18px -16px rgba(40, 28, 12, 0.38),
+    inset -14px 0 18px -16px rgba(40, 28, 12, 0.38),
+    0 22px 48px rgba(0, 0, 0, 0.55);
+}
+
+.lg-mat-serration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 1.35rem;
+  object-fit: cover;
+  object-position: center bottom;
+  transform: scaleY(-1);
+  pointer-events: none;
+}
+
+.lg-mat-sheet .lg-void-heat {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.42;
+}
+
+.lg-mat-sheet > *:not(canvas):not(.lg-mat-serration) {
+  position: relative;
+  z-index: 2;
+}
+
+.lg-mat-sheet header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0 0 0.28rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5c584e;
+}
+
+.lg-mat-sheet header:first-of-type {
+  margin-top: 0.7rem;
+  margin-bottom: 0.45rem;
+  color: #3a362e;
+  font-size: 0.86rem;
+  letter-spacing: 0.1em;
+}
+
+.lg-mat-sheet dl {
+  margin: 0.85rem 0 0;
+}
+
+.lg-mat-sheet dl div {
+  display: grid;
+  grid-template-columns: 7.2rem minmax(0.8rem, 1fr) auto;
+  gap: 0.45rem;
+  align-items: baseline;
+  padding: 0.22rem 0;
+  font-family: var(--mono);
+}
+
+.lg-mat-reg {
+  grid-template-columns: 1fr !important;
+  gap: 0.2rem !important;
+  padding: 0.45rem 0 0.3rem !important;
+}
+
+.lg-mat-sheet dt {
+  color: #6a6458;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.lg-mat-sheet dd {
+  margin: 0;
+  color: #3a362e;
+  font-size: 0.88rem;
+}
+
+.lg-mat-sheet dl div > i {
+  display: block;
+  height: 0.5em;
+  background-image: radial-gradient(#3a362e 0.7px, transparent 0.8px);
+  background-size: 4px 0.5em;
+  background-repeat: repeat-x;
+  background-position: 0 0.36em;
+}
+
+.lg-mat-hash {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  justify-content: space-between;
+  gap: 0.12rem 0.55rem;
+}
+
+.lg-mat-hash b {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.lg-mat-sheet h1 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin: 1.15rem 0 0.7rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid #3a362e;
+  color: #9a2b24;
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lg-mat-sheet h1 b {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.12em;
+  color: #9a2b24;
+}
+
+.lg-mat-sheet .lg-zero-hero {
+  width: 5.6rem;
+  height: 7.8rem;
+  color: #9a2b24;
+}
+
+.lg-mat-sheet h1 small {
+  font-size: 2.4rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.lg-mat-sheet > p {
+  margin: 0 0 1.35rem;
+  color: #3a362e;
+  font-family: var(--sans);
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+.lg-mat-sheet footer {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+}
+
+.lg-mat-sheet footer img {
+  width: 64px;
+  height: 64px;
+}
+
+.lg-mat-sheet footer div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.lg-mat-sheet footer span,
+.lg-mat-verify,
+.lg-mat-cta {
+  color: #3a362e !important;
+  font-family: var(--mono);
+  font-size: 0.88rem;
+}
+
+.lg-mat-verify,
+.lg-mat-cta {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 /* ── Void fold: brand on the ground, receipt as evidence ─ */
 .lg-sheet.lg-void {
   position: relative;
@@ -3161,11 +3411,7 @@
   }
 
   .lg-void-copy h1 {
-    font-size: clamp(4.8rem, 22vw, 6.4rem);
-  }
-
-  .lg-void-copy > p {
-    margin-top: 1.4rem;
+    font-size: clamp(6.2rem, 34vw, 9rem);
   }
 
   .lg-void-object {
