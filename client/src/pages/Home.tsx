@@ -282,42 +282,38 @@ export default function Home() {
 
       <main id="main">
         <section id="top" className="lg-hero-wrap lg-hero-flat">
-          <div className="lg-shell lg-hero lg-hero-doc">
-            <p className="lg-hero-kicker">Private AI infrastructure</p>
-            <h1>AI Privacy by proof.</h1>
-            <div className="lg-hero-row">
+          <div className="lg-shell lg-hero">
+            <div className="lg-hero-copy">
+              <p className="lg-hero-kicker">Private AI infrastructure</p>
+              <h1>AI Privacy by proof.</h1>
               <p>
                 Frontier models execute in a hardware-sealed enclave. Every response returns a
                 cryptographic receipt. Prompts are not retained.
               </p>
               <div className="lg-hero-actions">
-                <a className="lg-btn" href="mailto:contact@lugano.ai">
+                <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
                   Request briefing
                 </a>
-                <a className="lg-btn-ghost" href="#platform">
+                <a className="lg-btn-ghost lg-btn-ghost-ink" href="#platform">
                   How it works
                 </a>
               </div>
             </div>
 
-            <aside className="lg-cert" aria-label="Attestation receipt">
+            <aside className="lg-cert lg-cert-print" aria-label="Attestation receipt">
               <div className="lg-cert-inner">
                 <div className="lg-cert-top">
                   <strong>Attestation receipt</strong>
-                  <span>LUG-7F283 · 2026-09-05 · 04:12:09 UTC · CH</span>
+                  <span className="lg-verified">Verified</span>
                 </div>
-                {PROOF_ROWS.map((row) => (
+                <p className="lg-cert-meta">LUG-7F283 · 2026-09-05 · 04:12:09 UTC · CH</p>
+                {PROOF_ROWS.slice(0, 5).map((row) => (
                   <div className="lg-proof-row" key={row.label}>
                     <b>{row.label}</b>
                     <span className="lg-leaders" aria-hidden="true" />
                     <i>{row.digest}</i>
                   </div>
                 ))}
-                <div className="lg-cert-foot">
-                  <span>Retention 0 bytes</span>
-                  <span>TDX + GPU CC</span>
-                  <span>Per request</span>
-                </div>
               </div>
             </aside>
           </div>
