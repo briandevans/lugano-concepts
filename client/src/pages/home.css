@@ -191,18 +191,18 @@
   align-items: baseline;
   gap: 0.7rem;
   margin-bottom: 1.15rem;
-  color: var(--alpine-bright);
+  color: var(--metal);
   font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: 0.06em;
 }
 
 .lg-folio em {
-  color: var(--fog);
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.05rem;
-  letter-spacing: 0;
+  color: inherit;
+  font-family: inherit;
+  font-style: normal;
+  font-size: inherit;
+  letter-spacing: inherit;
 }
 
 .lg-display {
@@ -233,15 +233,15 @@
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  min-height: 3rem;
-  padding: 0.7rem 1.2rem;
+  min-height: 2.7rem;
+  padding: 0.55rem 1rem;
   border: 0;
   background: var(--paper);
   color: var(--ink) !important;
-  font-family: var(--sans);
-  font-size: 0.92rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
 }
 
 .lg-btn:hover {
@@ -251,11 +251,13 @@
 .lg-btn-ghost {
   display: inline-flex;
   align-items: center;
-  min-height: 2.85rem;
-  padding: 0.55rem 0.2rem;
+  min-height: 2.7rem;
+  padding: 0.55rem 0;
   color: color-mix(in srgb, var(--paper) 78%, transparent);
-  font-size: 0.9rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--paper) 22%, transparent);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid color-mix(in srgb, var(--paper) 28%, transparent);
 }
 
 .lg-btn-ghost:hover {
@@ -284,7 +286,7 @@
 }
 
 .lg-section-paper .lg-folio {
-  color: var(--alpine);
+  color: var(--ash);
 }
 
 .lg-section-paper .lg-folio em {
@@ -346,11 +348,36 @@
 .lg-hero {
   position: relative;
   z-index: 3;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(20rem, 24rem);
-  align-items: start;
-  gap: clamp(2rem, 5.5vw, 4.5rem);
-  padding: clamp(4.25rem, 9vh, 7.25rem) 0 clamp(3.25rem, 6vh, 4.5rem);
+  padding: clamp(4.25rem, 9vh, 7rem) 0 clamp(3.5rem, 7vh, 5rem);
+}
+
+.lg-hero-doc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.lg-hero-doc h1 {
+  max-width: 16ch;
+}
+
+.lg-hero-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  width: 100%;
+  margin: 1.5rem 0 2.75rem;
+}
+
+.lg-hero-doc .lg-hero-row p {
+  margin: 0;
+  max-width: 34rem;
+}
+
+.lg-hero-doc .lg-cert {
+  width: 100%;
 }
 
 .lg-tilt {
@@ -480,42 +507,27 @@
   position: relative;
   overflow: hidden;
   color: var(--ink);
-  background:
-    radial-gradient(circle at 8px 8px, transparent 4px, var(--paper) 4.2px) 0 0 / 16px 16px;
   background-color: var(--paper);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper) 16%, transparent);
-  padding-left: 14px;
-}
-
-.lg-cert::before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 14px;
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0 9px,
-      var(--ink) 9px 17px
-    ),
-    var(--seal);
-  content: "";
-  mask-image: radial-gradient(circle at 7px 8px, transparent 4px, #000 4.2px);
-  mask-size: 14px 16px;
+  background-image:
+    radial-gradient(circle at 0 10px, var(--ink) 4px, transparent 4.2px),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-size: 20px 20px, auto;
+  background-repeat: repeat-y, repeat;
+  background-position: -10px 0, 0 0;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper) 18%, transparent);
 }
 
 .lg-cert-inner {
-  padding: 1.15rem 1.15rem 1.15rem 1.4rem;
+  padding: 1.25rem 1.5rem 1.25rem 1.85rem;
 }
 
 .lg-cert-top {
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 1rem;
   padding-bottom: 0.85rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.55rem;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -596,7 +608,7 @@
 
 .lg-proof-row i,
 .lg-redact {
-  color: var(--ash);
+  color: var(--seal);
   font-style: normal;
 }
 

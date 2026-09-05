@@ -282,15 +282,10 @@ export default function Home() {
 
       <main id="main">
         <section id="top" className="lg-hero-wrap lg-hero-flat">
-          <div className="lg-shell lg-hero">
-            <div>
-              <p className="lg-hero-kicker">
-                Private AI infrastructure
-                <span className="lg-strike">trust me bro</span>
-              </p>
-              <h1>
-                AI Privacy by <em>proof.</em>
-              </h1>
+          <div className="lg-shell lg-hero lg-hero-doc">
+            <p className="lg-hero-kicker">Private AI infrastructure</p>
+            <h1>AI Privacy by proof.</h1>
+            <div className="lg-hero-row">
               <p>
                 Frontier models execute in a hardware-sealed enclave. Every response returns a
                 cryptographic receipt. Prompts are not retained.
@@ -308,10 +303,8 @@ export default function Home() {
             <aside className="lg-cert" aria-label="Attestation receipt">
               <div className="lg-cert-inner">
                 <div className="lg-cert-top">
-                  <div>
-                    <strong>Attestation receipt</strong>
-                    <span>LUG-7F283 · 2026-09-05 · 04:12:09 UTC</span>
-                  </div>
+                  <strong>Attestation receipt</strong>
+                  <span>LUG-7F283 · 2026-09-05 · 04:12:09 UTC · CH</span>
                 </div>
                 {PROOF_ROWS.map((row) => (
                   <div className="lg-proof-row" key={row.label}>
@@ -321,30 +314,13 @@ export default function Home() {
                   </div>
                 ))}
                 <div className="lg-cert-foot">
-                  <span>Copy 1 of 2 · carbon</span>
-                  <span>CH-LUG · TEE</span>
+                  <span>Retention 0 bytes</span>
+                  <span>TDX + GPU CC</span>
+                  <span>Per request</span>
                 </div>
               </div>
             </aside>
           </div>
-          <dl className="lg-shell lg-quay">
-            <div>
-              <dt>Retention</dt>
-              <dd>0 bytes</dd>
-            </div>
-            <div>
-              <dt>Attestation</dt>
-              <dd>TDX + GPU CC</dd>
-            </div>
-            <div>
-              <dt>Receipt</dt>
-              <dd>Per request</dd>
-            </div>
-            <div>
-              <dt>Jurisdiction</dt>
-              <dd>Switzerland</dd>
-            </div>
-          </dl>
         </section>
 
         <section id="problem" className="lg-section lg-section-paper">
