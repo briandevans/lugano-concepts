@@ -1964,37 +1964,33 @@
   color: var(--nm) !important;
 }
 
+.lg-nm .lg-nav-links a.lg-nm-nav-cta {
+  color: var(--nm) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 0.22em;
+}
+
 .lg-nm-well {
   position: relative;
   z-index: 4;
-  display: grid;
-  grid-template-columns: minmax(20rem, 1fr) 24rem;
-  column-gap: 2.15rem;
-  align-items: start;
-  width: min(100% - (var(--gutter) * 2), 68rem);
-  height: calc(100vh - 72px);
-  margin: 0 auto;
-  padding: 2.1rem 0 0;
-  overflow: hidden;
-}
-
-.lg-nm-copy {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0.15rem 0 0;
+  justify-content: flex-start;
+  width: 100%;
+  height: calc(100vh - 72px);
+  padding: 0 0 0 clamp(1.5rem, 8vw, 7rem);
+  overflow: hidden;
 }
 
 .lg-nm-lede {
   width: max-content;
   max-width: 100%;
   margin: 0;
-  color: #ece7dc;
+  color: #2a2722;
   font-family: var(--sans);
-  font-size: clamp(3rem, 4.8vw, 4.55rem);
+  font-size: clamp(1.85rem, 2.4vw, 2.35rem);
   font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.048em;
+  line-height: 0.96;
+  letter-spacing: -0.04em;
 }
 
 .lg-nm-lede span {
@@ -2003,11 +1999,11 @@
 }
 
 .lg-nm-sub {
-  margin: 1.7rem 0 0;
-  max-width: 28rem;
-  color: #c8c2b6;
+  margin: 0.7rem 0 1.15rem;
+  max-width: 100%;
+  color: #3f3b34;
   font-family: var(--sans);
-  font-size: 1.28rem;
+  font-size: 1.02rem;
   line-height: 1.35;
   letter-spacing: -0.016em;
 }
@@ -2036,7 +2032,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 24rem;
+  width: 26rem;
+  height: calc(100% + 4rem);
   color: #2a2722;
   background-color: #efebe1;
   background-image: url("/generated/thermal_paper_fiber.png");
@@ -2144,8 +2141,9 @@
   display: inline-flex;
   align-items: baseline;
   gap: 0.04em;
+  margin-right: -1.4rem;
   color: var(--nm);
-  font-size: clamp(6.2rem, 14vh, 8.8rem);
+  font-size: clamp(7rem, 16vh, 9.6rem);
   font-weight: 700;
   line-height: 0.8;
 }
@@ -5099,17 +5097,9 @@
   }
 
   .lg-nm-well {
-    grid-template-columns: 1fr;
     height: auto;
     overflow: visible;
-    row-gap: 1.8rem;
-    padding: 1.1rem 0 2rem;
-  }
-
-  .lg-nm-copy {
-    height: auto;
-    padding-bottom: 0;
-    gap: 1.2rem;
+    padding: 0 var(--gutter) 2rem;
   }
 
   .lg-nm-lede {
@@ -5121,7 +5111,8 @@
   }
 
   .lg-nm-slip {
-    width: min(24rem, 100%);
+    width: min(26rem, 100%);
+    height: auto;
   }
 
   .lg-sheet.lg-ld {
