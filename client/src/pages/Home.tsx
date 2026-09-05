@@ -4,12 +4,12 @@ import ThermalHeat from "@/components/ThermalHeat";
 import "./home.css";
 
 const PROOF_ROWS = [
-  { label: "TDX quote verified", digest: "4971…ba575" },
-  { label: "GPU attestation verified", digest: "c8f2…3e41a" },
-  { label: "Nonce binding verified", digest: "a1d9…7f283" },
-  { label: "Signing key bound", digest: "e3b7…9c064" },
-  { label: "Receipt verification", digest: "f6a4…2d817" },
-  { label: "No prompt retention", digest: "0 retained", climax: true },
+  { label: "TDX quote", value: "verified" },
+  { label: "GPU attestation", value: "verified" },
+  { label: "Nonce binding", value: "verified" },
+  { label: "Signing key", value: "bound" },
+  { label: "Receipt integrity", value: "verified" },
+  { label: "Prompt retention", value: "none" },
 ] as const;
 
 function useUtcClock() {
@@ -25,8 +25,8 @@ function useUtcClock() {
   return clock;
 }
 
-function HashBars() {
-  const widths = [2, 1, 1, 3, 1, 2, 1, 1, 3, 2, 1, 1, 2, 3, 1, 1, 2, 1, 3, 1, 2, 2, 1, 1, 3, 1, 2, 1, 1, 2, 3, 1, 1, 2, 1, 2, 1, 3, 1];
+function HashBars({ code }: { code: string }) {
+  const widths = [2, 1, 1, 3, 1, 2, 1, 1, 3, 2, 1, 1, 2, 3, 1, 1, 2, 1, 3, 1, 2, 2, 1, 1, 3, 1, 2, 1, 1, 2, 3, 1, 1, 2, 1];
   let x = 0;
   const bars = widths.map((width, index) => {
     const rect = <rect key={index} x={x} y="0" width={width} height="36" />;
@@ -34,9 +34,37 @@ function HashBars() {
     return rect;
   });
   return (
-    <svg className="lg-bars" viewBox={`0 0 ${x} 36`} aria-hidden="true">
-      {bars}
-    </svg>
+    <div className="lg-bars-wrap">
+      <svg className="lg-bars" viewBox={`0 0 ${x} 36`} aria-hidden="true">
+        {bars}
+      </svg>
+      <span>{code}</span>
+    </div>
+  );
+}
+
+function LiveReceipt({ clock }: { clock: string }) {
+  return (
+    <aside className="lg-slip" aria-label="Attestation receipt">
+      <ThermalHeat />
+      <p className="lg-slip-kicker">Attestation</p>
+      <p className="lg-slip-id">LUG-7F283</p>
+      <p className="lg-slip-meta">
+        {clock} UTC
+        <span>CH</span>
+      </p>
+      <ol className="lg-slip-rows">
+        {PROOF_ROWS.map((row) => (
+          <li key={row.label}>
+            <b>{row.label}</b>
+            <span className="lg-leaders" aria-hidden="true" />
+            <i>{row.value}</i>
+          </li>
+        ))}
+      </ol>
+      <HashBars code="LUG-7F283" />
+      <div className="lg-slip-tear" aria-hidden="true" />
+    </aside>
   );
 }
 
@@ -271,8 +299,6 @@ export default function Home() {
       </a>
 
       <div className="lg-sheet">
-        <ThermalHeat />
-        <div className="lg-sprocket" aria-hidden="true" />
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
@@ -311,37 +337,15 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-hero-wrap">
-            <div className="lg-shell lg-doc">
-              <p className="lg-doc-meta">
-                LUG-7F283 · {clock} UTC · CH · TDX
-              </p>
+          <div className="lg-shell lg-split">
+            <div className="lg-copy">
               <h1>
                 <span>AI privacy</span>
                 <span>by proof.</span>
               </h1>
-              <p className="lg-doc-lede">
+              <p className="lg-sub">
                 Every response returns a cryptographic receipt. Prompts are not retained.
               </p>
-              <div className="lg-doc-proof">
-                <ol className="lg-doc-rows">
-                  {PROOF_ROWS.map((row) => (
-                    <li
-                      className={"climax" in row && row.climax ? "is-climax" : ""}
-                      key={row.label}
-                    >
-                      <span className="lg-mark">[x]</span>
-                      <b>{row.label}</b>
-                      <i>{row.digest}</i>
-                    </li>
-                  ))}
-                </ol>
-                <img
-                  className="lg-doc-stamp"
-                  src="/generated/verified_stamp_vermilion.png"
-                  alt=""
-                />
-              </div>
-              <HashBars />
               <div className="lg-hero-actions">
                 <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
                   Request briefing
@@ -351,8 +355,9 @@ export default function Home() {
                 </a>
               </div>
             </div>
+            <LiveReceipt clock={clock} />
+          </div>
         </section>
-        <div className="lg-tear" aria-hidden="true" />
       </div>
 
       <main id="main" className="lg-rest">

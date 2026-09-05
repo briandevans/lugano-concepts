@@ -364,6 +364,164 @@
   background: transparent;
 }
 
+.lg-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 22rem;
+  align-items: start;
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+  padding: 4.5rem 0 5.25rem;
+}
+
+.lg-copy h1 {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-size: clamp(4.6rem, 8.2vw, 7.2rem);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: -0.038em;
+}
+
+.lg-copy h1 span {
+  display: block;
+  white-space: nowrap;
+}
+
+.lg-sub {
+  max-width: 26rem;
+  margin: 1.65rem 0 0;
+  color: #2a261c;
+  font-family: var(--sans);
+  font-size: clamp(1.2rem, 1.7vw, 1.38rem);
+  line-height: 1.4;
+}
+
+.lg-slip {
+  position: relative;
+  overflow: hidden;
+  width: 22rem;
+  padding: 1.35rem 1.3rem 1.85rem;
+  color: #1d1a15;
+  background-color: #f7f2e2;
+  background-image: url("/generated/thermal_ivory_grain.png");
+  background-size: 360px;
+  box-shadow:
+    0 1px 0 rgba(255, 252, 244, 0.8) inset,
+    0 18px 40px rgba(20, 16, 10, 0.14),
+    0 3px 8px rgba(20, 16, 10, 0.08);
+}
+
+.lg-slip .lg-heat {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+}
+
+.lg-slip-kicker,
+.lg-slip-id,
+.lg-slip-meta,
+.lg-slip-rows,
+.lg-bars-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+.lg-slip-kicker {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.lg-slip-id {
+  margin: 0.4rem 0 0;
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.lg-slip-meta {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.3rem 0 0.95rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid rgba(29, 26, 21, 0.2);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+}
+
+.lg-slip-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lg-slip-rows li {
+  display: grid;
+  grid-template-columns: auto minmax(1.25rem, 1fr) auto;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.4rem 0;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+.lg-slip-rows b,
+.lg-slip-rows i {
+  font-weight: 400;
+  font-style: normal;
+}
+
+.lg-slip-rows .lg-leaders {
+  height: 0.62em;
+  border-bottom: 1px dotted rgba(29, 26, 21, 0.45);
+}
+
+.lg-bars-wrap {
+  margin-top: 0.95rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(29, 26, 21, 0.2);
+}
+
+.lg-bars-wrap .lg-bars {
+  display: block;
+  width: 100%;
+  height: 2rem;
+  margin: 0;
+  fill: #1d1a15;
+}
+
+.lg-bars-wrap span {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+}
+
+.lg-slip-tear {
+  position: relative;
+  z-index: 2;
+  height: 14px;
+  margin: 0.85rem -1.3rem -1.85rem;
+  background-color: #f7f2e2;
+  clip-path: polygon(
+    0 0, 100% 0,
+    100% 30%, 93% 100%, 86% 30%, 79% 100%, 72% 30%, 65% 100%,
+    58% 30%, 51% 100%, 44% 30%, 37% 100%, 30% 30%, 23% 100%,
+    16% 30%, 9% 100%, 0 30%
+  );
+}
+
 .lg-field,
 .lg-field-fallback {
   position: absolute;
@@ -501,7 +659,7 @@
   display: block;
   width: min(22rem, 72%);
   height: 2.05rem;
-  margin: 1.85rem 0 0;
+  margin: 2.6rem 0 0;
   fill: #1d1a15;
 }
 
@@ -1636,14 +1794,17 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 980px) {
-  .lg-doc h1 span,
-  .lg-hero h1 span {
+  .lg-split {
+    grid-template-columns: 1fr;
+    padding-top: 3rem;
+  }
+
+  .lg-copy h1 span {
     white-space: normal;
   }
 
-  .lg-doc-stamp {
-    width: 11rem;
-    right: 0;
+  .lg-slip {
+    width: min(22rem, 100%);
   }
 
   .lg-hero,
