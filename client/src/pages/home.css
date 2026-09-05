@@ -922,6 +922,7 @@
   position: relative;
   height: auto;
   max-height: none;
+  min-height: 0;
   overflow: visible;
   color: #f4eee3;
   background: #12110f;
@@ -4093,8 +4094,18 @@
 
   .lg-ed-well {
     grid-template-columns: 1fr;
-    padding: 1.4rem 0 0;
+    padding: 1.4rem 0 2rem;
     row-gap: 1.8rem;
+  }
+
+  .lg-ed-copy {
+    justify-content: flex-start;
+    gap: 1.4rem;
+    padding-bottom: 0;
+  }
+
+  .lg-ed-sub {
+    white-space: normal;
   }
 
   .lg-ed-lede {
