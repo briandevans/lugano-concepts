@@ -31,11 +31,10 @@ const MEASURES = [
 ] as const;
 
 function groupHash(value: string) {
-  return `${value.slice(0, 8)}  ${value.slice(8, 16)}  ${value.slice(-8)}`;
+  return value.match(/.{8}/g)?.join(" ") ?? value;
 }
 
 function LiveReceipt({ clock }: { clock: string }) {
-  const stamp = clock.replace(/\D/g, "").slice(-6);
   return (
     <div className="lg-stage">
       <aside className="lg-slip" aria-label="Attestation receipt">
@@ -49,14 +48,14 @@ function LiveReceipt({ clock }: { clock: string }) {
         <p className="lg-slip-id">LUG-7F283</p>
         <p className="lg-slip-meta">{clock}</p>
         <dl className="lg-slip-dl">
-          {MEASURES.slice(0, 5).map((row) => (
+          {MEASURES.slice(0, 4).map((row) => (
             <div key={row.key}>
               <dt>{row.key}</dt>
               <dd className="lg-hash">{groupHash(row.value)}</dd>
             </div>
           ))}
         </dl>
-        <p className="lg-slip-foot">verify  lugano.ai/a/{stamp}</p>
+        <p className="lg-slip-foot">verify  lugano.ai/a/LUG-7F283</p>
       </aside>
     </div>
   );

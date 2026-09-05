@@ -27,8 +27,8 @@ void main() {
   float t = u_time * 0.035;
   vec2 par = (u_mouse - 0.5) * vec2(0.028, 0.016);
 
-  float ripple = sin((uv.y + par.y) * 22.0 + t * 1.8) * 0.0038
-               + cos((uv.x * 1.4 + par.x) * 13.0 - t * 1.3) * 0.0028;
+  float ripple = sin((uv.y + par.y) * 16.0 + t * 1.4) * 0.0018
+               + cos((uv.x * 1.4 + par.x) * 9.0 - t * 1.1) * 0.0012;
   vec2 warp = vec2(ripple, ripple * 0.62) + par;
 
   vec2 nightUv = uv * vec2(1.06, 1.1) + vec2(-0.03, -0.04) + warp;
@@ -77,6 +77,7 @@ function loadTexture(gl: WebGLRenderingContext, src: string) {
   const image = new Image();
   image.onload = () => {
     gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
   };
   image.src = src;
