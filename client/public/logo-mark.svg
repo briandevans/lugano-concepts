@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1920" fill="none">
+  <defs>
+    <linearGradient id="lugano-block" x1="584" y1="469" x2="1427" y2="1398" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BEEAFF"/>
+      <stop offset="1" stop-color="#FBFCFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1920" fill="#E11BDD" fill-opacity="0.25"/>
+  <rect x="584" y="469" width="395" height="434" fill="url(#lugano-block)" fill-opacity="0.96"/>
+  <rect x="584" y="964" width="395" height="434" fill="url(#lugano-block)" fill-opacity="0.96"/>
+  <rect x="1032" y="964" width="395" height="434" fill="url(#lugano-block)" fill-opacity="0.96"/>
+</svg>
