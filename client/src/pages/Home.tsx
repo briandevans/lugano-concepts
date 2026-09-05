@@ -374,11 +374,36 @@ export default function Home() {
                 <img src="/generated/verifier_qr.png" alt="Verification QR for LUG-7F283" />
                 <a href="#architecture">lugano.ai/v/LUG-7F283</a>
               </div>
+              <hr className="lg-nm-perf" />
               <p className="lg-nm-next">LUG-7F284 · queued</p>
               <p className="lg-nm-next">LUG-7F285 · queued</p>
               <p className="lg-nm-kind">Attestation</p>
               <p className="lg-nm-ticket">LUG-7F286</p>
               <p className="lg-nm-when">waiting on enclave</p>
+              <dl>
+                <div>
+                  <dt>Service</dt>
+                  <i />
+                  <dd>sealed inference</dd>
+                </div>
+                <div>
+                  <dt>Prompt</dt>
+                  <i />
+                  <dd>not retained</dd>
+                </div>
+                <div>
+                  <dt>Model</dt>
+                  <i />
+                  <dd>—</dd>
+                </div>
+                <div>
+                  <dt>Enclave</dt>
+                  <i />
+                  <dd>TDX</dd>
+                </div>
+              </dl>
+              <p className="lg-nm-next">LUG-7F287 · queued</p>
+              <p className="lg-nm-next">LUG-7F288 · queued</p>
             </div>
           </article>
         </section>

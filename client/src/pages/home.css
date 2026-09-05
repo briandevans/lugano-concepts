@@ -1930,7 +1930,6 @@
   font-size: 1.7rem;
   font-weight: 600;
   letter-spacing: -0.032em;
-  box-shadow: inset 0 -0.12em 0 var(--nm);
 }
 
 .lg-nm .lg-nav-links {
@@ -1956,10 +1955,10 @@
   position: relative;
   z-index: 4;
   display: grid;
-  grid-template-columns: minmax(22rem, 1fr) 22rem;
-  column-gap: 3.4rem;
+  grid-template-columns: minmax(20rem, 1fr) 24rem;
+  column-gap: 2.15rem;
   align-items: start;
-  width: min(100% - (var(--gutter) * 2), 74rem);
+  width: min(100% - (var(--gutter) * 2), 68rem);
   height: calc(100vh - 72px);
   margin: 0 auto;
   padding: 2.1rem 0 0;
@@ -1982,7 +1981,7 @@
   font-size: clamp(2.6rem, 4.2vw, 4rem);
   font-weight: 600;
   line-height: 0.95;
-  letter-spacing: -0.036em;
+  letter-spacing: -0.048em;
 }
 
 .lg-nm-lede span {
@@ -2003,14 +2002,13 @@
 .lg-nm-cta {
   display: inline-flex;
   align-items: center;
-  min-height: 3.15rem;
+  min-height: 3.2rem;
   margin-top: 2.4rem;
-  padding: 0 1.2rem;
-  border: 1px solid #ece7dc;
-  background: transparent;
-  color: #ece7dc !important;
+  padding: 0 1.25rem;
+  background: #ece7dc;
+  color: #12141a !important;
   font-family: var(--receipt);
-  font-size: 1rem;
+  font-size: 1.02rem;
   font-weight: 700;
   letter-spacing: 0;
   text-decoration: none;
@@ -2026,8 +2024,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 22rem;
-  height: calc(100vh - 72px - 2.1rem + 5.5rem);
+  width: 24rem;
   color: #2a2722;
   background-color: #efebe1;
   background-image: url("/generated/thermal_paper_fiber.png");
@@ -2035,7 +2032,7 @@
 }
 
 .lg-nm-body {
-  padding: 1.05rem 1.2rem 2rem;
+  padding: 1.05rem 1.25rem 3.5rem;
 }
 
 .lg-nm-kind,
@@ -2108,6 +2105,14 @@
   border-top: 1px solid #2a2722;
 }
 
+.lg-nm-perf {
+  width: 100%;
+  height: 0;
+  margin: 0.85rem 0 0.7rem;
+  border: 0;
+  border-top: 1px dashed #2a2722;
+}
+
 .lg-nm-total {
   display: flex;
   flex-direction: column;
@@ -2161,8 +2166,8 @@
 }
 
 .lg-nm-foot img {
-  width: 4.4rem;
-  height: 4.4rem;
+  width: 6.1rem;
+  height: 6.1rem;
   background: #efebe1;
 }
 
@@ -5082,8 +5087,7 @@
   }
 
   .lg-nm-slip {
-    width: min(22rem, 100%);
-    height: auto;
+    width: min(24rem, 100%);
   }
 
   .lg-sheet.lg-ld {
