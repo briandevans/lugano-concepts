@@ -83,12 +83,14 @@
 }
 
 .lg-wordmark {
-  font-family: var(--sans);
+  font-family: var(--serif);
   font-style: normal;
-  font-size: 1.45rem;
-  font-weight: 500;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 36, "SOFT" 0, "WONK" 0;
+  font-size: 1.7rem;
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
   color: #16140f;
 }
 
@@ -177,8 +179,9 @@
 .lg-nav-links a {
   color: #16140f;
   font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .lg-nav-links a:hover {
@@ -194,12 +197,13 @@
   background: transparent;
   color: #16140f !important;
   font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .lg-nav-cta:hover {
-  color: #f3efe6 !important;
+  color: var(--swiss) !important;
 }
 
 .lg-menu-btn {
@@ -307,10 +311,10 @@
   border: 1.5px solid var(--ink);
   background: transparent;
   color: var(--ink) !important;
-  font-family: var(--ui);
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
 }
 
 .lg a.lg-btn.lg-btn-ink,
@@ -332,9 +336,9 @@
   min-height: 3.35rem;
   padding: 0.7rem 0;
   color: #16140f;
-  font-family: var(--ui);
-  font-size: 0.9rem;
-  letter-spacing: 0.01em;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
   text-decoration: underline;
   text-underline-offset: 0.22em;
   border-bottom: 0;
@@ -428,7 +432,7 @@
   flex: 1;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: 0;
+  min-height: calc(100vh - 72px);
   color: #16140f;
   background: transparent;
 }
@@ -477,17 +481,20 @@
   position: relative;
   z-index: 3;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(24rem, 0.95fr);
-  align-items: start;
-  gap: clamp(2.5rem, 5vw, 5rem);
-  padding: 1.75rem 0 2.5rem;
+  flex: 1;
+  grid-template-columns: minmax(0, 0.72fr) minmax(28rem, 1.15fr);
+  align-items: stretch;
+  gap: clamp(2rem, 4vw, 3.25rem);
+  padding: 0;
   border-top: 1px solid rgba(22, 20, 15, 0.18);
 }
 
 .lg-copy {
   display: flex;
   flex-direction: column;
-  max-width: 38rem;
+  justify-content: space-between;
+  max-width: 36rem;
+  padding: 1.75rem 0 2.25rem;
 }
 
 .lg-copy h1 {
@@ -499,7 +506,7 @@
   font-family: var(--serif);
   font-optical-sizing: auto;
   font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
-  font-size: clamp(4.2rem, 7vw, 6.4rem);
+  font-size: clamp(2.8rem, 4.4vw, 3.85rem);
   font-weight: 400;
   line-height: 0.9;
   letter-spacing: -0.04em;
@@ -516,20 +523,25 @@
 }
 
 .lg-sub {
-  max-width: none;
-  margin: 1.4rem 0 0;
+  max-width: 28rem;
+  margin: 1.15rem 0 0;
   color: #16140f;
-  font-family: var(--sans);
-  font-size: 1.12rem;
-  line-height: 1.35;
-  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  white-space: normal;
 }
 
 .lg-print {
   position: relative;
   z-index: 3;
+  display: flex;
+  flex-direction: column;
   min-width: 0;
-  padding-top: 0.2rem;
+  height: 100%;
+  padding: 1.75rem 1.65rem 2.25rem;
+  background: #f4f1e8;
+  box-shadow: inset 1px 0 0 rgba(22, 20, 15, 0.12);
 }
 
 .lg-print-kicker {
@@ -546,7 +558,7 @@
   color: var(--swiss);
   font-family: var(--mono);
   font-feature-settings: "zero" 1;
-  font-size: 1.35rem;
+  font-size: 2rem;
   font-weight: 500;
   line-height: 1;
 }
@@ -588,13 +600,13 @@
 .lg-slip-foot {
   position: relative;
   z-index: 2;
-  margin-top: 1.15rem;
-  padding-top: 0.85rem;
+  margin-top: 1.45rem;
+  padding-top: 0.95rem;
   border-top: 1px solid rgba(22, 20, 15, 0.16);
   color: var(--swiss) !important;
   font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
   text-decoration: underline;
   text-underline-offset: 0.22em;
 }
@@ -661,17 +673,22 @@
 }
 
 .lg-slip-dl {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   margin: 0;
 }
 
 .lg-slip-dl div {
   display: grid;
-  grid-template-columns: 6.6rem minmax(0, 1fr);
-  gap: 0.55rem;
-  padding: 0.38rem 0;
-  border-bottom: 1px solid rgba(29, 26, 21, 0.14);
+  grid-template-columns: 6.8rem minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: start;
+  flex: 1;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(29, 26, 21, 0.16);
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.86rem;
 }
 
 .lg-slip-dl dt {
@@ -687,7 +704,11 @@
 }
 
 .lg-hash {
-  letter-spacing: 0.02em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.14em;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .lg-slip-status {
@@ -902,7 +923,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 1.15rem 1.5rem;
-  margin-top: 2.85rem;
+  margin-top: 0;
   padding-top: 0;
 }
 

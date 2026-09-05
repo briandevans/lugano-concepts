@@ -58,9 +58,6 @@ function LiveReceipt({ clock }: { clock: string }) {
           </div>
         ))}
       </dl>
-      <a className="lg-slip-foot" href="#architecture">
-        VERIFY
-      </a>
     </aside>
   );
 }
