@@ -277,51 +277,49 @@
   display: none;
 }
 
-/* ── Hang fold: receipt coming off a real printer ─────── */
-.lg-sheet.lg-hang {
+/* ── Void fold: brand on the ground, receipt as evidence ─ */
+.lg-sheet.lg-void {
   position: relative;
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-  color: #e8e0d0;
-  background: #0b0b0d;
+  color: #f2eadc;
+  background: #08080a;
 }
 
-.lg-hang-bed {
+.lg-void-light {
   position: absolute;
   inset: 0;
   z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 42%;
   pointer-events: none;
+  background: radial-gradient(ellipse 68% 52% at 22% 12%, rgba(255, 230, 190, 0.075), transparent 64%);
 }
 
-.lg-hang .lg-nav {
+.lg-void .lg-nav {
   position: relative;
   z-index: 8;
-  color: #e8e0d0;
-  height: 64px;
+  color: #f2eadc;
+  height: 68px;
 }
 
-.lg-hang .lg-wordmark {
-  color: #e8e0d0;
+.lg-void .lg-wordmark {
+  color: #f2eadc;
   font-family: var(--sans);
+  font-size: 1.28rem;
   font-weight: 500;
 }
 
-.lg-hang .lg-zero-mark {
+.lg-void .lg-zero-mark {
   width: 0.58em;
   height: 0.82em;
-  color: #e8e0d0;
+  color: #f2eadc;
 }
 
-.lg-hang .lg-nav-links a,
-.lg-hang .lg-nav-cta {
-  color: #c9c0b0 !important;
-  font-family: var(--mono);
-  font-size: 0.78rem;
+.lg-void .lg-nav-links a,
+.lg-void .lg-nav-cta {
+  color: #f2eadc !important;
+  font-family: var(--sans);
+  font-size: 0.92rem;
   letter-spacing: 0;
   background: transparent;
   padding: 0;
@@ -329,59 +327,105 @@
   text-decoration: none;
 }
 
-.lg-hang .lg-nav-cta {
-  color: #e8e0d0 !important;
+.lg-void .lg-nav-cta {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
-.lg-hang .lg-nav-links a:hover,
-.lg-hang .lg-nav-cta:hover {
-  color: #fff8ec !important;
+.lg-void .lg-nav-links a:hover,
+.lg-void .lg-nav-cta:hover {
+  color: #fff !important;
 }
 
-.lg-hang-stage {
+.lg-void-stage {
   position: relative;
   z-index: 4;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(40rem, 46vw);
+  align-items: start;
+  width: min(100% - 3.5rem, 1220px);
+  height: calc(100vh - 68px);
+  margin: 0 auto;
+}
+
+.lg-void-copy {
+  position: relative;
+  z-index: 6;
+  padding: 5.4rem 0 0;
+  margin-right: -5.5rem;
+}
+
+.lg-void-copy h1 {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: calc(100vh - 64px);
-  padding-top: 0.35rem;
-  perspective: 1800px;
-  perspective-origin: 50% 0%;
+  align-items: center;
+  gap: 0.1em;
+  margin: 0 0 1.1rem;
+  color: #f2eadc;
+  font-family: var(--sans);
+  font-size: clamp(3.2rem, 6vw, 5.1rem);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
 }
 
-.lg-hang-rig {
-  width: min(46rem, 78vw);
-  transform: rotateX(7deg) rotateZ(-0.7deg);
-  transform-origin: top center;
-  transform-style: preserve-3d;
-  filter: drop-shadow(0 2.6rem 2.4rem rgba(0, 0, 0, 0.62));
-  will-change: transform;
+.lg-void-copy h1 b {
+  font-weight: 500;
 }
 
-.lg-hang-mouth {
+.lg-void-copy .lg-zero-hero {
+  flex: 0 0 auto;
+  width: 0.62em;
+  height: 0.88em;
+  color: #f2eadc;
+}
+
+.lg-void-copy > p {
+  max-width: 22rem;
+  margin: 0 0 1.6rem;
+  color: #cbbfaa;
+  font-family: var(--sans);
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+
+.lg-void-cta {
+  color: #f2eadc !important;
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+.lg-void-object {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  filter: drop-shadow(1.1rem 2.2rem 2.4rem rgba(0, 0, 0, 0.7));
+}
+
+.lg-void-printer {
   display: block;
   width: 100%;
-  height: 6.6rem;
-  object-fit: cover;
-  object-position: center 58%;
+  height: auto;
 }
 
-.lg-hang-paper {
+.lg-void-slip {
   position: relative;
   z-index: 2;
-  margin-top: -1.85rem;
-  padding: 1.15rem 1.85rem 0;
+  width: 48.8%;
+  margin: -11.6rem auto 0;
+  padding: 0.85rem 0.95rem 0;
   color: #141310;
   background-color: #e6decc;
   background-image: url("/generated/thermal_banding_sheet.png");
   background-size: 100% auto;
   box-shadow:
-    inset 10px 0 14px -12px rgba(40, 28, 12, 0.28),
-    inset -10px 0 14px -12px rgba(40, 28, 12, 0.28);
+    inset 8px 0 10px -10px rgba(40, 28, 12, 0.3),
+    inset -8px 0 10px -10px rgba(40, 28, 12, 0.3);
 }
 
-.lg-hang-heat {
+.lg-void-heat {
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -389,184 +433,153 @@
   height: 100%;
   pointer-events: none;
   mix-blend-mode: multiply;
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
-.lg-hang-paper > *:not(canvas):not(.lg-hang-tear) {
+.lg-void-slip > *:not(canvas):not(.lg-void-tear) {
   position: relative;
   z-index: 2;
 }
 
-.lg-hang-paper header {
+.lg-void-slip header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.7rem;
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: #4a463c;
 }
 
-.lg-hang-paper h1 {
-  display: flex;
-  align-items: center;
-  gap: 0.12em;
-  margin: 0 0 0.28rem;
-  color: #141310;
-  font-family: var(--sans);
-  font-size: clamp(2.05rem, 3.6vw, 2.75rem);
-  font-weight: 500;
-  line-height: 0.92;
-  letter-spacing: -0.038em;
-}
-
-.lg-hang-paper h1 b {
-  font-weight: 500;
-}
-
-.lg-hang-paper .lg-zero-hero {
-  flex: 0 0 auto;
-  width: 0.62em;
-  height: 0.88em;
-  color: #141310;
-}
-
-.lg-hang-paper > p {
-  margin: 0 0 0.95rem;
-  color: #3f3c35;
-  font-family: var(--mono);
-  font-size: 0.92rem;
-}
-
-.lg-hang-paper dl {
+.lg-void-slip dl {
   margin: 0;
 }
 
-.lg-hang-paper dl div {
+.lg-void-slip dl div {
   display: grid;
-  grid-template-columns: 6.2rem minmax(0.7rem, 1fr) auto;
-  gap: 0.4rem;
+  grid-template-columns: 4.6rem minmax(0.4rem, 1fr) auto;
+  gap: 0.28rem;
   align-items: baseline;
-  padding: 0.2rem 0;
+  padding: 0.16rem 0;
   font-family: var(--mono);
 }
 
-.lg-hang-reg {
+.lg-void-reg {
   grid-template-columns: 1fr !important;
-  gap: 0.18rem !important;
-  padding: 0.38rem 0 0.28rem !important;
+  gap: 0.14rem !important;
+  padding: 0.32rem 0 0.22rem !important;
 }
 
-.lg-hang-paper dt {
+.lg-void-slip dt {
   color: #5c584e;
-  font-size: 0.72rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
-.lg-hang-paper dd {
+.lg-void-slip dd {
   margin: 0;
   color: #141310;
-  font-size: 0.78rem;
-  line-height: 1.35;
+  font-size: 0.68rem;
+  line-height: 1.3;
 }
 
-.lg-hang-paper dl div > i {
+.lg-void-slip dl div > i {
   display: block;
-  height: 0.5em;
-  background-image: radial-gradient(#141310 0.65px, transparent 0.75px);
-  background-size: 4px 0.5em;
+  height: 0.45em;
+  background-image: radial-gradient(#141310 0.55px, transparent 0.65px);
+  background-size: 3px 0.45em;
   background-repeat: repeat-x;
-  background-position: 0 0.38em;
+  background-position: 0 0.32em;
 }
 
-.lg-hang-hash {
+.lg-void-hash {
   display: grid;
-  grid-template-columns: repeat(6, max-content);
+  grid-template-columns: repeat(4, max-content);
   justify-content: space-between;
-  gap: 0.12rem 0.38rem;
+  gap: 0.08rem 0.28rem;
 }
 
-.lg-hang-hash b {
+.lg-void-hash b {
   color: #141310;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   font-weight: 400;
 }
 
-.lg-hang-total {
+.lg-void-total {
   display: grid !important;
   grid-template-columns: auto 1fr auto !important;
   align-items: baseline;
-  margin-top: 0.55rem;
-  padding: 0.55rem 0 0.15rem !important;
+  margin-top: 0.4rem;
+  padding: 0.5rem 0 0.1rem !important;
   border-top: 1px solid #141310;
 }
 
-.lg-hang-total dt {
+.lg-void-total dt {
   color: #141310;
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
-.lg-hang-total dd {
+.lg-void-total dd {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.12em;
+  gap: 0.08em;
   color: #9a2b24;
   line-height: 1;
 }
 
-.lg-hang-total small {
+.lg-void-total small {
   color: #9a2b24;
   font-family: var(--mono);
-  font-size: 1.15rem;
+  font-size: 1.35rem;
   font-weight: 500;
 }
 
-.lg-hang-total .lg-zero-total {
+.lg-void-total .lg-zero-total {
   display: block;
-  width: 1.45rem;
-  height: 2.05rem;
+  width: 1.85rem;
+  height: 2.6rem;
   color: #9a2b24;
 }
 
-.lg-hang-paper footer {
+.lg-void-slip footer {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-top: 0.85rem;
+  gap: 0.55rem;
+  margin-top: 0.7rem;
 }
 
-.lg-hang-paper footer img {
-  width: 56px;
-  height: 56px;
+.lg-void-slip footer img {
+  width: 52px;
+  height: 52px;
 }
 
-.lg-hang-paper footer div {
+.lg-void-slip footer div {
   display: flex;
   flex-direction: column;
-  gap: 0.22rem;
+  gap: 0.16rem;
 }
 
-.lg-hang-paper footer span,
-.lg-hang-cta {
+.lg-void-slip footer span,
+.lg-void-verify {
   color: #141310 !important;
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.62rem;
 }
 
-.lg-hang-cta {
+.lg-void-verify {
   text-decoration: underline;
-  text-underline-offset: 0.22em;
+  text-underline-offset: 0.18em;
 }
 
-.lg-hang-more {
-  margin-top: 0.95rem;
-}
-
-.lg-hang-tear {
+.lg-void-tear {
   display: block;
-  width: calc(100% + 3.7rem);
-  margin: 0.4rem -1.85rem 0;
+  width: calc(100% + 1.9rem);
+  margin: 0.35rem -0.95rem 0;
   pointer-events: none;
 }
 
@@ -3095,26 +3108,31 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 980px) {
-  .lg-sheet.lg-hang {
+  .lg-sheet.lg-void {
     height: auto;
     max-height: none;
     overflow: visible;
   }
 
-  .lg-hang-stage {
+  .lg-void-stage {
+    grid-template-columns: 1fr;
     height: auto;
-    perspective: none;
-    padding: 0 0 2rem;
+    padding-bottom: 2.5rem;
   }
 
-  .lg-hang-rig {
-    width: min(40rem, 92vw);
-    transform: none;
-    filter: drop-shadow(0 1.4rem 1.6rem rgba(0, 0, 0, 0.5));
+  .lg-void-copy {
+    margin-right: 0;
+    padding-top: 2.2rem;
   }
 
-  .lg-hang-hash {
-    grid-template-columns: repeat(4, max-content);
+  .lg-void-copy h1 {
+    white-space: normal;
+    font-size: clamp(2.6rem, 12vw, 3.6rem);
+  }
+
+  .lg-void-object {
+    width: min(36rem, 100%);
+    margin-inline: auto;
   }
 
   .lg-assay-hero {

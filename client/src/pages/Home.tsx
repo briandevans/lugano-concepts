@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import PrintHead from "@/components/PrintHead";
 import "./home.css";
@@ -32,31 +32,6 @@ function formatIssued(date: Date) {
   return `${day} ${months[date.getUTCMonth()]} ${date.getUTCFullYear()} ${hour}:${minute} UTC`;
 }
 
-function HangRig({ children }: { children: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  return (
-    <div
-      ref={ref}
-      className="lg-hang-rig"
-      onPointerMove={(event) => {
-        const el = ref.current;
-        if (!el) return;
-        const box = el.getBoundingClientRect();
-        const x = (event.clientX - box.left) / box.width - 0.5;
-        const y = (event.clientY - box.top) / box.height - 0.5;
-        el.style.transform = `rotateX(${7 - y * 2.4}deg) rotateZ(${-0.7 + x * 1.1}deg)`;
-      }}
-      onPointerLeave={() => {
-        const el = ref.current;
-        if (!el) return;
-        el.style.transform = "";
-      }}
-    >
-      {children}
-    </div>
-  );
-}
 
 const STEPS = [
   {
@@ -287,8 +262,8 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="lg-sheet lg-hang">
-        <img className="lg-hang-bed" src="/generated/ag_granite_bed.png" alt="" />
+      <div className="lg-sheet lg-void">
+        <div className="lg-void-light" aria-hidden="true" />
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
@@ -329,24 +304,29 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="top" className="lg-hang-stage">
-          <HangRig>
+        <section id="top" className="lg-void-stage">
+          <div className="lg-void-copy">
+            <h1>
+              <ZeroMark className="lg-zero-hero" />
+              <b>bytes retained</b>
+            </h1>
+            <p>Frontier models. Sealed execution. Proof on every run.</p>
+            <a className="lg-void-cta" href="mailto:contact@lugano.ai">
+              Get access
+            </a>
+          </div>
+          <aside className="lg-void-object" aria-label="Attestation printer">
             <img
-              className="lg-hang-mouth"
-              src="/generated/printer_slot.png"
+              className="lg-void-printer"
+              src="/generated/thermal_printer_body.png"
               alt=""
             />
-            <article className="lg-hang-paper" aria-label="Attestation receipt">
+            <article className="lg-void-slip">
               <PrintHead />
               <header>
                 <span>LUG-7F283</span>
-                <span>attestation</span>
+                <span>ATTESTATION</span>
               </header>
-              <h1>
-                <ZeroMark className="lg-zero-hero" />
-                <b>bytes retained</b>
-              </h1>
-              <p>Private inference you can prove.</p>
               <dl>
                 <div>
                   <dt>Issued</dt>
@@ -368,22 +348,25 @@ export default function Home() {
                   <i />
                   <dd>sealed · GLM-5.2</dd>
                 </div>
-                {MEASURES.slice(0, 2).map((row) => (
-                  <div className="lg-hang-reg" key={row.key}>
-                    <dt>{row.key}</dt>
-                    <dd className="lg-hang-hash">
-                      {hashGroups(row.value).map((group, index) => (
-                        <b key={`${row.key}-${index}`}>{group}</b>
-                      ))}
-                    </dd>
-                  </div>
-                ))}
+                <div className="lg-void-reg">
+                  <dt>MRTD</dt>
+                  <dd className="lg-void-hash">
+                    {hashGroups(MEASURES[0].value).map((group, index) => (
+                      <b key={`mrtd-${index}`}>{group}</b>
+                    ))}
+                  </dd>
+                </div>
+                <div>
+                  <dt>RTMR 0–3</dt>
+                  <i />
+                  <dd>sealed</dd>
+                </div>
                 <div>
                   <dt>Signed</dt>
                   <i />
                   <dd>TDX quote · SHA-384</dd>
                 </div>
-                <div className="lg-hang-total">
+                <div className="lg-void-total">
                   <dt>Total retained</dt>
                   <i />
                   <dd>
@@ -396,31 +379,19 @@ export default function Home() {
                 <img
                   src="/generated/verifier_qr.png"
                   alt="QR code for lugano.ai/v/LUG-7F283"
-                  width="56"
-                  height="56"
+                  width="52"
+                  height="52"
                 />
                 <div>
                   <span>lugano.ai/v/LUG-7F283</span>
-                  <a className="lg-hang-cta" href="#architecture">
+                  <a className="lg-void-verify" href="#architecture">
                     Verify this proof
                   </a>
                 </div>
               </footer>
-              <dl className="lg-hang-more" aria-hidden="true">
-                {MEASURES.slice(2).map((row) => (
-                  <div className="lg-hang-reg" key={row.key}>
-                    <dt>{row.key}</dt>
-                    <dd className="lg-hang-hash">
-                      {hashGroups(row.value).map((group, index) => (
-                        <b key={`${row.key}-${index}`}>{group}</b>
-                      ))}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-              <img className="lg-hang-tear" src="/generated/paper_fiber_tear.png" alt="" />
+              <img className="lg-void-tear" src="/generated/paper_fiber_tear.png" alt="" />
             </article>
-          </HangRig>
+          </aside>
         </section>
       </div>
 

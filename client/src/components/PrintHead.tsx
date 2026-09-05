@@ -115,5 +115,5 @@ export default function PrintHead() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="lg-hang-heat" aria-hidden="true" />;
+  return <canvas ref={canvasRef} className="lg-void-heat" aria-hidden="true" />;
 }
