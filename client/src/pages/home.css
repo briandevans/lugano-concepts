@@ -230,12 +230,6 @@
   color: var(--ash);
 }
 
-.lg a.lg-btn-ink,
-.lg-btn-ink {
-  background: var(--ink);
-  color: var(--paper) !important;
-}
-
 .lg a.lg-btn,
 .lg-btn {
   display: inline-flex;
@@ -252,8 +246,15 @@
   letter-spacing: 0.04em;
 }
 
-.lg-btn:hover {
-  background: #f6f2e8;
+.lg a.lg-btn.lg-btn-ink,
+.lg-btn-ink {
+  background: var(--ink);
+  color: var(--paper) !important;
+}
+
+.lg a.lg-btn.lg-btn-ink:hover,
+.lg-btn-ink:hover {
+  background: #1a1c16;
 }
 
 .lg-btn-ghost {
@@ -261,26 +262,17 @@
   align-items: center;
   min-height: 2.7rem;
   padding: 0.55rem 0;
-  color: color-mix(in srgb, var(--paper) 78%, transparent);
+  color: var(--ash);
   font-family: var(--mono);
   font-size: 0.74rem;
   letter-spacing: 0.04em;
-  border-bottom: 1px solid color-mix(in srgb, var(--paper) 28%, transparent);
+  border-bottom: 1px solid var(--ink);
 }
 
-.lg-btn-ghost:hover {
-  color: var(--paper);
-  border-bottom-color: var(--paper);
-}
-
-.lg-btn-ink {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--paper) !important;
-}
-
-.lg-btn-ink:hover {
-  background: #1a1c16;
+.lg-btn-ghost:hover,
+.lg-btn-ghost-ink:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
 }
 
 .lg-btn-ghost-ink {
