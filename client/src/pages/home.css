@@ -313,8 +313,11 @@
 }
 
 .lg-desk .lg-nav-cta {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  min-height: 2rem;
+  padding: 0 0.7rem;
+  border: 1px solid #efeae0;
+  color: #161410 !important;
+  background: #efeae0;
 }
 
 .lg-desk .lg-nav-links a:hover,
@@ -328,7 +331,7 @@
   display: grid;
   flex: 1;
   grid-template-columns: minmax(0, 1fr) 30rem;
-  align-items: start;
+  align-items: center;
   gap: 3.5rem;
   min-height: 0;
   width: min(100% - (var(--gutter) * 2), var(--max));
@@ -336,7 +339,7 @@
 }
 
 .lg-desk-copy {
-  padding-top: 1.15rem;
+  padding-top: 0;
 }
 
 .lg-desk-lockup {
@@ -351,7 +354,7 @@
   font-family: var(--sans);
   font-style: normal;
   font-size: clamp(3.4rem, 5.8vw, 5.2rem);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 0.9;
   letter-spacing: -0.05em;
 }
@@ -365,40 +368,34 @@
 
 .lg-desk-lockup span {
   display: block;
-  max-width: 28ch;
+  max-width: 36ch;
   margin-top: 0.85rem;
-  color: #c8c2b4;
+  color: #d6d0c4;
   font-family: var(--sans);
   font-size: 1.2rem;
   line-height: 1.4;
+  text-wrap: pretty;
 }
 
 .lg-desk-cta {
-  color: #efeae0 !important;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.4rem;
+  padding: 0 0.95rem;
+  background: #9a2b24;
+  color: #f4ebe4 !important;
   font-family: var(--sans);
-  font-size: 1.05rem;
-  text-decoration: underline;
-  text-underline-offset: 0.22em;
+  font-size: 1.02rem;
 }
 
 .lg-desk-slip {
   width: 30rem;
-  min-height: calc(100vh - 4rem);
-  margin-top: -4px;
-  padding: 0.15rem 1.35rem 8rem;
+  padding: 1.2rem 1.35rem 0;
   color: #141310;
   background-color: #e4dcc8;
   background-image: url("/generated/thermal_warm_sheet.png");
   background-size: cover;
   background-position: center;
-}
-
-.lg-desk-perf {
-  display: block;
-  height: 11px;
-  margin: 0 -1.35rem 1rem;
-  background:
-    radial-gradient(circle at 7px 0, transparent 3.6px, #e4dcc8 3.8px) 0 0 / 14px 11px repeat-x;
 }
 
 .lg-desk-slip dl {
@@ -430,9 +427,11 @@
 
 .lg-desk-slip dl div > i {
   display: block;
-  height: 0;
-  border-bottom: 1px dotted #141310;
-  transform: translateY(-0.32em);
+  height: 0.55em;
+  background-image: radial-gradient(#141310 0.7px, transparent 0.8px);
+  background-size: 5px 0.55em;
+  background-repeat: repeat-x;
+  background-position: 0 0.42em;
 }
 
 .lg-hash-full {
@@ -466,21 +465,22 @@
 }
 
 .lg-desk-total dd {
-  display: flex;
-  align-items: baseline;
-  gap: 0.2em;
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.22em;
   line-height: 1;
 }
 
 .lg-desk-total small {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 400;
+  padding-bottom: 0.28rem;
 }
 
 .lg-zero-total {
   display: block;
-  width: 2.8rem;
-  height: 3.8rem;
+  width: 2.2rem;
+  height: 3rem;
   color: #141310;
 }
 
@@ -501,6 +501,15 @@
   color: #141310;
   font-family: var(--mono);
   font-size: 0.72rem;
+}
+
+.lg-desk-tear {
+  display: block;
+  width: calc(100% + 2.7rem);
+  height: 42px;
+  margin: 0.55rem -1.35rem 0;
+  object-fit: cover;
+  object-position: center 42%;
 }
 
 /* ── Shared type ──────────────────────────────────────── */

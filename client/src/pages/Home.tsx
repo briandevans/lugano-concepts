@@ -13,8 +13,8 @@ const MEASURES = [
 function ZeroMark({ className }: { className?: string }) {
   return (
     <svg className={className ?? "lg-zero-mark"} viewBox="0 0 72 100" aria-hidden="true">
-      <ellipse cx="36" cy="50" rx="22" ry="38" fill="none" stroke="currentColor" strokeWidth="10" />
-      <line x1="22" y1="68" x2="50" y2="32" stroke="currentColor" strokeWidth="7" strokeLinecap="square" />
+      <ellipse cx="36" cy="50" rx="22" ry="38" fill="none" stroke="currentColor" strokeWidth="8" />
+      <line x1="22" y1="68" x2="50" y2="32" stroke="currentColor" strokeWidth="6" strokeLinecap="square" />
     </svg>
   );
 }
@@ -263,7 +263,7 @@ export default function Home() {
                 </a>
               ))}
               <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-                Briefing
+                Get access
               </a>
             </nav>
             <button
@@ -301,7 +301,6 @@ export default function Home() {
             </a>
           </div>
           <article className="lg-desk-slip" aria-label="Specimen attestation">
-            <i className="lg-desk-perf" aria-hidden="true" />
             <dl>
               <div>
                 <dt>Issued</dt>
@@ -351,6 +350,7 @@ export default function Home() {
               />
               <span>lugano.ai/v/LUG-7F283</span>
             </footer>
+            <img className="lg-desk-tear" src="/generated/thermal_tear_bottom.png" alt="" />
           </article>
         </section>
       </div>
