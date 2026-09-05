@@ -310,9 +310,9 @@ export default function Home() {
                 <i>retained</i>
               </b>
             </h1>
-            <p>Frontier models that run sealed and leave a receipt.</p>
+            <p>Frontier models that run sealed&nbsp;— and leave a receipt.</p>
             <a className="lg-void-cta" href="mailto:contact@lugano.ai">
-              Get access
+              Request a specimen
             </a>
           </div>
           <aside className="lg-void-object" aria-label="Attestation printer">
