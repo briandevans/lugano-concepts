@@ -941,7 +941,7 @@
 
 .lg-ed .lg-wordmark {
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
   color: #f4eee3;
   font-family: var(--sans);
   font-size: 1.55rem;
@@ -949,11 +949,20 @@
   letter-spacing: -0.03em;
 }
 
-.lg-ed .lg-zero-mark {
-  width: 0.62em;
-  height: 0.86em;
-  margin-left: 0.01em;
-  color: #f4eee3;
+.lg-oh {
+  position: relative;
+  display: inline-block;
+}
+
+.lg-oh::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 47%;
+  height: 0.1em;
+  background: currentColor;
+  transform: rotate(-28deg);
 }
 
 .lg-ed .lg-nav-links {
@@ -984,17 +993,22 @@
 .lg-ed-well {
   position: relative;
   z-index: 4;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(30.5rem, 42vw);
+  column-gap: clamp(2rem, 3.5vw, 3.25rem);
+  align-items: start;
   width: min(100% - (var(--gutter) * 2), 1220px);
   margin: 0 auto;
-  padding: 2rem 0 2.75rem;
+  padding: 2.1rem 0 0;
 }
 
-.lg-ed-mast {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 2rem 3rem;
-  margin-bottom: 1.65rem;
+.lg-ed-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.15rem;
+  min-width: 0;
+  padding-top: 0.15rem;
 }
 
 .lg-ed-lede {
@@ -1002,11 +1016,11 @@
   max-width: 100%;
   margin: 0;
   color: #f7f1e6;
-  font-family: var(--sans);
-  font-size: clamp(2.7rem, 4.1vw, 3.85rem);
-  font-weight: 600;
-  line-height: 0.98;
-  letter-spacing: -0.03em;
+  font-family: var(--receipt);
+  font-size: clamp(2.35rem, 3.6vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
 }
 
 .lg-ed-lede span {
@@ -1014,16 +1028,8 @@
   white-space: nowrap;
 }
 
-.lg-ed-tools {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  padding-bottom: 0.2rem;
-}
-
 .lg-ed-sub {
-  max-width: 22ch;
+  max-width: 28ch;
   margin: 0;
   color: #ddd4c4;
   font-family: var(--sans);
@@ -1056,32 +1062,42 @@
   color: #2a2722;
   background-color: #f3f0e7;
   background-image: url("/generated/thermal_paper_fiber.png");
-  background-size: 280px;
-  padding: 1.7rem 2rem 1.85rem;
+  background-size: 240px;
+  padding: 1.45rem 1.55rem 7rem;
 }
 
-.lg-ed-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.6rem 1.4rem;
+.lg-ed-kind,
+.lg-ed-ticket,
+.lg-ed-when {
+  margin: 0;
   font-family: var(--receipt);
-  font-size: 0.98rem;
 }
 
-.lg-ed-meta span:first-child {
-  font-family: var(--sans);
-  font-size: 1.15rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+.lg-ed-kind {
+  color: #2a2722;
+  font-size: 1.12rem;
+  font-weight: 700;
 }
 
-.lg-ed-body {
-  display: grid;
-  grid-template-columns: minmax(16rem, 0.9fr) minmax(0, 1.2fr);
-  gap: 1.6rem 3rem;
-  margin-top: 1.25rem;
+.lg-ed-ticket {
+  margin-top: 0.55rem;
+  color: #2a2722;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.lg-ed-when {
+  margin-top: 0.12rem;
+  color: #5a554c;
+  font-size: 0.92rem;
+}
+
+.lg-ed-rule {
+  width: 100%;
+  height: 0;
+  margin: 0.75rem 0 0.35rem;
+  border: 0;
+  border-top: 1px solid #2a2722;
 }
 
 .lg-ed-paper dl {
@@ -1090,22 +1106,22 @@
 
 .lg-ed-paper dl div {
   display: grid;
-  grid-template-columns: 6.2rem minmax(0.7rem, 1fr) auto;
-  gap: 0.45rem;
+  grid-template-columns: 6.4rem minmax(0.7rem, 1fr) auto;
+  gap: 0.4rem;
   align-items: baseline;
-  padding: 0.28rem 0;
+  padding: 0.22rem 0;
   font-family: var(--receipt);
 }
 
 .lg-ed-paper dt {
   color: #5a554c;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
 
 .lg-ed-paper dd {
   margin: 0;
   color: #2a2722;
-  font-size: 1.02rem;
+  font-size: 0.98rem;
 }
 
 .lg-ed-paper dl div > i {
@@ -1118,98 +1134,75 @@
 }
 
 .lg-ed-reg {
-  margin: 0;
+  margin: 0.7rem 0 0;
 }
 
 .lg-ed-reg p {
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.28rem;
   color: #5a554c;
   font-family: var(--receipt);
-  font-size: 0.95rem;
+  font-size: 0.88rem;
 }
 
 .lg-ed-hash {
   display: grid;
   grid-template-columns: repeat(4, max-content);
-  gap: 0.2rem 1.15rem;
+  gap: 0.12rem 0.85rem;
 }
 
 .lg-ed-hash b {
   color: #322e28;
   font-family: var(--receipt);
-  font-size: 0.95rem;
+  font-size: 0.86rem;
   font-weight: 400;
-}
-
-.lg-ed-end {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem;
-  margin-top: 1.35rem;
-  padding-top: 1rem;
-  border-top: 2px solid #2a2722;
 }
 
 .lg-ed-total {
   display: flex;
-  align-items: center;
-  gap: 1.25rem;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.85rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid #2a2722;
   font-family: var(--receipt);
 }
 
 .lg-ed-total span {
   color: #2a2722;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
 }
 
 .lg-ed-amt {
   display: inline-flex;
-  align-items: center;
-  gap: 0.12em;
+  align-items: baseline;
+  gap: 0.18em;
   color: #9a2b24;
-  line-height: 1;
-}
-
-.lg-ed-zero {
-  width: 2.15rem;
-  height: 2.9rem;
-  color: #9a2b24;
-}
-
-.lg-ed-amt em {
-  color: #9a2b24;
-  font-family: var(--receipt);
-  font-size: 2.05rem;
-  font-style: normal;
+  font-size: 2.55rem;
   font-weight: 700;
-  line-height: 1;
+  line-height: 0.9;
 }
 
 .lg-ed-proof {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.4rem;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+  margin-bottom: 0.35rem;
 }
 
 .lg-ed-proof img {
-  width: 4.4rem;
-  height: 4.4rem;
+  width: 3.6rem;
+  height: 3.6rem;
   background: #f3f0e7;
 }
 
 .lg-ed-proof a {
-  color: #5a554c !important;
-  font-family: var(--sans);
-  font-size: 0.88rem;
-  letter-spacing: 0.01em;
-  text-decoration: none;
-}
-
-.lg-ed-proof a:hover {
   color: #2a2722 !important;
+  font-family: var(--receipt);
+  font-size: 0.88rem;
+  text-decoration: none;
 }
 
 /* ── Void fold: brand on the ground, receipt as evidence ─ */
@@ -4080,27 +4073,21 @@
   }
 
   .lg-ed-well {
-    padding: 1.4rem 0 2rem;
-  }
-
-  .lg-ed-mast {
     grid-template-columns: 1fr;
-    gap: 1.2rem;
+    padding: 1.4rem 0 0;
+    row-gap: 1.8rem;
   }
 
   .lg-ed-lede {
     width: 100%;
   }
 
-  .lg-ed-body,
-  .lg-ed-end {
-    grid-template-columns: 1fr;
-    flex-direction: column;
-    align-items: flex-start;
+  .lg-ed-lede span {
+    white-space: normal;
   }
 
-  .lg-ed-proof {
-    align-items: flex-start;
+  .lg-ed-paper {
+    width: 100%;
   }
 
   .lg-ed-hash {

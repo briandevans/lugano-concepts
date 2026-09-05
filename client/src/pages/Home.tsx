@@ -282,8 +282,7 @@ export default function Home() {
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
               <span className="lg-wordmark">
-                Lugan
-                <ZeroMark heavy />
+                Lugan<span className="lg-oh">0</span>
               </span>
             </a>
             <nav className="lg-nav-links" aria-label="Primary">
@@ -316,65 +315,68 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-ed-well">
-          <div className="lg-ed-mast">
+          <div className="lg-ed-copy">
             <p className="lg-ed-lede">
               Frontier models
               <span>that run sealed</span>
               <span>and leave a receipt.</span>
             </p>
-            <div className="lg-ed-tools">
-              <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
-              <a className="lg-ed-cta" href="mailto:contact@lugano.ai">
-                Request access
-              </a>
-            </div>
+            <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
+            <a className="lg-ed-cta" href="mailto:contact@lugano.ai">
+              Request access
+            </a>
           </div>
           <article className="lg-ed-paper" aria-label="Attestation record">
-            <header className="lg-ed-meta">
-              <span>Attestation</span>
-              <span>LUG-7F283</span>
-              <span>{issued}</span>
-            </header>
-            <div className="lg-ed-body">
-              <dl>
-                <div>
-                  <dt>Model</dt>
-                  <i />
-                  <dd>GLM-5.2</dd>
-                </div>
-                <div>
-                  <dt>Enclave</dt>
-                  <i />
-                  <dd>TDX</dd>
-                </div>
-                <div>
-                  <dt>Prompt</dt>
-                  <i />
-                  <dd>not retained</dd>
-                </div>
-              </dl>
-              <div className="lg-ed-reg">
-                <p>MRTD · SHA-384</p>
+            <p className="lg-ed-kind">Attestation</p>
+            <p className="lg-ed-ticket">LUG-7F283</p>
+            <p className="lg-ed-when">{issued}</p>
+            <hr className="lg-ed-rule" />
+            <dl>
+              <div>
+                <dt>Model</dt>
+                <i />
+                <dd>GLM-5.2</dd>
+              </div>
+              <div>
+                <dt>Enclave</dt>
+                <i />
+                <dd>TDX</dd>
+              </div>
+              <div>
+                <dt>Prompt</dt>
+                <i />
+                <dd>not retained</dd>
+              </div>
+            </dl>
+            <div className="lg-ed-reg">
+              <p>MRTD · SHA-384</p>
+              <div className="lg-ed-hash">
+                {hashGroups(MEASURES[0].value).map((group, index) => (
+                  <b key={`mrtd-0-${index}`}>{group}</b>
+                ))}
+              </div>
+            </div>
+            <div className="lg-ed-total">
+              <span>Total retained</span>
+              <b className="lg-ed-amt">
+                <span className="lg-oh">0</span>
+                <span>B</span>
+              </b>
+            </div>
+            <div className="lg-ed-proof">
+              <img src="/generated/verifier_qr.png" alt="" />
+              <a href="#architecture">lugano.ai/v/LUG-7F283</a>
+            </div>
+            {MEASURES.slice(1).map((row) => (
+              <div className="lg-ed-reg" key={row.key}>
+                <p>{row.key} · SHA-384</p>
                 <div className="lg-ed-hash">
-                  {hashGroups(MEASURES[0].value).map((group, index) => (
-                    <b key={`mrtd-${index}`}>{group}</b>
+                  {hashGroups(row.value).map((group, index) => (
+                    <b key={`${row.key}-${index}`}>{group}</b>
                   ))}
                 </div>
               </div>
-            </div>
-            <footer className="lg-ed-end">
-              <div className="lg-ed-total">
-                <span>Total retained</span>
-                <b className="lg-ed-amt">
-                  <ZeroMark heavy className="lg-ed-zero" />
-                  <em>B</em>
-                </b>
-              </div>
-              <div className="lg-ed-proof">
-                <img src="/generated/verifier_qr.png" alt="" />
-                <a href="#architecture">lugano.ai/v/LUG-7F283</a>
-              </div>
-            </footer>
+            ))}
           </article>
         </section>
       </div>
