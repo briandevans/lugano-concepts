@@ -289,12 +289,13 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-desk-stage">
-          <article className="lg-desk-slip" aria-label="Specimen attestation">
-            <i className="lg-desk-perf" aria-hidden="true" />
-            <h1>
+          <h1 className="lg-desk-lockup">
+            <em>
               <ZeroMark className="lg-zero-hero" /> bytes retained.
-            </h1>
-            <p>Private inference with a cryptographic receipt.</p>
+            </em>
+            <span>Private inference with a cryptographic receipt.</span>
+          </h1>
+          <article className="lg-desk-slip" aria-label="Specimen attestation">
             <dl>
               <div>
                 <dt>Issued</dt>
@@ -313,27 +314,24 @@ export default function Home() {
               </div>
               <div>
                 <dt>MRTD</dt>
-                <i />
-                <dd className="lg-hash-line">
-                  {MEASURES[0].value.slice(0, 8)}
-                  <em> … </em>
-                  {MEASURES[0].value.slice(-8)}
+                <dd className="lg-hash-full">
+                  {(MEASURES[0].value.match(/.{8}/g) ?? []).map((group) => (
+                    <b key={`m-${group}`}>{group}</b>
+                  ))}
                 </dd>
               </div>
               <div>
                 <dt>RTMR0</dt>
-                <i />
-                <dd className="lg-hash-line">
-                  {MEASURES[1].value.slice(0, 8)}
-                  <em> … </em>
-                  {MEASURES[1].value.slice(-8)}
+                <dd className="lg-hash-full">
+                  {(MEASURES[1].value.match(/.{8}/g) ?? []).map((group) => (
+                    <b key={`r-${group}`}>{group}</b>
+                  ))}
                 </dd>
               </div>
               <div className="lg-desk-total">
                 <dt>Bytes retained</dt>
-                <i />
                 <dd>
-                  <ZeroMark className="lg-zero-mark" />
+                  <ZeroMark className="lg-zero-total" />
                 </dd>
               </div>
             </dl>
@@ -341,15 +339,10 @@ export default function Home() {
               <img
                 src="/generated/verifier_qr.png"
                 alt="QR code for lugano.ai/v/LUG-7F283"
-                width="88"
-                height="88"
+                width="72"
+                height="72"
               />
-              <div>
-                <span>lugano.ai/v/LUG-7F283</span>
-                <a className="lg-desk-verify" href="#architecture">
-                  Verify this receipt
-                </a>
-              </div>
+              <a href="#architecture">lugano.ai/v/LUG-7F283</a>
             </footer>
           </article>
         </section>
