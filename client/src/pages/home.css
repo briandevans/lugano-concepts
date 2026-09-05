@@ -1,6 +1,11 @@
 /* Lugano homepage — assay ledger
    Paper / ink / alpine / magenta seal. Homepage-only. */
 
+@import "@fontsource-variable/fraunces/opsz.css";
+@import "@fontsource-variable/fraunces/opsz-italic.css";
+@import "@fontsource/ibm-plex-mono/latin-400.css";
+@import "@fontsource/ibm-plex-mono/latin-500.css";
+
 .lg {
   --ink: #14130f;
   --ink-soft: #1c1b16;
@@ -15,8 +20,8 @@
   --metal: #5a5446;
   --rule: rgba(20, 19, 15, 0.18);
   --rule-paper: rgba(228, 223, 210, 0.16);
-  --serif: "Fraunces", "Times New Roman", serif;
-  --sans: "Fraunces", "Times New Roman", serif;
+  --serif: "Fraunces Variable", "Fraunces", "Times New Roman", serif;
+  --sans: "Fraunces Variable", "Fraunces", "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
   --swiss: #c8102e;
   --max: 1220px;
@@ -81,6 +86,10 @@
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--ink);
+}
+
+.lg-dot {
+  color: var(--swiss);
 }
 
 /* ── Nav ──────────────────────────────────────────────── */
@@ -269,8 +278,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  min-height: 2.7rem;
-  padding: 0.5rem 1rem;
+  min-height: 3.05rem;
+  padding: 0.6rem 1.2rem;
   border: 1.5px solid var(--ink);
   background: transparent;
   color: var(--ink) !important;
@@ -372,9 +381,9 @@
 
 .lg-split {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 20rem;
+  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
   align-items: start;
-  gap: clamp(2.5rem, 6vw, 5.5rem);
+  gap: clamp(2rem, 5vw, 4rem);
   padding: 3.75rem 0 4.25rem;
 }
 
@@ -409,9 +418,9 @@
 .lg-slip {
   position: relative;
   overflow: hidden;
-  width: 20rem;
-  margin-right: -5.5rem;
-  padding: 0.15rem 1.15rem 1.25rem;
+  width: min(28rem, 100%);
+  justify-self: stretch;
+  padding: 1.15rem 1.25rem 1.35rem;
   color: #1d1a15;
   background-color: #fbf7ec;
   border: 1px solid rgba(20, 19, 15, 0.22);

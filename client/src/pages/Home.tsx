@@ -282,7 +282,7 @@ export default function Home() {
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-              <span className="lg-wordmark">Lugano.ai</span>
+              <span className="lg-wordmark">Lugano<span className="lg-dot">.</span>ai</span>
             </a>
             <nav className="lg-nav-links" aria-label="Primary">
               {NAV.map((item) => (
@@ -319,6 +319,10 @@ export default function Home() {
         <section id="top" className="lg-hero-wrap">
           <div className="lg-shell lg-split">
             <div className="lg-copy">
+              <p className="lg-folio">
+                <span>01</span>
+                <em>Receipt</em>
+              </p>
               <h1>
                 <span>AI privacy</span>
                 <span>by proof.</span>
@@ -658,7 +662,7 @@ export default function Home() {
       <footer className="lg-footer">
         <div className="lg-shell lg-footer-row">
           <a className="lg-brand" href="#top">
-            <span className="lg-wordmark">Lugano.ai</span>
+            <span className="lg-wordmark">Lugano<span className="lg-dot">.</span>ai</span>
           </a>
           <nav aria-label="Footer">
             <a href="mailto:contact@lugano.ai">Contact</a>
