@@ -279,7 +279,7 @@ export default function Home() {
                 </a>
               ))}
               <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-                Briefing →
+                Briefing
               </a>
             </nav>
             <button
@@ -309,24 +309,25 @@ export default function Home() {
             <em>Held to</em>
             <ZeroMark className="lg-zero-hero" />
             <strong>bytes retained</strong>
+            <b className="lg-assay-desc">Private inference with a cryptographic receipt.</b>
           </h1>
           <article className="lg-assay-record" aria-label="Example attestation">
             <header className="lg-assay-meta">
               <span>The receipt is the product.</span>
-              <span>Example LUG-7F283</span>
+              <span>LUG-7F283</span>
             </header>
             <dl className="lg-assay-dl">
               <div>
                 <dt>Issued</dt>
-                <dd>12 Mar 2026  14:02:11 UTC</dd>
+                <dd>12 Mar 2026 14:02 UTC</dd>
               </div>
               <div>
                 <dt>Prompt</dt>
-                <dd className="lg-absent" />
+                <dd className="lg-redact">not retained</dd>
               </div>
               <div>
                 <dt>Model</dt>
-                <dd className="lg-absent" />
+                <dd className="lg-redact">not retained</dd>
               </div>
               <div>
                 <dt>MRTD</dt>
@@ -342,7 +343,7 @@ export default function Home() {
               </div>
             </dl>
             <a className="lg-assay-verify" href="#architecture">
-              Verify this example →
+              Verify this example
             </a>
           </article>
         </section>
