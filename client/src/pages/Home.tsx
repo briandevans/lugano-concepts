@@ -248,123 +248,139 @@ export default function Home() {
       </a>
 
       <div className="lg-sheet lg-desk">
-        <header className="lg-nav">
-          <div className="lg-nav-inner">
-            <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-              <span className="lg-wordmark">
-                Lugan
-                <ZeroMark />
-              </span>
-            </a>
-            <nav className="lg-nav-links" aria-label="Primary">
+        <div className="lg-desk-roll">
+          <header className="lg-nav">
+            <div className="lg-nav-inner">
+              <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
+                <span className="lg-wordmark">
+                  Lugan
+                  <ZeroMark />
+                </span>
+              </a>
+              <nav className="lg-nav-links" aria-label="Primary">
+                {NAV.map((item) => (
+                  <a key={item.href} href={item.href}>
+                    {item.label}
+                  </a>
+                ))}
+                <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
+                  Get access
+                </a>
+              </nav>
+              <button
+                className="lg-menu-btn"
+                type="button"
+                aria-expanded={menuOpen}
+                aria-label="Open menu"
+                onClick={() => setMenuOpen((open) => !open)}
+              >
+                <span />
+              </button>
+            </div>
+            <div className={`lg-mobile-panel${menuOpen ? " is-open" : ""}`}>
               {NAV.map((item) => (
-                <a key={item.href} href={item.href}>
+                <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
                   {item.label}
                 </a>
               ))}
-              <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-                Get access
+              <a href="mailto:contact@lugano.ai" onClick={() => setMenuOpen(false)}>
+                Request briefing
               </a>
-            </nav>
-            <button
-              className="lg-menu-btn"
-              type="button"
-              aria-expanded={menuOpen}
-              aria-label="Open menu"
-              onClick={() => setMenuOpen((open) => !open)}
-            >
-              <span />
-            </button>
-          </div>
-          <div className={`lg-mobile-panel${menuOpen ? " is-open" : ""}`}>
-            {NAV.map((item) => (
-              <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
-                {item.label}
-              </a>
-            ))}
-            <a href="mailto:contact@lugano.ai" onClick={() => setMenuOpen(false)}>
-              Request briefing
-            </a>
-          </div>
-        </header>
+            </div>
+          </header>
 
-        <section id="top" className="lg-desk-stage">
-          <div className="lg-desk-copy">
-            <h1 className="lg-desk-lockup">
-              <em>
+          <section id="top" className="lg-desk-stage">
+            <article className="lg-desk-slip" aria-label="Specimen attestation">
+              <header>
+                <span>LUG-7F283</span>
+                <span>specimen</span>
+              </header>
+              <h1>
                 <ZeroMark className="lg-zero-hero" />
                 <b>bytes retained</b>
-              </em>
-              <span>Private inference you can prove.</span>
-            </h1>
-            <a className="lg-desk-cta" href="#architecture">
-              Verify this proof
-            </a>
-          </div>
-          <article className="lg-desk-slip" aria-label="Specimen attestation">
-            <header>
-              <strong className="lg-wordmark">
-                Lugan
-                <ZeroMark />
-              </strong>
-              <span>LUG-7F283</span>
-            </header>
-            <dl>
-              <div>
-                <dt>Issued</dt>
-                <i />
-                <dd>12 Mar 2026 14:02 UTC</dd>
-              </div>
-              <div>
-                <dt>Prompt</dt>
-                <i />
-                <dd>not retained</dd>
-              </div>
-              <div>
-                <dt>Model</dt>
-                <i />
-                <dd>sealed · GLM-5.2</dd>
-              </div>
-              <div className="lg-desk-reg">
-                <dt>MRTD</dt>
-                <dd className="lg-hash-full">
-                  {(MEASURES[0].value.match(/.{8}/g) ?? []).map((group) => (
-                    <b key={`m-${group}`}>{group}</b>
-                  ))}
-                </dd>
-              </div>
-              <div className="lg-desk-reg">
-                <dt>RTMR0</dt>
-                <dd className="lg-hash-full">
-                  {(MEASURES[1].value.match(/.{8}/g) ?? []).map((group) => (
-                    <b key={`r-${group}`}>{group}</b>
-                  ))}
-                </dd>
-              </div>
-              <div>
-                <dt>Signed</dt>
-                <i />
-                <dd>TDX quote · SHA-384</dd>
-              </div>
-              <div className="lg-desk-total">
-                <dt>Total retained</dt>
-                <dd>
-                  <ZeroMark className="lg-zero-total" />
-                  <small>B</small>
-                </dd>
-              </div>
-            </dl>
-            <footer>
-              <img
-                src="/generated/verifier_qr.png"
-                alt="QR code for lugano.ai/v/LUG-7F283"
-                width="72"
-                height="72"
-              />
-              <span>lugano.ai/v/LUG-7F283</span>
-            </footer>
-          </article>
-        </section>
+              </h1>
+              <p>Private inference you can prove.</p>
+              <dl>
+                <div>
+                  <dt>Issued</dt>
+                  <i />
+                  <dd>12 Mar 2026 14:02 UTC</dd>
+                </div>
+                <div>
+                  <dt>Prompt</dt>
+                  <i />
+                  <dd>not retained</dd>
+                </div>
+                <div>
+                  <dt>Model</dt>
+                  <i />
+                  <dd>sealed · GLM-5.2</dd>
+                </div>
+                <div className="lg-desk-reg">
+                  <dt>MRTD</dt>
+                  <dd className="lg-hash-full">
+                    {(MEASURES[0].value.match(/.{8}/g) ?? []).map((group) => (
+                      <b key={`m-${group}`}>{group}</b>
+                    ))}
+                  </dd>
+                </div>
+                <div className="lg-desk-reg">
+                  <dt>RTMR0</dt>
+                  <dd className="lg-hash-full">
+                    {(MEASURES[1].value.match(/.{8}/g) ?? []).map((group) => (
+                      <b key={`r-${group}`}>{group}</b>
+                    ))}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Signed</dt>
+                  <i />
+                  <dd>TDX quote · SHA-384</dd>
+                </div>
+                <div className="lg-desk-total">
+                  <dt>Total retained</dt>
+                  <i />
+                  <dd>
+                    <ZeroMark className="lg-zero-total" />
+                    <small>B</small>
+                  </dd>
+                </div>
+              </dl>
+              <footer>
+                <img
+                  src="/generated/verifier_qr.png"
+                  alt="QR code for lugano.ai/v/LUG-7F283"
+                  width="72"
+                  height="72"
+                />
+                <div>
+                  <span>lugano.ai/v/LUG-7F283</span>
+                  <a className="lg-desk-cta" href="#architecture">
+                    Verify this proof
+                  </a>
+                </div>
+              </footer>
+              <dl className="lg-desk-more" aria-hidden="true">
+                <div className="lg-desk-reg">
+                  <dt>RTMR1</dt>
+                  <dd className="lg-hash-full">
+                    {(MEASURES[2].value.match(/.{8}/g) ?? []).map((group) => (
+                      <b key={`r1-${group}`}>{group}</b>
+                    ))}
+                  </dd>
+                </div>
+                <div className="lg-desk-reg">
+                  <dt>RTMR2</dt>
+                  <dd className="lg-hash-full">
+                    {(MEASURES[3].value.match(/.{8}/g) ?? []).map((group) => (
+                      <b key={`r2-${group}`}>{group}</b>
+                    ))}
+                  </dd>
+                </div>
+              </dl>
+            </article>
+          </section>
+        </div>
       </div>
 
       <main id="main" className="lg-rest">
