@@ -1899,6 +1899,315 @@
   font-size: 0.86rem;
 }
 
+/* ── Nm fold: 65mm tape on lunar charcoal ─────────────── */
+.lg-sheet.lg-nm {
+  --receipt: "Courier Prime", "Courier New", Courier, monospace;
+  --nm: #b51d22;
+  position: relative;
+  height: 100vh;
+  max-height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  color: #ece7dc;
+  background: #161513;
+}
+
+.lg-nm .lg-nav {
+  position: relative;
+  z-index: 8;
+  height: 72px;
+  color: #ece7dc;
+  border-bottom: 0;
+}
+
+.lg-nm .lg-nav-inner {
+  width: min(100% - (var(--gutter) * 2), 88rem);
+}
+
+.lg-nm .lg-wordmark {
+  color: #ece7dc;
+  font-family: var(--sans);
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.032em;
+}
+
+.lg-nm .lg-nav-links {
+  gap: 1.75rem;
+}
+
+.lg-nm .lg-nav-links a {
+  color: #ece7dc !important;
+  font-family: var(--sans);
+  font-size: 1.04rem;
+  letter-spacing: -0.015em;
+  background: transparent;
+  padding: 0;
+  min-height: 0;
+  text-decoration: none;
+}
+
+.lg-nm .lg-nav-links a:hover {
+  color: var(--nm) !important;
+}
+
+.lg-nm-well {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 19rem;
+  column-gap: 2.35rem;
+  align-items: stretch;
+  width: min(100% - (var(--gutter) * 2), 88rem);
+  height: calc(100vh - 72px);
+  margin: 0 auto;
+  padding: 0.35rem 0 0;
+  overflow: hidden;
+}
+
+.lg-nm-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 0;
+  padding: 0.15rem 0 2.4rem;
+}
+
+.lg-nm-lede {
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  color: #ece7dc;
+  font-family: var(--sans);
+  font-size: clamp(3rem, 5vw, 4.7rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.036em;
+}
+
+.lg-nm-lede span {
+  display: block;
+  white-space: nowrap;
+}
+
+.lg-nm-sub {
+  margin: 0;
+  max-width: 28rem;
+  color: #c8c2b6;
+  font-family: var(--sans);
+  font-size: 1.28rem;
+  line-height: 1.35;
+  letter-spacing: -0.016em;
+}
+
+.lg-nm-cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3.45rem;
+  padding: 0 1.55rem;
+  background: #ece7dc;
+  color: #161513 !important;
+  font-family: var(--sans);
+  font-size: 1.14rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.lg-nm-cta:hover {
+  background: var(--nm);
+  color: #ece7dc !important;
+}
+
+.lg-nm-slip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 19rem;
+  height: calc(100% + 3.2rem);
+  color: #2a2722;
+  background-color: #efebe1;
+  background-image: url("/generated/thermal_paper_fiber.png");
+  background-size: 180px;
+  box-shadow: 1px 0 0 #d2cdc0;
+}
+
+.lg-nm-heat {
+  position: absolute;
+  inset: 0 0 3rem 0;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+
+.lg-nm-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 1.05rem 1.05rem 0.35rem;
+}
+
+.lg-nm-kind,
+.lg-nm-when,
+.lg-nm-reg,
+.lg-nm-next,
+.lg-nm-body dt,
+.lg-nm-body dd {
+  margin: 0;
+  font-family: var(--receipt);
+  font-weight: 400;
+}
+
+.lg-nm-kind {
+  color: #5a554c;
+  font-size: 0.84rem;
+}
+
+.lg-nm-ticket {
+  margin: 0.06rem 0 0;
+  color: #2a2722;
+  font-family: var(--receipt);
+  font-size: 1.22rem;
+  font-weight: 700;
+}
+
+.lg-nm-when {
+  margin-top: 0.12rem;
+  color: #5a554c;
+  font-size: 0.9rem;
+}
+
+.lg-nm-body dl {
+  margin: 0.9rem 0 0;
+}
+
+.lg-nm-body dl div {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.4rem;
+  align-items: baseline;
+  padding: 0.2rem 0;
+}
+
+.lg-nm-body dt {
+  color: #5a554c;
+  font-size: 0.92rem;
+}
+
+.lg-nm-body dd {
+  color: #2a2722;
+  font-size: 0.94rem;
+}
+
+.lg-nm-body dl div > i {
+  display: block;
+  min-width: 1.6rem;
+  height: 0.5em;
+  background-image: radial-gradient(#2a2722 0.7px, transparent 0.8px);
+  background-size: 3.2px 0.5em;
+  background-repeat: repeat-x;
+  background-position: 0 0.34em;
+}
+
+.lg-nm-rule {
+  width: 100%;
+  height: 0;
+  margin: 0.75rem 0 0.4rem;
+  border: 0;
+  border-top: 1px solid #2a2722;
+}
+
+.lg-nm-total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex: 1 1 auto;
+  justify-content: center;
+  min-height: 7.5rem;
+}
+
+.lg-nm-total > span {
+  align-self: flex-start;
+  color: #2a2722;
+  font-family: var(--receipt);
+  font-size: 0.94rem;
+}
+
+.lg-nm-amt,
+.lg-nm-amt span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.05em;
+  color: var(--nm);
+  font-size: clamp(5.4rem, 11vh, 7.6rem);
+  font-weight: 700;
+  line-height: 0.8;
+}
+
+.lg-nm-reg {
+  margin: 0.55rem 0 0.18rem;
+  color: #5a554c;
+  font-size: 0.8rem;
+}
+
+.lg-nm-hash {
+  margin: 0;
+  color: #2a2722;
+  font-family: var(--receipt);
+  font-size: 0.72rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.lg-nm-hash span {
+  display: block;
+}
+
+.lg-nm-foot {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 0.85rem;
+}
+
+.lg-nm-foot img {
+  width: 4.4rem;
+  height: 4.4rem;
+  background: #efebe1;
+}
+
+.lg-nm-foot a {
+  color: #2a2722 !important;
+  font-family: var(--receipt);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.lg-nm-next {
+  margin: 0.7rem 0 0.15rem;
+  color: #6a6458;
+  font-size: 0.88rem;
+}
+
+.lg-nm-tear {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: calc(100% + 0.4rem);
+  height: 3.6rem;
+  margin: -0.15rem -0.2rem 0;
+  object-fit: cover;
+  object-position: center 42%;
+  pointer-events: none;
+}
+
 /* ── Void fold: brand on the ground, receipt as evidence ─ */
 .lg-sheet.lg-void {
   position: relative;
@@ -4760,6 +5069,40 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 980px) {
+  .lg-sheet.lg-nm {
+    height: auto;
+    max-height: none;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .lg-nm-well {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+    row-gap: 1.8rem;
+    padding: 1.1rem 0 2rem;
+  }
+
+  .lg-nm-copy {
+    height: auto;
+    padding-bottom: 0;
+    gap: 1.2rem;
+  }
+
+  .lg-nm-lede {
+    width: 100%;
+  }
+
+  .lg-nm-lede span {
+    white-space: normal;
+  }
+
+  .lg-nm-slip {
+    width: min(19rem, 100%);
+    height: auto;
+  }
+
   .lg-sheet.lg-ld {
     height: auto;
     max-height: none;

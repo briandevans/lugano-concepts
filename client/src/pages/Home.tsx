@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import AlloyField from "../components/AlloyField";
+import ThermalFilm from "../components/ThermalFilm";
 import "./home.css";
 
 const MEASURES = [
@@ -283,9 +283,7 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="lg-sheet lg-ld">
-        <img className="lg-field-fallback" src="/generated/alloy_mill_plate.png" alt="" />
-        <AlloyField />
+      <div className="lg-sheet lg-nm">
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
@@ -320,25 +318,24 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="top" className="lg-ld-well">
-          <div className="lg-ld-copy">
-            <p className="lg-ld-lede">
+        <section id="top" className="lg-nm-well">
+          <div className="lg-nm-copy">
+            <p className="lg-nm-lede">
               Frontier models
               <span>that run sealed</span>
               <span>and leave a receipt.</span>
             </p>
-            <p className="lg-ld-sub">For work that cannot leave the enclave.</p>
-            <p className="lg-ld-keep">Prompt not retained.</p>
-            <a className="lg-ld-cta" href="mailto:contact@lugano.ai">
+            <p className="lg-nm-sub">For work that cannot leave the enclave.</p>
+            <a className="lg-nm-cta" href="mailto:contact@lugano.ai">
               Request access
             </a>
           </div>
-          <article className="lg-ld-slip" aria-label="Attestation receipt">
-            <div className="lg-ld-teeth" aria-hidden="true" />
-            <div className="lg-ld-body">
-              <p className="lg-ld-kind">Attestation</p>
-              <p className="lg-ld-ticket">LUG-7F283</p>
-              <p className="lg-ld-when">{issued}</p>
+          <article className="lg-nm-slip" aria-label="Attestation receipt">
+            <ThermalFilm className="lg-nm-heat" />
+            <div className="lg-nm-body">
+              <p className="lg-nm-kind">Attestation</p>
+              <p className="lg-nm-ticket">LUG-7F283</p>
+              <p className="lg-nm-when">{issued}</p>
               <dl>
                 <div>
                   <dt>Service</dt>
@@ -361,26 +358,27 @@ export default function Home() {
                   <dd>TDX</dd>
                 </div>
               </dl>
-              <hr className="lg-ld-rule" />
-              <div className="lg-ld-total">
+              <hr className="lg-nm-rule" />
+              <div className="lg-nm-total">
                 <span>Total retained</span>
-                <b className="lg-ld-amt">
+                <b className="lg-nm-amt">
                   <span className="lg-oh">0</span>
                   <span>B</span>
                 </b>
               </div>
-              <p className="lg-ld-reg">MRTD · SHA-384</p>
-              <pre className="lg-ld-hash">
+              <p className="lg-nm-reg">MRTD · SHA-384</p>
+              <pre className="lg-nm-hash">
                 {hashLines(MEASURES[0].value).map((line) => (
                   <span key={line}>{line}</span>
                 ))}
               </pre>
-              <div className="lg-ld-foot">
+              <div className="lg-nm-foot">
                 <img src="/generated/verifier_qr.png" alt="Verification QR for LUG-7F283" />
                 <a href="#architecture">lugano.ai/v/LUG-7F283</a>
               </div>
-              <p className="lg-ld-next">LUG-7F284 · queued</p>
+              <p className="lg-nm-next">LUG-7F284 · queued</p>
             </div>
+            <img className="lg-nm-tear" src="/generated/thermal_tear_charcoal.png" alt="" />
           </article>
         </section>
       </div>

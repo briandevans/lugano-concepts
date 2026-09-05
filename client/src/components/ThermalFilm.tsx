@@ -38,7 +38,7 @@ function compile(gl: WebGLRenderingContext, type: number, source: string) {
   return shader;
 }
 
-export default function ThermalFilm() {
+export default function ThermalFilm({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -111,5 +111,5 @@ export default function ThermalFilm() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="lg-oz-film" aria-hidden="true" />;
+  return <canvas ref={canvasRef} className={className ?? "lg-oz-film"} aria-hidden="true" />;
 }
