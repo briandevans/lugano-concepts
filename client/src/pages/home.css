@@ -303,15 +303,18 @@
 }
 
 .lg-void .lg-wordmark {
+  display: inline-flex;
+  align-items: center;
   color: #f2eadc;
   font-family: var(--sans);
-  font-size: 1.28rem;
+  font-size: 1.35rem;
   font-weight: 500;
 }
 
 .lg-void .lg-zero-mark {
-  width: 0.58em;
-  height: 0.82em;
+  width: 0.7em;
+  height: 0.98em;
+  margin-left: 0.01em;
   color: #f2eadc;
 }
 
@@ -319,7 +322,7 @@
 .lg-void .lg-nav-cta {
   color: #f2eadc !important;
   font-family: var(--sans);
-  font-size: 0.92rem;
+  font-size: 1rem;
   letter-spacing: 0;
   background: transparent;
   padding: 0;
@@ -341,9 +344,9 @@
   position: relative;
   z-index: 4;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) min(38rem, 44vw);
+  grid-template-columns: minmax(0, 1fr) min(42rem, 48vw);
   align-items: start;
-  width: min(100% - 3.5rem, 1220px);
+  width: min(100% - 3.5rem, 1240px);
   height: calc(100vh - 68px);
   margin: 0 auto;
 }
@@ -351,29 +354,37 @@
 .lg-void-copy {
   position: relative;
   z-index: 6;
-  padding: 1.15rem 0 0;
-  margin-right: -3.2rem;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 68px);
+  padding: 1.1rem 0 2.8rem;
+  margin-right: -2rem;
 }
 
 .lg-void-copy h1 {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.12em;
-  margin: 0 0 1.35rem;
+  align-items: center;
+  gap: 0.16em;
+  margin: 0;
   color: #f2eadc;
   font-family: var(--sans);
-  font-size: clamp(7.2rem, 16vw, 10.4rem);
+  font-size: clamp(6.4rem, 13vw, 9.2rem);
   font-weight: 500;
   line-height: 0.82;
   letter-spacing: -0.05em;
 }
 
 .lg-void-copy h1 b {
-  font-size: 0.2em;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.26em;
   font-weight: 500;
   letter-spacing: -0.04em;
-  line-height: 1;
+  line-height: 0.96;
+}
+
+.lg-void-copy h1 b i {
+  font-style: normal;
 }
 
 .lg-void-copy .lg-zero-hero {
@@ -385,7 +396,7 @@
 
 .lg-void-copy > p {
   max-width: 26rem;
-  margin: 0 0 1.7rem;
+  margin: auto 0 1.15rem;
   color: #cbbfaa;
   font-family: var(--sans);
   font-size: 1.18rem;
@@ -393,12 +404,13 @@
 }
 
 .lg-void-cta {
+  align-self: flex-start;
   color: #f2eadc !important;
   font-family: var(--sans);
   font-size: 1.12rem;
   text-decoration: none;
-  border-bottom: 1px solid #f2eadc;
-  padding-bottom: 0.12rem;
+  border-bottom: 1.5px solid #f2eadc;
+  padding-bottom: 0.16rem;
 }
 
 .lg-void-object {
@@ -418,9 +430,9 @@
 .lg-void-slip {
   position: relative;
   z-index: 2;
-  width: 45.3%;
-  margin: -12.4rem auto 0;
-  padding: 0.85rem 0.9rem 14rem;
+  width: 35.8%;
+  margin: -0.45rem 0 0 27.9%;
+  padding: 0.7rem 0.72rem 5rem;
   color: #3a362e;
   background-color: #e6decc;
   background-image: url("/generated/thermal_banding_sheet.png");
@@ -463,12 +475,19 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin: 0 0 0.7rem;
+  margin: 0 0 0.28rem;
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #4a463c;
+}
+
+.lg-void-slip header:first-of-type {
+  margin-bottom: 0.55rem;
+  color: #3a362e;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
 }
 
 .lg-void-slip dl {

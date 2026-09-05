@@ -305,7 +305,10 @@ export default function Home() {
           <div className="lg-void-copy">
             <h1>
               <ZeroMark className="lg-zero-hero" />
-              <b>bytes retained</b>
+              <b>
+                bytes
+                <i>retained</i>
+              </b>
             </h1>
             <p>Frontier models that run sealed and leave a receipt.</p>
             <a className="lg-void-cta" href="mailto:contact@lugano.ai">
@@ -321,8 +324,12 @@ export default function Home() {
             <article className="lg-void-slip">
               <PrintHead />
               <header>
-                <span>LUG-7F283</span>
+                <span>LUGANO</span>
                 <span>ATTESTATION</span>
+              </header>
+              <header>
+                <span>LUG-7F283</span>
+                <span>SHA-384</span>
               </header>
               <dl>
                 <div>
