@@ -34,8 +34,8 @@ void main() {
   heat += (fiber - 0.5) * 0.18;
 
   float developed = smoothstep(0.38, 0.92, heat);
-  vec3 ink = vec3(0.42, 0.07, 0.28);
-  float alpha = developed * 0.16 + finger * 0.07;
+  vec3 ink = vec3(0.2, 0.15, 0.1);
+  float alpha = developed * 0.07 + finger * 0.03;
   gl_FragColor = vec4(ink, alpha);
 }
 `;
