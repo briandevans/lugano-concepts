@@ -569,21 +569,16 @@
   background: #12110f;
 }
 
-.lg-oz-defs {
-  position: absolute;
-  width: 0;
-  height: 0;
-}
-
 .lg-oz .lg-nav {
   position: relative;
   z-index: 8;
   height: 68px;
   color: #f4eee3;
+  border-bottom: 1px solid #2c2a26;
 }
 
 .lg-oz .lg-nav-inner {
-  width: min(100% - (var(--gutter) * 2), 1180px);
+  width: min(100% - (var(--gutter) * 2), 1220px);
 }
 
 .lg-oz .lg-wordmark {
@@ -603,9 +598,9 @@
 
 .lg-oz .lg-nav-links a,
 .lg-oz .lg-nav-cta {
-  color: #c8bfb0 !important;
+  color: #ece4d6 !important;
   font-family: var(--sans);
-  font-size: 0.98rem;
+  font-size: 1.02rem;
   letter-spacing: 0;
   background: transparent;
   padding: 0;
@@ -622,13 +617,13 @@
   position: relative;
   z-index: 4;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 28.5rem;
-  column-gap: clamp(2rem, 3.6vw, 3.4rem);
-  align-items: center;
-  width: min(100% - (var(--gutter) * 2), 1180px);
+  grid-template-columns: minmax(0, 1fr) min(32rem, 44vw);
+  column-gap: clamp(1.8rem, 3.2vw, 3rem);
+  align-items: start;
+  width: min(100% - (var(--gutter) * 2), 1220px);
   height: calc(100vh - 68px);
   margin: 0 auto;
-  padding: 0 0 1.4rem;
+  padding: 2.15rem 0 0;
 }
 
 .lg-oz-copy {
@@ -645,10 +640,10 @@
   margin: 0;
   color: #f4eee3;
   font-family: var(--sans);
-  font-size: clamp(3.4rem, 5.5vw, 5.2rem);
+  font-size: clamp(3.5rem, 5.7vw, 5.4rem);
   font-weight: 600;
-  line-height: 0.98;
-  letter-spacing: -0.06em;
+  line-height: 0.97;
+  letter-spacing: -0.03em;
 }
 
 .lg-oz-lede span {
@@ -657,20 +652,14 @@
 }
 
 .lg-oz-sub {
-  max-width: 28ch;
+  max-width: 42ch;
   margin: 0;
-  color: #d2c8b6;
+  color: #ddd4c4;
   font-family: var(--sans);
-  font-size: 1.12rem;
+  font-size: 1.2rem;
   line-height: 1.35;
   letter-spacing: -0.018em;
-}
-
-.lg-oz-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1.15rem 1.4rem;
+  white-space: nowrap;
 }
 
 .lg-oz-cta {
@@ -693,16 +682,6 @@
   color: #12110f !important;
 }
 
-.lg-oz-verify {
-  color: #f4eee3 !important;
-  font-family: var(--sans);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  text-decoration: underline;
-  text-underline-offset: 0.22em;
-}
-
 .lg-oz-stage {
   position: relative;
   justify-self: end;
@@ -712,16 +691,17 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 28.5rem;
+  width: min(32rem, 44vw);
   min-height: 0;
-  padding: 1.45rem 1.45rem 1.7rem;
+  padding: 1.55rem 1.6rem 0;
   overflow: hidden;
   color: #2a2722;
   background-color: #f3f0e7;
   background-image: url("/generated/thermal_paper_fiber.png");
   background-size: 220px;
-  clip-path: url(#lg-oz-ticket);
-  filter: drop-shadow(10px 14px 0 #0a0908);
+  transform: rotate(-1.45deg);
+  transform-origin: 70% 12%;
+  filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.46));
 }
 
 .lg-oz-slip .lg-oz-film {
@@ -746,10 +726,10 @@
   justify-content: center;
   margin: 0;
   color: #2a2722;
-  font-family: var(--receipt);
-  font-size: 1.45rem;
-  font-weight: 700;
-  letter-spacing: 0;
+  font-family: var(--sans);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
   line-height: 1;
 }
 
@@ -835,15 +815,16 @@
 
 .lg-oz-hash {
   display: grid;
-  grid-template-columns: repeat(4, max-content);
-  justify-content: space-between;
-  gap: 0.1rem 0.4rem;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: start;
+  gap: 0.16rem 0.7rem;
 }
 
 .lg-oz-hash b {
-  color: #3f3b34;
-  font-size: 0.82rem;
+  color: #322e28;
+  font-size: 0.86rem;
   font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .lg-oz-total {
@@ -898,20 +879,41 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.45rem;
-  margin-top: 0.85rem;
+  gap: 0.4rem;
+  margin-top: 0.95rem;
 }
 
-.lg-oz-foot img {
-  width: 5.1rem;
-  height: 5.1rem;
+.lg-oz-foot img:first-child {
+  width: 5.25rem;
+  height: 5.25rem;
   background: #f3f0e7;
+}
+
+.lg-oz-foot a {
+  color: #2a2722 !important;
+  font-family: var(--sans);
+  font-size: 0.98rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .lg-oz-foot span {
   color: #5a554c;
-  font-family: var(--receipt);
-  font-size: 0.82rem;
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+}
+
+.lg-oz-tear {
+  display: block;
+  width: calc(100% + 3.2rem);
+  height: 4.4rem;
+  margin: 0.55rem -1.6rem 0;
+  object-fit: cover;
+  object-position: center 42%;
+  pointer-events: none;
 }
 
 /* ── Void fold: brand on the ground, receipt as evidence ─ */
@@ -3794,8 +3796,14 @@
     width: 100%;
   }
 
-  .lg-oz-lede span {
+  .lg-oz-lede span,
+  .lg-oz-sub {
     white-space: normal;
+  }
+
+  .lg-oz-slip {
+    width: 100%;
+    transform: none;
   }
 
   .lg-oz-stage {

@@ -24,28 +24,6 @@ function hashGroups(value: string) {
   return value.match(/.{8}/g) ?? [];
 }
 
-function ticketClipPath() {
-  const holes = 15;
-  const radius = 0.012;
-  const top = 0.018;
-  const valley = 0.958;
-  const peak = 0.996;
-  const teeth = 24;
-  let d = `M0 ${top} H1 V${valley}`;
-  for (let i = teeth; i >= 0; i -= 1) {
-    const x = i / teeth;
-    d += ` L${x.toFixed(4)} ${i % 2 === 0 ? valley : peak}`;
-  }
-  d += " Z";
-  for (let i = 0; i < holes; i += 1) {
-    const cx = (i + 0.5) / holes;
-    d += ` M${(cx - radius).toFixed(4)} ${top} a${radius} ${radius} 0 1 1 ${(radius * 2).toFixed(4)} 0 a${radius} ${radius} 0 1 1 ${(-radius * 2).toFixed(4)} 0`;
-  }
-  return d;
-}
-
-const TICKET_CLIP = ticketClipPath();
-
 function formatIssued(date: Date) {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const day = String(date.getUTCDate()).padStart(2, "0");
@@ -322,12 +300,6 @@ export default function Home() {
           </div>
         </header>
 
-        <svg className="lg-oz-defs" aria-hidden="true">
-          <clipPath id="lg-oz-ticket" clipPathUnits="objectBoundingBox">
-            <path d={TICKET_CLIP} clipRule="evenodd" />
-          </clipPath>
-        </svg>
-
         <section id="top" className="lg-oz-well">
           <div className="lg-oz-copy">
             <p className="lg-oz-lede">
@@ -336,14 +308,9 @@ export default function Home() {
               <span>and leave a receipt.</span>
             </p>
             <p className="lg-oz-sub">For work that cannot leave the enclave.</p>
-            <div className="lg-oz-actions">
-              <a className="lg-oz-cta" href="mailto:contact@lugano.ai">
-                Request access
-              </a>
-              <a className="lg-oz-verify" href="#architecture">
-                Verify this proof
-              </a>
-            </div>
+            <a className="lg-oz-cta" href="mailto:contact@lugano.ai">
+              Request access
+            </a>
           </div>
           <div className="lg-oz-stage">
             <article className="lg-oz-slip" aria-label="Attestation receipt">
@@ -396,8 +363,10 @@ export default function Home() {
               </div>
               <div className="lg-oz-foot">
                 <img src="/generated/verifier_qr.png" alt="" />
-                <span>lugano.ai/v/LUG-7F283</span>
+                <a href="#architecture">Verify this proof</a>
+                <span>lugano.ai / LUG-7F283</span>
               </div>
+              <img className="lg-oz-tear" src="/generated/thermal_fine_tear.png" alt="" />
             </article>
           </div>
         </section>
