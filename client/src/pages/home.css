@@ -14,13 +14,13 @@
   --paper: #d5d0c2;
   --paper-deep: #c2bcae;
   --thermal: #e7e4d8;
-  --baryta: #f3eee2;
+  --baryta: #dddcd6;
   --fog: #9a958c;
   --ash: #3a3832;
   --alpine: #c4a574;
   --alpine-bright: #d7b57a;
-  --seal: #b56a28;
-  --filament: #c4893a;
+  --seal: #8f4f1c;
+  --filament: #8f4f1c;
   --metal: #6e6a62;
   --rule: rgba(8, 9, 12, 0.16);
   --rule-paper: rgba(231, 228, 216, 0.14);
@@ -28,7 +28,7 @@
   --sans: "IBM Plex Sans", "Helvetica Neue", Helvetica, sans-serif;
   --ui: "IBM Plex Sans", "Helvetica Neue", Helvetica, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
-  --swiss: #c4893a;
+  --swiss: #8f4f1c;
   --max: 1220px;
   --gutter: clamp(1.25rem, 4.2vw, 3.25rem);
   color: var(--paper);
@@ -95,13 +95,12 @@
 }
 
 .lg-zero-mark {
-  display: inline-block;
-  color: var(--swiss);
-  font-family: var(--mono);
+  display: inline;
+  color: var(--filament);
+  font-family: inherit;
   font-feature-settings: "zero" 1;
-  font-size: 0.92em;
-  font-weight: 500;
-  transform: translateY(0.08em);
+  font-size: 1em;
+  font-weight: inherit;
 }
 
 .lg-dot {
@@ -116,7 +115,7 @@
   overflow: hidden;
   min-height: 100vh;
   color: #ece6d6;
-  background: #08090c;
+  background: #07080b;
 }
 
 .lg-sheet .lg-heat {
@@ -174,7 +173,7 @@
 .lg-nav-links {
   display: flex;
   align-items: center;
-  gap: 1.65rem;
+  gap: 1.45rem;
 }
 
 .lg-nav-links a {
@@ -422,6 +421,162 @@
 }
 
 /* ── Hero ─────────────────────────────────────────────── */
+.lg-field-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #07080b;
+}
+
+.lg-field-stage .lg-field,
+.lg-field-stage .lg-field-fallback {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 58%;
+}
+
+.lg-field-stage .lg-field {
+  z-index: 1;
+}
+
+.lg-nav {
+  z-index: 5;
+}
+
+.lg-hero {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  flex: 1;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 32.5rem);
+  align-items: end;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  width: min(100% - (var(--gutter) * 2), var(--max));
+  margin: 0 auto;
+  padding: 1.25rem 0 2.75rem;
+}
+
+.lg-hero-copy {
+  max-width: 16ch;
+  padding-bottom: 0.2rem;
+  color: #f3efe6;
+}
+
+.lg-hero-copy h1 {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--sans);
+  font-size: clamp(3.1rem, 6.2vw, 5.2rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+}
+
+.lg-hero-copy .lg-sub {
+  max-width: 22rem;
+  margin: 1.1rem 0 0;
+  color: #f3efe6;
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+
+.lg-jot {
+  position: relative;
+  width: 100%;
+  padding: 1.15rem 1.2rem 1.2rem;
+  color: #1a1916;
+  background: #dcdbd4;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 252, 0.45) inset,
+    0 22px 48px rgba(0, 0, 0, 0.42);
+}
+
+.lg-jot .lg-heat {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.1;
+}
+
+.lg-jot-label,
+.lg-jot-dl,
+.lg-jot .lg-slip-foot {
+  position: relative;
+  z-index: 2;
+}
+
+.lg-jot-label {
+  margin: 0 0 0.85rem;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  letter-spacing: -0.01em;
+}
+
+.lg-jot-dl {
+  margin: 0;
+}
+
+.lg-jot-dl div {
+  display: grid;
+  grid-template-columns: 7.1rem minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  padding: 0.42rem 0;
+  border-bottom: 1px solid rgba(26, 25, 22, 0.14);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+}
+
+.lg-jot-dl dt {
+  color: #4a4740;
+}
+
+.lg-jot-dl dd {
+  margin: 0;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.lg-jot .lg-hash {
+  white-space: normal;
+  letter-spacing: 0.03em;
+}
+
+.lg-jot-zero {
+  align-items: baseline !important;
+  padding-top: 0.7rem !important;
+  border-bottom: 0 !important;
+}
+
+.lg-jot-zero dt {
+  padding-top: 0.55rem;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  color: #1a1916;
+}
+
+.lg-jot-zero dd {
+  color: var(--filament);
+  font-feature-settings: "zero" 1;
+  font-size: 2.55rem;
+  font-weight: 500;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+}
+
+.lg-jot .lg-slip-foot {
+  margin-top: 0.85rem;
+}
+
 .lg-easel {
   position: relative;
   z-index: 2;
@@ -2171,6 +2326,16 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 980px) {
+  .lg-hero {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    padding-top: 2rem;
+  }
+
+  .lg-hero-copy {
+    max-width: 18ch;
+  }
+
   .lg-plate-head {
     grid-template-columns: 1fr;
   }

@@ -288,10 +288,10 @@ export default function Home() {
                   {item.label}
                 </a>
               ))}
+              <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
+                Contact
+              </a>
             </nav>
-            <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-              Contact
-            </a>
             <button
               className="lg-menu-btn"
               type="button"
@@ -314,56 +314,57 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="top" className="lg-easel">
-          <figure className="lg-plate">
-            <div className="lg-plate-well">
-              <img
-                className="lg-field-fallback"
-                src="/generated/mhd_lake_plate.png"
-                alt="Night water off a granite quay, one copper lamp filament on the surface"
-              />
-              <NightField
-                night="/generated/mhd_lake_plate.png"
-                water="/generated/mhd_filament.png"
-              />
-            </div>
-            <figcaption className="lg-plate-legend">
-              <ThermalHeat />
-              <p className="lg-print-kicker">
-                <span>Guest measurement record</span>
-                <span>Attested · {clock}</span>
-              </p>
-              <div className="lg-plate-head">
-                <h1>
-                  <span>AI privacy</span>
-                  <span>by proof</span>
-                </h1>
-                <p className="lg-slip-zero">
-                  0<span>bytes retained</span>
-                </p>
+        <div className="lg-field-stage">
+          <img
+            className="lg-field-fallback"
+            src="/generated/mhd_fullbleed.png"
+            alt="Night lake water, one oxidized copper lamp filament on the surface"
+          />
+          <NightField
+            night="/generated/mhd_fullbleed.png"
+            water="/generated/mhd_filament.png"
+          />
+        </div>
+
+        <section id="top" className="lg-hero">
+          <div className="lg-hero-copy">
+            <h1>
+              <span>AI privacy</span>
+              <span>by proof</span>
+            </h1>
+            <p className="lg-sub">Every response returns a cryptographic receipt.</p>
+          </div>
+          <article className="lg-jot" aria-label="Guest measurement record">
+            <ThermalHeat />
+            <p className="lg-jot-label">Guest measurement record</p>
+            <dl className="lg-jot-dl">
+              <div>
+                <dt>Issued</dt>
+                <dd>{clock}</dd>
               </div>
-              <p className="lg-sub">Every response returns a cryptographic receipt.</p>
-              <dl className="lg-slip-dl">
-                <div>
-                  <dt>Prompt</dt>
-                  <dd>sealed</dd>
+              <div>
+                <dt>Prompt</dt>
+                <dd>sealed</dd>
+              </div>
+              <div>
+                <dt>Model</dt>
+                <dd>private</dd>
+              </div>
+              {MEASURES.slice(0, 4).map((row) => (
+                <div key={row.key}>
+                  <dt>{row.key}</dt>
+                  <HashBlock value={row.value} />
                 </div>
-                <div>
-                  <dt>Model</dt>
-                  <dd>private</dd>
-                </div>
-                {MEASURES.slice(0, 4).map((row) => (
-                  <div key={row.key}>
-                    <dt>{row.key}</dt>
-                    <HashBlock value={row.value} />
-                  </div>
-                ))}
-              </dl>
-              <a className="lg-slip-foot" href="#architecture">
-                Verify lugano.ai/v/LUG-7F283
-              </a>
-            </figcaption>
-          </figure>
+              ))}
+              <div className="lg-jot-zero">
+                <dt>Bytes retained</dt>
+                <dd>0</dd>
+              </div>
+            </dl>
+            <a className="lg-slip-foot" href="#architecture">
+              Verify lugano.ai/v/LUG-7F283
+            </a>
+          </article>
         </section>
       </div>
 
