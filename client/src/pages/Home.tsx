@@ -301,11 +301,14 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-mat-well">
+          <p className="lg-mat-lede">Frontier models that run sealed and leave a receipt.</p>
           <article className="lg-mat-sheet" aria-label="Attestation receipt">
-            <img className="lg-mat-serration" src="/generated/cream_thermal_tear.png" alt="" />
             <PrintHead />
             <header>
-              <span>LUGANO</span>
+              <span className="lg-mat-merchant">
+                Lugan
+                <ZeroMark />
+              </span>
               <span>ATTESTATION</span>
             </header>
             <header>
@@ -351,31 +354,22 @@ export default function Home() {
                 <i />
                 <dd>TDX quote · SHA-384</dd>
               </div>
-            </dl>
-            <h1>
-              <span>Total retained</span>
-              <b>
-                <ZeroMark className="lg-zero-hero" />
-                <small>B</small>
-              </b>
-            </h1>
-            <p>Frontier models that run sealed and leave a receipt.</p>
-            <footer>
-              <img
-                src="/generated/verifier_qr.png"
-                alt="QR code for lugano.ai/v/LUG-7F283"
-                width="64"
-                height="64"
-              />
-              <div>
-                <span>lugano.ai/v/LUG-7F283</span>
-                <a className="lg-mat-verify" href="#architecture">
-                  Verify this proof
-                </a>
-                <a className="lg-mat-cta" href="mailto:contact@lugano.ai">
-                  Request a specimen
-                </a>
+              <div className="lg-mat-total">
+                <dt>Total retained</dt>
+                <i />
+                <dd>
+                  <ZeroMark className="lg-zero-hero" />
+                  <small>B</small>
+                </dd>
               </div>
+            </dl>
+            <footer>
+              <a className="lg-mat-verify" href="#architecture">
+                Verify this proof
+              </a>
+              <a className="lg-mat-cta" href="mailto:contact@lugano.ai">
+                Request a specimen
+              </a>
             </footer>
           </article>
         </section>

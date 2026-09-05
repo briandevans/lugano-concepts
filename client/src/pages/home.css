@@ -330,37 +330,39 @@
   position: relative;
   z-index: 4;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   height: calc(100vh - 64px);
+  padding: 1.6rem 0 2rem;
+}
+
+.lg-mat-lede {
+  width: min(44rem, 78vw);
+  margin: 0 0 1.35rem;
+  color: #f2eadc;
+  font-family: var(--sans);
+  font-size: clamp(1.7rem, 3.4vw, 2.35rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
 }
 
 .lg-mat-sheet {
   position: relative;
-  width: min(50rem, 84vw);
-  height: 100%;
-  padding: 1.15rem 2.35rem 8rem;
+  width: min(44rem, 78vw);
+  height: auto;
+  padding: 1.35rem 1.9rem 1.4rem;
   overflow: hidden;
-  color: #3a362e;
-  background-color: #e6decc;
+  color: #2c2924;
+  background-color: #f3efe4;
   background-image: url("/generated/thermal_banding_sheet.png");
-  background-size: cover;
+  background-size: 100% auto;
+  background-blend-mode: multiply;
   box-shadow:
-    inset 14px 0 18px -16px rgba(40, 28, 12, 0.38),
-    inset -14px 0 18px -16px rgba(40, 28, 12, 0.38),
-    0 22px 48px rgba(0, 0, 0, 0.55);
-}
-
-.lg-mat-serration {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  width: 100%;
-  height: 1.35rem;
-  object-fit: cover;
-  object-position: center bottom;
-  transform: scaleY(-1);
-  pointer-events: none;
+    inset 10px 0 14px -12px rgba(40, 28, 12, 0.22),
+    inset -10px 0 14px -12px rgba(40, 28, 12, 0.22),
+    0 18px 40px rgba(0, 0, 0, 0.42);
 }
 
 .lg-mat-sheet .lg-void-heat {
@@ -374,9 +376,26 @@
   opacity: 0.42;
 }
 
-.lg-mat-sheet > *:not(canvas):not(.lg-mat-serration) {
+.lg-mat-sheet > *:not(canvas) {
   position: relative;
   z-index: 2;
+}
+
+.lg-mat-sheet .lg-zero-mark {
+  width: 0.62em;
+  height: 0.88em;
+  color: #2c2924;
+}
+
+.lg-mat-merchant {
+  display: inline-flex;
+  align-items: center;
+  color: #2c2924;
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-transform: none;
 }
 
 .lg-mat-sheet header {
@@ -392,11 +411,12 @@
 }
 
 .lg-mat-sheet header:first-of-type {
-  margin-top: 0.7rem;
+  margin-top: 0;
   margin-bottom: 0.45rem;
-  color: #3a362e;
+  color: #2c2924;
   font-size: 0.86rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .lg-mat-sheet dl {
@@ -442,89 +462,72 @@
 
 .lg-mat-hash {
   display: grid;
-  grid-template-columns: repeat(4, max-content);
+  grid-template-columns: repeat(6, max-content);
   justify-content: space-between;
-  gap: 0.12rem 0.55rem;
+  gap: 0.08rem 0.38rem;
 }
 
 .lg-mat-hash b {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
+  color: #5a564c;
 }
 
-.lg-mat-sheet h1 {
-  display: flex;
+.lg-mat-total {
+  display: grid !important;
+  grid-template-columns: auto 1fr auto !important;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 1.2rem;
-  margin: 1.15rem 0 0.7rem;
-  padding-top: 0.85rem;
-  border-top: 1px solid #3a362e;
-  color: #9a2b24;
-  font-family: var(--mono);
-  font-size: 1.05rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  margin-top: 0.55rem;
+  padding: 0.7rem 0 0.15rem !important;
+  border-top: 1px solid #2c2924;
 }
 
-.lg-mat-sheet h1 b {
+.lg-mat-total dt {
+  color: #9a2b24;
+  font-size: 0.95rem;
+}
+
+.lg-mat-total dd {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.12em;
+  gap: 0.1em;
   color: #9a2b24;
 }
 
 .lg-mat-sheet .lg-zero-hero {
-  width: 5.6rem;
-  height: 7.8rem;
+  width: 2.15rem;
+  height: 3rem;
   color: #9a2b24;
 }
 
-.lg-mat-sheet h1 small {
-  font-size: 2.4rem;
+.lg-mat-total small {
+  color: #9a2b24;
+  font-size: 1.55rem;
   font-weight: 500;
-  letter-spacing: 0;
-  text-transform: none;
-}
-
-.lg-mat-sheet > p {
-  margin: 0 0 1.35rem;
-  color: #3a362e;
-  font-family: var(--sans);
-  font-size: 1.25rem;
-  line-height: 1.4;
 }
 
 .lg-mat-sheet footer {
   display: flex;
-  align-items: center;
-  gap: 0.95rem;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.lg-mat-sheet footer img {
-  width: 64px;
-  height: 64px;
-}
-
-.lg-mat-sheet footer div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.28rem;
-}
-
-.lg-mat-sheet footer span,
-.lg-mat-verify,
-.lg-mat-cta {
-  color: #3a362e !important;
+.lg-mat-verify {
+  color: #9a2b24 !important;
   font-family: var(--mono);
-  font-size: 0.88rem;
+  font-size: 1.02rem;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
 }
 
-.lg-mat-verify,
 .lg-mat-cta {
+  color: #5a564c !important;
+  font-family: var(--mono);
+  font-size: 0.82rem;
   text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.18em;
 }
 
 /* ── Void fold: brand on the ground, receipt as evidence ─ */
@@ -3388,6 +3391,30 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 980px) {
+  .lg-sheet.lg-mat {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .lg-mat-well {
+    height: auto;
+    padding: 1.2rem var(--gutter) 2rem;
+  }
+
+  .lg-mat-lede,
+  .lg-mat-sheet {
+    width: 100%;
+  }
+
+  .lg-mat-hash {
+    grid-template-columns: repeat(3, max-content);
+  }
+
+  .lg-mat-hash {
+    grid-template-columns: repeat(3, max-content);
+  }
+
   .lg-sheet.lg-void {
     height: auto;
     max-height: none;
