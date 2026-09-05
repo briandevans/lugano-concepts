@@ -326,7 +326,7 @@ export default function Home() {
                 <dt>Model</dt>
                 <dd>private</dd>
               </div>
-              {MEASURES.slice(0, 4).map((row) => (
+              {MEASURES.slice(0, 2).map((row) => (
                 <div key={row.key}>
                   <dt>{row.key}</dt>
                   <HashBlock value={row.value} />

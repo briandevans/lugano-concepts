@@ -132,6 +132,7 @@
 }
 
 .lg-sheet.lg-assay {
+  height: 100vh;
   color: #efeae0;
   background: #07080b;
 }
@@ -477,6 +478,7 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  min-height: 0;
   width: min(100% - (var(--gutter) * 2), var(--max));
   margin: 0 auto;
   padding: 1.1rem 0 0;
@@ -573,9 +575,10 @@
 
 .lg-assay-zero {
   display: flex;
+  flex: 0 0 36vh;
   align-items: flex-end;
   gap: 1.15rem;
-  height: 38vh;
+  height: 36vh;
   margin-top: auto;
   overflow: hidden;
 }
