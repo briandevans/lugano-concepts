@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import HashField from "@/components/HashField";
 import "./home.css";
 
 const MEASURES = [
@@ -13,7 +12,15 @@ const MEASURES = [
 
 function HashBlock({ value }: { value: string }) {
   const groups = value.match(/.{8}/g) ?? [];
-  return <dd className="lg-hash">{groups.join(" ")}</dd>;
+  return (
+    <dd className="lg-hash">
+      <span className="lg-hash-grid">
+        {groups.map((group) => (
+          <b key={group}>{group}</b>
+        ))}
+      </span>
+    </dd>
+  );
 }
 
 function ZeroMark({ className }: { className?: string }) {
@@ -257,10 +264,6 @@ export default function Home() {
       </a>
 
       <div className="lg-sheet lg-assay">
-        <div className="lg-zero-field" aria-hidden="true">
-          <img className="lg-field-fallback" src="/generated/hash_fringe.png" alt="" />
-          <HashField seed={MEASURES[0].value} />
-        </div>
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
@@ -302,14 +305,16 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-assay-hero">
-          <h1>
-            <span>Held to</span>
+          <h1 className="lg-assay-lockup">
+            <em>Held to</em>
+            <ZeroMark className="lg-zero-hero" />
+            <strong>bytes retained</strong>
           </h1>
-          <p className="lg-assay-kicker">Bytes retained</p>
           <article className="lg-assay-record" aria-label="Example attestation">
-            <p className="lg-assay-sub">
-              The receipt is the product. Example LUG-7F283.
-            </p>
+            <header className="lg-assay-meta">
+              <span>The receipt is the product.</span>
+              <span>Example LUG-7F283</span>
+            </header>
             <dl className="lg-assay-dl">
               <div>
                 <dt>Prompt</dt>
@@ -329,7 +334,7 @@ export default function Home() {
               </div>
             </dl>
             <a className="lg-assay-verify" href="#architecture">
-              Verify this example
+              Verify this example →
             </a>
           </article>
         </section>

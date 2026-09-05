@@ -518,30 +518,40 @@
   min-height: 0;
   width: min(100% - (var(--gutter) * 2), var(--max));
   margin: 0 auto;
-  padding: 1.4rem 0 1.6rem;
+  padding: 2.4rem 0 1.8rem;
 }
 
-.lg-assay-hero h1 {
-  position: relative;
-  z-index: 5;
-  width: min(22rem, 46%);
-  margin: 0 0 0 auto;
+.lg-assay-lockup {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem 1.2rem;
+  margin: 2vh 0 auto;
   color: #f4efe6;
+}
+
+.lg-assay-lockup em {
   font-family: var(--serif);
   font-optical-sizing: auto;
-  font-size: clamp(3.8rem, 7vw, 6rem);
+  font-size: clamp(3.4rem, 5.6vw, 5rem);
+  font-style: normal;
   font-weight: 400;
-  line-height: 0.9;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
 }
 
-.lg-assay-kicker {
-  width: min(22rem, 46%);
-  margin: 0.7rem 0 0 auto;
-  color: #c8c2b6;
+.lg-zero-hero {
+  width: auto;
+  height: clamp(8.5rem, 28vh, 16rem);
+  margin: 0;
+}
+
+.lg-assay-lockup strong {
+  align-self: flex-end;
+  padding-bottom: 0.7rem;
   font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.1em;
+  font-size: 0.88rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -562,19 +572,25 @@
   justify-content: space-between;
   gap: 0.35rem 1rem;
   margin: 0 0 1rem;
-  color: #8d8880;
+  color: #c8c2b6;
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
+}
+
+.lg-assay-meta span:first-child {
+  color: #f4efe6;
+  font-family: var(--serif);
+  font-size: 1.15rem;
 }
 
 .lg-assay-sub {
-  max-width: 28rem;
-  margin: 0.85rem 0 0;
+  max-width: 36rem;
+  margin: 0 0 0.9rem;
   color: #efeae0;
-  font-family: var(--sans);
-  font-size: 1.2rem;
+  font-family: var(--mono);
+  font-size: 0.92rem;
   font-weight: 400;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .lg-assay-dl {
@@ -596,8 +612,8 @@
   flex-direction: column;
   gap: 0.15rem;
   padding-top: 0.15rem;
-  color: #8d8880;
-  font-size: 0.7rem;
+  color: #b8b3a8;
+  font-size: 0.75rem;
 }
 
 .lg-assay-dl dt i {
@@ -614,11 +630,10 @@
 }
 
 .lg-assay-record .lg-hash {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-  letter-spacing: 0;
+  display: block;
+  letter-spacing: 0.045em;
   white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .lg-hash-grid {
@@ -657,15 +672,16 @@
 .lg-assay-verify {
   display: inline-flex;
   align-items: center;
-  min-height: 2.7rem;
-  margin-top: 1.35rem;
-  padding: 0 1rem;
+  min-height: 0;
+  margin-top: 1.15rem;
+  padding: 0;
   border: 0;
-  background: var(--filament);
-  color: #07080b !important;
+  background: transparent;
+  color: var(--filament) !important;
   font-family: var(--mono);
-  font-size: 0.82rem;
-  text-decoration: none;
+  font-size: 0.88rem;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
 }
 
 .lg-assay-zero {
