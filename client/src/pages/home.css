@@ -277,36 +277,64 @@
   display: none;
 }
 
-/* ── Desk fold: A6 slip on the steel ──────────────────── */
+/* ── Desk fold: the roll is the page ──────────────────── */
 .lg-sheet.lg-desk {
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-  color: #f3f0ea;
-  background: #07080b;
+  color: #141310;
+  background: #1a1b1d;
 }
 
 .lg-desk-field {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: #12151a url("/generated/steel_plan.png") center / cover no-repeat;
+  background: #1a1b1d url("/generated/steel_plan.png") center / cover no-repeat;
+  filter: grayscale(0.55) contrast(1.06);
+}
+
+.lg-desk-roll {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: min(46rem, 78vw);
+  height: 100vh;
+  margin: 0 auto;
+  color: #141310;
+  background-color: #ebe4d2;
+  background-image: url("/generated/thermal_warm_sheet.png");
+  background-size: cover;
+  background-position: center;
+  box-shadow: -1px 0 0 #b8b09e, 1px 0 0 #b8b09e;
 }
 
 .lg-desk .lg-nav {
   z-index: 8;
-  color: #f3f0ea;
+  color: #141310;
+  height: 64px;
+}
+
+.lg-desk .lg-nav-inner {
+  width: 100%;
+  padding: 0 2.1rem;
 }
 
 .lg-desk .lg-wordmark {
-  color: #f3f0ea;
+  color: #141310;
+  font-family: var(--mono);
+}
+
+.lg-desk .lg-zero-mark {
+  color: #141310;
 }
 
 .lg-desk .lg-nav-links a,
 .lg-desk .lg-nav-cta {
-  color: #d4d0c6 !important;
-  font-family: var(--sans);
-  font-size: 0.82rem;
+  color: #3f3c35 !important;
+  font-family: var(--mono);
+  font-size: 0.78rem;
   letter-spacing: 0;
   background: transparent;
   padding: 0;
@@ -316,7 +344,7 @@
 
 .lg-desk .lg-nav-links a:hover,
 .lg-desk .lg-nav-cta:hover {
-  color: #f3f0ea !important;
+  color: #141310 !important;
 }
 
 .lg-desk-stage {
@@ -324,138 +352,94 @@
   z-index: 4;
   display: flex;
   flex: 1;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   min-height: 0;
 }
 
 .lg-desk-slip {
-  position: relative;
-  z-index: 5;
-  width: 24rem;
-  padding: 1.35rem 1.35rem 0.35rem;
-  color: #141310;
-  background-color: #ebe4d2;
-  background-image: url("/generated/thermal_warm_sheet.png");
-  background-size: cover;
-  background-position: center;
-  box-shadow:
-    0 0.5px 0 rgba(255, 248, 230, 0.4) inset,
-    0 1px 0 #c4bbab,
-    0 1px 2px rgba(0, 0, 0, 0.28);
-}
-
-.lg-desk-slip .lg-wordmark {
-  color: #141310;
-  font-size: 1.05rem;
-}
-
-.lg-desk-slip .lg-zero-mark {
-  color: #141310;
-}
-
-.lg-desk-slip header {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 0 0 1.15rem;
-  padding-bottom: 0.7rem;
-  border-bottom: 1px solid rgba(20, 19, 16, 0.2);
-}
-
-.lg-desk-slip header > span:last-child {
-  color: #4a473e;
-  font-family: var(--mono);
-  font-size: 0.74rem;
+  flex: 1;
+  flex-direction: column;
+  padding: 0.4rem 2.1rem 1.6rem;
+  color: #141310;
+  background: transparent;
+  box-shadow: none;
 }
 
 .lg-desk-slip h1 {
   display: flex;
   flex-wrap: nowrap;
   align-items: baseline;
-  gap: 0 0.12em;
-  margin: 0 0 0.45rem;
+  gap: 0.14em;
+  margin: 1.1rem 0 0.7rem;
   color: #141310;
-  font-family: var(--sans);
-  font-size: clamp(1.55rem, 2.2vw, 1.9rem);
+  font-family: var(--mono);
+  font-size: clamp(2.6rem, 6.2vw, 4.4rem);
   font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
   white-space: nowrap;
+  font-feature-settings: "zero" 1;
 }
 
 .lg-desk-slip .lg-zero-hero {
   flex: 0 0 auto;
-  width: 0.62em;
-  height: 0.86em;
+  width: 0.68em;
+  height: 0.92em;
   color: #141310;
-  vertical-align: -0.06em;
+  vertical-align: -0.08em;
 }
 
 .lg-desk-slip > p {
-  margin: 0 0 1.2rem;
+  max-width: 28rem;
+  margin: 0 0 2rem;
   color: #3f3c35;
-  font-family: var(--sans);
-  font-size: 0.95rem;
+  font-family: var(--mono);
+  font-size: 1.05rem;
   line-height: 1.4;
 }
 
 .lg-desk-slip dl {
-  margin: 0 0 0.4rem;
+  margin: 0;
+  max-width: 34rem;
 }
 
 .lg-desk-slip dl div {
   display: grid;
-  grid-template-columns: 5.4rem minmax(0, 1fr);
-  gap: 0.7rem;
+  grid-template-columns: 6.2rem minmax(0, 1fr);
+  gap: 1rem;
   align-items: baseline;
-  padding: 0.32rem 0;
+  padding: 0.42rem 0;
   border: 0;
   font-family: var(--mono);
 }
 
 .lg-desk-slip dt {
   color: #5c584e;
-  font-size: 0.76rem;
+  font-size: 0.82rem;
 }
 
 .lg-desk-slip dd {
   margin: 0;
   color: #141310;
-  font-size: 0.82rem;
-  line-height: 1.45;
+  font-size: 0.92rem;
+  line-height: 1.4;
 }
 
-.lg-desk-slip .lg-hash-grid {
-  display: grid;
-  grid-template-columns: repeat(3, max-content);
-  gap: 0.08rem 0.48rem;
+.lg-desk-slip .lg-hash-line {
+  letter-spacing: 0.04em;
 }
 
-.lg-desk-slip .lg-hash-grid b {
-  color: #141310;
-  font-size: 0.76rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-}
-
-.lg-desk-slip .lg-redact {
-  display: inline-block;
-  width: 7.6rem;
-  height: 0.78em;
-  color: transparent;
-  background: #141310;
-  transform: rotate(-0.35deg);
-  box-shadow: 0.6px 0 0 #1a1814;
-}
-
-.lg-desk-perf {
-  display: block;
-  height: 12px;
-  margin: 0.7rem -1.35rem 0;
-  background:
-    radial-gradient(circle at 7px 12px, transparent 4px, #ebe4d2 4.2px) 0 0 / 14px 12px repeat-x;
+.lg-desk-verify {
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 1.6rem;
+  color: #141310 !important;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
 }
 
 /* ── Shared type ──────────────────────────────────────── */
@@ -2989,13 +2973,14 @@
     overflow: visible;
   }
 
-  .lg-desk-slip {
-    width: min(24rem, 100%);
+  .lg-desk-roll {
+    width: 100%;
   }
 
   .lg-desk-slip h1 {
     white-space: normal;
     flex-wrap: wrap;
+    font-size: clamp(2.1rem, 10vw, 3.2rem);
   }
 
   .lg-assay-hero {

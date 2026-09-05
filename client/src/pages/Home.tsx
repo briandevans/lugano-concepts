@@ -10,19 +10,6 @@ const MEASURES = [
   { key: "RTMR3", value: "f4e97ade7149b4fc5057f0e80cf112303daf4e2f30b2b30f874eac595309e9f6030bbe538ecb25437a37b5db9124b478" },
 ] as const;
 
-function HashBlock({ value }: { value: string }) {
-  const groups = value.match(/.{8}/g) ?? [];
-  return (
-    <dd className="lg-hash">
-      <span className="lg-hash-grid">
-        {groups.map((group) => (
-          <b key={group}>{group}</b>
-        ))}
-      </span>
-    </dd>
-  );
-}
-
 function ZeroMark({ className }: { className?: string }) {
   return (
     <svg className={className ?? "lg-zero-mark"} viewBox="0 0 72 100" aria-hidden="true">
@@ -263,88 +250,89 @@ export default function Home() {
       <div className="lg-sheet lg-desk">
         <div className="lg-desk-field" aria-hidden="true" />
 
-        <header className="lg-nav">
-          <div className="lg-nav-inner">
-            <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-              <span className="lg-wordmark">
-                Lugan
-                <ZeroMark />
-              </span>
-            </a>
-            <nav className="lg-nav-links" aria-label="Primary">
+        <div className="lg-desk-roll">
+          <header className="lg-nav">
+            <div className="lg-nav-inner">
+              <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
+                <span className="lg-wordmark">
+                  Lugan
+                  <ZeroMark />
+                </span>
+              </a>
+              <nav className="lg-nav-links" aria-label="Primary">
+                {NAV.map((item) => (
+                  <a key={item.href} href={item.href}>
+                    {item.label}
+                  </a>
+                ))}
+                <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
+                  Briefing
+                </a>
+              </nav>
+              <button
+                className="lg-menu-btn"
+                type="button"
+                aria-expanded={menuOpen}
+                aria-label="Open menu"
+                onClick={() => setMenuOpen((open) => !open)}
+              >
+                <span />
+              </button>
+            </div>
+            <div className={`lg-mobile-panel${menuOpen ? " is-open" : ""}`}>
               {NAV.map((item) => (
-                <a key={item.href} href={item.href}>
+                <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
                   {item.label}
                 </a>
               ))}
-              <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-                Briefing
+              <a href="mailto:contact@lugano.ai" onClick={() => setMenuOpen(false)}>
+                Request briefing
               </a>
-            </nav>
-            <button
-              className="lg-menu-btn"
-              type="button"
-              aria-expanded={menuOpen}
-              aria-label="Open menu"
-              onClick={() => setMenuOpen((open) => !open)}
-            >
-              <span />
-            </button>
-          </div>
-          <div className={`lg-mobile-panel${menuOpen ? " is-open" : ""}`}>
-            {NAV.map((item) => (
-              <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
-                {item.label}
-              </a>
-            ))}
-            <a href="mailto:contact@lugano.ai" onClick={() => setMenuOpen(false)}>
-              Request briefing
-            </a>
-          </div>
-        </header>
+            </div>
+          </header>
 
-        <section id="top" className="lg-desk-stage">
-          <article className="lg-desk-slip" aria-label="Specimen attestation">
-            <header>
-              <span className="lg-wordmark">
-                Lugan
-                <ZeroMark />
-              </span>
-              <span>LUG-7F283</span>
-            </header>
-            <h1>
-              Held to <ZeroMark className="lg-zero-hero" /> bytes retained.
-            </h1>
-            <p>Private inference with a cryptographic receipt.</p>
-            <dl>
-              <div>
-                <dt>Issued</dt>
-                <dd>12 Mar 2026 14:02 UTC</dd>
-              </div>
-              <div>
-                <dt>Prompt</dt>
-                <dd className="lg-redact">not retained</dd>
-              </div>
-              <div>
-                <dt>Model</dt>
-                <dd>sealed · GLM-5.2</dd>
-              </div>
-              <div>
-                <dt>MRTD</dt>
-                <HashBlock value={MEASURES[0].value} />
-              </div>
-              <div>
-                <dt>RTMR0</dt>
-                <HashBlock value={MEASURES[1].value} />
-              </div>
-              <div>
-                <dt>Verifier</dt>
-                <dd>lugano.ai/v/LUG-7F283</dd>
-              </div>
-            </dl>
-            <i className="lg-desk-perf" aria-hidden="true" />
-          </article>
-        </section>
+          <section id="top" className="lg-desk-stage">
+            <article className="lg-desk-slip" aria-label="Specimen attestation">
+              <h1>
+                <ZeroMark className="lg-zero-hero" /> bytes retained.
+              </h1>
+              <p>Private inference with a cryptographic receipt.</p>
+              <dl>
+                <div>
+                  <dt>Issued</dt>
+                  <dd>12 Mar 2026 14:02 UTC</dd>
+                </div>
+                <div>
+                  <dt>Prompt</dt>
+                  <dd>—</dd>
+                </div>
+                <div>
+                  <dt>Model</dt>
+                  <dd>sealed · GLM-5.2</dd>
+                </div>
+                <div>
+                  <dt>MRTD</dt>
+                  <dd className="lg-hash-line">
+                    {MEASURES[0].value.slice(0, 8)}…{MEASURES[0].value.slice(-8)}
+                  </dd>
+                </div>
+                <div>
+                  <dt>RTMR0</dt>
+                  <dd className="lg-hash-line">
+                    {MEASURES[1].value.slice(0, 8)}…{MEASURES[1].value.slice(-8)}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Verifier</dt>
+                  <dd>lugano.ai/v/LUG-7F283</dd>
+                </div>
+              </dl>
+              <a className="lg-desk-verify" href="#architecture">
+                Verify this receipt
+              </a>
+            </article>
+          </section>
+        </div>
       </div>
 
       <main id="main" className="lg-rest">
