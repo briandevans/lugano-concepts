@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Helmet } from "react-helmet";
+import PrintHead from "@/components/PrintHead";
 import "./home.css";
 
 const MEASURES = [
@@ -12,10 +13,48 @@ const MEASURES = [
 
 function ZeroMark({ className }: { className?: string }) {
   return (
-    <svg className={className ?? "lg-zero-mark"} viewBox="0 0 72 100" aria-hidden="true">
-      <ellipse cx="36" cy="50" rx="22" ry="38" fill="none" stroke="currentColor" strokeWidth="8" />
-      <line x1="22" y1="68" x2="50" y2="32" stroke="currentColor" strokeWidth="6" strokeLinecap="square" />
+    <svg className={className ?? "lg-zero-mark"} viewBox="0 0 64 100" aria-hidden="true">
+      <ellipse cx="32" cy="50" rx="19" ry="35" fill="none" stroke="currentColor" strokeWidth="11" />
+      <line x1="19" y1="71" x2="45" y2="29" stroke="currentColor" strokeWidth="8.5" strokeLinecap="butt" />
     </svg>
+  );
+}
+
+function hashGroups(value: string) {
+  return value.match(/.{8}/g) ?? [];
+}
+
+function formatIssued(date: Date) {
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const day = String(date.getUTCDate()).padStart(2, "0");
+  const hour = String(date.getUTCHours()).padStart(2, "0");
+  const minute = String(date.getUTCMinutes()).padStart(2, "0");
+  return `${day} ${months[date.getUTCMonth()]} ${date.getUTCFullYear()} ${hour}:${minute} UTC`;
+}
+
+function HangRig({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  return (
+    <div
+      ref={ref}
+      className="lg-hang-rig"
+      onPointerMove={(event) => {
+        const el = ref.current;
+        if (!el) return;
+        const box = el.getBoundingClientRect();
+        const x = (event.clientX - box.left) / box.width - 0.5;
+        const y = (event.clientY - box.top) / box.height - 0.5;
+        el.style.transform = `rotateX(${7 - y * 2.4}deg) rotateZ(${-0.7 + x * 1.1}deg)`;
+      }}
+      onPointerLeave={() => {
+        const el = ref.current;
+        if (!el) return;
+        el.style.transform = "";
+      }}
+    >
+      {children}
+    </div>
   );
 }
 
@@ -223,6 +262,7 @@ function Folio({ n, label }: { n: string; label: string }) {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [pillar, setPillar] = useState(0);
+  const [issued] = useState(() => formatIssued(new Date()));
 
   useEffect(() => {
     const path = window.location.pathname.replace(/\/$/, "");
@@ -247,53 +287,60 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="lg-sheet lg-desk">
-        <div className="lg-desk-roll">
-          <header className="lg-nav">
-            <div className="lg-nav-inner">
-              <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-                <span className="lg-wordmark">
-                  Lugan
-                  <ZeroMark />
-                </span>
-              </a>
-              <nav className="lg-nav-links" aria-label="Primary">
-                {NAV.map((item) => (
-                  <a key={item.href} href={item.href}>
-                    {item.label}
-                  </a>
-                ))}
-                <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-                  Get access
-                </a>
-              </nav>
-              <button
-                className="lg-menu-btn"
-                type="button"
-                aria-expanded={menuOpen}
-                aria-label="Open menu"
-                onClick={() => setMenuOpen((open) => !open)}
-              >
-                <span />
-              </button>
-            </div>
-            <div className={`lg-mobile-panel${menuOpen ? " is-open" : ""}`}>
+      <div className="lg-sheet lg-hang">
+        <img className="lg-hang-bed" src="/generated/ag_granite_bed.png" alt="" />
+        <header className="lg-nav">
+          <div className="lg-nav-inner">
+            <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
+              <span className="lg-wordmark">
+                Lugan
+                <ZeroMark />
+              </span>
+            </a>
+            <nav className="lg-nav-links" aria-label="Primary">
               {NAV.map((item) => (
-                <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
+                <a key={item.href} href={item.href}>
                   {item.label}
                 </a>
               ))}
-              <a href="mailto:contact@lugano.ai" onClick={() => setMenuOpen(false)}>
-                Request briefing
+              <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
+                Get access
               </a>
-            </div>
-          </header>
+            </nav>
+            <button
+              className="lg-menu-btn"
+              type="button"
+              aria-expanded={menuOpen}
+              aria-label="Open menu"
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              <span />
+            </button>
+          </div>
+          <div className={`lg-mobile-panel${menuOpen ? " is-open" : ""}`}>
+            {NAV.map((item) => (
+              <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
+                {item.label}
+              </a>
+            ))}
+            <a href="mailto:contact@lugano.ai" onClick={() => setMenuOpen(false)}>
+              Request briefing
+            </a>
+          </div>
+        </header>
 
-          <section id="top" className="lg-desk-stage">
-            <article className="lg-desk-slip" aria-label="Specimen attestation">
+        <section id="top" className="lg-hang-stage">
+          <HangRig>
+            <img
+              className="lg-hang-mouth"
+              src="/generated/printer_slot.png"
+              alt=""
+            />
+            <article className="lg-hang-paper" aria-label="Attestation receipt">
+              <PrintHead />
               <header>
                 <span>LUG-7F283</span>
-                <span>specimen</span>
+                <span>attestation</span>
               </header>
               <h1>
                 <ZeroMark className="lg-zero-hero" />
@@ -304,7 +351,12 @@ export default function Home() {
                 <div>
                   <dt>Issued</dt>
                   <i />
-                  <dd>12 Mar 2026 14:02 UTC</dd>
+                  <dd>{issued}</dd>
+                </div>
+                <div>
+                  <dt>Service</dt>
+                  <i />
+                  <dd>sealed inference</dd>
                 </div>
                 <div>
                   <dt>Prompt</dt>
@@ -316,28 +368,22 @@ export default function Home() {
                   <i />
                   <dd>sealed · GLM-5.2</dd>
                 </div>
-                <div className="lg-desk-reg">
-                  <dt>MRTD</dt>
-                  <dd className="lg-hash-full">
-                    {(MEASURES[0].value.match(/.{8}/g) ?? []).map((group) => (
-                      <b key={`m-${group}`}>{group}</b>
-                    ))}
-                  </dd>
-                </div>
-                <div className="lg-desk-reg">
-                  <dt>RTMR0</dt>
-                  <dd className="lg-hash-full">
-                    {(MEASURES[1].value.match(/.{8}/g) ?? []).map((group) => (
-                      <b key={`r-${group}`}>{group}</b>
-                    ))}
-                  </dd>
-                </div>
+                {MEASURES.slice(0, 2).map((row) => (
+                  <div className="lg-hang-reg" key={row.key}>
+                    <dt>{row.key}</dt>
+                    <dd className="lg-hang-hash">
+                      {hashGroups(row.value).map((group, index) => (
+                        <b key={`${row.key}-${index}`}>{group}</b>
+                      ))}
+                    </dd>
+                  </div>
+                ))}
                 <div>
                   <dt>Signed</dt>
                   <i />
                   <dd>TDX quote · SHA-384</dd>
                 </div>
-                <div className="lg-desk-total">
+                <div className="lg-hang-total">
                   <dt>Total retained</dt>
                   <i />
                   <dd>
@@ -350,37 +396,32 @@ export default function Home() {
                 <img
                   src="/generated/verifier_qr.png"
                   alt="QR code for lugano.ai/v/LUG-7F283"
-                  width="72"
-                  height="72"
+                  width="56"
+                  height="56"
                 />
                 <div>
                   <span>lugano.ai/v/LUG-7F283</span>
-                  <a className="lg-desk-cta" href="#architecture">
+                  <a className="lg-hang-cta" href="#architecture">
                     Verify this proof
                   </a>
                 </div>
               </footer>
-              <dl className="lg-desk-more" aria-hidden="true">
-                <div className="lg-desk-reg">
-                  <dt>RTMR1</dt>
-                  <dd className="lg-hash-full">
-                    {(MEASURES[2].value.match(/.{8}/g) ?? []).map((group) => (
-                      <b key={`r1-${group}`}>{group}</b>
-                    ))}
-                  </dd>
-                </div>
-                <div className="lg-desk-reg">
-                  <dt>RTMR2</dt>
-                  <dd className="lg-hash-full">
-                    {(MEASURES[3].value.match(/.{8}/g) ?? []).map((group) => (
-                      <b key={`r2-${group}`}>{group}</b>
-                    ))}
-                  </dd>
-                </div>
+              <dl className="lg-hang-more" aria-hidden="true">
+                {MEASURES.slice(2).map((row) => (
+                  <div className="lg-hang-reg" key={row.key}>
+                    <dt>{row.key}</dt>
+                    <dd className="lg-hang-hash">
+                      {hashGroups(row.value).map((group, index) => (
+                        <b key={`${row.key}-${index}`}>{group}</b>
+                      ))}
+                    </dd>
+                  </div>
+                ))}
               </dl>
+              <img className="lg-hang-tear" src="/generated/paper_fiber_tear.png" alt="" />
             </article>
-          </section>
-        </div>
+          </HangRig>
+        </section>
       </div>
 
       <main id="main" className="lg-rest">

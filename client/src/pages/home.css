@@ -277,55 +277,51 @@
   display: none;
 }
 
-/* ── Desk fold: the receipt is the page ───────────────── */
-.lg-sheet.lg-desk {
+/* ── Hang fold: receipt coming off a real printer ─────── */
+.lg-sheet.lg-hang {
+  position: relative;
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-  color: #141310;
-  background: #161410;
+  color: #e8e0d0;
+  background: #0b0b0d;
 }
 
-.lg-desk-roll {
+.lg-hang-bed {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  pointer-events: none;
+}
+
+.lg-hang .lg-nav {
   position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  width: min(36rem, 86vw);
-  height: 100vh;
-  margin: 0 auto;
-  color: #141310;
-  background-color: #e4dcc8;
-  background-image: url("/generated/thermal_warm_sheet.png");
-  background-size: cover;
-  background-position: center;
-}
-
-.lg-desk .lg-nav {
   z-index: 8;
-  color: #141310;
+  color: #e8e0d0;
   height: 64px;
 }
 
-.lg-desk .lg-nav-inner {
-  width: 100%;
-  padding: 0 1.7rem;
-}
-
-.lg-desk .lg-wordmark {
-  color: #141310;
+.lg-hang .lg-wordmark {
+  color: #e8e0d0;
   font-family: var(--sans);
+  font-weight: 500;
 }
 
-.lg-desk .lg-zero-mark {
-  color: #141310;
+.lg-hang .lg-zero-mark {
+  width: 0.58em;
+  height: 0.82em;
+  color: #e8e0d0;
 }
 
-.lg-desk .lg-nav-links a,
-.lg-desk .lg-nav-cta {
-  color: #3f3c35 !important;
+.lg-hang .lg-nav-links a,
+.lg-hang .lg-nav-cta {
+  color: #c9c0b0 !important;
   font-family: var(--mono);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   letter-spacing: 0;
   background: transparent;
   padding: 0;
@@ -333,196 +329,245 @@
   text-decoration: none;
 }
 
-.lg-desk .lg-nav-cta {
-  color: #141310 !important;
+.lg-hang .lg-nav-cta {
+  color: #e8e0d0 !important;
 }
 
-.lg-desk .lg-nav-links a:hover,
-.lg-desk .lg-nav-cta:hover {
-  color: #141310 !important;
+.lg-hang .lg-nav-links a:hover,
+.lg-hang .lg-nav-cta:hover {
+  color: #fff8ec !important;
 }
 
-.lg-desk-stage {
+.lg-hang-stage {
   position: relative;
   z-index: 4;
-  flex: 1;
-  min-height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: calc(100vh - 64px);
+  padding-top: 0.35rem;
+  perspective: 1800px;
+  perspective-origin: 50% 0%;
 }
 
-.lg-desk-slip {
+.lg-hang-rig {
+  width: min(46rem, 78vw);
+  transform: rotateX(7deg) rotateZ(-0.7deg);
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 2.6rem 2.4rem rgba(0, 0, 0, 0.62));
+  will-change: transform;
+}
+
+.lg-hang-mouth {
+  display: block;
   width: 100%;
-  padding: 0.2rem 1.7rem 8rem;
-  color: #141310;
-  background: transparent;
-  box-shadow: none;
+  height: 6.6rem;
+  object-fit: cover;
+  object-position: center 58%;
 }
 
-.lg-desk-slip header {
+.lg-hang-paper {
+  position: relative;
+  z-index: 2;
+  margin-top: -1.85rem;
+  padding: 1.15rem 1.85rem 0;
+  color: #141310;
+  background-color: #e6decc;
+  background-image: url("/generated/thermal_banding_sheet.png");
+  background-size: 100% auto;
+  box-shadow:
+    inset 10px 0 14px -12px rgba(40, 28, 12, 0.28),
+    inset -10px 0 14px -12px rgba(40, 28, 12, 0.28);
+}
+
+.lg-hang-heat {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+
+.lg-hang-paper > *:not(canvas):not(.lg-hang-tear) {
+  position: relative;
+  z-index: 2;
+}
+
+.lg-hang-paper header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin: 0 0 1.15rem;
+  margin: 0 0 0.85rem;
   font-family: var(--mono);
-  font-size: 0.78rem;
-  color: #3f3c35;
+  font-size: 0.72rem;
+  color: #4a463c;
 }
 
-.lg-desk-slip h1 {
+.lg-hang-paper h1 {
   display: flex;
-  align-items: baseline;
-  gap: 0.14em;
-  margin: 0 0 0.45rem;
+  align-items: center;
+  gap: 0.12em;
+  margin: 0 0 0.28rem;
   color: #141310;
   font-family: var(--sans);
-  font-size: clamp(2.6rem, 5.4vw, 3.8rem);
+  font-size: clamp(2.05rem, 3.6vw, 2.75rem);
   font-weight: 500;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+  line-height: 0.92;
+  letter-spacing: -0.038em;
 }
 
-.lg-desk-slip .lg-zero-hero {
+.lg-hang-paper h1 b {
+  font-weight: 500;
+}
+
+.lg-hang-paper .lg-zero-hero {
   flex: 0 0 auto;
-  width: 0.7em;
-  height: 0.95em;
+  width: 0.62em;
+  height: 0.88em;
   color: #141310;
 }
 
-.lg-desk-slip > p {
-  margin: 0 0 1.35rem;
+.lg-hang-paper > p {
+  margin: 0 0 0.95rem;
   color: #3f3c35;
-  font-family: var(--sans);
-  font-size: 1.15rem;
+  font-family: var(--mono);
+  font-size: 0.92rem;
 }
 
-.lg-desk-slip dl {
+.lg-hang-paper dl {
   margin: 0;
 }
 
-.lg-desk-slip dl div {
+.lg-hang-paper dl div {
   display: grid;
-  grid-template-columns: 6rem minmax(0.8rem, 1fr) auto;
-  gap: 0.45rem;
+  grid-template-columns: 6.2rem minmax(0.7rem, 1fr) auto;
+  gap: 0.4rem;
   align-items: baseline;
-  padding: 0.28rem 0;
+  padding: 0.2rem 0;
   font-family: var(--mono);
 }
 
-.lg-desk-reg {
+.lg-hang-reg {
   grid-template-columns: 1fr !important;
-  gap: 0.25rem !important;
-  padding: 0.5rem 0 0.4rem !important;
-  border-top: 1px solid rgba(20, 19, 16, 0.2);
+  gap: 0.18rem !important;
+  padding: 0.38rem 0 0.28rem !important;
 }
 
-.lg-desk-reg + .lg-desk-reg {
-  border-top: 0;
-  padding-top: 0.25rem !important;
-}
-
-.lg-desk-slip dt {
+.lg-hang-paper dt {
   color: #5c584e;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
 }
 
-.lg-desk-slip dd {
+.lg-hang-paper dd {
   margin: 0;
   color: #141310;
-  font-size: 0.84rem;
-  line-height: 1.4;
+  font-size: 0.78rem;
+  line-height: 1.35;
 }
 
-.lg-desk-slip dl div > i {
+.lg-hang-paper dl div > i {
   display: block;
-  height: 0.55em;
-  background-image: radial-gradient(#141310 0.7px, transparent 0.8px);
-  background-size: 5px 0.55em;
+  height: 0.5em;
+  background-image: radial-gradient(#141310 0.65px, transparent 0.75px);
+  background-size: 4px 0.5em;
   background-repeat: repeat-x;
-  background-position: 0 0.42em;
+  background-position: 0 0.38em;
 }
 
-.lg-hash-full {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.12rem 0.42rem;
+.lg-hang-hash {
+  display: grid;
+  grid-template-columns: repeat(6, max-content);
+  justify-content: space-between;
+  gap: 0.12rem 0.38rem;
 }
 
-.lg-hash-full b {
+.lg-hang-hash b {
   color: #141310;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
 }
 
-.lg-desk-total {
+.lg-hang-total {
   display: grid !important;
   grid-template-columns: auto 1fr auto !important;
-  align-items: center;
-  margin-top: 1.1rem;
-  padding: 0.85rem 0 0.35rem;
-  border-top: 2px solid #9a2b24;
+  align-items: baseline;
+  margin-top: 0.55rem;
+  padding: 0.55rem 0 0.15rem !important;
+  border-top: 1px solid #141310;
 }
 
-.lg-desk-total dt {
-  color: #9a2b24;
-  font-size: 0.95rem;
-  letter-spacing: 0.06em;
+.lg-hang-total dt {
+  color: #141310;
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
-.lg-desk-total dd {
+.lg-hang-total dd {
   display: inline-flex;
-  align-items: center;
-  gap: 0.16em;
+  align-items: baseline;
+  gap: 0.12em;
+  color: #9a2b24;
   line-height: 1;
 }
 
-.lg-desk-total small {
+.lg-hang-total small {
   color: #9a2b24;
-  font-size: 1.4rem;
+  font-family: var(--mono);
+  font-size: 1.15rem;
   font-weight: 500;
 }
 
-.lg-zero-total {
+.lg-hang-total .lg-zero-total {
   display: block;
-  width: 3.4rem;
-  height: 4.6rem;
+  width: 1.45rem;
+  height: 2.05rem;
   color: #9a2b24;
 }
 
-.lg-desk-slip footer {
+.lg-hang-paper footer {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  margin-top: 1.15rem;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
 }
 
-.lg-desk-slip footer img {
-  width: 72px;
-  height: 72px;
+.lg-hang-paper footer img {
+  width: 56px;
+  height: 56px;
 }
 
-.lg-desk-slip footer div {
+.lg-hang-paper footer div {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.22rem;
 }
 
-.lg-desk-slip footer span {
-  color: #141310;
+.lg-hang-paper footer span,
+.lg-hang-cta {
+  color: #141310 !important;
   font-family: var(--mono);
   font-size: 0.78rem;
 }
 
-.lg-desk-cta {
-  color: #141310 !important;
-  font-family: var(--sans);
-  font-size: 1rem;
+.lg-hang-cta {
   text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.22em;
 }
 
-.lg-desk-more {
-  margin-top: 1.4rem;
-  opacity: 0.55;
+.lg-hang-more {
+  margin-top: 0.95rem;
+}
+
+.lg-hang-tear {
+  display: block;
+  width: calc(100% + 3.7rem);
+  margin: 0.4rem -1.85rem 0;
+  pointer-events: none;
 }
 
 /* ── Shared type ──────────────────────────────────────── */
@@ -3050,20 +3095,26 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 980px) {
-  .lg-sheet.lg-desk {
+  .lg-sheet.lg-hang {
     height: auto;
     max-height: none;
     overflow: visible;
   }
 
-  .lg-desk-stage {
-    grid-template-columns: 1fr;
-    gap: 1.6rem;
+  .lg-hang-stage {
+    height: auto;
+    perspective: none;
+    padding: 0 0 2rem;
   }
 
-  .lg-desk-slip {
-    width: min(30rem, 100%);
-    min-height: 0;
+  .lg-hang-rig {
+    width: min(40rem, 92vw);
+    transform: none;
+    filter: drop-shadow(0 1.4rem 1.6rem rgba(0, 0, 0, 0.5));
+  }
+
+  .lg-hang-hash {
+    grid-template-columns: repeat(4, max-content);
   }
 
   .lg-assay-hero {
