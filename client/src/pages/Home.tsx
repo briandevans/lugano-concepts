@@ -316,7 +316,8 @@ export default function Home() {
 
         <section id="top" className="lg-ed-well">
           <p className="lg-ed-lede">
-            Frontier models that run sealed
+            Frontier models
+            <span>that run sealed</span>
             <span>and leave a receipt.</span>
           </p>
           <div className="lg-ed-row">
