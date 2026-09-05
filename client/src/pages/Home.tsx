@@ -25,24 +25,6 @@ function useUtcClock() {
   return clock;
 }
 
-function HashBars({ code }: { code: string }) {
-  const widths = [2, 1, 1, 3, 1, 2, 1, 1, 3, 2, 1, 1, 2, 3, 1, 1, 2, 1, 3, 1, 2, 2, 1, 1, 3, 1, 2, 1, 1, 2, 3, 1, 1, 2, 1];
-  let x = 0;
-  const bars = widths.map((width, index) => {
-    const rect = <rect key={index} x={x} y="0" width={width} height="36" />;
-    x += width + 1;
-    return rect;
-  });
-  return (
-    <div className="lg-bars-wrap">
-      <svg className="lg-bars" viewBox={`0 0 ${x} 36`} aria-hidden="true">
-        {bars}
-      </svg>
-      <span>{code}</span>
-    </div>
-  );
-}
-
 function LiveReceipt({ clock }: { clock: string }) {
   return (
     <aside className="lg-slip" aria-label="Attestation receipt">
@@ -54,16 +36,14 @@ function LiveReceipt({ clock }: { clock: string }) {
         <span>CH</span>
       </p>
       <ol className="lg-slip-rows">
-        {PROOF_ROWS.map((row) => (
+            {PROOF_ROWS.map((row) => (
           <li key={row.label}>
             <b>{row.label}</b>
             <span className="lg-leaders" aria-hidden="true" />
-            <i>{row.value}</i>
+            <i className={row.value === "verified" ? "is-ok" : ""}>{row.value}</i>
           </li>
         ))}
       </ol>
-      <HashBars code="LUG-7F283" />
-      <div className="lg-slip-tear" aria-hidden="true" />
     </aside>
   );
 }
@@ -351,7 +331,7 @@ export default function Home() {
                   Request briefing
                 </a>
                 <a className="lg-btn-ghost lg-btn-ghost-ink" href="#platform">
-                  How it works
+                  How it works →
                 </a>
               </div>
             </div>

@@ -16,8 +16,9 @@
   --rule: rgba(20, 19, 15, 0.18);
   --rule-paper: rgba(228, 223, 210, 0.16);
   --serif: "Fraunces", "Times New Roman", serif;
-  --sans: "Instrument Sans", "Helvetica Neue", ui-sans-serif, sans-serif;
+  --sans: "Fraunces", "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --swiss: #c8102e;
   --max: 1220px;
   --gutter: clamp(1.25rem, 4.2vw, 3.25rem);
   color: var(--paper);
@@ -154,8 +155,8 @@
 .lg-nav-links a {
   color: var(--ink);
   font-family: var(--mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.01em;
+  font-size: 0.84rem;
+  letter-spacing: 0;
 }
 
 .lg-nav-links a:hover {
@@ -253,9 +254,10 @@
   max-width: 38rem;
   margin: 1.15rem 0 0;
   color: var(--ash);
-  font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 1.5vw, 1.22rem);
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.45;
 }
 
 .lg-ink-copy {
@@ -322,11 +324,15 @@
 
 .lg-section-cont {
   color: var(--ink);
-  background-color: #c9b892;
-  background-image: url("/generated/kraft_blotter_grain.png");
-  background-size: 720px;
-  padding-top: 4.5rem;
+  background: #f4eee0;
+  padding-top: 3.25rem;
   border-top: 1px solid var(--rule);
+}
+
+.lg-section-cont .lg-display {
+  font-size: clamp(2.2rem, 4vw, 3.15rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
 }
 
 .lg-section-paper {
@@ -359,17 +365,17 @@
   position: relative;
   z-index: 2;
   isolation: isolate;
-  overflow: visible;
+  overflow: hidden;
   color: var(--ink);
   background: transparent;
 }
 
 .lg-split {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 22rem;
+  grid-template-columns: minmax(0, 1fr) 20rem;
   align-items: start;
   gap: clamp(2.5rem, 6vw, 5.5rem);
-  padding: 4.5rem 0 5.25rem;
+  padding: 3.75rem 0 4.25rem;
 }
 
 .lg-copy h1 {
@@ -378,10 +384,11 @@
   margin: 0;
   font-family: var(--serif);
   font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144, "SOFT" 0;
   font-size: clamp(4.6rem, 8.2vw, 7.2rem);
   font-weight: 400;
-  line-height: 0.86;
-  letter-spacing: -0.038em;
+  line-height: 0.94;
+  letter-spacing: -0.045em;
 }
 
 .lg-copy h1 span {
@@ -390,27 +397,25 @@
 }
 
 .lg-sub {
-  max-width: 26rem;
-  margin: 1.65rem 0 0;
-  color: #2a261c;
-  font-family: var(--sans);
-  font-size: clamp(1.2rem, 1.7vw, 1.38rem);
-  line-height: 1.4;
+  max-width: 32rem;
+  margin: 1.85rem 0 0;
+  color: #1d1a15;
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-size: clamp(1.4rem, 2vw, 1.7rem);
+  line-height: 1.35;
 }
 
 .lg-slip {
   position: relative;
   overflow: hidden;
-  width: 22rem;
-  padding: 1.35rem 1.3rem 1.85rem;
+  width: 20rem;
+  margin-right: -5.5rem;
+  padding: 0.15rem 1.15rem 1.25rem;
   color: #1d1a15;
-  background-color: #f7f2e2;
-  background-image: url("/generated/thermal_ivory_grain.png");
-  background-size: 360px;
-  box-shadow:
-    0 1px 0 rgba(255, 252, 244, 0.8) inset,
-    0 18px 40px rgba(20, 16, 10, 0.14),
-    0 3px 8px rgba(20, 16, 10, 0.08);
+  background-color: #fbf7ec;
+  border: 1px solid rgba(20, 19, 15, 0.22);
+  box-shadow: none;
 }
 
 .lg-slip .lg-heat {
@@ -479,6 +484,10 @@
 .lg-slip-rows i {
   font-weight: 400;
   font-style: normal;
+}
+
+.lg-slip-rows i.is-ok {
+  color: var(--swiss);
 }
 
 .lg-slip-rows .lg-leaders {
@@ -1126,8 +1135,9 @@
 .lg-choice p {
   margin: 0;
   color: var(--fog);
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  line-height: 1.45;
 }
 
 /* ── Trust gap ────────────────────────────────────────── */
