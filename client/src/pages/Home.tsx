@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import BenchField from "@/components/BenchField";
 import "./home.css";
 
 const MEASURES = [
@@ -26,9 +25,9 @@ function HashBlock({ value }: { value: string }) {
 
 function ZeroMark({ className }: { className?: string }) {
   return (
-    <svg className={className ?? "lg-zero-mark"} viewBox="0 0 80 120" aria-hidden="true">
-      <ellipse cx="40" cy="60" rx="24" ry="46" fill="none" stroke="currentColor" strokeWidth="11" />
-      <line x1="26" y1="80" x2="54" y2="40" stroke="currentColor" strokeWidth="7" strokeLinecap="square" />
+    <svg className={className ?? "lg-zero-mark"} viewBox="0 0 72 100" aria-hidden="true">
+      <ellipse cx="36" cy="50" rx="22" ry="38" fill="none" stroke="currentColor" strokeWidth="10" />
+      <line x1="22" y1="68" x2="50" y2="32" stroke="currentColor" strokeWidth="7" strokeLinecap="square" />
     </svg>
   );
 }
@@ -262,10 +261,7 @@ export default function Home() {
       </a>
 
       <div className="lg-sheet lg-desk">
-        <div className="lg-desk-field">
-          <img className="lg-field-fallback" src="/generated/steel_plan.png" alt="" />
-          <BenchField />
-        </div>
+        <div className="lg-desk-field" aria-hidden="true" />
 
         <header className="lg-nav">
           <div className="lg-nav-inner">
@@ -282,7 +278,7 @@ export default function Home() {
                 </a>
               ))}
               <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-                Request briefing
+                Briefing
               </a>
             </nav>
             <button
@@ -308,19 +304,18 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-desk-stage">
-          <h1 className="lg-desk-lockup">
-            <em>
-              Held to <ZeroMark className="lg-zero-hero" />.
-            </em>
-            <b>bytes retained</b>
-            <span>Private inference with a cryptographic receipt.</span>
-          </h1>
-          <article className="lg-desk-slip" aria-label="Example attestation">
-            <i className="lg-desk-perf" aria-hidden="true" />
+          <article className="lg-desk-slip" aria-label="Specimen attestation">
             <header>
-              <strong>Lugano</strong>
-              <span>LUG-7F283 · example</span>
+              <span className="lg-wordmark">
+                Lugan
+                <ZeroMark />
+              </span>
+              <span>LUG-7F283</span>
             </header>
+            <h1>
+              Held to <ZeroMark className="lg-zero-hero" /> bytes retained.
+            </h1>
+            <p>Private inference with a cryptographic receipt.</p>
             <dl>
               <div>
                 <dt>Issued</dt>
@@ -347,6 +342,7 @@ export default function Home() {
                 <dd>lugano.ai/v/LUG-7F283</dd>
               </div>
             </dl>
+            <i className="lg-desk-perf" aria-hidden="true" />
           </article>
         </section>
       </div>
