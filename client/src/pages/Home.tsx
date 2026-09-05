@@ -263,7 +263,7 @@ export default function Home() {
                 </a>
               ))}
               <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-                Get access
+                Get access →
               </a>
             </nav>
             <button
@@ -294,7 +294,7 @@ export default function Home() {
               <em>
                 <ZeroMark className="lg-zero-hero" /> bytes retained
               </em>
-              <span>Private inference with a cryptographic receipt.</span>
+              <span>Private inference you can prove.</span>
             </h1>
             <a className="lg-desk-cta" href="#architecture">
               Verify a receipt →
@@ -333,6 +333,14 @@ export default function Home() {
                   ))}
                 </dd>
               </div>
+              <div className="lg-desk-reg">
+                <dt>RTMR1</dt>
+                <dd className="lg-hash-full">
+                  {(MEASURES[2].value.match(/.{8}/g) ?? []).map((group) => (
+                    <b key={`r1-${group}`}>{group}</b>
+                  ))}
+                </dd>
+              </div>
               <div className="lg-desk-total">
                 <dt>Total retained</dt>
                 <dd>
@@ -350,7 +358,6 @@ export default function Home() {
               />
               <span>lugano.ai/v/LUG-7F283</span>
             </footer>
-            <img className="lg-desk-tear" src="/generated/thermal_tear_bottom.png" alt="" />
           </article>
         </section>
       </div>

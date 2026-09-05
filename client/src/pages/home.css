@@ -106,11 +106,11 @@
 
 .lg-zero-mark {
   display: inline-block;
-  width: 0.72em;
-  height: 1.05em;
-  margin-left: 0.04em;
+  width: 0.58em;
+  height: 0.78em;
+  margin-left: 0.02em;
   color: #f2efe8;
-  vertical-align: -0.12em;
+  vertical-align: -0.02em;
 }
 
 .lg-dot {
@@ -313,11 +313,7 @@
 }
 
 .lg-desk .lg-nav-cta {
-  min-height: 2rem;
-  padding: 0 0.7rem;
-  border: 1px solid #efeae0;
-  color: #161410 !important;
-  background: #efeae0;
+  color: #efeae0 !important;
 }
 
 .lg-desk .lg-nav-links a:hover,
@@ -331,7 +327,7 @@
   display: grid;
   flex: 1;
   grid-template-columns: minmax(0, 1fr) 30rem;
-  align-items: center;
+  align-items: start;
   gap: 3.5rem;
   min-height: 0;
   width: min(100% - (var(--gutter) * 2), var(--max));
@@ -339,7 +335,7 @@
 }
 
 .lg-desk-copy {
-  padding-top: 0;
+  padding-top: 1.5rem;
 }
 
 .lg-desk-lockup {
@@ -353,7 +349,7 @@
   gap: 0.12em;
   font-family: var(--sans);
   font-style: normal;
-  font-size: clamp(3.4rem, 5.8vw, 5.2rem);
+  font-size: clamp(4.2rem, 7.4vw, 6.6rem);
   font-weight: 500;
   line-height: 0.9;
   letter-spacing: -0.05em;
@@ -390,7 +386,7 @@
 
 .lg-desk-slip {
   width: 30rem;
-  padding: 1.2rem 1.35rem 0;
+  padding: 1.55rem 1.55rem 12rem;
   color: #141310;
   background-color: #e4dcc8;
   background-image: url("/generated/thermal_warm_sheet.png");
@@ -442,7 +438,7 @@
 
 .lg-hash-full b {
   color: #141310;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 0.02em;
 }
@@ -451,10 +447,10 @@
   display: flex !important;
   align-items: baseline;
   justify-content: space-between;
-  margin-top: 1rem;
-  padding: 0.65rem 0 0.15rem;
-  border-top: 1px solid #141310;
-  box-shadow: inset 0 3px 0 #141310;
+  margin-top: 1.15rem;
+  padding: 0.75rem 0 0.2rem;
+  border-top: 1px solid #9a2b24;
+  box-shadow: inset 0 3px 0 #9a2b24;
   grid-template-columns: none !important;
 }
 
@@ -479,9 +475,9 @@
 
 .lg-zero-total {
   display: block;
-  width: 2.2rem;
-  height: 3rem;
-  color: #141310;
+  width: 2.6rem;
+  height: 3.5rem;
+  color: #9a2b24;
 }
 
 .lg-desk-slip footer {
