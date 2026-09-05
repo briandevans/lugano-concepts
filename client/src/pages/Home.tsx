@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import PlateField from "../components/PlateField";
 import "./home.css";
 
 const MEASURES = [
@@ -249,6 +250,14 @@ function Folio({ n, label }: { n: string; label: string }) {
   );
 }
 
+function BenchTick({ className }: { className?: string }) {
+  return (
+    <svg className={className ?? "lg-sp-tick"} viewBox="0 0 20 20" aria-hidden="true">
+      <path d="M10 1.5v17M4 6.2h12M5.8 13.8h8.4" fill="none" stroke="currentColor" strokeWidth="1.35" />
+    </svg>
+  );
+}
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [pillar, setPillar] = useState(0);
@@ -277,10 +286,13 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="lg-sheet lg-ed">
+      <div className="lg-sheet lg-sp">
+        <img className="lg-field-fallback" src="/generated/brass_cadastre_plate.png" alt="" />
+        <PlateField />
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
+              <BenchTick />
               <span className="lg-wordmark">Lugano</span>
             </a>
             <nav className="lg-nav-links" aria-label="Primary">
@@ -289,7 +301,7 @@ export default function Home() {
                   {item.label}
                 </a>
               ))}
-              <a className="lg-ed-nav-cta" href="mailto:contact@lugano.ai">
+              <a className="lg-sp-nav-cta" href="mailto:contact@lugano.ai">
                 Request access
               </a>
             </nav>
@@ -315,34 +327,42 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="top" className="lg-ed-well">
-          <p className="lg-ed-lede">
-            Frontier models
-            <span>that run sealed</span>
-            <span>and leave a receipt.</span>
-          </p>
-          <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
-          <p className="lg-ed-run">
-            LUG-7F283 · {issued} · GLM-5.2 · TDX · prompt not retained
-          </p>
-          <div className="lg-ed-punch">
-            <span>Total retained</span>
-            <b className="lg-ed-amt">
-              <span className="lg-oh">0</span>
-              <span>B</span>
-            </b>
-          </div>
-          <div className="lg-ed-reg">
-            <p>MRTD · SHA-384</p>
-            <div className="lg-ed-hash">
-              {hashGroups(MEASURES[0].value).map((group, index) => (
-                <b key={`mrtd-0-${index}`}>{group}</b>
-              ))}
+        <section id="top" className="lg-sp-stage">
+          <article className="lg-sp-sheet" aria-label="Attestation receipt">
+            <i className="lg-sp-crop lg-sp-crop-tl" />
+            <i className="lg-sp-crop lg-sp-crop-tr" />
+            <i className="lg-sp-crop lg-sp-crop-bl" />
+            <i className="lg-sp-crop lg-sp-crop-br" />
+            <p className="lg-sp-lede">
+              Frontier models
+              <span>that run sealed</span>
+              <span>and leave a receipt.</span>
+            </p>
+            <p className="lg-sp-sub">For work that cannot leave the enclave.</p>
+            <p className="lg-sp-keep">Prompt not retained.</p>
+            <p className="lg-sp-run">
+              LUG-7F283 · {issued} · GLM-5.2 · TDX
+            </p>
+            <div className="lg-sp-punch">
+              <span>Total retained</span>
+              <b className="lg-sp-amt">
+                <span className="lg-oh">0</span>
+                <span>B</span>
+              </b>
             </div>
-          </div>
-          <a className="lg-ed-url" href="#architecture">
-            lugano.ai/v/LUG-7F283
-          </a>
+            <div className="lg-sp-reg">
+              <p>MRTD · SHA-384</p>
+              <div className="lg-sp-hash">
+                {hashGroups(MEASURES[0].value).map((group, index) => (
+                  <b key={`mrtd-0-${index}`}>{group}</b>
+                ))}
+              </div>
+            </div>
+            <p className="lg-sp-url">lugano.ai/v/LUG-7F283</p>
+            <a className="lg-sp-verify" href="#architecture">
+              Verify this receipt
+            </a>
+          </article>
         </section>
       </div>
 

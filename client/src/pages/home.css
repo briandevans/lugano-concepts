@@ -1308,6 +1308,290 @@
   text-decoration: none;
 }
 
+/* ── Sp fold: extract on a lit survey plate ───────────── */
+.lg-sheet.lg-sp {
+  --receipt: "Courier Prime", "Courier New", Courier, monospace;
+  position: relative;
+  height: 100vh;
+  max-height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  color: #f3ead8;
+  background: #3a2414;
+}
+
+.lg-sp > .lg-field-fallback,
+.lg-sp > .lg-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.lg-sp > .lg-field {
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.4s linear;
+}
+
+.lg-sp .lg-nav {
+  position: relative;
+  z-index: 8;
+  height: 72px;
+  color: #f3ead8;
+  border-bottom: 0;
+}
+
+.lg-sp .lg-nav-inner {
+  width: min(100% - (var(--gutter) * 2), 92rem);
+}
+
+.lg-sp .lg-brand {
+  gap: 0.55rem;
+  color: #f3ead8;
+}
+
+.lg-sp-tick {
+  display: block;
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: 0 0 auto;
+}
+
+.lg-sp .lg-wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  color: #f3ead8;
+  font-family: var(--sans);
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.lg-sp .lg-nav-links {
+  gap: 1.7rem;
+}
+
+.lg-sp .lg-nav-links a {
+  color: #f3ead8 !important;
+  font-family: var(--sans);
+  font-size: 1.02rem;
+  letter-spacing: -0.015em;
+  background: transparent;
+  padding: 0;
+  min-height: 0;
+  text-decoration: none;
+}
+
+.lg-sp .lg-nav-links a:hover {
+  color: #f0c9a2 !important;
+}
+
+.lg-sp .lg-nav-links a.lg-sp-nav-cta {
+  margin-left: 0.35rem;
+  color: #e8c4a0 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 0.22em;
+}
+
+.lg-sp-stage {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  height: calc(100vh - 72px);
+  padding: 1.1rem 4.5vw 0;
+}
+
+.lg-sp-sheet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 52rem);
+  height: 100%;
+  padding: 1.85rem 2.35rem 1.45rem;
+  color: #2a2722;
+  background-color: #efebe1;
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(40, 32, 22, 0.05)),
+    url("/generated/thermal_paper_fiber.png");
+  background-size: auto, 220px;
+  box-shadow:
+    1px 0 0 #d8d2c4,
+    2px 0 0 #c4bdae,
+    0 18px 36px rgba(20, 10, 4, 0.38);
+}
+
+.lg-sp-crop {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+.lg-sp-crop::before,
+.lg-sp-crop::after {
+  content: "";
+  position: absolute;
+  background: #f3ead8;
+}
+
+.lg-sp-crop-tl { top: -10px; left: -10px; }
+.lg-sp-crop-tr { top: -10px; right: -10px; }
+.lg-sp-crop-bl { bottom: 8px; left: -10px; }
+.lg-sp-crop-br { bottom: 8px; right: -10px; }
+
+.lg-sp-crop-tl::before,
+.lg-sp-crop-tr::before,
+.lg-sp-crop-bl::before,
+.lg-sp-crop-br::before {
+  width: 14px;
+  height: 1px;
+}
+
+.lg-sp-crop-tl::after,
+.lg-sp-crop-tr::after,
+.lg-sp-crop-bl::after,
+.lg-sp-crop-br::after {
+  width: 1px;
+  height: 14px;
+}
+
+.lg-sp-crop-tl::before { top: 9px; left: 0; }
+.lg-sp-crop-tl::after { top: 0; left: 9px; }
+.lg-sp-crop-tr::before { top: 9px; right: 0; }
+.lg-sp-crop-tr::after { top: 0; right: 9px; }
+.lg-sp-crop-bl::before { bottom: 9px; left: 0; }
+.lg-sp-crop-bl::after { bottom: 0; left: 9px; }
+.lg-sp-crop-br::before { bottom: 9px; right: 0; }
+.lg-sp-crop-br::after { bottom: 0; right: 9px; }
+
+.lg-sp-lede {
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  color: #2a2722;
+  font-family: var(--sans);
+  font-size: clamp(2.45rem, 4vw, 3.7rem);
+  font-weight: 600;
+  line-height: 0.96;
+  letter-spacing: -0.034em;
+}
+
+.lg-sp-lede span {
+  display: block;
+  white-space: nowrap;
+}
+
+.lg-sp-sub,
+.lg-sp-keep {
+  margin: 0.85rem 0 0;
+  color: #3f3b34;
+  font-family: var(--sans);
+  font-size: 1.2rem;
+  line-height: 1.3;
+  letter-spacing: -0.016em;
+}
+
+.lg-sp-keep {
+  margin-top: 0.28rem;
+  color: #2a2722;
+  font-weight: 500;
+}
+
+.lg-sp-run,
+.lg-sp-reg p,
+.lg-sp-url,
+.lg-sp-punch > span {
+  margin: 0;
+  color: #5a554c;
+  font-family: var(--receipt);
+  font-size: 0.92rem;
+  font-weight: 400;
+}
+
+.lg-sp-run {
+  margin: 0.85rem 0 0;
+  color: #3f3b34;
+}
+
+.lg-sp-punch {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 0.15rem;
+  margin: 0.4rem 0 0;
+  font-family: var(--receipt);
+}
+
+.lg-sp-punch > span {
+  color: #2a2722;
+}
+
+.lg-sp-amt,
+.lg-sp-amt span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.08em;
+  color: #9a2b24;
+  font-size: clamp(7.4rem, 22vh, 17.5rem);
+  font-weight: 700;
+  line-height: 0.8;
+}
+
+.lg-sp-reg {
+  margin: 0.35rem 0 0;
+}
+
+.lg-sp-reg p {
+  margin: 0 0 0.28rem;
+}
+
+.lg-sp-hash {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.1rem 0.75rem;
+}
+
+.lg-sp-hash b {
+  color: #2a2722;
+  font-family: var(--receipt);
+  font-size: clamp(0.78rem, 1.05vw, 0.95rem);
+  font-weight: 400;
+}
+
+.lg-sp-url {
+  margin: 1rem 0 0.7rem;
+  color: #3f3b34;
+}
+
+.lg-sp-verify {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  margin-top: auto;
+  background: #2a2722;
+  color: #efebe1 !important;
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.lg-sp-verify:hover {
+  background: #9a2b24;
+  color: #efebe1 !important;
+}
+
 /* ── Void fold: brand on the ground, receipt as evidence ─ */
 .lg-sheet.lg-void {
   position: relative;
@@ -4169,6 +4453,42 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 980px) {
+  .lg-sheet.lg-sp {
+    height: auto;
+    max-height: none;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .lg-sp-stage {
+    height: auto;
+    padding: 0.8rem var(--gutter) 0;
+  }
+
+  .lg-sp-sheet {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 72px);
+    padding: 1.5rem 1.35rem 1.3rem;
+  }
+
+  .lg-sp-lede {
+    width: 100%;
+  }
+
+  .lg-sp-lede span {
+    white-space: normal;
+  }
+
+  .lg-sp-amt,
+  .lg-sp-amt span {
+    font-size: clamp(5.4rem, 22vw, 10rem);
+  }
+
+  .lg-sp-hash {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .lg-sheet.lg-ed {
     height: auto;
     max-height: none;
