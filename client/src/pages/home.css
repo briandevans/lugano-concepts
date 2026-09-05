@@ -1975,10 +1975,11 @@
   z-index: 4;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: min(100% - (var(--gutter) * 2), 72rem);
   height: calc(100vh - 72px);
   margin: 0 auto;
-  padding: 1.5rem 0 0;
+  padding: 0 0 1.5rem;
   overflow: hidden;
 }
 
@@ -1987,7 +1988,7 @@
   grid-template-columns: minmax(0, 1fr) 16.75rem;
   column-gap: 2.4rem;
   align-items: start;
-  margin-top: 1.65rem;
+  margin-top: 1.8rem;
 }
 
 .lg-nm-copy {
@@ -2002,10 +2003,10 @@
   margin: 0;
   color: #ece7dc;
   font-family: var(--serif);
-  font-size: clamp(3.8rem, 7vw, 7rem);
+  font-size: clamp(3.6rem, 6.4vw, 6.2rem);
   font-weight: 560;
-  line-height: 0.9;
-  letter-spacing: -0.028em;
+  line-height: 0.94;
+  letter-spacing: -0.02em;
 }
 
 .lg-nm-lede span {
@@ -2014,14 +2015,14 @@
 }
 
 .lg-nm-sub {
-  margin: 1.6rem 0 0;
-  max-width: 34rem;
-  color: #c8c2b6;
-  font-family: var(--receipt);
-  font-size: 1.12rem;
-  line-height: 1.4;
-  letter-spacing: 0;
-  text-wrap: balance;
+  margin: 0;
+  max-width: 28rem;
+  color: #d4cfc4;
+  font-family: var(--serif);
+  font-size: 1.28rem;
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
 }
 
 .lg-nm-cta {
@@ -2053,7 +2054,7 @@
   background-color: #efebe1;
   background-image: url("/generated/thermal_paper_fiber.png");
   background-size: 160px;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.45);
 }
 
 .lg-nm-body {
@@ -2104,12 +2105,13 @@
 
 .lg-nm-body dt {
   color: #5a554c;
-  font-size: 0.92rem;
+  font-size: 0.86rem;
 }
 
 .lg-nm-body dd {
   color: #2a2722;
-  font-size: 0.94rem;
+  font-size: 0.86rem;
+  white-space: nowrap;
 }
 
 .lg-nm-body dl div > i {
@@ -2142,15 +2144,38 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.18rem;
-  margin: 0.2rem 0 0.7rem;
+  gap: 0.15rem;
+  margin: 0.15rem 0 0.65rem;
 }
 
-.lg-nm-total > span {
-  align-self: flex-start;
-  color: #2a2722;
+.lg-nm-tally {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 0.35rem;
+  width: 100%;
+  margin: 0;
   font-family: var(--receipt);
-  font-size: 0.94rem;
+}
+
+.lg-nm-tally span {
+  color: #5a554c;
+  font-size: 0.86rem;
+}
+
+.lg-nm-tally i {
+  display: block;
+  height: 0.5em;
+  background-image: radial-gradient(#2a2722 0.7px, transparent 0.8px);
+  background-size: 3.2px 0.5em;
+  background-repeat: repeat-x;
+  background-position: 0 0.34em;
+}
+
+.lg-nm-tally b {
+  color: #2a2722;
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 .lg-nm-amt {
@@ -2222,8 +2247,9 @@
 .lg-nm-foot a {
   color: #2a2722 !important;
   font-family: var(--receipt);
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .lg-nm-next {

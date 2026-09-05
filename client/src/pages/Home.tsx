@@ -339,7 +339,7 @@ export default function Home() {
                 <div>
                   <dt>Service</dt>
                   <i />
-                  <dd>sealed inference</dd>
+                  <dd>sealed</dd>
                 </div>
                 <div>
                   <dt>Prompt</dt>
@@ -359,7 +359,11 @@ export default function Home() {
               </dl>
               <hr className="lg-nm-rule" />
               <div className="lg-nm-total">
-                <span>Total retained</span>
+                <p className="lg-nm-tally">
+                  <span>Total retained</span>
+                  <i />
+                  <b>0 B</b>
+                </p>
                 <b className="lg-nm-amt">
                   <span className="lg-oh">0</span>
                   <span>B</span>
