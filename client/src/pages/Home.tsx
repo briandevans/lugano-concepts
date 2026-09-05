@@ -330,6 +330,9 @@ export default function Home() {
             <a className="lg-nm-cta" href="mailto:contact@lugano.ai">
               Request access
             </a>
+            <a className="lg-nm-more" href="#architecture">
+              Read the architecture
+            </a>
           </div>
           <article className="lg-nm-slip" aria-label="Attestation receipt">
             <div className="lg-nm-body">
@@ -381,6 +384,9 @@ export default function Home() {
                 <img src="/generated/verifier_qr.png" alt="Verification QR for LUG-7F283" />
                 <a href="#architecture">lugano.ai/v/LUG-7F283</a>
               </div>
+              <p className="lg-nm-next">LUG-7F284 · queued</p>
+              <p className="lg-nm-kind">Attestation</p>
+              <p className="lg-nm-ticket">LUG-7F285</p>
             </div>
           </article>
         </section>

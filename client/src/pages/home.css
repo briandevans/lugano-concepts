@@ -1951,9 +1951,9 @@
 
 .lg-nm .lg-nav-links a {
   color: #ece7dc !important;
-  font-family: var(--receipt);
-  font-size: 0.92rem;
-  letter-spacing: 0;
+  font-family: var(--sans);
+  font-size: 1.02rem;
+  letter-spacing: -0.015em;
   background: transparent;
   padding: 0;
   min-height: 0;
@@ -2011,7 +2011,8 @@
 
 .lg-nm-sub {
   margin: 1.55rem 0 0;
-  max-width: 32rem;
+  max-width: 38rem;
+  white-space: nowrap;
   color: #c4bfb4;
   font-family: var(--sans);
   font-size: 1.28rem;
@@ -2040,6 +2041,16 @@
   color: #0c0e12 !important;
 }
 
+.lg-nm-more {
+  margin-top: 0.85rem;
+  color: #c4bfb4 !important;
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  letter-spacing: -0.016em;
+  text-decoration: underline !important;
+  text-underline-offset: 0.2em;
+}
+
 .lg-nm-slip {
   position: relative;
   display: flex;
@@ -2049,7 +2060,8 @@
   background-color: #efebe1;
   background-image: url("/generated/thermal_paper_fiber.png");
   background-size: 180px;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.42);
+  margin-bottom: -5.5rem;
+  box-shadow: 1px 0 0 #d2cdc0, 0 2px 0 rgba(0, 0, 0, 0.42);
 }
 
 .lg-nm-body {
