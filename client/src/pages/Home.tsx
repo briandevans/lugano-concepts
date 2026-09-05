@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import ThermalFilm from "@/components/ThermalFilm";
 import "./home.css";
 
 const MEASURES = [
@@ -11,11 +10,27 @@ const MEASURES = [
   { key: "RTMR3", value: "f4e97ade7149b4fc5057f0e80cf112303daf4e2f30b2b30f874eac595309e9f6030bbe538ecb25437a37b5db9124b478" },
 ] as const;
 
-function ZeroMark({ className }: { className?: string }) {
+function ZeroMark({ className, heavy = false }: { className?: string; heavy?: boolean }) {
   return (
     <svg className={className ?? "lg-zero-mark"} viewBox="0 0 64 100" aria-hidden="true">
-      <ellipse cx="32" cy="50" rx="19" ry="35" fill="none" stroke="currentColor" strokeWidth="11" />
-      <line x1="19" y1="71" x2="45" y2="29" stroke="currentColor" strokeWidth="8.5" strokeLinecap="butt" />
+      <ellipse
+        cx="32"
+        cy="50"
+        rx="19"
+        ry="35"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={heavy ? 13.5 : 11}
+      />
+      <line
+        x1="19"
+        y1="71"
+        x2="45"
+        y2="29"
+        stroke="currentColor"
+        strokeWidth={heavy ? 10.5 : 8.5}
+        strokeLinecap="butt"
+      />
     </svg>
   );
 }
@@ -262,13 +277,13 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="lg-sheet lg-oz">
+      <div className="lg-sheet lg-ed">
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
               <span className="lg-wordmark">
                 Lugan
-                <ZeroMark />
+                <ZeroMark heavy />
               </span>
             </a>
             <nav className="lg-nav-links" aria-label="Primary">
@@ -277,6 +292,9 @@ export default function Home() {
                   {item.label}
                 </a>
               ))}
+              <a className="lg-ed-nav-cta" href="mailto:contact@lugano.ai">
+                Request access
+              </a>
             </nav>
             <button
               className="lg-menu-btn"
@@ -300,75 +318,65 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="top" className="lg-oz-well">
-          <div className="lg-oz-copy">
-            <p className="lg-oz-lede">
+        <section id="top" className="lg-ed-well">
+          <div className="lg-ed-copy">
+            <p className="lg-ed-lede">
               Frontier models
               <span>that run sealed</span>
               <span>and leave a receipt.</span>
             </p>
-            <p className="lg-oz-sub">For work that cannot leave the enclave.</p>
-            <a className="lg-oz-cta" href="mailto:contact@lugano.ai">
+            <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
+            <a className="lg-ed-cta" href="mailto:contact@lugano.ai">
               Request access
             </a>
           </div>
-          <div className="lg-oz-stage">
-            <article className="lg-oz-slip" aria-label="Attestation receipt">
-              <ThermalFilm />
-              <p className="lg-oz-shop">
-                Lugan
-                <ZeroMark />
-              </p>
-              <p className="lg-oz-kind">Attestation</p>
-              <p className="lg-oz-ticket">LUG-7F283</p>
-              <p className="lg-oz-when">{issued}</p>
-              <hr className="lg-oz-rule" />
-              <dl>
-                <div>
-                  <dt>Service</dt>
-                  <i />
-                  <dd>sealed inference</dd>
-                </div>
-                <div>
-                  <dt>Prompt</dt>
-                  <i />
-                  <dd>not retained</dd>
-                </div>
-                <div>
-                  <dt>Model</dt>
-                  <i />
-                  <dd>GLM-5.2 · sealed</dd>
-                </div>
-                <div>
-                  <dt>Signed</dt>
-                  <i />
-                  <dd>TDX quote</dd>
-                </div>
-                <div className="lg-oz-reg">
-                  <dt>MRTD · SHA-384</dt>
-                  <dd className="lg-oz-hash">
-                    {hashGroups(MEASURES[0].value).map((group, index) => (
-                      <b key={`mrtd-${index}`}>{group}</b>
-                    ))}
-                  </dd>
-                </div>
-              </dl>
-              <div className="lg-oz-total">
-                <span>Total retained</span>
+          <div className="lg-ed-spine" aria-hidden="true" />
+          <article className="lg-ed-slip" aria-label="Attestation record">
+            <p className="lg-ed-shop">
+              Lugan
+              <ZeroMark heavy />
+            </p>
+            <p className="lg-ed-kind">Attestation</p>
+            <p className="lg-ed-ticket">LUG-7F283</p>
+            <p className="lg-ed-when">{issued}</p>
+            <hr className="lg-ed-rule" />
+            <dl>
+              <div>
+                <dt>Model</dt>
                 <i />
-                <b className="lg-oz-amt">
-                  <ZeroMark className="lg-oz-zero" />
-                  <small>B</small>
-                </b>
+                <dd>GLM-5.2</dd>
               </div>
-              <div className="lg-oz-foot">
-                <img src="/generated/verifier_qr.png" alt="" />
-                <a href="#architecture">Verify this proof</a>
-                <span>lugano.ai / LUG-7F283</span>
+              <div>
+                <dt>Enclave</dt>
+                <i />
+                <dd>TDX</dd>
               </div>
-              <img className="lg-oz-tear" src="/generated/thermal_fine_tear.png" alt="" />
-            </article>
-          </div>
+              <div>
+                <dt>Prompt</dt>
+                <i />
+                <dd>—</dd>
+              </div>
+              <div className="lg-ed-reg">
+                <dt>MRTD · SHA-384</dt>
+                <dd className="lg-ed-hash">
+                  {hashGroups(MEASURES[0].value).map((group, index) => (
+                    <b key={`mrtd-${index}`}>{group}</b>
+                  ))}
+                </dd>
+              </div>
+            </dl>
+            <div className="lg-ed-total">
+              <span>Total retained</span>
+              <i />
+              <b className="lg-ed-amt">
+                <ZeroMark heavy className="lg-ed-zero" />
+                <small>B</small>
+              </b>
+            </div>
+            <a className="lg-ed-url" href="#architecture">
+              lugano.ai/v/LUG-7F283
+            </a>
+          </article>
         </section>
       </div>
 

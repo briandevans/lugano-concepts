@@ -916,6 +916,317 @@
   pointer-events: none;
 }
 
+/* ── Ed fold: typographic lockup, no object theater ───── */
+.lg-sheet.lg-ed {
+  --receipt: "Courier Prime", "Courier New", Courier, monospace;
+  position: relative;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  color: #f4eee3;
+  background: #12110f;
+}
+
+.lg-ed .lg-nav {
+  position: relative;
+  z-index: 8;
+  height: 72px;
+  color: #f4eee3;
+  border-bottom: 1px solid #3a3732;
+}
+
+.lg-ed .lg-nav-inner {
+  width: min(100% - (var(--gutter) * 2), 1220px);
+}
+
+.lg-ed .lg-wordmark {
+  display: inline-flex;
+  align-items: center;
+  color: #f4eee3;
+  font-family: var(--sans);
+  font-size: 1.55rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.lg-ed .lg-zero-mark {
+  width: 0.62em;
+  height: 0.86em;
+  margin-left: 0.01em;
+  color: #f4eee3;
+}
+
+.lg-ed .lg-nav-links {
+  gap: 1.65rem;
+}
+
+.lg-ed .lg-nav-links a {
+  color: #ece4d6 !important;
+  font-family: var(--sans);
+  font-size: 1.02rem;
+  letter-spacing: -0.015em;
+  background: transparent;
+  padding: 0;
+  min-height: 0;
+  text-decoration: none;
+}
+
+.lg-ed .lg-nav-links a:hover {
+  color: #fff !important;
+}
+
+.lg-ed-nav-cta {
+  color: #f4eee3 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 0.22em;
+}
+
+.lg-ed-well {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px min(26.5rem, 34vw);
+  column-gap: 0;
+  align-items: start;
+  width: min(100% - (var(--gutter) * 2), 1220px);
+  min-height: calc(100vh - 72px);
+  margin: 0 auto;
+  padding: 2.35rem 0 2.5rem;
+  border-bottom: 1px solid #3a3732;
+}
+
+.lg-ed-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.45rem;
+  min-width: 0;
+  padding-right: 3.1rem;
+}
+
+.lg-ed-lede {
+  width: 100%;
+  margin: 0;
+  color: #f7f1e6;
+  font-family: var(--sans);
+  font-size: clamp(3.1rem, 4.4vw, 4.4rem);
+  font-weight: 600;
+  line-height: 0.96;
+  letter-spacing: -0.032em;
+}
+
+.lg-ed-lede span {
+  display: block;
+  white-space: nowrap;
+}
+
+.lg-ed-sub {
+  max-width: 42ch;
+  margin: 0;
+  color: #ddd4c4;
+  font-family: var(--sans);
+  font-size: 1.25rem;
+  line-height: 1.35;
+  letter-spacing: -0.018em;
+}
+
+.lg-ed-cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3.05rem;
+  padding: 0 1.35rem;
+  border: 1px solid #f4eee3;
+  background: transparent;
+  color: #f4eee3 !important;
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.lg-ed-cta:hover {
+  background: #f4eee3;
+  color: #12110f !important;
+}
+
+.lg-ed-spine {
+  align-self: stretch;
+  min-height: calc(100vh - 72px - 4.85rem);
+  background: #3a3732;
+}
+
+.lg-ed-slip {
+  padding: 0 0 0 3.1rem;
+  color: #f4eee3;
+  background: transparent;
+}
+
+.lg-ed-shop {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  color: #f4eee3;
+  font-family: var(--sans);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.lg-ed-slip .lg-zero-mark {
+  width: 0.62em;
+  height: 0.86em;
+  color: #f4eee3;
+}
+
+.lg-ed-kind,
+.lg-ed-ticket,
+.lg-ed-when {
+  margin: 0;
+  font-family: var(--receipt);
+}
+
+.lg-ed-kind {
+  margin-top: 0.28rem;
+  color: #b7ae9e;
+  font-size: 0.95rem;
+}
+
+.lg-ed-ticket {
+  margin-top: 1rem;
+  color: #f4eee3;
+  font-size: 1.12rem;
+  font-weight: 700;
+}
+
+.lg-ed-when {
+  margin-top: 0.15rem;
+  color: #b7ae9e;
+  font-size: 0.95rem;
+}
+
+.lg-ed-rule {
+  width: 100%;
+  height: 0;
+  margin: 0.85rem 0 0.4rem;
+  border: 0;
+  border-top: 1px solid #5a554c;
+}
+
+.lg-ed-slip dl {
+  margin: 0;
+}
+
+.lg-ed-slip dl div {
+  display: grid;
+  grid-template-columns: 6.4rem minmax(0.7rem, 1fr) auto;
+  gap: 0.45rem;
+  align-items: baseline;
+  padding: 0.22rem 0;
+  font-family: var(--receipt);
+}
+
+.lg-ed-slip dt {
+  color: #b7ae9e;
+  font-size: 0.95rem;
+}
+
+.lg-ed-slip dd {
+  margin: 0;
+  color: #f4eee3;
+  font-size: 1rem;
+}
+
+.lg-ed-slip dl div > i {
+  display: block;
+  height: 0.5em;
+  background-image: radial-gradient(#8a8478 0.7px, transparent 0.8px);
+  background-size: 4px 0.5em;
+  background-repeat: repeat-x;
+  background-position: 0 0.34em;
+}
+
+.lg-ed-reg {
+  grid-template-columns: 1fr !important;
+  gap: 0.22rem !important;
+  padding: 0.55rem 0 0.3rem !important;
+}
+
+.lg-ed-hash {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.16rem 0.65rem;
+}
+
+.lg-ed-hash b {
+  color: #c8bfb0;
+  font-size: 0.82rem;
+  font-weight: 400;
+}
+
+.lg-ed-total {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.55rem;
+  padding: 0.6rem 0 0.15rem;
+  border-top: 1px solid #5a554c;
+  font-family: var(--receipt);
+}
+
+.lg-ed-total span {
+  color: #f4eee3;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.lg-ed-total i {
+  display: block;
+  height: 0.5em;
+  background-image: radial-gradient(#8a8478 0.7px, transparent 0.8px);
+  background-size: 4px 0.5em;
+  background-repeat: repeat-x;
+  background-position: 0 0.34em;
+}
+
+.lg-ed-amt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.14em;
+  color: #c24a3a;
+  line-height: 1;
+}
+
+.lg-ed-zero {
+  width: 1.2rem;
+  height: 1.65rem;
+  color: #c24a3a;
+}
+
+.lg-ed-total small {
+  color: #c24a3a;
+  font-family: var(--receipt);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.lg-ed-url {
+  display: inline-block;
+  margin-top: 1.1rem;
+  color: #ddd4c4 !important;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+}
+
+.lg-ed-url:hover {
+  color: #fff !important;
+}
+
 /* ── Void fold: brand on the ground, receipt as evidence ─ */
 .lg-sheet.lg-void {
   position: relative;
@@ -3777,6 +4088,37 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 980px) {
+  .lg-sheet.lg-ed {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .lg-ed-well {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 1.6rem 0 2rem;
+  }
+
+  .lg-ed-copy {
+    padding-right: 0;
+    padding-bottom: 1.8rem;
+  }
+
+  .lg-ed-lede span {
+    white-space: normal;
+  }
+
+  .lg-ed-spine {
+    display: none;
+  }
+
+  .lg-ed-slip {
+    padding-left: 0;
+    padding-top: 1.6rem;
+    border-top: 1px solid #3a3732;
+  }
+
   .lg-sheet.lg-oz {
     height: auto;
     max-height: none;
