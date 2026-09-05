@@ -924,16 +924,20 @@
   max-height: 100vh;
   min-height: 100vh;
   overflow: hidden;
-  color: #f4eee3;
-  background: #12110f;
+  color: #2a2722;
+  background-color: #efebe1;
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(40, 32, 22, 0.05)),
+    url("/generated/thermal_paper_fiber.png");
+  background-size: auto, 220px;
 }
 
 .lg-ed .lg-nav {
   position: relative;
   z-index: 8;
   height: 72px;
-  color: #f4eee3;
-  border-bottom: 1px solid #3a3732;
+  color: #2a2722;
+  border-bottom: 1px solid #2a2722;
 }
 
 .lg-ed .lg-nav-inner {
@@ -943,7 +947,7 @@
 .lg-ed .lg-wordmark {
   display: inline-flex;
   align-items: baseline;
-  color: #f4eee3;
+  color: #2a2722;
   font-family: var(--sans);
   font-size: 1.55rem;
   font-weight: 600;
@@ -971,7 +975,7 @@
 }
 
 .lg-ed .lg-nav-links a {
-  color: #ece4d6 !important;
+  color: #2a2722 !important;
   font-family: var(--sans);
   font-size: 1.02rem;
   letter-spacing: -0.015em;
@@ -982,7 +986,7 @@
 }
 
 .lg-ed .lg-nav-links a:hover {
-  color: #fff !important;
+  color: #9a2b24 !important;
 }
 
 .lg-ed-nav-cta {
@@ -994,60 +998,63 @@
 .lg-ed-well {
   position: relative;
   z-index: 4;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) min(22.75rem, 34vw);
-  column-gap: clamp(2rem, 4vw, 3.5rem);
-  align-items: start;
+  display: flex;
+  flex-direction: column;
   width: min(100% - (var(--gutter) * 2), 1220px);
   height: calc(100vh - 72px);
   margin: 0 auto;
-  padding: 1.35rem 0 0;
+  padding: 1.7rem 0 1.5rem;
+}
+
+.lg-ed-lede {
+  width: min(20ch, 100%);
+  margin: 0 0 1.6rem;
+  color: #2a2722;
+  font-family: var(--sans);
+  font-size: clamp(3.1rem, 5.2vw, 4.85rem);
+  font-weight: 600;
+  line-height: 0.96;
+  letter-spacing: -0.034em;
+}
+
+.lg-ed-lede span {
+  display: block;
+}
+
+.lg-ed-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, 28rem);
+  column-gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .lg-ed-copy {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.2rem;
+  gap: 1.15rem;
   min-width: 0;
-  padding-top: 0.2rem;
-}
-
-.lg-ed-lede {
-  width: max-content;
-  max-width: 100%;
-  margin: 0;
-  color: #f7f1e6;
-  font-family: var(--sans);
-  font-size: clamp(2.55rem, 3.7vw, 3.45rem);
-  font-weight: 600;
-  line-height: 0.98;
-  letter-spacing: -0.032em;
-}
-
-.lg-ed-lede span {
-  display: block;
-  white-space: nowrap;
 }
 
 .lg-ed-sub {
   margin: 0;
-  color: #ddd4c4;
+  color: #3f3b34;
   font-family: var(--sans);
   font-size: 1.25rem;
   line-height: 1.35;
   letter-spacing: -0.018em;
-  white-space: nowrap;
 }
 
 .lg-ed-cta {
   display: inline-flex;
   align-items: center;
-  min-height: 2.85rem;
-  padding: 0 1.15rem;
-  border: 1px solid #f4eee3;
-  background: transparent;
-  color: #f4eee3 !important;
+  min-height: 2.9rem;
+  padding: 0 1.2rem;
+  border: 1px solid #2a2722;
+  background: #2a2722;
+  color: #efebe1 !important;
   font-family: var(--sans);
   font-size: 1.05rem;
   font-weight: 500;
@@ -1056,8 +1063,49 @@
 }
 
 .lg-ed-cta:hover {
-  background: #f4eee3;
-  color: #12110f !important;
+  background: #9a2b24;
+  border-color: #9a2b24;
+  color: #efebe1 !important;
+}
+
+.lg-ed-copy dl {
+  width: min(26rem, 100%);
+  margin: 0.4rem 0 0;
+}
+
+.lg-ed-copy dl div {
+  display: grid;
+  grid-template-columns: 6.2rem minmax(0.7rem, 1fr) auto;
+  gap: 0.4rem;
+  align-items: baseline;
+  padding: 0.22rem 0;
+  font-family: var(--receipt);
+}
+
+.lg-ed-copy dt {
+  color: #5a554c;
+  font-size: 0.95rem;
+}
+
+.lg-ed-copy dd {
+  margin: 0;
+  color: #2a2722;
+  font-size: 1rem;
+}
+
+.lg-ed-copy dl div > i {
+  display: block;
+  height: 0.5em;
+  background-image: radial-gradient(#2a2722 0.7px, transparent 0.8px);
+  background-size: 4px 0.5em;
+  background-repeat: repeat-x;
+  background-position: 0 0.34em;
+}
+
+.lg-ed-proofcol {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .lg-ed-paper {
@@ -1103,9 +1151,10 @@
 }
 
 .lg-ed-ticket {
-  margin-top: 0.2rem;
+  margin: 0 0 0.85rem;
   color: #2a2722;
-  font-size: 1.2rem;
+  font-family: var(--receipt);
+  font-size: 1.35rem;
   font-weight: 700;
 }
 
@@ -1184,11 +1233,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  flex: 1 1 auto;
-  gap: 0.35rem;
-  margin-top: 0.9rem;
-  padding-top: 0.4rem;
+  gap: 0.25rem;
+  margin-top: 1.1rem;
+  padding-top: 0.75rem;
   border-top: 1px solid #2a2722;
   font-family: var(--receipt);
 }
@@ -1205,8 +1252,7 @@
   align-items: baseline;
   gap: 0.08em;
   color: #9a2b24;
-  font-size: clamp(5.6rem, 13vh, 8.4rem);
-  transform: rotate(-1.8deg);
+  font-size: clamp(4.8rem, 8vw, 7rem);
   font-weight: 700;
   line-height: 0.82;
 }

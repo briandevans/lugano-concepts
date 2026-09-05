@@ -315,75 +315,62 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-ed-well">
-          <div className="lg-ed-copy">
-            <p className="lg-ed-lede">
-              Frontier models
-              <span>that run sealed</span>
-              <span>and leave a receipt.</span>
-            </p>
-            <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
-            <a className="lg-ed-cta" href="mailto:contact@lugano.ai">
-              Request access
-            </a>
+          <p className="lg-ed-lede">
+            Frontier models that run sealed
+            <span>and leave a receipt.</span>
+          </p>
+          <div className="lg-ed-row">
+            <div className="lg-ed-copy">
+              <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
+              <a className="lg-ed-cta" href="mailto:contact@lugano.ai">
+                Request access
+              </a>
+              <dl>
+                <div>
+                  <dt>Model</dt>
+                  <i />
+                  <dd>GLM-5.2</dd>
+                </div>
+                <div>
+                  <dt>Enclave</dt>
+                  <i />
+                  <dd>TDX</dd>
+                </div>
+                <div>
+                  <dt>Prompt</dt>
+                  <i />
+                  <dd>not retained</dd>
+                </div>
+                <div>
+                  <dt>Issued</dt>
+                  <i />
+                  <dd>{issued}</dd>
+                </div>
+              </dl>
+            </div>
+            <div className="lg-ed-proofcol">
+              <p className="lg-ed-ticket">LUG-7F283</p>
+              <div className="lg-ed-reg">
+                <p>MRTD · SHA-384</p>
+                <div className="lg-ed-hash">
+                  {hashGroups(MEASURES[0].value).map((group, index) => (
+                    <b key={`mrtd-0-${index}`}>{group}</b>
+                  ))}
+                </div>
+              </div>
+              <div className="lg-ed-punch">
+                <span>Total retained</span>
+                <b className="lg-ed-amt">
+                  <span className="lg-oh">0</span>
+                  <span>B</span>
+                </b>
+              </div>
+              <div className="lg-ed-proof">
+                <img src="/generated/verifier_qr.png" alt="" />
+                <a href="#architecture">lugano.ai/v/LUG-7F283</a>
+              </div>
+            </div>
           </div>
-          <article className="lg-ed-paper" aria-label="Attestation record">
-            <img className="lg-ed-tear-top" src="/generated/thermal_fine_tear.png" alt="" />
-            <p className="lg-ed-kind">Attestation</p>
-            <p className="lg-ed-ticket">LUG-7F283</p>
-            <p className="lg-ed-when">{issued}</p>
-            <hr className="lg-ed-rule" />
-            <dl>
-              <div>
-                <dt>Model</dt>
-                <i />
-                <dd>GLM-5.2</dd>
-              </div>
-              <div>
-                <dt>Enclave</dt>
-                <i />
-                <dd>TDX</dd>
-              </div>
-              <div>
-                <dt>Input</dt>
-                <i />
-                <dd>4,821 tok</dd>
-              </div>
-              <div>
-                <dt>Output</dt>
-                <i />
-                <dd>1,104 tok</dd>
-              </div>
-              <div>
-                <dt>Logs</dt>
-                <i />
-                <dd>none</dd>
-              </div>
-              <div>
-                <dt>Prompt</dt>
-                <i />
-                <dd>not retained</dd>
-              </div>
-            </dl>
-            <div className="lg-ed-reg">
-              <p>MRTD · SHA-384</p>
-              <div className="lg-ed-hash">
-                {hashGroups(MEASURES[0].value).map((group, index) => (
-                  <b key={`mrtd-0-${index}`}>{group}</b>
-                ))}
-              </div>
-            </div>
-            <div className="lg-ed-punch">
-              <span>Total retained</span>
-              <b className="lg-ed-amt">
-                <span className="lg-oh">0</span>
-                <span>B</span>
-              </b>
-            </div>
-            <div className="lg-ed-proof">
-              <img src="/generated/verifier_qr.png" alt="" />
-              <a href="#architecture">lugano.ai/v/LUG-7F283</a>
-            </div>
-          </article>
         </section>
       </div>
 
