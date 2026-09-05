@@ -26,6 +26,7 @@ const MEASURES = [
   { key: "RTMR1", value: "c2d8f0a16e4b7395a0c1d7e24f8b6035d19a7c2e48b0f3a6e15d82c9b7043f1a" },
   { key: "REPORTDATA", value: "07b3e9a1d5c82f406e1a94c7b2d0f835a6c1e04d79b2f1a8c3e5d06b9147a2f0" },
   { key: "AK.BIND", value: "b8f17d20c4a9e35f16d0a2c78e4b9153f0c6a1d7e29b83504c1f6a2d90e3b748" },
+  { key: "TEE.TCB", value: "5e0c1a94d7b283f06a1e4c9b72d0f835c18a6e04d79b2f1a0c3e5d16b9147a2f" },
 ] as const;
 
 function shortHash(value: string) {
