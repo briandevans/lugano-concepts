@@ -20,7 +20,7 @@ export default function LuganoLogo({ className = "" }: { className?: string }) {
       {/* O */}
       <path d="M100 0C97.8 0 96 1.8 96 4V20C96 22.2 97.8 24 100 24H104C106.2 24 108 22.2 108 20V4C108 1.8 106.2 0 104 0H100ZM104 20H100V4H104V20Z" fill="currentColor" />
       {/* . */}
-      <rect x="112" y="20" width="4" height="4" fill="#E11BDD" />
+      <rect x="112" y="20" width="4" height="4" fill="#A855F7" />
     </svg>
   );
 }

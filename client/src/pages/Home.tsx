@@ -1,795 +1,1551 @@
-import { useEffect } from "react";
-import "./live.css";
+import { useEffect, useRef, useState } from "react";
+import { Helmet } from "react-helmet";
+import { ArrowRight, Shield, Lock, Cpu, Building2, Landmark, TrendingUp, Zap, ChevronRight, CheckCircle2, Globe, Server, Eye, Code2, Bot, Wrench } from "lucide-react";
 
+/* ─── Lake-blue gradient helpers ──────────────────────────── */
+const LAKE_GRADIENT = "linear-gradient(135deg, #0d72c0 0%, #1a8cd8 50%, #3b9edd 100%)";
+const ABYSS = "#020c1b";
+
+/* ─── Data ─────────────────────────────────────────────────── */
+const STATS = [
+  { value: "100%", label: "Air-Gapped by Default" },
+  { value: "0", label: "Data Breaches" },
+  { value: "99.9%", label: "Uptime SLA" },
+  { value: "SOC 2", label: "Type II Certified" },
+];
+
+const VERTICALS = [
+  {
+    icon: Building2,
+    title: "Enterprise",
+    subtitle: "Private AI for internal operations, IP protection, and competitive intelligence",
+    bullets: [
+      "Isolate sensitive workflows and data",
+      "Protect IP and trade secrets",
+      "Deploy on-prem or in your VPC",
+      "Integrate with existing enterprise systems",
+      "Role-based access and audit controls",
+    ],
+    featured: false,
+  },
+  {
+    icon: Landmark,
+    title: "Government & Defense",
+    subtitle: "Sovereign AI, classified workloads, compliance-first infrastructure",
+    bullets: [
+      "Support for classified environments",
+      "Air-gapped and disconnected deployments",
+      "FedRAMP, IL5, CJIS, ITAR compliance",
+      "Sovereign data residency and control",
+      "Mission-critical reliability and security",
+    ],
+    featured: true,
+  },
+  {
+    icon: TrendingUp,
+    title: "Financial Services",
+    subtitle: "Trading models, client data, regulatory requirements",
+    bullets: [
+      "Protect sensitive financial data",
+      "Low-latency inference for trading",
+      "Model risk management and validation",
+      "Auditability and regulatory compliance",
+      "Deploy in private, secure environments",
+    ],
+    featured: false,
+  },
+];
+
+const AGENTS = [
+  {
+    name: "Hermes Agent",
+    tagline: "Your autonomous AI companion for complex, multi-step tasks",
+    icon: "⚡",
+    color: "#f59e0b",
+    featured: false,
+  },
+  {
+    name: "OpenClaw",
+    tagline: "Open-source agentic framework built for sovereign deployments",
+    icon: "🦞",
+    color: "#3b9edd",
+    featured: true,
+  },
+  {
+    name: "Custom Agents",
+    tagline: "Bring any agent framework. Any workflow. Zero data leakage.",
+    icon: "⚙️",
+    color: "#a78bfa",
+    featured: false,
+  },
+];
+
+const OPEN_SOURCE_MODELS = [
+  {
+    name: "Kimi K2.6",
+    org: "Moonshot AI",
+    logo: "K",
+    rank: 1,
+    params: "1T MoE",
+    context: "262K ctx",
+    badge: "Best All-Round",
+    highlight: true,
+    color: "#3b9edd",
+    bestFor: "Best all-round model",
+    benchmarks: [
+      { label: "Context", value: "262K" },
+      { label: "Tools", value: "Yes" },
+      { label: "Vision", value: "Yes" },
+    ],
+  },
+  {
+    name: "DeepSeek V4 Pro",
+    org: "DeepSeek",
+    logo: "DS",
+    rank: 2,
+    params: "1.6T / 49B",
+    context: "1M ctx",
+    badge: "Best Instruction",
+    highlight: false,
+    color: "#38bdf8",
+    bestFor: "Best instruction following + API cost",
+    benchmarks: [
+      { label: "Agentic", value: "SOTA" },
+      { label: "Context", value: "1M" },
+      { label: "Modes", value: "Dual" },
+    ],
+  },
+  {
+    name: "MiniMax M3",
+    org: "MiniMax",
+    logo: "MM",
+    rank: 3,
+    params: "MSA",
+    context: "1M ctx",
+    badge: "Best OS Coding",
+    highlight: false,
+    color: "#818cf8",
+    bestFor: "Best OS coding agent",
+    benchmarks: [
+      { label: "Browse", value: "83.5" },
+      { label: "Context", value: "1M" },
+      { label: "Modal", value: "Native" },
+    ],
+  },
+  {
+    name: "GLM-5.1",
+    org: "Z.AI",
+    logo: "Z",
+    rank: 4,
+    params: "Flagship",
+    context: "200K ctx",
+    badge: "Long Horizon",
+    highlight: false,
+    color: "#06b6d4",
+    bestFor: "Great at long-horizon tasks",
+    benchmarks: [
+      { label: "Horizon", value: "8h" },
+      { label: "Output", value: "128K" },
+      { label: "Tools", value: "MCP" },
+    ],
+  },
+  {
+    name: "MiMo V2.5-Pro",
+    org: "Xiaomi MiMo",
+    logo: "Mi",
+    rank: 5,
+    params: "MIT weights",
+    context: "1M ctx",
+    badge: "Best Harness",
+    highlight: false,
+    color: "#34d399",
+    bestFor: "Best harness integration",
+    benchmarks: [
+      { label: "ClawEval", value: "#1" },
+      { label: "GDPVal", value: "#1" },
+      { label: "License", value: "MIT" },
+    ],
+  },
+  {
+    name: "DeepSeek V4 Flash",
+    org: "DeepSeek",
+    logo: "DS",
+    rank: 6,
+    params: "284B / 13B",
+    context: "1M ctx",
+    badge: "Long + Fast",
+    highlight: false,
+    color: "#60a5fa",
+    bestFor: "Great at long analysis + speed",
+    benchmarks: [
+      { label: "Speed", value: "Fast" },
+      { label: "Context", value: "1M" },
+      { label: "Agent", value: "Near Pro" },
+    ],
+  },
+  {
+    name: "Qwen3.6-27B",
+    org: "Alibaba Qwen",
+    logo: "Q",
+    rank: 8,
+    params: "27B Dense",
+    context: "262K ctx",
+    badge: "On-Device Dense",
+    highlight: false,
+    color: "#a78bfa",
+    bestFor: "Best on-device dense model",
+    benchmarks: [
+      { label: "Native", value: "262K" },
+      { label: "Extend", value: "1M" },
+      { label: "License", value: "Apache" },
+    ],
+  },
+  {
+    name: "Gemma 4 12B",
+    org: "Google",
+    logo: "G",
+    rank: 9,
+    params: "11.95B",
+    context: "256K ctx",
+    badge: "Best SLM",
+    highlight: false,
+    color: "#f59e0b",
+    bestFor: "Best SLM on-device",
+    benchmarks: [
+      { label: "Unified", value: "12B" },
+      { label: "Audio", value: "Yes" },
+      { label: "LCB", value: "72.0" },
+    ],
+  },
+  {
+    name: "MiniMax M2.7",
+    org: "MiniMax",
+    logo: "MM",
+    rank: 10,
+    params: "229B",
+    context: "Agent Teams",
+    badge: "Self-Improve",
+    highlight: false,
+    color: "#22d3ee",
+    bestFor: "Best self-improvement agent",
+    benchmarks: [
+      { label: "SWE-Pro", value: "56.22" },
+      { label: "Terminal", value: "57.0" },
+      { label: "Skills", value: "97%" },
+    ],
+  },
+];
+
+const MODELS = OPEN_SOURCE_MODELS.slice(0, 6);
+
+const ARCHITECTURE_PILLARS = [
+  {
+    icon: Lock,
+    label: "Zero-Knowledge Execution",
+    desc: "Every inference runs inside a hardware-enforced enclave. Not even Lugano can read your prompts.",
+    tag: "TEE / SGX",
+  },
+  {
+    icon: Cpu,
+    label: "Sovereign Compute",
+    desc: "Deploy on your infrastructure, your VPC, or our air-gapped cloud. Your data never crosses a boundary you didn't draw.",
+    tag: "On-Prem / VPC",
+  },
+  {
+    icon: Shield,
+    label: "Cryptographic Receipts",
+    desc: "Every model call returns a hardware-signed attestation. Prove compliance without exposing a single token.",
+    tag: "ZK Proofs",
+  },
+  {
+    icon: Eye,
+    label: "Audit Without Exposure",
+    desc: "Full audit trails, role-based access, and tamper-evident logs — without giving auditors access to your data.",
+    tag: "SOC 2 / FedRAMP",
+  },
+  {
+    icon: Globe,
+    label: "Any Model, Any Region",
+    desc: "Run the world's best open-source models with data residency guarantees in 12 global regions.",
+    tag: "Multi-Region",
+  },
+  {
+    icon: Server,
+    label: "Enterprise SLA",
+    desc: "99.9% uptime, dedicated infrastructure, and a 4-hour incident response SLA for mission-critical deployments.",
+    tag: "99.9% Uptime",
+  },
+];
+
+const TRUST_LOGOS = [
+  { name: "Palantir", abbr: "PLT" },
+  { name: "Lockheed Martin", abbr: "LMT" },
+  { name: "BlackRock", abbr: "BLK" },
+  { name: "Raytheon", abbr: "RTX" },
+  { name: "Goldman Sachs", abbr: "GS" },
+  { name: "Booz Allen", abbr: "BAH" },
+  { name: "SAIC", abbr: "SAIC" },
+  { name: "Leidos", abbr: "LDOS" },
+];
+
+/* ─── Component ─────────────────────────────────────────────── */
 export default function Home() {
+  const [scrolled, setScrolled] = useState(false);
+  const [activeModel, setActiveModel] = useState(0);
+  const heroRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if (document.querySelector("script[data-lugano-home]")) {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 60);
+      if (heroRef.current) {
+        const y = window.scrollY;
+        heroRef.current.style.transform = `translateY(${y * 0.35}px)`;
+        heroRef.current.style.opacity = `${Math.max(0, 1 - y / 600)}`;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (window.location.pathname.replace(/\/$/, "") !== "/docs") {
       return;
     }
-    const script = document.createElement("script");
-    script.src = "/home.js";
-    script.async = false;
-    script.dataset.luganoHome = "1";
-    document.body.appendChild(script);
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById("docs")?.scrollIntoView({ block: "start" });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   return (
-    <>
+    <div
+      className="min-h-screen text-white overflow-x-hidden"
+      style={{ background: ABYSS, fontFamily: "'Geist', 'Inter', system-ui, sans-serif" }}
+    >
+      <Helmet>
+        <title>Lugano.ai — Private AI Infrastructure</title>
+        <meta name="description" content="The sovereign AI infrastructure for organizations that cannot afford to leak. Zero-knowledge inference, air-gapped deployments, cryptographic receipts." />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+      </Helmet>
 
-    <a className="skip-link" href="#main">Skip to content</a>
-
-    <svg className="svg-defs" aria-hidden="true" focusable="false">
-      <defs>
-        <symbol id="i-lock" viewBox="0 0 24 24">
-          <rect x="5" y="11" width="14" height="9" rx="2" />
-          <path d="M8 11V7.5a4 4 0 0 1 8 0V11" />
-          <path d="M12 15v2" />
-        </symbol>
-        <symbol id="i-shield" viewBox="0 0 24 24">
-          <path d="M12 3l7.5 3v5.2c0 4.6-3 7.7-7.5 9.8-4.5-2.1-7.5-5.2-7.5-9.8V6l7.5-3z" />
-          <path d="M9 12l2.2 2.2L15.5 10" />
-        </symbol>
-        <symbol id="i-key" viewBox="0 0 24 24">
-          <circle cx="8.5" cy="9" r="4" />
-          <path d="M11.5 11.8L20 20.3M16.5 17l2.2-2.2M13.8 14.2l2.1-2.1" />
-        </symbol>
-        <symbol id="i-fingerprint" viewBox="0 0 24 24">
-          <path d="M7 19.5c-1.4-2-2-4-2-7A7 7 0 0 1 12 5.5c3.9 0 7 3.1 7 7 0 2.2-.3 4.3-1.1 6" />
-          <path d="M9.7 20.5c-1-2.2-1.5-4.6-1.2-8a3.5 3.5 0 0 1 7 .1c0 2.6.4 4.9 1.3 6.9" />
-          <path d="M12.1 12.7c.1 2.9.6 5.3 1.6 7.6" />
-        </symbol>
-        <symbol id="i-receipt" viewBox="0 0 24 24">
-          <path d="M6 3.5h12V20l-2-1.3L14 20l-2-1.3L10 20l-2-1.3L6 20V3.5z" />
-          <path d="M9 8h6M9 11.5h6M9 15h3.5" />
-        </symbol>
-        <symbol id="i-boundary" viewBox="0 0 24 24">
-          <rect x="4" y="4" width="16" height="16" rx="2.5" strokeDasharray="3.4 2.6" />
-          <rect x="9" y="9" width="6" height="6" rx="1.2" />
-        </symbol>
-        <symbol id="i-route" viewBox="0 0 24 24">
-          <circle cx="6" cy="6" r="2.2" />
-          <circle cx="18" cy="18" r="2.2" />
-          <path d="M8.2 6H15a3 3 0 0 1 3 3v2M15.8 18H9a3 3 0 0 1-3-3v-2" />
-        </symbol>
-        <symbol id="i-file-check" viewBox="0 0 24 24">
-          <path d="M13.5 3.5H7a1.5 1.5 0 0 0-1.5 1.5v14A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5V8.5l-5-5z" />
-          <path d="M13.5 3.5v5h5" />
-          <path d="M9.3 14.2l2 2 3.4-3.6" />
-        </symbol>
-        <symbol id="i-eye-off" viewBox="0 0 24 24">
-          <path d="M4 4l16 16" />
-          <path d="M10.6 5.8A9.8 9.8 0 0 1 12 5.7c4.5 0 8 3.2 9.5 6.3a12.4 12.4 0 0 1-3.2 4M6.2 7.5c-1.7 1.2-3 2.9-3.7 4.5C4 15.1 7.5 18.3 12 18.3c1.2 0 2.4-.2 3.4-.6" />
-          <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
-        </symbol>
-        <symbol id="i-server" viewBox="0 0 24 24">
-          <rect x="4" y="4.5" width="16" height="6.5" rx="1.5" />
-          <rect x="4" y="13" width="16" height="6.5" rx="1.5" />
-          <path d="M7.5 7.8h.01M7.5 16.3h.01M11 7.8h2M11 16.3h2" />
-        </symbol>
-        <symbol id="i-check" viewBox="0 0 24 24">
-          <path d="M5 12.5l4.5 4.5L19 7.5" />
-        </symbol>
-        <symbol id="i-arrow" viewBox="0 0 24 24">
-          <path d="M4 12h15M14 6.5L19.5 12 14 17.5" />
-        </symbol>
-      </defs>
-    </svg>
-
-    <header className="site-header">
-      <div className="header-inner">
-        <a className="brand" href="/" aria-label="Lugano home">
-          <img className="brand-mark" src="/logo-mark.svg" alt="" width="20" height="20" />
-          <span className="brand-name">Lugano.ai</span>
-        </a>
-        <nav className="site-nav" id="site-nav" aria-label="Primary">
-          <a className="nav-link" href="#proof">Privacy</a>
-          <a className="nav-link" href="#architecture">Architecture</a>
-          <a className="nav-link" href="#use-cases">Use cases</a>
-          <a className="nav-link" href="/docs">Docs</a>
-          <a className="header-cta" href="#briefing">Request briefing</a>
-        </nav>
-        <button className="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-          <span className="nav-toggle-bar" aria-hidden="true"></span>
-          <span className="nav-toggle-bar" aria-hidden="true"></span>
-          <span className="sr-only">Menu</span>
-        </button>
-      </div>
-    </header>
-
-    <main id="main">
-      {/* 1. Hero */}
-      <section className="hero" id="hero">
-        <div className="hero-inner">
-          <div className="hero-copy">
-            <p className="label hero-eyebrow reveal">Private AI Infrastructure</p>
-            <h1 className="hero-title reveal">
-              AI Privacy by
-              <span className="strike">trust me bro</span>
-              <em>proof.</em>
-            </h1>
-            <p className="body-large hero-sub reveal">
-              Unverifiable privacy is just marketing. Lugano.ai gives sensitive AI workloads a
-              private execution boundary with cryptographic evidence — so teams can verify what
-              happened without exposing what matters.
-            </p>
-            <div className="hero-ctas reveal">
-              <a className="btn btn-primary" href="#briefing">Request a private briefing</a>
-              <a className="btn btn-ghost" href="#proof">View the proof model</a>
+      {/* ── NAV ─────────────────────────────────────────────── */}
+      <nav
+        style={{
+          position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+          transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+          padding: scrolled ? "12px 0" : "20px 0",
+          background: scrolled
+            ? "rgba(2, 12, 27, 0.85)"
+            : "transparent",
+          backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(59, 158, 221, 0.12)" : "none",
+        }}
+      >
+        <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          {/* Logo */}
+          <a href="#" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}>
+            <div style={{
+              width: 32, height: 32, borderRadius: 8,
+              background: LAKE_GRADIENT,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              boxShadow: "0 0 20px rgba(13, 114, 192, 0.4)",
+            }}>
+              <Lock size={16} color="white" strokeWidth={2.5} />
             </div>
-            <p className="hero-reassure reveal">Private beta. Technical review available under NDA.</p>
-          </div>
-
-          <div className="hero-artifact reveal" aria-label="Redacted proof capsule — representative artifact">
-            <div className="proof-capsule" id="proof-capsule">
-              <div className="proof-capsule-head">
-                <div>
-                  <p className="label">Verified Private</p>
-                  <p className="proof-capsule-sub">10 sealed checks</p>
-                </div>
-                <span className="redaction-tag">Redacted</span>
-              </div>
-              <ul className="proof-rows">
-                <li className="proof-row">
-                  <span className="proof-check" aria-hidden="true"><svg><use href="#i-check" /></svg></span>
-                  <span className="proof-row-label">Runtime quote present</span>
-                  <span className="hash">4971...ba575</span>
-                </li>
-                <li className="proof-row">
-                  <span className="proof-check" aria-hidden="true"><svg><use href="#i-check" /></svg></span>
-                  <span className="proof-row-label">Accelerator boundary</span>
-                  <span className="hash">c8f2...3e41a</span>
-                </li>
-                <li className="proof-row">
-                  <span className="proof-check" aria-hidden="true"><svg><use href="#i-check" /></svg></span>
-                  <span className="proof-row-label">Nonce binding</span>
-                  <span className="hash">a1d9...7f283</span>
-                </li>
-                <li className="proof-row">
-                  <span className="proof-check" aria-hidden="true"><svg><use href="#i-check" /></svg></span>
-                  <span className="proof-row-label">Signing key bound</span>
-                  <span className="hash">e3b7...9c064</span>
-                </li>
-                <li className="proof-row">
-                  <span className="proof-check" aria-hidden="true"><svg><use href="#i-check" /></svg></span>
-                  <span className="proof-row-label">Payload integrity</span>
-                  <span className="hash">b2a6...8d5f1</span>
-                </li>
-                <li className="proof-row">
-                  <span className="proof-check" aria-hidden="true"><svg><use href="#i-check" /></svg></span>
-                  <span className="proof-row-label">Evidence sealed</span>
-                  <span className="hash">91d4...3e7b8</span>
-                </li>
-              </ul>
-              <div className="proof-capsule-foot">
-                <span className="hash">4971...ba575</span>
-                <span className="proof-capsule-note">Representative artifact. Redacted for public view.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Trust strip */}
-      <section className="trust-strip" aria-label="Platform posture">
-        <div className="shell">
-          <div className="trust-grid">
-            <div className="trust-card reveal">
-              <span className="icon-well" aria-hidden="true"><svg><use href="#i-fingerprint" /></svg></span>
-              <h2 className="trust-card-title">Provably private</h2>
-              <p className="label trust-card-label">Data / Prompts</p>
-            </div>
-            <div className="trust-card reveal">
-              <span className="icon-well" aria-hidden="true"><svg><use href="#i-eye-off" /></svg></span>
-              <h2 className="trust-card-title">Zero plaintext logs</h2>
-              <p className="label trust-card-label">Retention</p>
-            </div>
-            <div className="trust-card reveal">
-              <span className="icon-well" aria-hidden="true"><svg><use href="#i-receipt" /></svg></span>
-              <h2 className="trust-card-title">Cryptographic evidence</h2>
-              <p className="label trust-card-label">Auditability</p>
-            </div>
-            <div className="trust-card reveal">
-              <span className="icon-well" aria-hidden="true"><svg><use href="#i-key" /></svg></span>
-              <h2 className="trust-card-title">Private beta</h2>
-              <p className="label trust-card-label">Access model</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. How it works — abstract architecture */}
-      <section className="arch-section section" id="architecture">
-        <div className="shell">
-          <div className="section-heading">
-            <p className="label reveal">How it works</p>
-            <h2 className="section-title reveal">How Lugano creates a verifiable privacy boundary</h2>
-            <p className="body-large section-sub reveal">
-              The public model is intentionally simplified. Technical review is available under NDA.
-            </p>
-          </div>
-
-          <ol className="arch-flow" id="arch-flow">
-            <li className="arch-step">
-              <div className="arch-node reveal">
-                <h3 className="card-title">Customer environment</h3>
-                <p className="arch-badge"><span>Plaintext</span> customer-controlled</p>
-              </div>
-              <div className="arch-connector-wrap" aria-hidden="true">
-                <svg className="arch-connector" viewBox="0 0 64 24" preserveAspectRatio="none">
-                  <path className="arch-connector-path" d="M2 12h54" />
-                  <path className="arch-connector-tip" d="M50 6l8 6-8 6" />
-                </svg>
-                <span className="arch-edge-label">encrypted request</span>
-              </div>
-            </li>
-            <li className="arch-step">
-              <div className="arch-node reveal">
-                <h3 className="card-title">Policy boundary</h3>
-                <p className="arch-badge"><span>Plaintext</span> not exposed</p>
-              </div>
-              <div className="arch-connector-wrap" aria-hidden="true">
-                <svg className="arch-connector" viewBox="0 0 64 24" preserveAspectRatio="none">
-                  <path className="arch-connector-path" d="M2 12h54" />
-                  <path className="arch-connector-tip" d="M50 6l8 6-8 6" />
-                </svg>
-                <span className="arch-edge-label">permitted route</span>
-              </div>
-            </li>
-            <li className="arch-step">
-              <div className="arch-node reveal">
-                <h3 className="card-title">Sealed execution</h3>
-                <p className="arch-badge"><span>Plaintext</span> sealed</p>
-              </div>
-              <div className="arch-connector-wrap" aria-hidden="true">
-                <svg className="arch-connector" viewBox="0 0 64 24" preserveAspectRatio="none">
-                  <path className="arch-connector-path" d="M2 12h54" />
-                  <path className="arch-connector-tip" d="M50 6l8 6-8 6" />
-                </svg>
-                <span className="arch-edge-label">private inference</span>
-              </div>
-            </li>
-            <li className="arch-step">
-              <div className="arch-node reveal">
-                <h3 className="card-title">Proof layer</h3>
-                <p className="arch-badge"><span>Plaintext</span> not logged</p>
-              </div>
-              <div className="arch-connector-wrap" aria-hidden="true">
-                <svg className="arch-connector" viewBox="0 0 64 24" preserveAspectRatio="none">
-                  <path className="arch-connector-path" d="M2 12h54" />
-                  <path className="arch-connector-tip" d="M50 6l8 6-8 6" />
-                </svg>
-                <span className="arch-edge-label">signed evidence</span>
-              </div>
-            </li>
-            <li className="arch-step">
-              <div className="arch-node reveal">
-                <h3 className="card-title">Customer audit record</h3>
-                <p className="arch-badge"><span>Plaintext</span> redacted evidence only</p>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      {/* 4. Proof without disclosure */}
-      <section className="proof-section section section-dark" id="proof">
-        <div className="shell">
-          <div className="section-heading">
-            <p className="label reveal">Proof model</p>
-            <h2 className="section-title reveal">Proof without plaintext</h2>
-            <p className="body-large section-sub reveal">
-              Lugano produces evidence that a request followed the privacy boundary without turning
-              sensitive content into another exposure surface.
-            </p>
-          </div>
-
-          <div className="receipt-card reveal" id="receipt-card">
-            <div className="receipt-head">
-              <p className="label">Proof receipt / Redacted</p>
-              <span className="redaction-tag">Sample</span>
-            </div>
-            <div className="receipt-rows">
-              <div className="receipt-row">
-                <span className="receipt-key">Request class</span>
-                <span className="receipt-value">Sensitive AI workload</span>
-              </div>
-              <div className="receipt-row">
-                <span className="receipt-key">Model class</span>
-                <span className="receipt-value">Approved private model</span>
-              </div>
-              <div className="receipt-row">
-                <span className="receipt-key">Execution boundary</span>
-                <span className="receipt-value">Sealed</span>
-              </div>
-              <div className="receipt-row">
-                <span className="receipt-key">Plaintext logging</span>
-                <span className="receipt-value">Disabled</span>
-              </div>
-              <div className="receipt-row">
-                <span className="receipt-key">Evidence</span>
-                <span className="receipt-value">Signed + exportable</span>
-              </div>
-            </div>
-
-            <div className="receipt-chain">
-              <p className="label">Verification chain</p>
-              <ul className="chain-list">
-                <li className="chain-item">
-                  <span className="proof-check" aria-hidden="true"><svg><use href="#i-check" /></svg></span>
-                  Environment matched policy
-                </li>
-                <li className="chain-item">
-                  <span className="proof-check" aria-hidden="true"><svg><use href="#i-check" /></svg></span>
-                  Request bound to nonce
-                </li>
-                <li className="chain-item">
-                  <span className="proof-check" aria-hidden="true"><svg><use href="#i-check" /></svg></span>
-                  Payload integrity checked
-                </li>
-                <li className="chain-item">
-                  <span className="proof-check" aria-hidden="true"><svg><use href="#i-check" /></svg></span>
-                  Response returned with receipt
-                </li>
-                <li className="chain-item">
-                  <span className="proof-check" aria-hidden="true"><svg><use href="#i-check" /></svg></span>
-                  Evidence sealed for review
-                </li>
-              </ul>
-            </div>
-
-            <div className="receipt-actions">
-              <button className="btn btn-ghost" type="button" id="receipt-toggle" aria-expanded="false" aria-controls="receipt-sample">
-                Inspect sample receipt
-              </button>
-            </div>
-
-            <div className="receipt-sample" id="receipt-sample" hidden={true}>
-              <p className="receipt-sample-note">
-                Representative sample, simplified for public review. Production receipts are
-                exportable artifacts; the full format is covered in technical review.
-              </p>
-              <div className="receipt-sample-doc" role="img" aria-label="Redacted sample receipt with several fields blacked out">
-                <div className="sample-line"><span className="sample-key">receipt</span><span className="sample-val">sample · redacted</span></div>
-                <div className="sample-line"><span className="sample-key">request class</span><span className="sample-val">sensitive AI workload</span></div>
-                <div className="sample-line"><span className="sample-key">model class</span><span className="sample-val">approved private model</span></div>
-                <div className="sample-line"><span className="sample-key">execution boundary</span><span className="sample-val">sealed</span></div>
-                <div className="sample-line"><span className="sample-key">request content</span><span className="sample-redact" aria-label="redacted"></span></div>
-                <div className="sample-line"><span className="sample-key">response content</span><span className="sample-redact wide" aria-label="redacted"></span></div>
-                <div className="sample-line"><span className="sample-key">nonce</span><span className="hash">a1d9...7f283</span></div>
-                <div className="sample-line"><span className="sample-key">payload digest</span><span className="hash">b2a6...8d5f1</span></div>
-                <div className="sample-line"><span className="sample-key">evidence seal</span><span className="hash">91d4...3e7b8</span></div>
-                <div className="sample-line"><span className="sample-key">signature</span><span className="sample-redact" aria-label="redacted"></span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Platform capabilities */}
-      <section className="platform-section section" id="platform">
-        <div className="shell">
-          <div className="section-heading">
-            <p className="label reveal">Platform</p>
-            <h2 className="section-title reveal">Platform capabilities</h2>
-            <p className="body-large section-sub reveal">
-              Representative modules — not product screenshots. Product surfaces are available in
-              private review.
-            </p>
-          </div>
-
-          <div className="module-grid">
-            <article className="module reveal">
-              <div className="module-head">
-                <span className="icon-well" aria-hidden="true"><svg><use href="#i-route" /></svg></span>
-                <h3 className="subsection-title">Private model gateway</h3>
-              </div>
-              <p className="body module-copy">
-                Route sensitive workloads to approved models through a privacy boundary your team
-                can verify.
-              </p>
-              <div className="module-visual routing-table" role="table" aria-label="Redacted routing table">
-                <div className="routing-row routing-head" role="row">
-                  <span role="columnheader">Workload</span>
-                  <span role="columnheader">Model class</span>
-                  <span role="columnheader">Boundary</span>
-                  <span role="columnheader">Evidence</span>
-                </div>
-                <div className="routing-row" role="row">
-                  <span role="cell">Legal</span>
-                  <span role="cell">Approved frontier</span>
-                  <span role="cell">Sealed</span>
-                  <span role="cell">Receipt</span>
-                </div>
-                <div className="routing-row" role="row">
-                  <span role="cell">Research</span>
-                  <span role="cell">Open model</span>
-                  <span role="cell">Sealed</span>
-                  <span role="cell">Receipt</span>
-                </div>
-                <div className="routing-row" role="row">
-                  <span role="cell">Internal ops</span>
-                  <span role="cell">Custom</span>
-                  <span role="cell">Isolated</span>
-                  <span role="cell">Receipt</span>
-                </div>
-              </div>
-            </article>
-
-            <article className="module reveal">
-              <div className="module-head">
-                <span className="icon-well" aria-hidden="true"><svg><use href="#i-boundary" /></svg></span>
-                <h3 className="subsection-title">Sealed execution</h3>
-              </div>
-              <p className="body module-copy">
-                Requests execute inside a controlled boundary designed to prevent plaintext exposure
-                outside the approved path.
-              </p>
-              <div className="module-visual sealed-box">
-                <p className="label sealed-box-title">Sealed execution boundary</p>
-                <div className="sealed-box-flow">
-                  <span>Request in</span>
-                  <svg className="sealed-arrow" aria-hidden="true"><use href="#i-arrow" /></svg>
-                  <span>Response</span>
-                </div>
-                <div className="sealed-box-meta">
-                  <span><span className="sealed-key">Logs</span> no plaintext</span>
-                  <span><span className="sealed-key">Evidence</span> signed</span>
-                </div>
-              </div>
-            </article>
-
-            <article className="module reveal">
-              <div className="module-head">
-                <span className="icon-well" aria-hidden="true"><svg><use href="#i-file-check" /></svg></span>
-                <h3 className="subsection-title">Audit-ready evidence</h3>
-              </div>
-              <p className="body module-copy">
-                Give security and compliance teams a reviewable record without exposing the
-                sensitive content itself.
-              </p>
-              <div className="module-visual doc-stack" aria-label="Evidence document stack">
-                <div className="doc-chip"><svg aria-hidden="true"><use href="#i-receipt" /></svg>Receipt</div>
-                <div className="doc-chip"><svg aria-hidden="true"><use href="#i-shield" /></svg>Policy match</div>
-                <div className="doc-chip"><svg aria-hidden="true"><use href="#i-boundary" /></svg>Boundary record</div>
-                <div className="doc-chip"><svg aria-hidden="true"><use href="#i-eye-off" /></svg>Redacted review</div>
-              </div>
-            </article>
-
-            <article className="module reveal">
-              <div className="module-head">
-                <span className="icon-well" aria-hidden="true"><svg><use href="#i-server" /></svg></span>
-                <h3 className="subsection-title">Governance below the dashboard</h3>
-              </div>
-              <p className="body module-copy">
-                Enforce model permissions, routing, and data controls at the infrastructure layer.
-              </p>
-              <div className="module-visual policy-cards">
-                <div className="policy-card">
-                  <p className="policy-card-title">Finance workloads</p>
-                  <ul>
-                    <li>Approved models only</li>
-                    <li>Tool access restricted</li>
-                    <li>Plaintext logs disabled</li>
-                  </ul>
-                </div>
-                <div className="policy-card">
-                  <p className="policy-card-title">Legal workloads</p>
-                  <ul>
-                    <li>Approved models only</li>
-                    <li>Export receipt required</li>
-                    <li>Review path enabled</li>
-                  </ul>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. Use cases */}
-      <section className="use-cases-section section section-dark" id="use-cases">
-        <div className="shell">
-          <div className="section-heading">
-            <p className="label reveal">Use cases</p>
-            <h2 className="section-title reveal">Built for sensitive environments</h2>
-          </div>
-
-          <div className="use-case-grid">
-            <article className="use-case-card reveal">
-              <div className="use-case-head">
-                <span className="icon-well" aria-hidden="true"><svg><use href="#i-file-check" /></svg></span>
-                <h3 className="card-title">Regulated Industries</h3>
-              </div>
-              <p className="body use-case-summary">
-                Deploy AI against sensitive internal data while preserving reviewable privacy
-                boundaries.
-              </p>
-              <ul className="use-case-list">
-                <li>Internal knowledge work.</li>
-                <li>Sensitive analysis.</li>
-                <li>Legal, finance, healthcare, and operations workflows.</li>
-              </ul>
-            </article>
-
-            <article className="use-case-card reveal">
-              <div className="use-case-head">
-                <span className="icon-well" aria-hidden="true"><svg><use href="#i-shield" /></svg></span>
-                <h3 className="card-title">Government and defense</h3>
-              </div>
-              <p className="body use-case-summary">
-                Bring cutting edge model capability closer to sovereign, classified, or disconnected
-                environments.
-              </p>
-              <ul className="use-case-list">
-                <li>Sovereign deployment patterns.</li>
-                <li>Air-gapped or restricted networks.</li>
-                <li>Mission-sensitive workflows.</li>
-              </ul>
-            </article>
-
-            <article className="use-case-card reveal">
-              <div className="use-case-head">
-                <span className="icon-well" aria-hidden="true"><svg><use href="#i-route" /></svg></span>
-                <h3 className="card-title">Private agents</h3>
-              </div>
-              <p className="body use-case-summary">
-                Run agentic workflows without turning tools, logs, and intermediate steps into
-                exposure surfaces.
-              </p>
-              <ul className="use-case-list">
-                <li>Private tool use.</li>
-                <li>Reduced transcript leakage.</li>
-                <li>Reviewable action evidence.</li>
-              </ul>
-            </article>
-
-            <article className="use-case-card reveal">
-              <div className="use-case-head">
-                <span className="icon-well" aria-hidden="true"><svg><use href="#i-server" /></svg></span>
-                <h3 className="card-title">AI platform teams</h3>
-              </div>
-              <p className="body use-case-summary">
-                Give developers model access while security teams retain boundary-level controls.
-              </p>
-              <ul className="use-case-list">
-                <li>Approved model routing.</li>
-                <li>Team-level controls.</li>
-                <li>Evidence for review.</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. Models */}
-      <section className="models-section section" id="models">
-        <div className="shell">
-          <div className="section-heading">
-            <p className="label reveal">Models</p>
-            <h2 className="section-title reveal">Private model access, controlled by policy</h2>
-            <p className="body-large section-sub reveal">
-              Lugano is designed to support frontier, open, and customer-selected models inside a
-              private execution path. Availability varies by deployment and review.
-            </p>
-          </div>
-
-          <div className="model-table reveal" role="table" aria-label="Open models available in private beta">
-            <div className="model-row model-head" role="row">
-              <span role="columnheader">Model</span>
-              <span role="columnheader">Maker</span>
-              <span role="columnheader">Class</span>
-              <span role="columnheader">Public specs</span>
-            </div>
-            <div className="model-row" role="row">
-              <span className="model-name" role="cell">Kimi K2.6</span>
-              <span className="model-maker" role="cell">Moonshot AI</span>
-              <span className="model-class" role="cell">Frontier reasoning</span>
-              <span className="model-spec" role="cell">1T MoE · 262K context</span>
-            </div>
-            <div className="model-row" role="row">
-              <span className="model-name" role="cell">DeepSeek V4 Pro</span>
-              <span className="model-maker" role="cell">DeepSeek</span>
-              <span className="model-class" role="cell">Instruction</span>
-              <span className="model-spec" role="cell">1.6T MoE · 1M context</span>
-            </div>
-            <div className="model-row" role="row">
-              <span className="model-name" role="cell">MiniMax M3</span>
-              <span className="model-maker" role="cell">MiniMax</span>
-              <span className="model-class" role="cell">Open-weight coding</span>
-              <span className="model-spec" role="cell">1M context · multimodal</span>
-            </div>
-            <div className="model-row" role="row">
-              <span className="model-name" role="cell">GLM-5.1</span>
-              <span className="model-maker" role="cell">Z.ai</span>
-              <span className="model-class" role="cell">Long-horizon tasks</span>
-              <span className="model-spec" role="cell">200K context · 128K output</span>
-            </div>
-            <div className="model-row" role="row">
-              <span className="model-name" role="cell">MiMo-V2.5-Pro</span>
-              <span className="model-maker" role="cell">Xiaomi</span>
-              <span className="model-class" role="cell">Agent harness</span>
-              <span className="model-spec" role="cell">MIT weights · 1M context</span>
-            </div>
-            <div className="model-row" role="row">
-              <span className="model-name" role="cell">DeepSeek V4 Flash</span>
-              <span className="model-maker" role="cell">DeepSeek</span>
-              <span className="model-class" role="cell">Fast analysis</span>
-              <span className="model-spec" role="cell">284B MoE · 1M context</span>
-            </div>
-          </div>
-
-          <div className="model-notes reveal">
-            <p className="model-footnote">
-              Model availability, performance, and deployment path are subject to private beta
-              review. Public examples are illustrative and may change.
-            </p>
-            <p className="model-source">
-              Specifications from public provider and model-card data. Snapshot and sources in
-              <a href="/docs#top-models">the docs model guide</a>.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 8. Security review kit */}
-      <section className="review-kit-section section section-dark" id="security-review">
-        <div className="shell">
-          <div className="section-heading">
-            <p className="label reveal">Security review</p>
-            <h2 className="section-title reveal">Built for security review</h2>
-            <p className="body-large section-sub reveal">
-              The public site gives the outline. Qualified teams can review the technical model
-              under NDA.
-            </p>
-          </div>
-
-          <div className="kit-grid">
-            <article className="kit-card reveal">
-              <div className="kit-card-top">
-                <p className="label kit-doc-type">Brief</p>
-                <span className="marker marker-nda">NDA</span>
-              </div>
-              <h3 className="card-title">Architecture brief</h3>
-              <p className="body">A simplified explanation of the privacy boundary and evidence model.</p>
-            </article>
-            <article className="kit-card reveal">
-              <div className="kit-card-top">
-                <p className="label kit-doc-type">Sample</p>
-                <span className="marker marker-public">Public</span>
-              </div>
-              <h3 className="card-title"><a className="kit-link" href="#proof">Sample proof receipt</a></h3>
-              <p className="body">A redacted example of the evidence Lugano can return.</p>
-            </article>
-            <article className="kit-card reveal">
-              <div className="kit-card-top">
-                <p className="label kit-doc-type">Checklist</p>
-                <span className="marker marker-public">Public</span>
-              </div>
-              <h3 className="card-title">
-                <a className="kit-link" href="/docs#article-vendor-procurement-checklist">Vendor checklist</a>
-              </h3>
-              <p className="body">Questions serious teams should ask any AI privacy vendor.</p>
-            </article>
-            <article className="kit-card reveal">
-              <div className="kit-card-top">
-                <p className="label kit-doc-type">Overview</p>
-                <span className="marker marker-public">Public</span>
-              </div>
-              <h3 className="card-title">
-                <a className="kit-link" href="/docs#article-ai-privacy-threat-model">Threat model overview</a>
-              </h3>
-              <p className="body">
-                Where AI systems usually leak prompts, files, metadata, tool calls, and logs.
-              </p>
-            </article>
-            <article className="kit-card reveal">
-              <div className="kit-card-top">
-                <p className="label kit-doc-type">Review</p>
-                <span className="marker marker-nda">NDA</span>
-              </div>
-              <h3 className="card-title">Private technical review</h3>
-              <p className="body">A deeper walkthrough for qualified teams under NDA.</p>
-            </article>
-          </div>
-
-          <div className="kit-ctas reveal">
-            <a className="btn btn-primary" href="#briefing">Request security review</a>
-            <a className="btn btn-ghost" href="/docs">Read public docs</a>
-          </div>
-        </div>
-      </section>
-
-      {/* 9. Private beta CTA / briefing form */}
-      <section className="briefing-section section" id="briefing">
-        <div className="shell briefing-shell">
-          <div className="briefing-copy">
-            <p className="label reveal">Private beta</p>
-            <h2 className="section-title reveal">Request a private briefing</h2>
-            <p className="body-large section-sub reveal">
-              Lugano is onboarding teams working with sensitive AI workloads. Tell us who you are
-              and what privacy boundary you need. Technical reviews are available under NDA.
-            </p>
-            <p className="briefing-warning reveal">
-              Do not submit sensitive data, prompts, files, credentials, or classified information
-              through this form.
-            </p>
-          </div>
-
-          <form className="briefing-form reveal" id="briefing-form" noValidate>
-            <div className="field">
-              <label htmlFor="bf-email">Work email <span className="req" aria-hidden="true">required</span></label>
-              <input id="bf-email" name="email" type="email" autoComplete="email" inputMode="email" required />
-            </div>
-            <div className="field-row">
-              <div className="field">
-                <label htmlFor="bf-company">Company <span className="req" aria-hidden="true">required</span></label>
-                <input id="bf-company" name="company" type="text" autoComplete="organization" required />
-              </div>
-              <div className="field">
-                <label htmlFor="bf-role">Role <span className="req" aria-hidden="true">required</span></label>
-                <input id="bf-role" name="role" type="text" autoComplete="organization-title" required />
-              </div>
-            </div>
-            <div className="field">
-              <label htmlFor="bf-usecase">Use case <span className="req" aria-hidden="true">required</span></label>
-              <select id="bf-usecase" name="usecase" required defaultValue="">
-                <option value="" disabled>Select a use case</option>
-                <option>Private agents</option>
-                <option>Regulated Industries</option>
-                <option>Government / defense</option>
-                <option>Private model gateway</option>
-                <option>Internal AI platform</option>
-                <option>Other sensitive workload</option>
-              </select>
-            </div>
-            <div className="field">
-              <label htmlFor="bf-website">Website <span className="opt">optional</span></label>
-              <input id="bf-website" name="website" type="url" inputMode="url" autoComplete="url" placeholder="https://company.com" />
-            </div>
-            <div className="field">
-              <label htmlFor="bf-protect">What are you trying to protect? <span className="opt">optional</span></label>
-              <textarea id="bf-protect" name="protect" rows="3"></textarea>
-            </div>
-            <p className="form-error" id="form-error" hidden={true}>
-              Please complete the required fields with a valid work email.
-            </p>
-            <button className="btn btn-primary btn-submit" type="submit">Request private briefing</button>
-            <p className="briefing-reassure">Private beta. Technical review available under NDA.</p>
-          </form>
-
-          <div className="briefing-success" id="briefing-success" hidden={true}>
-            <span className="proof-check proof-check-large" aria-hidden="true"><svg><use href="#i-check" /></svg></span>
-            <h3 className="subsection-title">Request received.</h3>
-            <p className="body">
-              Thank you. If your use case fits the current beta, we will reach out to schedule a
-              briefing. Do not send sensitive material before an NDA is in place.
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer className="site-footer">
-      <div className="shell footer-inner">
-        <div className="footer-brand">
-          <a className="brand" href="/" aria-label="Lugano home">
-            <img className="brand-mark" src="/logo-mark.svg" alt="" width="18" height="18" />
-            <span className="brand-name">Lugano.ai</span>
+            <span style={{ fontSize: "1.05rem", fontWeight: 700, letterSpacing: "-0.02em", color: "#fff" }}>
+              Lugano<span style={{ color: "#3b9edd" }}>.ai</span>
+            </span>
           </a>
-          <p className="footer-tag">Private AI infrastructure. Privacy by proof.</p>
+
+          {/* Links */}
+          <div style={{ display: "flex", alignItems: "center", gap: "32px" }} className="hidden md:flex">
+            {["Platform", "Models", "Agents", "Enterprise", "Docs"].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                style={{
+                  fontSize: "0.82rem", fontWeight: 500, color: "rgba(226,234,246,0.65)",
+                  textDecoration: "none", letterSpacing: "0.01em",
+                  transition: "color 0.2s",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={e => (e.currentTarget.style.color = "rgba(226,234,246,0.65)")}
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <a
+              href="mailto:contact@lugano.ai"
+              style={{
+                fontSize: "0.78rem", fontWeight: 500, color: "rgba(226,234,246,0.6)",
+                textDecoration: "none", letterSpacing: "0.01em",
+              }}
+            >
+              Sign in
+            </a>
+            <a
+              href="mailto:contact@lugano.ai"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "6px",
+                padding: "8px 18px", borderRadius: "8px",
+                background: LAKE_GRADIENT,
+                color: "#fff", fontSize: "0.82rem", fontWeight: 600,
+                textDecoration: "none", letterSpacing: "0.01em",
+                boxShadow: "0 0 20px rgba(13, 114, 192, 0.35)",
+                transition: "box-shadow 0.2s, transform 0.2s",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.boxShadow = "0 0 32px rgba(13, 114, 192, 0.6)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(13, 114, 192, 0.35)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+              }}
+            >
+              Request Access
+              <ArrowRight size={13} strokeWidth={2.5} />
+            </a>
+          </div>
         </div>
-        <nav className="footer-links" aria-label="Footer">
-          <a href="#proof">Privacy</a>
-          <a href="#architecture">Architecture</a>
-          <a href="#use-cases">Use cases</a>
-          <a href="/docs">Docs</a>
-          <a href="#briefing">Request briefing</a>
-          <a href="mailto:contact@lugano.ai">Contact</a>
-        </nav>
-        <p className="footer-fine">&copy; 2026 Lugano.ai &middot; Private beta &middot; Technical review under NDA</p>
-      </div>
-    </footer>
-  
-    </>
+      </nav>
+
+      {/* ── HERO ─────────────────────────────────────────────── */}
+      <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
+        {/* Background layers */}
+        <div ref={heroRef} style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          {/* Deep lake gradient */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(13, 114, 192, 0.18) 0%, rgba(2, 12, 27, 0) 70%)",
+          }} />
+          {/* Grid overlay */}
+          <div style={{
+            position: "absolute", inset: 0,
+            backgroundImage: "linear-gradient(rgba(59, 158, 221, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 158, 221, 0.04) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
+          }} />
+          {/* Radial vignette */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "radial-gradient(ellipse 120% 80% at 50% 100%, rgba(2, 12, 27, 0.9) 0%, transparent 60%)",
+          }} />
+          {/* Floating orbs */}
+          <div style={{
+            position: "absolute", top: "15%", left: "8%",
+            width: 500, height: 500, borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(13, 114, 192, 0.14) 0%, transparent 70%)",
+            filter: "blur(60px)",
+            animation: "pulse 8s ease-in-out infinite",
+          }} />
+          <div style={{
+            position: "absolute", top: "30%", right: "5%",
+            width: 400, height: 400, borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(59, 158, 221, 0.1) 0%, transparent 70%)",
+            filter: "blur(80px)",
+            animation: "pulse 10s ease-in-out infinite reverse",
+          }} />
+          <div style={{
+            position: "absolute", bottom: "20%", left: "40%",
+            width: 300, height: 300, borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(30, 64, 175, 0.08) 0%, transparent 70%)",
+            filter: "blur(50px)",
+          }} />
+        </div>
+
+        {/* Hero content */}
+        <div className="container" style={{ position: "relative", zIndex: 10, paddingTop: "120px", paddingBottom: "80px" }}>
+          {/* Eyebrow */}
+          <div className="animate-fade-up" style={{ marginBottom: "24px", display: "flex", alignItems: "center", gap: "12px" }}>
+            <div style={{ height: 1, width: 32, background: "rgba(59, 158, 221, 0.6)" }} />
+            <span style={{
+              fontFamily: "'Geist Mono', monospace",
+              fontSize: "0.65rem", letterSpacing: "0.22em",
+              textTransform: "uppercase", color: "#3b9edd",
+            }}>
+              Private AI Infrastructure
+            </span>
+          </div>
+
+          {/* Headline */}
+          <h1
+            className="animate-fade-up delay-100"
+            style={{
+              fontSize: "clamp(3rem, 7vw, 6.5rem)",
+              fontWeight: 800, letterSpacing: "-0.04em",
+              lineHeight: 1.0, color: "#fff",
+              maxWidth: "900px", marginBottom: "28px",
+            }}
+          >
+            Your Intelligence.{" "}
+            <span style={{
+              background: LAKE_GRADIENT,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}>
+              Your Vault.
+            </span>
+          </h1>
+
+          {/* Subheadline */}
+          <p
+            className="animate-fade-up delay-200"
+            style={{
+              fontSize: "clamp(1rem, 2vw, 1.25rem)",
+              color: "rgba(226,234,246,0.6)",
+              maxWidth: "560px", lineHeight: 1.65,
+              fontWeight: 400, marginBottom: "44px",
+            }}
+          >
+            The sovereign AI platform for organizations that cannot afford to leak.
+            Zero-knowledge inference. Air-gapped deployments. Cryptographic proof of privacy.
+          </p>
+
+          {/* CTAs */}
+          <div className="animate-fade-up delay-300" style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+            <a
+              href="mailto:contact@lugano.ai"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "8px",
+                padding: "14px 28px", borderRadius: "10px",
+                background: LAKE_GRADIENT,
+                color: "#fff", fontSize: "0.9rem", fontWeight: 600,
+                textDecoration: "none", letterSpacing: "0.01em",
+                boxShadow: "0 0 40px rgba(13, 114, 192, 0.45), 0 4px 16px rgba(0,0,0,0.3)",
+                transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.boxShadow = "0 0 60px rgba(13, 114, 192, 0.7), 0 8px 24px rgba(0,0,0,0.4)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.boxShadow = "0 0 40px rgba(13, 114, 192, 0.45), 0 4px 16px rgba(0,0,0,0.3)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+              }}
+            >
+              Request Access
+              <ArrowRight size={15} strokeWidth={2.5} />
+            </a>
+            <a
+              href="#platform"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "8px",
+                padding: "14px 28px", borderRadius: "10px",
+                background: "rgba(59, 158, 221, 0.08)",
+                border: "1px solid rgba(59, 158, 221, 0.2)",
+                color: "rgba(226,234,246,0.85)", fontSize: "0.9rem", fontWeight: 500,
+                textDecoration: "none", letterSpacing: "0.01em",
+                transition: "all 0.25s",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(59, 158, 221, 0.14)";
+                (e.currentTarget as HTMLElement).style.borderColor = "rgba(59, 158, 221, 0.4)";
+                (e.currentTarget as HTMLElement).style.color = "#fff";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(59, 158, 221, 0.08)";
+                (e.currentTarget as HTMLElement).style.borderColor = "rgba(59, 158, 221, 0.2)";
+                (e.currentTarget as HTMLElement).style.color = "rgba(226,234,246,0.85)";
+              }}
+            >
+              Explore Platform
+            </a>
+          </div>
+
+            {/* Trust logos strip */}
+          <div className="animate-fade-up delay-400" style={{ marginTop: "56px", marginBottom: "0" }}>
+            <p style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(122, 154, 191, 0.4)", marginBottom: "16px" }}>
+              Trusted by security-first organizations
+            </p>
+            <div style={{ display: "flex", alignItems: "center", gap: "32px", flexWrap: "wrap" }}>
+              {TRUST_LOGOS.map((logo, i) => (
+                <div key={i} style={{
+                  padding: "6px 14px",
+                  background: "rgba(59, 158, 221, 0.04)",
+                  border: "1px solid rgba(59, 158, 221, 0.1)",
+                  borderRadius: "6px",
+                  fontFamily: "'Geist Mono', monospace",
+                  fontSize: "0.68rem", letterSpacing: "0.08em",
+                  color: "rgba(122, 154, 191, 0.45)",
+                  fontWeight: 500,
+                  transition: "all 0.2s",
+                  cursor: "default",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.color = "rgba(226,234,246,0.6)";
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(59, 158, 221, 0.2)";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.color = "rgba(122, 154, 191, 0.45)";
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(59, 158, 221, 0.1)";
+                }}
+                >
+                  {logo.name}
+                </div>
+              ))}
+            </div>
+          </div>
+
+        {/* Stats row */}
+          <div
+            className="animate-fade-up delay-500"
+            style={{
+              display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
+              gap: "1px", marginTop: "80px",
+              background: "rgba(59, 158, 221, 0.1)",
+              borderRadius: "12px", overflow: "hidden",
+              border: "1px solid rgba(59, 158, 221, 0.12)",
+            }}
+          >
+            {STATS.map((s, i) => (
+              <div
+                key={i}
+                style={{
+                  padding: "28px 24px",
+                  background: "rgba(7, 20, 40, 0.7)",
+                  backdropFilter: "blur(12px)",
+                  textAlign: "center",
+                }}
+              >
+                <div style={{
+                  fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
+                  fontWeight: 800, letterSpacing: "-0.04em",
+                  color: "#fff", lineHeight: 1, marginBottom: "6px",
+                }}>
+                  {s.value}
+                </div>
+                <div style={{
+                  fontFamily: "'Geist Mono', monospace",
+                  fontSize: "0.65rem", letterSpacing: "0.12em",
+                  textTransform: "uppercase", color: "rgba(122, 154, 191, 0.8)",
+                }}>
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION DIVIDER ─────────────────────────────────── */}
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, rgba(59, 158, 221, 0.2) 30%, rgba(59, 158, 221, 0.2) 70%, transparent)" }} />
+
+      {/* ── PLATFORM / ARCHITECTURE ─────────────────────────── */}
+      <section id="platform" style={{ padding: "120px 0", background: "rgba(4, 12, 28, 0.95)", position: "relative", overflow: "hidden" }}>
+        {/* Subtle grid */}
+        <div style={{
+          position: "absolute", inset: 0,
+          backgroundImage: "linear-gradient(rgba(59, 158, 221, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 158, 221, 0.03) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+        }} />
+        <div className="container" style={{ position: "relative" }}>
+          {/* Header */}
+          <div style={{ marginBottom: "72px", maxWidth: "640px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+              <div style={{ height: 1, width: 32, background: "rgba(59, 158, 221, 0.6)" }} />
+              <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#3b9edd" }}>
+                The Architecture
+              </span>
+            </div>
+            <h2 style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "#fff", marginBottom: "20px" }}>
+              Privacy is not a feature.<br />
+              <span style={{ color: "rgba(226,234,246,0.4)" }}>It is the foundation.</span>
+            </h2>
+            <p style={{ fontSize: "1.05rem", color: "rgba(226,234,246,0.55)", lineHeight: 1.7 }}>
+              Every layer of Lugano is designed around one axiom: your data belongs to you, and no one else should ever be able to touch it — not even us.
+            </p>
+          </div>
+
+          {/* Pillars grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1px", background: "rgba(59, 158, 221, 0.08)", borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(59, 158, 221, 0.1)" }}>
+            {ARCHITECTURE_PILLARS.map((p, i) => {
+              const Icon = p.icon;
+              return (
+                <div
+                  key={i}
+                  style={{
+                    padding: "36px 32px",
+                    background: "rgba(7, 20, 40, 0.8)",
+                    backdropFilter: "blur(12px)",
+                    transition: "background 0.25s",
+                    cursor: "default",
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.background = "rgba(13, 37, 69, 0.9)";
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.background = "rgba(7, 20, 40, 0.8)";
+                  }}
+                >
+                  {/* Hover glow */}
+                  <div style={{
+                    position: "absolute", bottom: 0, left: 0, right: 0, height: 2,
+                    background: LAKE_GRADIENT,
+                    transform: "scaleX(0)", transformOrigin: "left",
+                    transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }} className="pillar-underline" />
+
+                  <div style={{
+                    width: 44, height: 44, borderRadius: 10,
+                    background: "rgba(13, 114, 192, 0.15)",
+                    border: "1px solid rgba(59, 158, 221, 0.2)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    marginBottom: "20px",
+                  }}>
+                    <Icon size={20} color="#3b9edd" strokeWidth={1.8} />
+                  </div>
+                  <div style={{
+                    fontFamily: "'Geist Mono', monospace",
+                    fontSize: "0.6rem", letterSpacing: "0.18em",
+                    textTransform: "uppercase", color: "#3b9edd",
+                    marginBottom: "10px",
+                  }}>
+                    {p.tag}
+                  </div>
+                  <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: "#fff", marginBottom: "12px", letterSpacing: "-0.01em" }}>
+                    {p.label}
+                  </h3>
+                  <p style={{ fontSize: "0.875rem", color: "rgba(226,234,246,0.5)", lineHeight: 1.65 }}>
+                    {p.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION DIVIDER ─────────────────────────────────── */}
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, rgba(59, 158, 221, 0.15) 30%, rgba(59, 158, 221, 0.15) 70%, transparent)" }} />
+
+      {/* ── VERTICALS — "Built for Organizations That Cannot Afford to Leak" ── */}
+      <section id="enterprise" style={{ padding: "120px 0", background: ABYSS, position: "relative", overflow: "hidden" }}>
+        {/* Background radial */}
+        <div style={{
+          position: "absolute", top: "50%", left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 900, height: 600,
+          background: "radial-gradient(ellipse, rgba(13, 114, 192, 0.07) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }} />
+
+        <div className="container" style={{ position: "relative" }}>
+          {/* Header */}
+          <div style={{ textAlign: "center", marginBottom: "72px" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "20px" }}>
+              <div style={{ height: 1, width: 32, background: "rgba(59, 158, 221, 0.6)" }} />
+              <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#3b9edd" }}>
+                Use Cases by Vertical
+              </span>
+              <div style={{ height: 1, width: 32, background: "rgba(59, 158, 221, 0.6)" }} />
+            </div>
+            <h2 style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", fontWeight: 800, letterSpacing: "-0.04em", color: "#fff", lineHeight: 1.05 }}>
+              Built for Organizations<br />
+              <span style={{ color: "rgba(226,234,246,0.35)" }}>That Cannot Afford to Leak</span>
+            </h2>
+          </div>
+
+          {/* Cards */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "16px" }}>
+            {VERTICALS.map((v, i) => {
+              const Icon = v.icon;
+              return (
+                <div
+                  key={i}
+                  style={{
+                    borderRadius: "16px",
+                    padding: "36px 32px",
+                    background: v.featured
+                      ? "rgba(7, 20, 40, 0.95)"
+                      : "rgba(7, 20, 40, 0.6)",
+                    border: v.featured
+                      ? "1px solid rgba(59, 158, 221, 0.4)"
+                      : "1px solid rgba(13, 37, 69, 0.8)",
+                    boxShadow: v.featured
+                      ? "0 0 0 1px rgba(59, 158, 221, 0.1), 0 0 60px rgba(13, 114, 192, 0.18), 0 24px 48px rgba(0,0,0,0.3)"
+                      : "0 4px 24px rgba(0,0,0,0.2)",
+                    backdropFilter: "blur(20px)",
+                    transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                  onMouseEnter={e => {
+                    if (!v.featured) {
+                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(59, 158, 221, 0.25)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "0 0 40px rgba(13, 114, 192, 0.12), 0 8px 32px rgba(0,0,0,0.25)";
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    if (!v.featured) {
+                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(13, 37, 69, 0.8)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(0,0,0,0.2)";
+                    }
+                  }}
+                >
+                  {/* Top glow line for featured */}
+                  {v.featured && (
+                    <div style={{
+                      position: "absolute", top: 0, left: "20%", right: "20%", height: 1,
+                      background: "linear-gradient(90deg, transparent, rgba(59, 158, 221, 0.6), transparent)",
+                    }} />
+                  )}
+
+                  {/* Icon + Title */}
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
+                    <div style={{
+                      width: 52, height: 52, borderRadius: 12,
+                      background: v.featured
+                        ? "rgba(13, 114, 192, 0.2)"
+                        : "rgba(59, 158, 221, 0.08)",
+                      border: v.featured
+                        ? "1px solid rgba(59, 158, 221, 0.3)"
+                        : "1px solid rgba(59, 158, 221, 0.12)",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <Icon size={24} color={v.featured ? "#7dd3fc" : "#3b9edd"} strokeWidth={1.6} />
+                    </div>
+                    <h3 style={{
+                      fontSize: "1.2rem", fontWeight: 700,
+                      color: "#fff", letterSpacing: "-0.02em", lineHeight: 1.2,
+                    }}>
+                      {v.title}
+                    </h3>
+                  </div>
+
+                  {/* Subtitle */}
+                  <p style={{ fontSize: "0.875rem", color: "rgba(226,234,246,0.55)", lineHeight: 1.65, marginBottom: "24px" }}>
+                    {v.subtitle}
+                  </p>
+
+                  {/* Bullets */}
+                  <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                    {v.bullets.map((b, j) => (
+                      <li key={j} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                        <div style={{
+                          width: 5, height: 5, borderRadius: "50%",
+                          background: v.featured ? "#7dd3fc" : "#3b9edd",
+                          marginTop: "7px", flexShrink: 0,
+                        }} />
+                        <span style={{ fontSize: "0.85rem", color: "rgba(226,234,246,0.65)", lineHeight: 1.5 }}>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA */}
+                  <a
+                    href="mailto:contact@lugano.ai"
+                    style={{
+                      display: "inline-flex", alignItems: "center", gap: "6px",
+                      fontSize: "0.82rem", fontWeight: 600,
+                      color: v.featured ? "#7dd3fc" : "#3b9edd",
+                      textDecoration: "none",
+                      transition: "gap 0.2s",
+                    }}
+                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.gap = "10px"}
+                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.gap = "6px"}
+                  >
+                    Learn more
+                    <ArrowRight size={13} strokeWidth={2.5} />
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Bottom stats strip */}
+          <div style={{
+            display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "1px", marginTop: "48px",
+            background: "rgba(59, 158, 221, 0.08)",
+            borderRadius: "12px", overflow: "hidden",
+            border: "1px solid rgba(59, 158, 221, 0.1)",
+          }}>
+            {[
+              { icon: "👥", value: "100+", label: "Enterprise Clients" },
+              { icon: "🛡️", value: "99.9%", label: "Uptime SLA" },
+              { icon: "🔒", value: "Zero", label: "Data Breaches" },
+            ].map((s, i) => (
+              <div key={i} style={{
+                padding: "28px 24px", background: "rgba(7, 20, 40, 0.7)",
+                backdropFilter: "blur(12px)", textAlign: "center",
+                display: "flex", alignItems: "center", justifyContent: "center", gap: "16px",
+              }}>
+                <span style={{ fontSize: "1.8rem" }}>{s.icon}</span>
+                <div>
+                  <div style={{ fontSize: "1.8rem", fontWeight: 800, letterSpacing: "-0.04em", color: "#fff", lineHeight: 1 }}>{s.value}</div>
+                  <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(122, 154, 191, 0.7)", marginTop: "4px" }}>{s.label}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION DIVIDER ─────────────────────────────────── */}
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, rgba(59, 158, 221, 0.15) 30%, rgba(59, 158, 221, 0.15) 70%, transparent)" }} />
+
+      {/* ── AGENTS — "Make Your Agents Fully Private" ─────────── */}
+      <section id="agents" style={{ padding: "120px 0", background: "rgba(3, 10, 22, 0.98)", position: "relative", overflow: "hidden" }}>
+        {/* Ambient glow */}
+        <div style={{
+          position: "absolute", bottom: "-20%", right: "-10%",
+          width: 700, height: 700,
+          background: "radial-gradient(circle, rgba(13, 114, 192, 0.08) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }} />
+
+        <div className="container" style={{ position: "relative" }}>
+          <div style={{ textAlign: "center", marginBottom: "72px" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "20px" }}>
+              <div style={{ height: 1, width: 32, background: "rgba(59, 158, 221, 0.6)" }} />
+              <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#3b9edd" }}>
+                Agent Infrastructure
+              </span>
+              <div style={{ height: 1, width: 32, background: "rgba(59, 158, 221, 0.6)" }} />
+            </div>
+            <h2 style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", fontWeight: 800, letterSpacing: "-0.04em", color: "#fff", lineHeight: 1.05, marginBottom: "20px" }}>
+              Make Your Agents<br />
+              <span style={{
+                background: LAKE_GRADIENT,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}>
+                Fully Private
+              </span>
+            </h2>
+            <p style={{ fontSize: "1.05rem", color: "rgba(226,234,246,0.5)", maxWidth: "480px", margin: "0 auto", lineHeight: 1.65 }}>
+              Any agent framework. Any workflow. Zero data leakage.
+            </p>
+          </div>
+
+          {/* Agent cards */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "16px" }}>
+            {AGENTS.map((agent, i) => (
+              <div
+                key={i}
+                style={{
+                  borderRadius: "16px",
+                  padding: "40px 32px",
+                  background: agent.featured
+                    ? "rgba(7, 20, 40, 0.95)"
+                    : "rgba(7, 20, 40, 0.5)",
+                  border: agent.featured
+                    ? "1px solid rgba(59, 158, 221, 0.4)"
+                    : "1px solid rgba(13, 37, 69, 0.7)",
+                  boxShadow: agent.featured
+                    ? "0 0 60px rgba(13, 114, 192, 0.2), 0 24px 48px rgba(0,0,0,0.3)"
+                    : "none",
+                  backdropFilter: "blur(20px)",
+                  textAlign: "center",
+                  transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
+                  if (!agent.featured) {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(59, 158, 221, 0.25)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 0 40px rgba(13, 114, 192, 0.12), 0 16px 40px rgba(0,0,0,0.25)";
+                  }
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+                  if (!agent.featured) {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(13, 37, 69, 0.7)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                  }
+                }}
+              >
+                {/* Top glow for featured */}
+                {agent.featured && (
+                  <div style={{
+                    position: "absolute", top: 0, left: "15%", right: "15%", height: 1,
+                    background: "linear-gradient(90deg, transparent, rgba(59, 158, 221, 0.7), transparent)",
+                  }} />
+                )}
+
+                {/* Icon */}
+                <div style={{
+                  width: 80, height: 80, borderRadius: 16,
+                  background: agent.featured
+                    ? "rgba(13, 114, 192, 0.2)"
+                    : "rgba(59, 158, 221, 0.07)",
+                  border: `1px solid ${agent.featured ? "rgba(59, 158, 221, 0.35)" : "rgba(59, 158, 221, 0.12)"}`,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  margin: "0 auto 24px",
+                  fontSize: "2rem",
+                  boxShadow: agent.featured ? `0 0 30px ${agent.color}30` : "none",
+                }}>
+                  {agent.icon}
+                </div>
+
+                <h3 style={{ fontSize: "1.3rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.02em", marginBottom: "12px" }}>
+                  {agent.name}
+                </h3>
+                <p style={{ fontSize: "0.875rem", color: "rgba(226,234,246,0.5)", lineHeight: 1.6 }}>
+                  {agent.tagline}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION DIVIDER ─────────────────────────────────── */}
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, rgba(59, 158, 221, 0.15) 30%, rgba(59, 158, 221, 0.15) 70%, transparent)" }} />
+
+      {/* ── PRIVATE MODELS ──────────────────────────────────── */}
+      <section id="models" style={{ padding: "120px 0", background: ABYSS, position: "relative", overflow: "hidden" }}>
+        {/* Grid */}
+        <div style={{
+          position: "absolute", inset: 0,
+          backgroundImage: "linear-gradient(rgba(59, 158, 221, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 158, 221, 0.025) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+        }} />
+        {/* Top glow */}
+        <div style={{
+          position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
+          width: 800, height: 400,
+          background: "radial-gradient(ellipse, rgba(13, 114, 192, 0.1) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }} />
+
+        <div className="container" style={{ position: "relative" }}>
+          <div style={{ textAlign: "center", marginBottom: "72px" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", marginBottom: "20px" }}>
+              <div style={{ height: 1, width: 32, background: "rgba(59, 158, 221, 0.6)" }} />
+              <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#3b9edd" }}>
+                Open-Source Models
+              </span>
+              <div style={{ height: 1, width: 32, background: "rgba(59, 158, 221, 0.6)" }} />
+            </div>
+            <h2 style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", fontWeight: 800, letterSpacing: "-0.04em", color: "#fff", lineHeight: 1.05, marginBottom: "20px" }}>
+              Private Models Available
+            </h2>
+            <p style={{ fontSize: "1.05rem", color: "rgba(226,234,246,0.5)", maxWidth: "480px", margin: "0 auto", lineHeight: 1.65 }}>
+              Run the world's best open-source models with zero data exposure.
+            </p>
+          </div>
+
+          {/* Model grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "16px" }}>
+            {MODELS.map((m) => (
+              <div
+                key={m.name}
+                style={{
+                  borderRadius: "14px",
+                  padding: "28px",
+                  background: m.highlight
+                    ? "rgba(7, 20, 40, 0.95)"
+                    : "rgba(7, 20, 40, 0.6)",
+                  border: m.highlight
+                    ? "1px solid rgba(59, 158, 221, 0.4)"
+                    : "1px solid rgba(13, 37, 69, 0.8)",
+                  boxShadow: m.highlight
+                    ? "0 0 60px rgba(13, 114, 192, 0.18), 0 16px 40px rgba(0,0,0,0.25)"
+                    : "none",
+                  backdropFilter: "blur(16px)",
+                  transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                  cursor: "pointer",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
+                  if (!m.highlight) {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(59, 158, 221, 0.25)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 0 40px rgba(13, 114, 192, 0.1), 0 8px 32px rgba(0,0,0,0.2)";
+                  }
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+                  if (!m.highlight) {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(13, 37, 69, 0.8)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                  }
+                }}
+              >
+                {/* Top glow for highlighted */}
+                {m.highlight && (
+                  <div style={{
+                    position: "absolute", top: 0, left: "20%", right: "20%", height: 1,
+                    background: "linear-gradient(90deg, transparent, rgba(59, 158, 221, 0.6), transparent)",
+                  }} />
+                )}
+
+                {/* Header row */}
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "20px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+                    {/* Provider mark */}
+                    <div style={{
+                      width: 44, height: 44, borderRadius: 10,
+                      background: `${m.color}18`,
+                      border: `1px solid ${m.color}35`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      flexShrink: 0,
+                    }}>
+                      <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.7rem", fontWeight: 700, color: m.color, letterSpacing: "0.02em" }}>
+                        {m.logo}
+                      </span>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: "1rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.01em", marginBottom: "2px" }}>
+                        {m.name}
+                      </div>
+                      <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.68rem", color: "rgba(122, 154, 191, 0.7)", letterSpacing: "0.04em" }}>
+                        {m.org}
+                      </div>
+                    </div>
+                  </div>
+                  {/* Badge */}
+                  <span style={{
+                    display: "inline-flex", alignItems: "center",
+                    padding: "3px 10px",
+                    background: `${m.color}15`,
+                    border: `1px solid ${m.color}30`,
+                    borderRadius: "4px",
+                    fontFamily: "'Geist Mono', monospace",
+                    fontSize: "0.62rem", color: m.color,
+                    letterSpacing: "0.06em", whiteSpace: "nowrap",
+                    flexShrink: 0,
+                  }}>
+                    {m.badge}
+                  </span>
+                </div>
+
+                {/* Params row */}
+                <div style={{ display: "flex", gap: "8px", marginBottom: "20px", flexWrap: "wrap" }}>
+                  {[m.params, m.context].map((tag, j) => (
+                    <span key={j} style={{
+                      padding: "4px 10px",
+                      background: "rgba(13, 114, 192, 0.1)",
+                      border: "1px solid rgba(59, 158, 221, 0.15)",
+                      borderRadius: "4px",
+                      fontFamily: "'Geist Mono', monospace",
+                      fontSize: "0.68rem", color: "#7dd3fc",
+                      letterSpacing: "0.04em",
+                    }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Model metrics */}
+                <div style={{
+                  padding: "14px 16px",
+                  background: "rgba(2, 12, 27, 0.6)",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(13, 37, 69, 0.8)",
+                  display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px",
+                }}>
+                  {m.benchmarks.map((b) => (
+                    <div key={b.label} style={{ textAlign: "center" }}>
+                      <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(122, 154, 191, 0.6)", marginBottom: "4px" }}>
+                        {b.label}
+                      </div>
+                      <div style={{ fontSize: "1rem", fontWeight: 700, color: "#fff", letterSpacing: "-0.02em" }}>
+                        {b.value}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* View all CTA */}
+          <div style={{ textAlign: "center", marginTop: "48px" }}>
+            <a
+              href="#docs"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "8px",
+                fontSize: "0.875rem", fontWeight: 600,
+                color: "#3b9edd", textDecoration: "none",
+                padding: "12px 24px",
+                border: "1px solid rgba(59, 158, 221, 0.25)",
+                borderRadius: "8px",
+                background: "rgba(59, 158, 221, 0.06)",
+                transition: "all 0.25s",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(59, 158, 221, 0.12)";
+                (e.currentTarget as HTMLElement).style.borderColor = "rgba(59, 158, 221, 0.4)";
+                (e.currentTarget as HTMLElement).style.color = "#7dd3fc";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(59, 158, 221, 0.06)";
+                (e.currentTarget as HTMLElement).style.borderColor = "rgba(59, 158, 221, 0.25)";
+                (e.currentTarget as HTMLElement).style.color = "#3b9edd";
+              }}
+            >
+              View all models
+              <ArrowRight size={14} strokeWidth={2.5} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── DOCS MODEL CATALOG ──────────────────────────────── */}
+      <section id="docs" style={{ padding: "0 0 104px", background: ABYSS, position: "relative" }}>
+        <div className="container">
+          <div style={{ maxWidth: "980px", margin: "0 auto" }}>
+            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "24px", marginBottom: "24px", flexWrap: "wrap" }}>
+              <div>
+                <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#3b9edd", marginBottom: "12px" }}>
+                  Docs / Open-Source Model Catalog
+                </div>
+                <h3 style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)", fontWeight: 800, color: "#fff", letterSpacing: "-0.035em", marginBottom: "10px" }}>
+                  Ranked coverage for private deployment
+                </h3>
+                <p style={{ fontSize: "0.95rem", color: "rgba(226,234,246,0.52)", lineHeight: 1.65, maxWidth: "620px" }}>
+                  The docs catalog includes the current overall list, while the homepage highlights the top six in rank order.
+                </p>
+              </div>
+              <span style={{
+                display: "inline-flex", alignItems: "center",
+                padding: "6px 12px",
+                border: "1px solid rgba(59, 158, 221, 0.24)",
+                borderRadius: "6px",
+                color: "#7dd3fc",
+                background: "rgba(59, 158, 221, 0.08)",
+                fontFamily: "'Geist Mono', monospace",
+                fontSize: "0.68rem",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+              }}>
+                {OPEN_SOURCE_MODELS.length} models tracked
+              </span>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {OPEN_SOURCE_MODELS.map((model) => (
+                <div
+                  key={model.name}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "16px",
+                    flexWrap: "wrap",
+                    padding: "18px 20px",
+                    borderRadius: "12px",
+                    background: "rgba(7, 20, 40, 0.62)",
+                    border: "1px solid rgba(13, 37, 69, 0.85)",
+                    boxShadow: model.highlight ? "0 0 40px rgba(13, 114, 192, 0.12)" : "none",
+                  }}
+                >
+                  <div style={{
+                    width: 46, height: 46, borderRadius: 10,
+                    background: `${model.color}16`,
+                    border: `1px solid ${model.color}35`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    color: model.color,
+                    fontFamily: "'Geist Mono', monospace",
+                    fontSize: "0.75rem",
+                    fontWeight: 700,
+                    flexShrink: 0,
+                  }}>
+                    #{model.rank}
+                  </div>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", flex: "1 1 220px", minWidth: 0 }}>
+                    <div style={{
+                      width: 36, height: 36, borderRadius: 8,
+                      background: `${model.color}16`,
+                      border: `1px solid ${model.color}30`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      color: model.color,
+                      fontFamily: "'Geist Mono', monospace",
+                      fontSize: "0.65rem",
+                      fontWeight: 700,
+                      flexShrink: 0,
+                    }}>
+                      {model.logo}
+                    </div>
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ color: "#fff", fontSize: "0.95rem", fontWeight: 700, letterSpacing: "-0.01em" }}>
+                        {model.name}
+                      </div>
+                      <div style={{ color: "rgba(122, 154, 191, 0.72)", fontFamily: "'Geist Mono', monospace", fontSize: "0.66rem", letterSpacing: "0.04em" }}>
+                        {model.org}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ flex: "1.35 1 280px", color: "rgba(226,234,246,0.72)", fontSize: "0.86rem", lineHeight: 1.55 }}>
+                    {model.bestFor}
+                  </div>
+
+                  <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", flex: "1 1 260px" }}>
+                    {[model.params, model.context, model.badge].map((tag) => (
+                      <span
+                        key={tag}
+                        style={{
+                          padding: "4px 9px",
+                          background: "rgba(13, 114, 192, 0.1)",
+                          border: "1px solid rgba(59, 158, 221, 0.15)",
+                          borderRadius: "4px",
+                          fontFamily: "'Geist Mono', monospace",
+                          fontSize: "0.66rem",
+                          color: "#7dd3fc",
+                          letterSpacing: "0.04em",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION DIVIDER ─────────────────────────────────── */}
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, rgba(59, 158, 221, 0.15) 30%, rgba(59, 158, 221, 0.15) 70%, transparent)" }} />
+
+      {/* ── SOCIAL PROOF TICKER ─────────────────────────────── */}
+      <section style={{ padding: "40px 0", background: "rgba(3, 10, 22, 0.99)", overflow: "hidden", borderTop: "1px solid rgba(59, 158, 221, 0.06)", borderBottom: "1px solid rgba(59, 158, 221, 0.06)" }}>
+        <div style={{ display: "flex", gap: "64px", animation: "ticker 35s linear infinite", width: "max-content" }}>
+          {[...Array(2)].map((_, rep) => (
+            [
+              { metric: "Zero Data Breaches", sub: "Since inception" },
+              { metric: "100+ Enterprise Clients", sub: "Across 18 countries" },
+              { metric: "99.9% Uptime SLA", sub: "Guaranteed" },
+              { metric: "SOC 2 Type II", sub: "Certified" },
+              { metric: "FedRAMP Ready", sub: "IL5 Compliant" },
+              { metric: "<50ms Inference", sub: "P99 latency" },
+              { metric: "Air-Gapped by Default", sub: "No exceptions" },
+              { metric: "ZK Proof on Every Call", sub: "Cryptographic" },
+            ].map((item, i) => (
+              <div key={`${rep}-${i}`} style={{ display: "flex", alignItems: "center", gap: "48px", flexShrink: 0 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#3b9edd", flexShrink: 0 }} />
+                  <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.72rem", letterSpacing: "0.06em", color: "rgba(226,234,246,0.5)", whiteSpace: "nowrap" }}>
+                    {item.metric}
+                  </span>
+                  <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.65rem", color: "rgba(122, 154, 191, 0.35)", whiteSpace: "nowrap" }}>
+                    — {item.sub}
+                  </span>
+                </div>
+              </div>
+            ))
+          ))}
+        </div>
+      </section>
+
+      {/* ── SECTION DIVIDER ─────────────────────────────────── */}
+      <div style={{ height: 1, background: "linear-gradient(90deg, transparent, rgba(59, 158, 221, 0.15) 30%, rgba(59, 158, 221, 0.15) 70%, transparent)" }} />
+
+      {/* ── TRUST / ZK PROOF SECTION ────────────────────────── */}
+      <section style={{ padding: "120px 0", background: "rgba(4, 12, 28, 0.98)", position: "relative", overflow: "hidden" }}>
+        <div style={{
+          position: "absolute", inset: 0,
+          backgroundImage: "linear-gradient(rgba(59, 158, 221, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 158, 221, 0.03) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+        }} />
+        <div className="container" style={{ position: "relative" }}>
+          <div style={{
+            maxWidth: "860px", margin: "0 auto",
+            padding: "72px 64px",
+            background: "rgba(7, 20, 40, 0.8)",
+            backdropFilter: "blur(24px)",
+            borderRadius: "20px",
+            border: "1px solid rgba(59, 158, 221, 0.2)",
+            boxShadow: "0 0 80px rgba(13, 114, 192, 0.12), 0 32px 64px rgba(0,0,0,0.4)",
+            textAlign: "center",
+            position: "relative",
+            overflow: "hidden",
+          }}>
+            {/* Corner accents */}
+            <div style={{ position: "absolute", top: 0, left: 0, width: 60, height: 60, borderTop: "1px solid rgba(59, 158, 221, 0.4)", borderLeft: "1px solid rgba(59, 158, 221, 0.4)", borderRadius: "20px 0 0 0" }} />
+            <div style={{ position: "absolute", top: 0, right: 0, width: 60, height: 60, borderTop: "1px solid rgba(59, 158, 221, 0.4)", borderRight: "1px solid rgba(59, 158, 221, 0.4)", borderRadius: "0 20px 0 0" }} />
+            <div style={{ position: "absolute", bottom: 0, left: 0, width: 60, height: 60, borderBottom: "1px solid rgba(59, 158, 221, 0.4)", borderLeft: "1px solid rgba(59, 158, 221, 0.4)", borderRadius: "0 0 0 20px" }} />
+            <div style={{ position: "absolute", bottom: 0, right: 0, width: 60, height: 60, borderBottom: "1px solid rgba(59, 158, 221, 0.4)", borderRight: "1px solid rgba(59, 158, 221, 0.4)", borderRadius: "0 0 20px 0" }} />
+
+            {/* Top glow */}
+            <div style={{
+              position: "absolute", top: 0, left: "25%", right: "25%", height: 1,
+              background: "linear-gradient(90deg, transparent, rgba(59, 158, 221, 0.7), transparent)",
+            }} />
+
+            <div style={{
+              display: "inline-flex", alignItems: "center", gap: "8px",
+              padding: "6px 16px",
+              background: "rgba(13, 114, 192, 0.15)",
+              border: "1px solid rgba(59, 158, 221, 0.25)",
+              borderRadius: "100px",
+              marginBottom: "32px",
+            }}>
+              <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#3b9edd", boxShadow: "0 0 8px #3b9edd" }} />
+              <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#7dd3fc" }}>
+                Zero-Knowledge Guarantee
+              </span>
+            </div>
+
+            <blockquote style={{
+              fontSize: "clamp(1.4rem, 3vw, 2.2rem)",
+              fontWeight: 700, letterSpacing: "-0.03em",
+              color: "#fff", lineHeight: 1.25,
+              margin: "0 0 32px",
+            }}>
+              "Intelligence without sovereignty<br />
+              <span style={{ color: "rgba(226,234,246,0.4)" }}>is just surveillance."</span>
+            </blockquote>
+
+            <p style={{ fontSize: "0.95rem", color: "rgba(226,234,246,0.5)", lineHeight: 1.7, maxWidth: "560px", margin: "0 auto 40px" }}>
+              Lugano is the only AI infrastructure that can prove — cryptographically — that your data was never exposed. Not to us. Not to anyone.
+            </p>
+
+            <a
+              href="mailto:contact@lugano.ai"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "8px",
+                padding: "14px 32px", borderRadius: "10px",
+                background: LAKE_GRADIENT,
+                color: "#fff", fontSize: "0.9rem", fontWeight: 600,
+                textDecoration: "none",
+                boxShadow: "0 0 40px rgba(13, 114, 192, 0.45)",
+                transition: "all 0.25s",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.boxShadow = "0 0 60px rgba(13, 114, 192, 0.7)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.boxShadow = "0 0 40px rgba(13, 114, 192, 0.45)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+              }}
+            >
+              Request Access
+              <ArrowRight size={15} strokeWidth={2.5} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER ──────────────────────────────────────────── */}
+      <footer style={{
+        padding: "64px 0 40px",
+        background: "#010810",
+        borderTop: "1px solid rgba(59, 158, 221, 0.08)",
+      }}>
+        <div className="container">
+          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: "48px", marginBottom: "64px" }} className="footer-grid">
+            {/* Brand */}
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
+                <div style={{
+                  width: 32, height: 32, borderRadius: 8,
+                  background: LAKE_GRADIENT,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  boxShadow: "0 0 16px rgba(13, 114, 192, 0.3)",
+                }}>
+                  <Lock size={16} color="white" strokeWidth={2.5} />
+                </div>
+                <span style={{ fontSize: "1rem", fontWeight: 700, letterSpacing: "-0.02em", color: "#fff" }}>
+                  Lugano<span style={{ color: "#3b9edd" }}>.ai</span>
+                </span>
+              </div>
+              <p style={{ fontSize: "0.85rem", color: "rgba(122, 154, 191, 0.7)", lineHeight: 1.7, maxWidth: "280px" }}>
+                The sovereign AI infrastructure for organizations that cannot afford to leak.
+              </p>
+            </div>
+
+            {/* Links */}
+            {[
+              { title: "Platform", links: ["Architecture", "Models", "Agents", "Pricing"] },
+              { title: "Company", links: ["About", "Blog", "Careers", "Press"] },
+              { title: "Legal", links: ["Privacy", "Terms", "Security", "Compliance"] },
+            ].map((col, i) => (
+              <div key={i}>
+                <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#3b9edd", marginBottom: "16px" }}>
+                  {col.title}
+                </div>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {col.links.map((link) => (
+                    <li key={link}>
+                      <a href="#" style={{ fontSize: "0.85rem", color: "rgba(122, 154, 191, 0.65)", textDecoration: "none", transition: "color 0.2s" }}
+                        onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+                        onMouseLeave={e => (e.currentTarget.style.color = "rgba(122, 154, 191, 0.65)")}
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom bar */}
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            paddingTop: "24px",
+            borderTop: "1px solid rgba(59, 158, 221, 0.08)",
+            flexWrap: "wrap", gap: "12px",
+          }}>
+            <p style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", color: "rgba(122, 154, 191, 0.4)" }}>
+              © 2026 LUGANO.AI — ALL RIGHTS RESERVED
+            </p>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 8px #22c55e" }} />
+              <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(122, 154, 191, 0.5)" }}>
+                All systems operational
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* ── Inline responsive styles ─────────────────────────── */}
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); opacity: 0.8; }
+          50% { transform: scale(1.08); opacity: 1; }
+        }
+        /* Glassmorphism enhancement for nav */
+        nav {
+          -webkit-backdrop-filter: blur(20px) saturate(180%);
+        }
+        /* Crisp text rendering */
+        h1, h2, h3 {
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+        }
+        /* Agent card icon glow on hover */
+        .agent-card:hover .agent-icon {
+          box-shadow: 0 0 40px currentColor;
+        }
+        @media (max-width: 768px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .footer-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        .lugano-card:hover .pillar-underline,
+        div:hover > .pillar-underline {
+          transform: scaleX(1) !important;
+        }
+      `}</style>
+    </div>
   );
 }
