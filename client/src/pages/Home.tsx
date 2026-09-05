@@ -30,7 +30,7 @@ const MEASURES = [
 ] as const;
 
 function groupHash(value: string) {
-  return `${value.slice(0, 8)}…${value.slice(-8)}`;
+  return value.match(/.{8}/g)?.join(" ") ?? value;
 }
 
 function LiveReceipt({ clock }: { clock: string }) {
@@ -47,7 +47,7 @@ function LiveReceipt({ clock }: { clock: string }) {
         <p className="lg-slip-id">LUG-7F283</p>
         <p className="lg-slip-meta">{clock}</p>
         <dl className="lg-slip-dl">
-          {MEASURES.slice(0, 4).map((row) => (
+          {MEASURES.map((row) => (
             <div key={row.key}>
               <dt>{row.key}</dt>
               <dd className="lg-hash">{groupHash(row.value)}</dd>
@@ -336,27 +336,22 @@ export default function Home() {
               <div>
                 <h1>
                   <span>AI privacy</span>
-                  <span>by proof</span>
+                  <span>
+                    by proof<i>.</i>
+                  </span>
                 </h1>
-                <p className="lg-sub">Every response returns a cryptographic receipt.</p>
+                <p className="lg-sub">A cryptographic receipt with every response.</p>
               </div>
               <div className="lg-hero-actions">
                 <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
                   Request briefing
                 </a>
                 <a className="lg-btn-ghost" href="#platform">
-                  How it works
+                  How it works →
                 </a>
               </div>
             </div>
             <LiveReceipt clock={clock} />
-          </div>
-          <div className="lg-rail">
-            <div className="lg-shell lg-rail-inner">
-              <span>Intel TDX</span>
-              <span>Retention 0</span>
-              <span>Lugano, CH</span>
-            </div>
           </div>
         </section>
       </div>
