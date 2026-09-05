@@ -386,7 +386,9 @@ export default function Home() {
                   </a>
                 </div>
               </footer>
-              <img className="lg-void-tear" src="/generated/cream_thermal_tear.png" alt="" />
+              <p className="lg-void-feed" aria-hidden="true">
+                * * * * * * * * *
+              </p>
             </article>
           </aside>
         </section>

@@ -420,7 +420,7 @@
   z-index: 2;
   width: 45.3%;
   margin: -12.4rem auto 0;
-  padding: 0.85rem 0.9rem 7rem;
+  padding: 0.85rem 0.9rem 14rem;
   color: #3a362e;
   background-color: #e6decc;
   background-image: url("/generated/thermal_banding_sheet.png");
@@ -594,11 +594,13 @@
   text-underline-offset: 0.18em;
 }
 
-.lg-void-tear {
-  display: block;
-  width: calc(100% + 1.8rem);
-  margin: 2.4rem -0.9rem 0;
-  pointer-events: none;
+.lg-void-feed {
+  margin: 1.1rem 0 0;
+  color: #6a6458;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-align: center;
 }
 
 /* ── Shared type ──────────────────────────────────────── */
@@ -3144,8 +3146,12 @@
   }
 
   .lg-void-copy h1 {
-    white-space: normal;
-    font-size: clamp(2.6rem, 12vw, 3.6rem);
+    font-size: clamp(5.4rem, 28vw, 7.5rem);
+  }
+
+  .lg-void-object {
+    height: auto;
+    overflow: visible;
   }
 
   .lg-void-object {
