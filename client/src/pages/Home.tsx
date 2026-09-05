@@ -54,7 +54,7 @@ function LiveReceipt() {
           </div>
           <img
             className="lg-ticket-stamp"
-            src="/generated/verified_rubber_stamp.png"
+            src="/generated/verified_stamp_alpha.png"
             alt=""
           />
           <img

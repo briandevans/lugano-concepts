@@ -439,11 +439,11 @@
 
 .lg-ticket {
   position: relative;
-  width: min(38rem, 54vw);
-  min-height: 58rem;
-  margin-right: -22%;
-  margin-bottom: -10rem;
-  padding: 1.6rem 1.7rem 5.5rem 2.35rem;
+  width: min(42rem, 58vw);
+  min-height: 62rem;
+  margin-right: -28%;
+  margin-bottom: -12rem;
+  padding: 1.7rem 1.8rem 6rem 2.45rem;
   overflow: hidden;
   color: var(--ink);
   background-color: var(--thermal);
@@ -518,13 +518,13 @@
 
 .lg-ticket-stamp {
   position: absolute;
-  right: 4%;
-  bottom: 22%;
+  right: 6%;
+  bottom: 24%;
   z-index: 4;
-  width: min(16rem, 58%);
+  width: min(17.5rem, 62%);
   pointer-events: none;
   mix-blend-mode: multiply;
-  transform: rotate(-16deg);
+  transform: rotate(-14deg);
 }
 
 .lg-ticket-tear {
