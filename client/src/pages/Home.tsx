@@ -29,8 +29,8 @@ const MEASURES = [
   { key: "TEE.TCB", value: "5e0c1a94d7b283f06a1e4c9b72d0f835c18a6e04d79b2f1a0c3e5d16b9147a2f" },
 ] as const;
 
-function shortHash(value: string) {
-  return `${value.slice(0, 8)}…${value.slice(-8)}`;
+function groupHash(value: string) {
+  return `${value.slice(0, 16)} ${value.slice(16, 32)} ${value.slice(32, 48)} ${value.slice(48)}`;
 }
 
 function LiveReceipt({ clock }: { clock: string }) {
@@ -52,7 +52,7 @@ function LiveReceipt({ clock }: { clock: string }) {
         {MEASURES.map((row) => (
           <div key={row.key}>
             <dt>{row.key}</dt>
-            <dd title={row.value}>{shortHash(row.value)}</dd>
+            <dd className="lg-hash">{groupHash(row.value)}</dd>
           </div>
         ))}
       </dl>
