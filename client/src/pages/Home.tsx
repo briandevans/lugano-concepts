@@ -316,14 +316,12 @@ export default function Home() {
 
         <section id="top" className="lg-ed-well">
           <div className="lg-ed-copy">
-            <div className="lg-ed-claim">
-              <p className="lg-ed-lede">
-                Frontier models
-                <span>that run sealed</span>
-                <span>and leave a receipt.</span>
-              </p>
-              <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
-            </div>
+            <p className="lg-ed-lede">
+              Frontier models
+              <span>that run sealed</span>
+              <span>and leave a receipt.</span>
+            </p>
+            <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
             <a className="lg-ed-cta" href="mailto:contact@lugano.ai">
               Request access
             </a>
@@ -358,18 +356,17 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="lg-ed-proof">
-              <img src="/generated/verifier_qr.png" alt="" />
-              <a href="#architecture">lugano.ai/v/LUG-7F283</a>
-            </div>
-            <div className="lg-ed-total">
+            <div className="lg-ed-punch">
               <span>Total retained</span>
               <b className="lg-ed-amt">
                 <span className="lg-oh">0</span>
                 <span>B</span>
               </b>
             </div>
-            <img className="lg-ed-tear" src="/generated/thermal_fine_tear.png" alt="" />
+            <div className="lg-ed-proof">
+              <img src="/generated/verifier_qr.png" alt="" />
+              <a href="#architecture">lugano.ai/v/LUG-7F283</a>
+            </div>
           </article>
         </section>
       </div>

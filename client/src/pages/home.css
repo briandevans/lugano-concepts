@@ -920,10 +920,10 @@
 .lg-sheet.lg-ed {
   --receipt: "Courier Prime", "Courier New", Courier, monospace;
   position: relative;
-  height: auto;
-  max-height: none;
-  min-height: 0;
-  overflow: visible;
+  height: 100vh;
+  max-height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
   color: #f4eee3;
   background: #12110f;
 }
@@ -995,28 +995,22 @@
   position: relative;
   z-index: 4;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) min(24.75rem, 36vw);
-  column-gap: clamp(2.2rem, 4vw, 3.75rem);
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr) min(31rem, 40vw);
+  column-gap: clamp(1.8rem, 3.2vw, 2.8rem);
+  align-items: start;
   width: min(100% - (var(--gutter) * 2), 1220px);
+  height: calc(100vh - 72px);
   margin: 0 auto;
-  padding: 2.1rem 0 2.4rem;
+  padding: 1.7rem 0 0;
 }
 
 .lg-ed-copy {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
+  gap: 1.2rem;
   min-width: 0;
-  padding: 0.15rem 0 2.6rem;
-}
-
-.lg-ed-claim {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.15rem;
+  padding-top: 0.2rem;
 }
 
 .lg-ed-lede {
@@ -1040,7 +1034,7 @@
   margin: 0;
   color: #ddd4c4;
   font-family: var(--sans);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   line-height: 1.35;
   letter-spacing: -0.018em;
   white-space: nowrap;
@@ -1049,32 +1043,36 @@
 .lg-ed-cta {
   display: inline-flex;
   align-items: center;
-  min-height: 3.1rem;
-  padding: 0 1.4rem;
+  min-height: 2.4rem;
+  padding: 0;
   border: 0;
-  background: #f3f0e7;
-  color: #12110f !important;
+  background: transparent;
+  color: #f4eee3 !important;
   font-family: var(--sans);
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   font-weight: 500;
   letter-spacing: -0.02em;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
 }
 
 .lg-ed-cta:hover {
-  background: #fff;
-  color: #12110f !important;
+  color: #fff !important;
+  background: transparent;
 }
 
 .lg-ed-paper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 72px - 1.7rem);
   color: #2a2722;
   background-color: #efebe1;
   background-image:
     linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(40, 32, 22, 0.06)),
     url("/generated/thermal_paper_fiber.png");
   background-size: auto, 180px;
-  padding: 1.35rem 1.4rem 0;
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.38);
+  padding: 1.3rem 1.5rem 1.4rem;
 }
 
 .lg-ed-kind,
@@ -1085,15 +1083,15 @@
 }
 
 .lg-ed-kind {
-  color: #2a2722;
-  font-size: 1.12rem;
-  font-weight: 700;
+  color: #6a6458;
+  font-size: 0.82rem;
+  font-weight: 400;
 }
 
 .lg-ed-ticket {
-  margin-top: 0.55rem;
+  margin-top: 0.2rem;
   color: #2a2722;
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 
@@ -1168,48 +1166,45 @@
   font-weight: 400;
 }
 
-.lg-ed-total {
+.lg-ed-punch {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 0.35rem;
-  padding-top: 0.75rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex: 1 1 auto;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+  padding-top: 0.85rem;
   border-top: 1px solid #2a2722;
   font-family: var(--receipt);
 }
 
-.lg-ed-total span {
+.lg-ed-punch span {
   color: #2a2722;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
 .lg-ed-amt {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.18em;
+  gap: 0.16em;
   color: #9a2b24;
-  font-size: 2.55rem;
+  font-size: clamp(4.2rem, 7vw, 6.2rem);
   font-weight: 700;
-  line-height: 0.9;
+  line-height: 0.82;
 }
 
 .lg-ed-proof {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-top: 1rem;
+  gap: 0.85rem;
+  margin-top: 1.15rem;
 }
 
-.lg-ed-tear {
-  display: block;
-  width: calc(100% + 2.8rem);
-  height: 4.6rem;
-  margin: 0.15rem -1.4rem 0;
-  object-fit: cover;
-  object-position: center 76%;
-  pointer-events: none;
+.lg-ed-proof img {
+  width: 5.4rem;
+  height: 5.4rem;
 }
 
 .lg-ed-proof img {
@@ -4092,10 +4087,22 @@
     overflow: visible;
   }
 
+  .lg-sheet.lg-ed {
+    height: auto;
+    max-height: none;
+    min-height: 0;
+    overflow: visible;
+  }
+
   .lg-ed-well {
     grid-template-columns: 1fr;
+    height: auto;
     padding: 1.4rem 0 2rem;
     row-gap: 1.8rem;
+  }
+
+  .lg-ed-paper {
+    height: auto;
   }
 
   .lg-ed-copy {
