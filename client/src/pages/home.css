@@ -345,21 +345,26 @@
 
 .lg-desk-lockup em {
   display: flex;
-  align-items: baseline;
-  gap: 0.12em;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
   font-family: var(--sans);
   font-style: normal;
-  font-size: clamp(4.2rem, 7.4vw, 6.6rem);
   font-weight: 500;
   line-height: 0.9;
   letter-spacing: -0.05em;
 }
 
 .lg-desk-lockup .lg-zero-hero {
-  flex: 0 0 auto;
-  width: 0.68em;
-  height: 0.9em;
+  display: block;
+  width: 7.2rem;
+  height: 10rem;
   color: #efeae0;
+}
+
+.lg-desk-lockup em b {
+  font-size: clamp(1.7rem, 2.4vw, 2.1rem);
+  font-weight: 500;
 }
 
 .lg-desk-lockup span {

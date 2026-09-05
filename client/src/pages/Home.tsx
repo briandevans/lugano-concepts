@@ -292,7 +292,8 @@ export default function Home() {
           <div className="lg-desk-copy">
             <h1 className="lg-desk-lockup">
               <em>
-                <ZeroMark className="lg-zero-hero" /> bytes retained
+                <ZeroMark className="lg-zero-hero" />
+                <b>bytes retained</b>
               </em>
               <span>Private inference you can prove.</span>
             </h1>
