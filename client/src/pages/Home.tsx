@@ -281,9 +281,7 @@ export default function Home() {
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-              <span className="lg-wordmark">
-                Lugan<span className="lg-oh">0</span>
-              </span>
+              <span className="lg-wordmark">Lugano</span>
             </a>
             <nav className="lg-nav-links" aria-label="Primary">
               {NAV.map((item) => (
@@ -291,6 +289,9 @@ export default function Home() {
                   {item.label}
                 </a>
               ))}
+              <a className="lg-ed-nav-cta" href="mailto:contact@lugano.ai">
+                Request access
+              </a>
             </nav>
             <button
               className="lg-menu-btn"
@@ -320,58 +321,28 @@ export default function Home() {
             <span>that run sealed</span>
             <span>and leave a receipt.</span>
           </p>
-          <div className="lg-ed-row">
-            <div className="lg-ed-copy">
-              <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
-              <a className="lg-ed-cta" href="mailto:contact@lugano.ai">
-                Request access
-              </a>
-              <dl>
-                <div>
-                  <dt>Model</dt>
-                  <i />
-                  <dd>GLM-5.2</dd>
-                </div>
-                <div>
-                  <dt>Enclave</dt>
-                  <i />
-                  <dd>TDX</dd>
-                </div>
-                <div>
-                  <dt>Prompt</dt>
-                  <i />
-                  <dd>not retained</dd>
-                </div>
-                <div>
-                  <dt>Issued</dt>
-                  <i />
-                  <dd>{issued}</dd>
-                </div>
-              </dl>
-            </div>
-            <div className="lg-ed-proofcol">
-              <p className="lg-ed-ticket">LUG-7F283</p>
-              <div className="lg-ed-reg">
-                <p>MRTD · SHA-384</p>
-                <div className="lg-ed-hash">
-                  {hashGroups(MEASURES[0].value).map((group, index) => (
-                    <b key={`mrtd-0-${index}`}>{group}</b>
-                  ))}
-                </div>
-              </div>
-              <div className="lg-ed-punch">
-                <span>Total retained</span>
-                <b className="lg-ed-amt">
-                  <span className="lg-oh">0</span>
-                  <span>B</span>
-                </b>
-              </div>
-              <div className="lg-ed-proof">
-                <img src="/generated/verifier_qr.png" alt="" />
-                <a href="#architecture">lugano.ai/v/LUG-7F283</a>
-              </div>
+          <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
+          <p className="lg-ed-run">
+            LUG-7F283 · {issued} · GLM-5.2 · TDX · prompt not retained
+          </p>
+          <div className="lg-ed-punch">
+            <span>Total retained</span>
+            <b className="lg-ed-amt">
+              <span className="lg-oh">0</span>
+              <span>B</span>
+            </b>
+          </div>
+          <div className="lg-ed-reg">
+            <p>MRTD · SHA-384</p>
+            <div className="lg-ed-hash">
+              {hashGroups(MEASURES[0].value).map((group, index) => (
+                <b key={`mrtd-0-${index}`}>{group}</b>
+              ))}
             </div>
           </div>
+          <a className="lg-ed-url" href="#architecture">
+            lugano.ai/v/LUG-7F283
+          </a>
         </section>
       </div>
 
