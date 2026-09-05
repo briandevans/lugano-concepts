@@ -316,12 +316,13 @@ export default function Home() {
             </a>
           </div>
           <aside className="lg-void-object" aria-label="Attestation printer">
-            <img
-              className="lg-void-printer"
-              src="/generated/thermal_printer_body.png"
-              alt=""
-            />
-            <article className="lg-void-slip">
+            <div className="lg-void-scene">
+              <img
+                className="lg-void-printer"
+                src="/generated/printer_long_slip.png"
+                alt=""
+              />
+              <article className="lg-void-slip">
               <PrintHead />
               <header>
                 <span>LUGANO</span>
@@ -396,7 +397,8 @@ export default function Home() {
               <p className="lg-void-feed" aria-hidden="true">
                 * * * * * * * * *
               </p>
-            </article>
+              </article>
+            </div>
           </aside>
         </section>
       </div>
