@@ -334,6 +334,7 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-hero-wrap">
+          <img className="lg-field-fallback" src="/generated/night_exposure.png" alt="" />
           <NightField />
           <img className="lg-quay-fg" src="/generated/wet_quay.png" alt="" />
           <div className="lg-hero-veil" />
