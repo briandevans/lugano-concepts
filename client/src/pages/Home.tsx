@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import PrintHead from "@/components/PrintHead";
 import "./home.css";
 
 const MEASURES = [
@@ -301,9 +300,11 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-mat-well">
-          <p className="lg-mat-lede">Frontier models that run sealed and leave a receipt.</p>
+          <p className="lg-mat-lede">
+            Frontier models that run sealed
+            <em>and leave a receipt.</em>
+          </p>
           <article className="lg-mat-sheet" aria-label="Attestation receipt">
-            <PrintHead />
             <header>
               <span className="lg-mat-merchant">
                 Lugan
@@ -367,9 +368,9 @@ export default function Home() {
               <a className="lg-mat-verify" href="#architecture">
                 Verify this proof
               </a>
-              <a className="lg-mat-cta" href="mailto:contact@lugano.ai">
-                Request a specimen
-              </a>
+              <span className="lg-mat-feed" aria-hidden="true">
+                * * * * * * *
+              </span>
             </footer>
           </article>
         </section>
