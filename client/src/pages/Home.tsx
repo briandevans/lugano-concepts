@@ -11,6 +11,42 @@ const PROOF_ROWS = [
   { label: "No prompt retention", digest: "0 retained" },
 ] as const;
 
+function LiveReceipt() {
+  const [clock, setClock] = useState(() => new Date().toISOString().slice(11, 19));
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setClock(new Date().toISOString().slice(11, 19));
+    }, 1000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  return (
+    <aside className="lg-cert lg-cert-object" aria-label="Attestation receipt">
+      <div className="lg-cert-inner">
+        <div className="lg-cert-top">
+          <strong>Attestation receipt</strong>
+          <span className="lg-ok">verified</span>
+        </div>
+        <p className="lg-cert-meta">
+          LUG-7F283 · {clock} UTC · CH
+        </p>
+        {PROOF_ROWS.slice(0, 4).map((row) => (
+          <div className="lg-proof-row" key={row.label}>
+            <span className="lg-tick" aria-hidden="true">
+              <svg viewBox="0 0 12 12">
+                <path d="M2 6.2 4.8 9 10 3" />
+              </svg>
+            </span>
+            <b>{row.label}</b>
+            <i>{row.digest}</i>
+          </div>
+        ))}
+      </div>
+    </aside>
+  );
+}
+
 const STEPS = [
   {
     n: "/01",
@@ -282,14 +318,11 @@ export default function Home() {
 
       <main id="main">
         <section id="top" className="lg-hero-wrap lg-hero-flat">
-          <div className="lg-shell lg-hero lg-hero-stack">
+          <div className="lg-shell lg-hero lg-hero-split">
             <div className="lg-hero-copy">
               <p className="lg-hero-kicker">Private infrastructure</p>
               <h1>AI privacy by proof.</h1>
-              <p>
-                Frontier models execute in a hardware-sealed enclave. Every response returns a
-                cryptographic receipt. Prompts are not retained.
-              </p>
+              <p>Every response returns a cryptographic receipt. Prompts are not retained.</p>
               <div className="lg-hero-actions">
                 <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
                   Request briefing
@@ -300,22 +333,7 @@ export default function Home() {
               </div>
             </div>
 
-            <aside className="lg-cert lg-cert-object" aria-label="Attestation receipt">
-              <span className="lg-stamp">Verified</span>
-              <div className="lg-cert-inner">
-                <div className="lg-cert-top">
-                  <strong>Attestation receipt</strong>
-                  <span>LUG-7F283 · 2026-09-05 · 04:12:09 UTC · CH</span>
-                </div>
-                {PROOF_ROWS.slice(0, 4).map((row) => (
-                  <div className="lg-proof-row" key={row.label}>
-                    <b>{row.label}</b>
-                    <span className="lg-leaders" aria-hidden="true" />
-                    <i>{row.digest}</i>
-                  </div>
-                ))}
-              </div>
-            </aside>
+            <LiveReceipt />
           </div>
         </section>
 
