@@ -19,8 +19,34 @@
   const CIPHER_UPDATE_MIN = 1400;
   const CIPHER_UPDATE_RANGE = 1800;
   const CIPHER_FLASH_DURATION = 320;
-  const CTA_LABEL_TEXT = "Request briefing";
+  const CTA_LABEL_TEXT = "Waitlist";
+  const HERO_ART_DESKTOP_SRC = "assets/lugano-engraving-v1.webp";
+  const HERO_ART_MOBILE_SRC = "assets/lugano-engraving-v1-mobile.webp";
+  const HERO_WATER_START = 0.79;
+  const HERO_WATER_END = 0.995;
+  const HERO_PARALLAX_LIMIT = 6;
+  const HERO_PROOF_FACTS = [
+    "Cryptographically auditable",
+    "Any model",
+    "Zero-trust by default",
+  ];
+  const HERO_VERIFICATION_ROWS = [
+    { label: "TDX quote verified", digest: "4971...ba575" },
+    { label: "GPU attestation verified", digest: "c8f2...3e41a" },
+    { label: "Proof verification", digest: "[REDACTED]" },
+    { label: "Constraint check", digest: "[REDACTED]" },
+    { label: "Nonce binding verified", digest: "a1d9...7f283" },
+    { label: "Signing key bound", digest: "e3b7...9c064" },
+    { label: "Receipt verification", digest: "f6a4...2d817" },
+    { label: "Disclosure verification", digest: "7f93...6c4e2" },
+    { label: "Payload integrity", digest: "b2a6...8d5f1" },
+    { label: "No prompt retention", digest: "0 retained" },
+  ];
   let enhancementFrame = 0;
+  let heroDepthController = null;
+  let heroRouteFrame = 0;
+  let applyScrollFrame = 0;
+  let applyScrollRoute = "";
   let lastHeaderPointerActivation = { key: "", timestamp: 0 };
   const CTA_LABELS = new Set([
     "apply for beta",
@@ -30,18 +56,6 @@
     "request briefing",
     "request demo",
   ]);
-  const HERO_PROOF_LABEL_ORDER = [
-    "TDX quote verified",
-    "GPU attestation verified",
-    "Proof verification",
-    "Constraint check",
-    "Nonce binding verified",
-    "Signing key bound",
-    "Receipt verification",
-    "Disclosure verification",
-    "Payload integrity",
-    "No prompt retention",
-  ];
   const HEADER_NAV_ORDER = [
     "Platform",
     "Architecture",
@@ -57,11 +71,6 @@
   };
   const HEADER_NAV_ACTIVATION_EVENTS = ["pointerup", "click"];
   const HEADER_NAV_CLICK_SELECTOR = "a, button";
-  const HERO_PROOF_REPLACEMENT_ROWS = [
-    { label: "Proof verification", digest: "[REDACTED]" },
-    { label: "Constraint check", digest: "[REDACTED]" },
-    { label: "No prompt retention", digest: "0 retained" },
-  ];
   const WHY_NOW_SECTION_ID = "why-now";
   const PRIVACY_LEVELS_SECTION_ID = "privacy-levels";
   const PRIVACY_POSITIONING_ID = "lugano-privacy-positioning";
@@ -104,8 +113,8 @@
     {
       title: "Enterprise",
       icon: "enterprise",
-      image: "use-case-assets/enterprise-private-perimeter.webp",
-      imageAlt: "A glass enterprise building inside a glowing private network perimeter",
+      image: "/assets/lugano-enterprise-engraving.webp",
+      imageAlt: "Cobalt engraving of a Swiss lakeside office complex within a private perimeter",
       summary:
         "Deploy AI across operations. Prove your data posture.",
       bullets: [
@@ -117,8 +126,8 @@
     {
       title: "Government and defense",
       icon: "defense",
-      image: "use-case-assets/government-defense-enclave.webp",
-      imageAlt: "A hardened sovereign AI enclave surrounded by encrypted defense-grade circuitry",
+      image: "/assets/lugano-sovereign-engraving.webp",
+      imageAlt: "Cobalt engraving of a fortified Swiss infrastructure complex within an Alpine perimeter",
       summary:
         "Bring cutting edge model capability closer to sovereign, classified, or disconnected environments.",
       bullets: [
@@ -131,8 +140,8 @@
     {
       title: "Regulated Industries",
       icon: "regulated",
-      image: "use-case-assets/regulated-audit-network.webp",
-      imageAlt: "A regulated operations network with cryptographic audit paths and verification nodes",
+      image: "/assets/lugano-regulated-engraving.webp",
+      imageAlt: "Cobalt engraving of Swiss institutions linked by precise audit paths",
       summary:
         "Deploy AI against sensitive internal data while preserving reviewable privacy boundaries.",
       bullets: [
@@ -173,40 +182,43 @@
 
   const models = [
     {
-      title: "GLM-5.2",
+      title: "GLM-5.3",
       maker: "Z.ai",
       logo: "brand-assets/zai.webp",
       logoAlt: "Z.ai logo",
-      specs: "1M context / 128K output",
+      specs: "753B parameters / 1M context",
+      source: "https://huggingface.co/zai-org/GLM-5.3",
       benchmarks: [
-        { label: "Best for", value: "Long-horizon" },
-        { label: "Coding", value: "#1 open" },
-        { label: "Tools", value: "MCP" },
+        { label: "Focus", value: "Coding" },
+        { label: "Reasoning", value: "3 levels" },
+        { label: "Weights", value: "Custom license" },
       ],
       featured: true,
     },
     {
-      title: "Kimi K2.6",
+      title: "Kimi K3",
       maker: "Moonshot AI",
       logo: "brand-assets/kimi.ico",
       logoAlt: "Kimi logo",
-      specs: "1T MoE / 262K context",
+      specs: "2.8T MoE / 104B active",
+      source: "https://huggingface.co/moonshotai/Kimi-K3",
       benchmarks: [
-        { label: "Best for", value: "All-round" },
-        { label: "Tools", value: "Yes" },
-        { label: "Vision", value: "Yes" },
+        { label: "Context", value: "1M" },
+        { label: "Vision", value: "Native" },
+        { label: "Weights", value: "Custom license" },
       ],
     },
     {
-      title: "DeepSeek V4 Pro",
+      title: "DeepSeek V4 Pro · 0813",
       maker: "DeepSeek",
       logo: "brand-assets/deepseek.ico",
       logoAlt: "DeepSeek logo",
       specs: "1.6T MoE / 49B active",
+      source: "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
       benchmarks: [
-        { label: "Best for", value: "Instruction" },
         { label: "Context", value: "1M" },
-        { label: "Modes", value: "Dual" },
+        { label: "Reasoning", value: "3 levels" },
+        { label: "License", value: "MIT" },
       ],
     },
     {
@@ -214,23 +226,25 @@
       maker: "MiniMax",
       logo: "brand-assets/minimax.webp",
       logoAlt: "MiniMax logo",
-      specs: "1M context / native multimodal",
+      specs: "428B MoE / 23B active",
+      source: "https://huggingface.co/MiniMaxAI/MiniMax-M3",
       benchmarks: [
-        { label: "Best for", value: "OS coding" },
-        { label: "Browse", value: "83.5" },
-        { label: "Deploy", value: "Open" },
+        { label: "Context", value: "1M" },
+        { label: "Vision", value: "Native" },
+        { label: "Weights", value: "Community" },
       ],
     },
     {
-      title: "GLM-5.1",
+      title: "GLM-5.3 Flash",
       maker: "Z.ai",
       logo: "brand-assets/zai.webp",
       logoAlt: "Z.ai logo",
-      specs: "200K context / 128K output",
+      specs: "320B MoE / 18B active",
+      source: "https://huggingface.co/zai-org/GLM-5.3-Flash",
       benchmarks: [
-        { label: "Best for", value: "Long tasks" },
-        { label: "Horizon", value: "8h" },
-        { label: "Tools", value: "MCP" },
+        { label: "Focus", value: "Multimodal" },
+        { label: "Reasoning", value: "3 levels" },
+        { label: "License", value: "MIT" },
       ],
     },
     {
@@ -238,11 +252,12 @@
       maker: "Xiaomi",
       logo: "brand-assets/xiaomi.svg",
       logoAlt: "Xiaomi logo",
-      specs: "MIT weights / 1M context",
+      specs: "1.02T MoE / 42B active",
+      source: "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro",
       benchmarks: [
-        { label: "Best for", value: "Harness" },
-        { label: "ClawEval", value: "#1" },
-        { label: "GDPVal", value: "#1" },
+        { label: "Context", value: "1M" },
+        { label: "Focus", value: "Agentic coding" },
+        { label: "License", value: "MIT" },
       ],
     },
   ];
@@ -359,7 +374,7 @@
     <article class="lgx-card lgx-model-card${item.featured ? " is-featured" : ""}">
       ${brandMarkMarkup(item, "lgx-icon-model")}
       <div class="lgx-model-copy">
-        <h3>${escapeHtml(item.title)}</h3>
+        <h3><a class="lgx-model-source" href="${escapeHtml(item.source)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(item.title)} model card (opens in a new tab)">${escapeHtml(item.title)}</a></h3>
         <p>${escapeHtml(item.maker)}</p>
         <div class="lgx-model-spec">${escapeHtml(item.specs)}</div>
         <dl>
@@ -408,7 +423,7 @@
             <p>Run leading open models inside a verifiable privacy boundary</p>
           </div>
           <div class="lgx-model-grid">${models.map(modelCardMarkup).join("")}</div>
-          <div class="lgx-model-note">Model availability varies by private beta environment. Benchmarks shown from public Artificial Analysis, provider, and model-card data available on May 29, 2026.</div>
+          <div class="lgx-model-note">Model availability varies by private beta environment. Open-weight releases and specifications checked against official model cards on September 5, 2026. Licenses vary by model. Select a model name for its source.</div>
         </div>
       </section>`;
 
@@ -476,6 +491,81 @@
       Boolean(getHashSectionId()) ||
       hash.startsWith("#/?")
     );
+  };
+
+  const getApplyRouteKey = () => window.location.hash.toLowerCase();
+
+  const isApplyRoute = () => getApplyRouteKey().startsWith("#/apply");
+
+  const scrollToTopImmediately = () => {
+    const documentElement = document.documentElement;
+    const previousScrollBehavior = documentElement.style.scrollBehavior;
+
+    documentElement.style.scrollBehavior = "auto";
+    window.scrollTo({ left: 0, top: 0, behavior: "auto" });
+
+    window.requestAnimationFrame(() => {
+      documentElement.style.scrollBehavior = previousScrollBehavior;
+    });
+  };
+
+  const cancelApplyScrollReset = () => {
+    if (!applyScrollFrame) {
+      return;
+    }
+
+    window.cancelAnimationFrame(applyScrollFrame);
+    applyScrollFrame = 0;
+  };
+
+  const resetApplyScrollWhenReady = (routeKey, attempt = 0) => {
+    if (!isApplyRoute() || getApplyRouteKey() !== routeKey) {
+      applyScrollFrame = 0;
+      return;
+    }
+
+    if (!document.querySelector("#root .apply-form")) {
+      if (attempt >= MAX_MOUNT_ATTEMPTS) {
+        applyScrollFrame = 0;
+        return;
+      }
+
+      applyScrollFrame = window.requestAnimationFrame(() => {
+        resetApplyScrollWhenReady(routeKey, attempt + 1);
+      });
+      return;
+    }
+
+    applyScrollFrame = 0;
+    applyScrollRoute = routeKey;
+    scrollToTopImmediately();
+  };
+
+  const scheduleApplyScrollReset = () => {
+    const routeKey = getApplyRouteKey();
+
+    if (!isApplyRoute()) {
+      applyScrollRoute = "";
+      cancelApplyScrollReset();
+      return;
+    }
+
+    if (applyScrollRoute === routeKey || applyScrollFrame) {
+      return;
+    }
+
+    cancelApplyScrollReset();
+    applyScrollFrame = window.requestAnimationFrame(() => resetApplyScrollWhenReady(routeKey));
+  };
+
+  const syncApplyScrollReset = () => {
+    if (!isApplyRoute()) {
+      applyScrollRoute = "";
+      cancelApplyScrollReset();
+      return;
+    }
+
+    scheduleApplyScrollReset();
   };
 
   const updateCtas = () => {
@@ -606,7 +696,11 @@
     element.textContent.trim().replace(/\s+/g, " ");
 
   const scrollHomeToTopWhenReady = (attempt = 0) => {
-    window.scrollTo({ top: 0, behavior: attempt === 0 ? "smooth" : "auto" });
+    if (!shouldMount()) {
+      return;
+    }
+
+    scrollToTopImmediately();
 
     if (attempt >= 24) {
       return;
@@ -1139,67 +1233,436 @@
   const getDirectHeroChildContaining = (heroContent, target) =>
     [...heroContent.children].find((child) => child.contains(target));
 
-  const getAttestationRows = (proofCard) =>
-    [...proofCard.querySelectorAll(".flex.items-center.gap-3")]
-      .filter((row) => row.tagName.toLowerCase() !== "button")
-      .map((row) => {
-        const spans = [...row.querySelectorAll("span")];
-        const label = spans.at(-2)?.textContent.trim() || "";
-        const digest = spans.at(-1)?.textContent.trim() || "";
-
-        return { digest, label };
-      })
-      .filter(({ digest, label }) => Boolean(label) && Boolean(digest));
-
-  const getDisplayedAttestationRows = (rows) => {
-    const rowByLabel = new Map(
-      [...rows, ...HERO_PROOF_REPLACEMENT_ROWS].map((row) => [row.label, row]),
-    );
-
-    return HERO_PROOF_LABEL_ORDER.map((label) => rowByLabel.get(label)).filter(Boolean);
-  };
-
   const proofCheckMarkup = () => `
     <svg viewBox="0 0 16 16" aria-hidden="true">
       <path d="M3.25 8.35 6.35 11.4 12.85 4.6" />
     </svg>`;
 
-  const staticProofPanelMarkup = (rows) => `
+  const staticProofPanelMarkup = () => `
     <div class="lgx-proof-panel-inner">
       <div class="lgx-proof-panel-top">
-        <span class="lgx-proof-status">
-          <span class="lgx-proof-status-dot" aria-hidden="true"></span>
-          Verified Private AI
-        </span>
-        <span class="lgx-proof-count">${rows.length}+ checks</span>
+        <span class="lgx-proof-status">Verified Private AI</span>
+        <span class="lgx-proof-count">10+ checks</span>
       </div>
-      <div class="lgx-proof-ledger">
-        ${rows
+      <div class="lgx-proof-ledger" role="list" aria-label="Lugano privacy guarantees">
+        ${HERO_PROOF_FACTS
           .map(
-            ({ digest, label }) => `
-              <div class="lgx-proof-row" data-lugano-attestation-row>
+            (label) => `
+              <span class="lgx-proof-row" data-lugano-attestation-row role="listitem">
                 <span class="lgx-proof-check">${proofCheckMarkup()}</span>
                 <span class="lgx-proof-label">${escapeHtml(label)}</span>
-                <code class="lgx-proof-digest">${escapeHtml(digest)}</code>
-              </div>`,
+              </span>`,
           )
           .join("")}
       </div>
     </div>`;
+
+  const heroVerificationLedgerMarkup = () => `
+    <div class="lgx-hero-ledger-shell">
+      <header class="lgx-hero-ledger-heading">
+        <p class="lgx-hero-ledger-kicker">10+ checks</p>
+        <h2 id="lugano-proof-ledger-heading">Verified Private AI</h2>
+      </header>
+      <ol class="lgx-hero-ledger-list" aria-label="Verification checks">
+        ${HERO_VERIFICATION_ROWS.map(
+          ({ digest, label }, index) => `
+            <li class="lgx-hero-ledger-row">
+              <span class="lgx-hero-ledger-index">${String(index + 1).padStart(2, "0")}</span>
+              <span class="lgx-hero-ledger-label">${escapeHtml(label)}</span>
+              <code class="lgx-hero-ledger-digest">${escapeHtml(digest)}</code>
+            </li>`,
+        ).join("")}
+      </ol>
+    </div>`;
+
+  const removeHeroVerificationLedger = () => {
+    document.getElementById("lugano-proof-ledger")?.remove();
+  };
+
+  const ensureHeroVerificationLedger = (hero) => {
+    let ledger = document.getElementById("lugano-proof-ledger");
+
+    if (!ledger) {
+      ledger = document.createElement("section");
+      ledger.id = "lugano-proof-ledger";
+      ledger.className = "lgx-hero-verification-ledger";
+      ledger.setAttribute("aria-labelledby", "lugano-proof-ledger-heading");
+      ledger.innerHTML = heroVerificationLedgerMarkup();
+    }
+
+    if (hero.nextElementSibling !== ledger) {
+      hero.insertAdjacentElement("afterend", ledger);
+    }
+
+    return ledger;
+  };
+
+  const stopAndRemoveHeroVideo = (artStage) => {
+    artStage.querySelectorAll("video").forEach((video) => {
+      video.pause();
+      video.removeAttribute("src");
+      video.querySelectorAll("source").forEach((source) => source.removeAttribute("src"));
+      video.load();
+    });
+  };
+
+  const ensureHeroArt = (hero) => {
+    const artStage = hero.querySelector(":scope > .absolute");
+
+    if (!artStage) {
+      return null;
+    }
+
+    artStage.classList.add("lgx-hero-art-stage");
+    artStage.setAttribute("aria-hidden", "true");
+
+    if (artStage.querySelector(".lgx-hero-art")) {
+      return artStage;
+    }
+
+    stopAndRemoveHeroVideo(artStage);
+
+    const picture = document.createElement("picture");
+    picture.className = "lgx-hero-art-picture";
+    picture.innerHTML = `
+      <source media="(max-width: 760px)" srcset="${HERO_ART_MOBILE_SRC}" />
+      <img
+        class="lgx-hero-art"
+        src="${HERO_ART_DESKTOP_SRC}"
+        alt=""
+        decoding="async"
+        fetchpriority="high"
+      />`;
+
+    artStage.replaceChildren(picture);
+    return artStage;
+  };
+
+  const ensureHeroCaption = (heroContent) => {
+    let caption = heroContent.querySelector(":scope > [data-lugano-hero-caption='true']");
+
+    if (caption) {
+      return caption;
+    }
+
+    caption = document.createElement("div");
+    caption.className = "lgx-hero-caption";
+    caption.dataset.luganoHeroCaption = "true";
+    caption.innerHTML = `
+      <span class="lgx-hero-location">Lugano, Switzerland</span>
+      <span class="lgx-hero-caption-rule" aria-hidden="true"></span>
+      <button class="lgx-hero-motion-toggle" type="button" aria-pressed="false">
+        Pause landscape animation
+      </button>`;
+    heroContent.appendChild(caption);
+    return caption;
+  };
+
+  const updateHeroTypography = (hero) => {
+    const eyebrow = hero.querySelector(".bracket-label");
+    const heading = hero.querySelector("h1");
+
+    if (eyebrow && eyebrow.textContent.trim() !== "PRIVATE AI INFRASTRUCTURE") {
+      eyebrow.textContent = "PRIVATE AI INFRASTRUCTURE";
+    }
+
+    if (!heading || heading.dataset.lgxHeroHeading === "full-proof") {
+      return;
+    }
+
+    const headingLine = document.createElement("span");
+    headingLine.className = "lgx-hero-heading-line";
+    headingLine.textContent = "AI Privacy by ";
+
+    const proofLine = document.createElement("span");
+    proofLine.className = "lgx-hero-proof-line";
+
+    const trust = document.createElement("del");
+    trust.className = "lgx-trust-crossed";
+    trust.textContent = "trust me bro";
+    const proof = document.createElement("em");
+    proof.textContent = "proof.";
+    proofLine.append(trust, document.createTextNode(" "), proof);
+    heading.replaceChildren(headingLine, proofLine);
+    heading.dataset.lgxHeroHeading = "full-proof";
+  };
+
+  const clearHeroWater = (state) => {
+    state.context.clearRect(0, 0, state.width, state.height);
+  };
+
+  const resizeHeroWater = (state) => {
+    const rect = state.stage.getBoundingClientRect();
+    const width = Math.max(1, Math.round(rect.width));
+    const height = Math.max(1, Math.round(rect.height));
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+
+    if (
+      state.width === width &&
+      state.height === height &&
+      state.pixelRatio === pixelRatio
+    ) {
+      return;
+    }
+
+    state.width = width;
+    state.height = height;
+    state.pixelRatio = pixelRatio;
+    state.canvas.width = width * pixelRatio;
+    state.canvas.height = height * pixelRatio;
+    state.canvas.style.width = `${width}px`;
+    state.canvas.style.height = `${height}px`;
+    state.context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+  };
+
+  const drawHeroWater = (state, timestamp) => {
+    const { image, context, height, width } = state;
+
+    if (!image.complete || !image.naturalWidth || !width || !height) {
+      return;
+    }
+
+    clearHeroWater(state);
+
+    const lakeTop = Math.round(height * HERO_WATER_START);
+    const lakeBottom = Math.round(height * HERO_WATER_END);
+    const sliceHeight = Math.max(4, Math.ceil((lakeBottom - lakeTop) / 17));
+    const waveTime = timestamp * 0.0011;
+
+    context.save();
+    context.globalAlpha = 0.12;
+
+    for (let y = lakeTop, index = 0; y < lakeBottom; y += sliceHeight, index += 1) {
+      const offset =
+        Math.sin(waveTime + index * 0.78) * 2.35 + Math.sin(waveTime * 0.54 + index) * 1.1;
+
+      context.save();
+      context.beginPath();
+      context.rect(0, y, width, Math.min(sliceHeight + 1, lakeBottom - y));
+      context.clip();
+      context.drawImage(image, offset, 0, width, height);
+      context.restore();
+    }
+
+    context.restore();
+  };
+
+  const destroyHeroDepth = () => {
+    heroDepthController?.destroy();
+    heroDepthController = null;
+  };
+
+  const ensureHeroDepth = (hero, artStage, caption) => {
+    if (heroDepthController?.hero === hero && heroDepthController.stage === artStage) {
+      return;
+    }
+
+    destroyHeroDepth();
+
+    const image = artStage.querySelector(".lgx-hero-art");
+    const motionToggle = caption?.querySelector(".lgx-hero-motion-toggle");
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d", { alpha: true });
+
+    if (
+      !image ||
+      !context ||
+      typeof ResizeObserver !== "function" ||
+      typeof IntersectionObserver !== "function"
+    ) {
+      motionToggle?.remove();
+      return;
+    }
+
+    canvas.className = "lgx-hero-water";
+    canvas.setAttribute("aria-hidden", "true");
+    artStage.appendChild(canvas);
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const state = {
+      active: false,
+      canvas,
+      caption,
+      context,
+      hero,
+      image,
+      manualMotionOptIn: false,
+      motionToggle,
+      pixelRatio: 0,
+      raf: 0,
+      reducedMotion,
+      stage: artStage,
+      userPaused: reducedMotion.matches,
+      visible: true,
+      width: 0,
+      height: 0,
+    };
+
+    const stop = () => {
+      state.active = false;
+
+      if (state.raf) {
+        window.cancelAnimationFrame(state.raf);
+        state.raf = 0;
+      }
+
+      clearHeroWater(state);
+    };
+
+    const run = (timestamp) => {
+      if (!state.active) {
+        return;
+      }
+
+      drawHeroWater(state, timestamp);
+      state.raf = window.requestAnimationFrame(run);
+    };
+
+    const start = () => {
+      if (state.active) {
+        return;
+      }
+
+      state.active = true;
+      state.raf = window.requestAnimationFrame(run);
+    };
+
+    const resetParallax = () => {
+      state.stage.style.setProperty("--lgx-hero-parallax-x", "0px");
+      state.stage.style.setProperty("--lgx-hero-parallax-y", "0px");
+    };
+
+    const updateMotionToggle = () => {
+      if (!state.motionToggle) {
+        return;
+      }
+
+      const isPlaying = !state.userPaused;
+      state.motionToggle.setAttribute("aria-pressed", String(isPlaying));
+      state.motionToggle.textContent = isPlaying
+        ? "Pause landscape animation"
+        : "Play landscape animation";
+    };
+
+    const updateMotion = () => {
+      const canAnimate =
+        !state.userPaused &&
+        (!state.reducedMotion.matches || state.manualMotionOptIn) &&
+        state.visible &&
+        !document.hidden &&
+        state.image.complete &&
+        state.image.naturalWidth > 0;
+
+      if (canAnimate) {
+        start();
+      } else {
+        stop();
+        resetParallax();
+      }
+    };
+
+    const onPointerMove = (event) => {
+      if (
+        state.userPaused ||
+        (state.reducedMotion.matches && !state.manualMotionOptIn) ||
+        event.pointerType === "touch"
+      ) {
+        return;
+      }
+
+      const rect = state.stage.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - 0.5) * HERO_PARALLAX_LIMIT * 2;
+      const y = ((event.clientY - rect.top) / rect.height - 0.5) * HERO_PARALLAX_LIMIT * 1.25;
+      state.stage.style.setProperty("--lgx-hero-parallax-x", `${x.toFixed(2)}px`);
+      state.stage.style.setProperty("--lgx-hero-parallax-y", `${y.toFixed(2)}px`);
+    };
+
+    const onImageLoad = () => {
+      resizeHeroWater(state);
+      updateMotion();
+    };
+
+    const onToggle = () => {
+      state.userPaused = !state.userPaused;
+      state.manualMotionOptIn = state.reducedMotion.matches && !state.userPaused;
+      if (state.manualMotionOptIn) {
+        state.hero.dataset.lgxHeroMotion = "manual";
+      } else {
+        delete state.hero.dataset.lgxHeroMotion;
+      }
+      updateMotionToggle();
+      updateMotion();
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      resizeHeroWater(state);
+    });
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        state.visible = entry.isIntersecting;
+        updateMotion();
+      },
+      { threshold: 0.01 },
+    );
+    const onVisibilityChange = () => updateMotion();
+    const onMotionPreferenceChange = () => {
+      if (state.reducedMotion.matches) {
+        state.userPaused = true;
+        state.manualMotionOptIn = false;
+        delete state.hero.dataset.lgxHeroMotion;
+      }
+
+      updateMotionToggle();
+      updateMotion();
+    };
+
+    resizeHeroWater(state);
+    resizeObserver.observe(artStage);
+    intersectionObserver.observe(artStage);
+    image.addEventListener("load", onImageLoad);
+    artStage.addEventListener("pointermove", onPointerMove, { passive: true });
+    artStage.addEventListener("pointerleave", resetParallax, { passive: true });
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    reducedMotion.addEventListener?.("change", onMotionPreferenceChange);
+    reducedMotion.addListener?.(onMotionPreferenceChange);
+    motionToggle?.addEventListener("click", onToggle);
+    updateMotionToggle();
+    updateMotion();
+
+    state.destroy = () => {
+      stop();
+      resizeObserver.disconnect();
+      intersectionObserver.disconnect();
+      image.removeEventListener("load", onImageLoad);
+      artStage.removeEventListener("pointermove", onPointerMove);
+      artStage.removeEventListener("pointerleave", resetParallax);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      reducedMotion.removeEventListener?.("change", onMotionPreferenceChange);
+      reducedMotion.removeListener?.(onMotionPreferenceChange);
+      motionToggle?.removeEventListener("click", onToggle);
+      delete hero.dataset.lgxHeroMotion;
+      resetParallax();
+      canvas.remove();
+    };
+
+    heroDepthController = state;
+  };
 
   const enhanceHeroProofLayout = () => {
     const hero = getHeroSection();
     const heroContent = hero?.querySelector(":scope > .relative.z-10");
 
     if (!hero || !heroContent) {
+      destroyHeroDepth();
+      removeHeroVerificationLedger();
       return;
     }
 
-    const existingPanel = document.querySelector("[data-lugano-proof-panel='static']");
+    const existingPanel = hero.querySelector("[data-lugano-proof-panel='static']");
     const proofButton = existingPanel ? null : getProofButton(hero);
     const proofCard = existingPanel || proofButton?.parentElement;
     const proofShell =
-      document.querySelector("[data-lugano-proof-shell='true']") ||
+      hero.querySelector("[data-lugano-proof-shell='true']") ||
       (proofCard && getDirectHeroChildContaining(heroContent, proofCard));
 
     if (!proofCard || !proofShell) {
@@ -1208,20 +1671,14 @@
 
     hero.classList.remove("lgx-hero-split");
     hero.classList.add("lgx-hero-editorial");
-    hero.dataset.luganoHeroLayout = "editorial-proof-in-hero";
-    heroContent.dataset.luganoHeroContent = "editorial-proof";
+    hero.dataset.luganoHeroLayout = "engraved-proof";
+    heroContent.dataset.luganoHeroContent = "engraved-proof";
+    updateHeroTypography(hero);
 
-    const trustSpan = [...hero.querySelectorAll("h1 span")].find(
-      (span) => span.textContent.trim().toLowerCase() === "trust me bro",
-    );
-
-    if (trustSpan) {
-      trustSpan.classList.add("lgx-trust-crossed");
-      trustSpan.style.textDecoration = "none";
-    }
+    const artStage = ensureHeroArt(hero);
 
     let copyColumn = heroContent.querySelector(":scope > .lgx-hero-copy");
-    let proofColumn = document.querySelector(".lgx-hero-proof-column");
+    let proofColumn = heroContent.querySelector(":scope > .lgx-hero-proof-column");
 
     if (!copyColumn || !proofColumn) {
       copyColumn = document.createElement("div");
@@ -1245,7 +1702,7 @@
       heroContent.appendChild(proofColumn);
     }
 
-    document.getElementById("lugano-proof-ledger")?.remove();
+    ensureHeroVerificationLedger(hero);
 
     proofColumn.classList.remove("lgx-hero-proof-shell");
     proofShell.dataset.luganoProofShell = "true";
@@ -1253,20 +1710,69 @@
     proofCard.classList.add("lgx-hero-proof-card");
     proofCard.dataset.luganoProofPanel = "static";
 
-    if (proofCard.dataset.lgxStaticProofReady === "true") {
+    if (proofCard.dataset.lgxStaticProofReady !== "true") {
+      proofCard.dataset.lgxStaticProofReady = "true";
+      proofCard.innerHTML = staticProofPanelMarkup();
+      delete proofCard.dataset.lgxCipherReady;
+      proofCard.classList.remove("lgx-cipher-ready");
+    }
+
+    const caption = ensureHeroCaption(heroContent);
+
+    if (artStage) {
+      ensureHeroDepth(hero, artStage, caption);
+    }
+  };
+
+  const bindHeroRouteLifecycle = () => {
+    if (document.documentElement.dataset.lgxHeroRouteLifecycleBound === "true") {
       return;
     }
 
-    const rows = getDisplayedAttestationRows(getAttestationRows(proofCard));
+    document.documentElement.dataset.lgxHeroRouteLifecycleBound = "true";
 
-    if (rows.length === 0) {
-      return;
+    const refreshHero = () => {
+      destroyHeroDepth();
+      cancelApplyScrollReset();
+
+      if (heroRouteFrame) {
+        window.cancelAnimationFrame(heroRouteFrame);
+      }
+
+      if (isApplyRoute()) {
+        scheduleEnhancements();
+        return;
+      }
+
+      applyScrollRoute = "";
+
+      heroRouteFrame = window.requestAnimationFrame(() => {
+        heroRouteFrame = 0;
+
+        const restoreHomeSections = (attempt = 0) => {
+          if (!shouldMount()) {
+            scheduleEnhancements();
+            return;
+          }
+
+          if (mount() || attempt >= MAX_MOUNT_ATTEMPTS) {
+            scheduleEnhancements();
+            return;
+          }
+
+          window.requestAnimationFrame(() => restoreHomeSections(attempt + 1));
+        };
+
+        restoreHomeSections();
+      });
+    };
+
+    window.addEventListener("hashchange", refreshHero);
+    window.addEventListener("popstate", refreshHero);
+
+    if (isApplyRoute()) {
+      scheduleEnhancements();
     }
-
-    proofCard.dataset.lgxStaticProofReady = "true";
-    proofCard.innerHTML = staticProofPanelMarkup(rows);
-    delete proofCard.dataset.lgxCipherReady;
-    proofCard.classList.remove("lgx-cipher-ready");
   };
 
   const updateArchitectureModelCopy = () => {
@@ -1605,6 +2111,8 @@
   };
 
   const scheduleEnhancements = () => {
+    syncApplyScrollReset();
+
     if (enhancementFrame) {
       return;
     }
@@ -1657,6 +2165,7 @@
     };
 
     tryMount();
+    bindHeroRouteLifecycle();
 
     if (root) {
       const observer = new MutationObserver(scheduleEnhancements);

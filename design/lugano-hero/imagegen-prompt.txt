@@ -1,0 +1,11 @@
+Use case: stylized-concept
+Asset type: full-bleed responsive website hero background, a single original standalone artwork
+Primary request: Create an exquisite museum-quality copperplate/toile engraving panorama of Lake Lugano, Switzerland, intended as a website hero background. Use the supplied style reference only for its visual language of refined cobalt-and-ivory engraving, never copy its composition, bridge, buildings, or any text.
+Scene/backdrop: a broad calm Lake Lugano at the foot of the rounded, steeply rising Monte San Salvatore; layered forested slopes climb in from both left and right edges. Along the far waterfront is a small authentic Ticino lakeside town with compact ochre-free ivory facades rendered in linework, rooflines, a graceful campanile, scattered villas, and tall cypresses among dense foliage. The lower center is open tranquil lake, etched with delicate horizontal reflections.
+Style/medium: hand-engraved Swiss travel print, copperplate/toile engraving and blue-and-white porcelain visual language; extraordinarily fine cross-hatching, etching lines, tiny stippled leaves, controlled line weight, layered atmospheric depth, warm tactile paper.
+Composition/framing: wide landscape panorama, 16:9 if supported (approximately 2560 by 1440); fill the full width edge to edge. Keep the top 35 percent and the central upper half an uninterrupted, nearly blank warm ivory sky for a centered large website heading and buttons. Keep detailed scenery in the lower 55 to 60 percent. Monte San Salvatore sits behind the lake as a recognizable rounded steep profile, never an alpine needle. Leave the lower center open water.
+Lighting/mood: serene, timeless, clear Mediterranean-alpine morning; graceful editorial calm.
+Color palette: strictly duotone only: deep cobalt blue ink (#2552a0 and #194987) plus very pale lighter blue stippling on warm ivory paper (#f6f3e9). No other hues or colored washes.
+Materials/textures: fine engraved ink, cream laid-paper grain, crisp stipple work and subtle horizontal water reflections.
+Text (verbatim): ""
+Constraints: original art only; no elements copied from the reference; no text, logos, UI, borders, frame, watermark, people, boats, vehicles, cable cars, Matterhorn-like peaks, fantasy architecture, or bridge. No photorealism. Do not place any objects in the blank upper sky.

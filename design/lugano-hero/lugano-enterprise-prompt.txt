@@ -1,0 +1,11 @@
+Use case: stylized-concept
+Asset type: standalone website use-case illustration for enterprise privacy
+Primary request: Create one original, museum-quality, full-bleed architectural copperplate engraving of a refined Ticino lakeside office building in Switzerland. The privacy theme is conveyed only by a subtle geometric enclosing boundary around the grounds: fine engraved perimeter lines, an understated gate, and ordered garden terraces, fully integrated into the landscape.
+Scene/backdrop: a balanced, detailed horizontal landscape of a handsome ivory stone office villa with a restrained contemporary Swiss administrative annex on a tree-lined Lake Lugano shore. Include terraced gardens, cypresses, rounded forested slopes, and calm water. The grounds sit securely inside an elegant low geometric perimeter rendered as delicate linework.
+Style/medium: antique Swiss travel-print copperplate engraving; extraordinary fine cross-hatching, tiny stippled foliage, crisp architectural detail, tactile laid paper; visual language of a classic cobalt-and-ivory blue-and-white porcelain engraving.
+Composition/framing: full-bleed 16:9 landscape illustration, detail reaching naturally to all four edges. Make the office complex central and the enclosing boundary legible but graceful. Do not make a giant empty sky.
+Lighting/mood: calm, dignified, discreet, lucid.
+Color palette: strictly two colors only: single cobalt blue ink #2552a0 on warm ivory paper #fcf2df. No other hues, black, gray, neon, glow, gradients, or colored wash.
+Materials/textures: crisp copperplate ink, varied crosshatching, stippling, paper grain, engraved water ripples.
+Text (verbatim): ""
+Hard constraints: unframed full-bleed artwork. No border, ornament, corners, cartouche, picture frame, margins, or vignette. No text, logos, UI, labels, icons, watermark, people, boats, vehicles, flags, weapons, surveillance cameras, padlocks, shields, sci-fi devices, 3D rendering, photorealism, or literal legal/security claims. The illustration represents a privacy concept only.

@@ -786,13 +786,14 @@
         }
       }
     </style>
+    <link rel="stylesheet" href="/lugano-design-system.css?v=lugano-engraved-hero-20260905">
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to documentation</a>
     <header class="site-header">
       <div class="shell nav">
         <a class="brand" href="/" aria-label="Lugano home">
-          <img class="brand-mark" src="/logo-mark.svg" alt="" />
+          <img class="brand-mark" src="/logo-mark.svg?v=lugano-engraved-hero-20260905" alt="" />
           <span>Lugano.ai</span>
         </a>
         <nav class="nav-links" aria-label="Documentation">
@@ -1070,226 +1071,234 @@
         <section class="docs-section" id="top-models">
           <h2>Top Models</h2>
           <p>
-            A June 20, 2026 snapshot of leading open-source and open-weight AI models grouped by practical use case.
-            Rankings move quickly, so treat this as a sourced starting point for model selection rather than a permanent order.
+            A September 5, 2026 snapshot of published open-source and open-weight models, grouped by practical use case.
+            “Open source” below means the card names a permissive MIT or Apache-2.0 license; “open weights” means the weights are published under provider, community, or non-commercial terms. Published weights do not mean Lugano currently serves every model listed here.
           </p>
           <div class="model-overview" aria-label="Top model snapshot">
             <div class="model-stat">
               <strong>20</strong>
-              <span>Models across language, agentic, image, video, multimodal, coding, and RAG workflows.</span>
+              <span>Published models across language, agentic, image, video, multimodal, coding, and RAG workflows.</span>
             </div>
             <div class="model-stat">
-              <strong>8</strong>
-              <span>Use cases separated so teams can compare the model against the job it needs to do.</span>
+              <strong>3</strong>
+              <span>Source-backed labels: open source, open weights, and experimental releases.</span>
             </div>
             <div class="model-stat">
-              <strong>8</strong>
-              <span>Public ranking and provider sources used for cross-checking quality, speed, modality, and open-weight status.</span>
+              <strong>20</strong>
+              <span>Official provider or organization model cards used for release, capability, and license checks.</span>
             </div>
           </div>
           <div class="model-table" role="table" aria-label="Top open-source and open-weight AI models by use case">
             <div class="model-row model-head" role="row">
               <span role="columnheader">Model</span>
               <span role="columnheader">Use case</span>
-              <span role="columnheader">Ranking signal</span>
+              <span role="columnheader">Published details</span>
               <span role="columnheader">Best fit</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">01</span>
-                <span class="model-name"><strong>GLM-5.2</strong><span>Z AI</span></span>
+                <span class="model-name"><a href="https://huggingface.co/zai-org/GLM-5.3" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>GLM-5.3</strong></a><span>Z.ai</span></span>
               </div>
               <span class="model-tag" role="cell">Long horizon</span>
-              <span class="model-signal" role="cell"><strong>Best open-source long-horizon model</strong><span>1M lossless context, 128k output, and Z.ai-reported top open-source results on FrontierSWE, PostTrainBench, and SWE-Marathon.</span></span>
-              <span class="model-fit" role="cell">Long-horizon coding agents, large-scale implementation, automated research, performance optimization, and complex debugging.</span>
+              <span class="model-signal" role="cell"><strong>Open weights · GLM-5.3 License</strong><span>753B parameters; the published card documents improved coding and long-horizon work plus selectable reasoning budgets.</span></span>
+              <span class="model-fit" role="cell">Long-repository coding, research workflows, implementation planning, and complex debugging.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">02</span>
-                <span class="model-name"><strong>Kimi K2.6</strong><span>Moonshot AI</span></span>
+                <span class="model-name"><a href="https://huggingface.co/moonshotai/Kimi-K3" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>Kimi K3</strong></a><span>Moonshot AI</span></span>
               </div>
-              <span class="model-tag" role="cell">Agentic</span>
-              <span class="model-signal" role="cell"><strong>Best all-round model</strong><span>1T open-source model with 262k context, tool calling, vision, and structured output.</span></span>
-              <span class="model-fit" role="cell">Long-horizon agent work, coding, tool calls, visual inputs, and deep research loops.</span>
+              <span class="model-tag" role="cell">Multimodal agents</span>
+              <span class="model-signal" role="cell"><strong>Open weights · Kimi K3 License</strong><span>2.8T total / 104B active parameters, native vision, and a 1M-token context window.</span></span>
+              <span class="model-fit" role="cell">Long-horizon agent work, tool use, coding, visual inputs, and research loops.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">03</span>
-                <span class="model-name"><strong>DeepSeek V4 Pro</strong><span>DeepSeek</span></span>
+                <span class="model-name"><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>DeepSeek-V4-Pro-0813</strong></a><span>DeepSeek</span></span>
               </div>
-              <span class="model-tag" role="cell">Instruction</span>
-              <span class="model-signal" role="cell"><strong>Best instruction following + API cost</strong><span>1.6T total / 49B active params with 1M context and dual thinking modes.</span></span>
-              <span class="model-fit" role="cell">Deep instruction following, low-cost API workloads, long-context planning, and engineering workflows.</span>
+              <span class="model-tag" role="cell">Production agents</span>
+              <span class="model-signal" role="cell"><strong>Open source · MIT</strong><span>The official GA revision supersedes the preview and adds DSpark speculative decoding plus low, high, and max reasoning levels.</span></span>
+              <span class="model-fit" role="cell">Agentic engineering, long-context planning, and tool-oriented production evaluation.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">04</span>
-                <span class="model-name"><strong>MiniMax M3</strong><span>MiniMax</span></span>
+                <span class="model-name"><a href="https://huggingface.co/MiniMaxAI/MiniMax-M3" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>MiniMax M3</strong></a><span>MiniMax</span></span>
               </div>
-              <span class="model-tag" role="cell">Coding</span>
-              <span class="model-signal" role="cell"><strong>Best OS coding agent</strong><span>1M-context MSA, native multimodality, and strong coding-agent scaffolding.</span></span>
-              <span class="model-fit" role="cell">Open-source coding agents, long-context repositories, multimodal workflows, and private cluster deployment.</span>
+              <span class="model-tag" role="cell">Coding + multimodal</span>
+              <span class="model-signal" role="cell"><strong>Open weights · MiniMax Community License</strong><span>428B total / 23B active parameters with native text, image, and video inputs and 1M context.</span></span>
+              <span class="model-fit" role="cell">Coding agents, long-context repositories, and multimodal workflows.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">05</span>
-                <span class="model-name"><strong>GLM-5.1</strong><span>Z AI</span></span>
+                <span class="model-name"><a href="https://huggingface.co/zai-org/GLM-5.3-Flash" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>GLM-5.3-Flash</strong></a><span>Z.ai</span></span>
               </div>
-              <span class="model-tag" role="cell">Long horizon</span>
-              <span class="model-signal" role="cell"><strong>Great at long-horizon tasks</strong><span>Designed for up to 8 hours of autonomous task execution with 200k context and 128k output.</span></span>
-              <span class="model-fit" role="cell">Long-running engineering work, process adjustment, tool use, and production-grade deliverables.</span>
+              <span class="model-tag" role="cell">Efficient multimodal</span>
+              <span class="model-signal" role="cell"><strong>Open source · MIT</strong><span>320B total / 18B active parameters; the first natively multimodal GLM-5 model with three reasoning-budget settings.</span></span>
+              <span class="model-fit" role="cell">Multimodal reasoning, efficient long-context work, and tool-enabled applications.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">06</span>
-                <span class="model-name"><strong>MiMo-V2.5-Pro</strong><span>Xiaomi</span></span>
+                <span class="model-name"><a href="https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>MiMo-V2.5-Pro</strong></a><span>Xiaomi MiMo</span></span>
               </div>
               <span class="model-tag" role="cell">Harness</span>
-              <span class="model-signal" role="cell"><strong>Best harness integration</strong><span>MIT weights, 1M context, and Xiaomi-reported #1 GDPVal-AA and ClawEval positions.</span></span>
-              <span class="model-fit" role="cell">Agent harnesses, coding integrations, day-zero inference framework adaptation, and commercial deployment.</span>
+              <span class="model-signal" role="cell"><strong>Open source · MIT</strong><span>1.02T total / 42B active parameters, 1M context, hybrid attention, and three multi-token-prediction modules.</span></span>
+              <span class="model-fit" role="cell">Agent harnesses, coding integrations, and long-context engineering workflows.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">07</span>
-                <span class="model-name"><strong>DeepSeek V4 Flash</strong><span>DeepSeek</span></span>
+                <span class="model-name"><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>DeepSeek-V4-Flash-0731</strong></a><span>DeepSeek</span></span>
               </div>
-              <span class="model-tag" role="cell">Fast analysis</span>
-              <span class="model-signal" role="cell"><strong>Great at long analysis + speed</strong><span>284B total / 13B active params, 1M context, and reasoning near V4 Pro on simple agent tasks.</span></span>
-              <span class="model-fit" role="cell">High-throughput long analysis, economical API workloads, and fast private assistants.</span>
+              <span class="model-tag" role="cell">Fast agents</span>
+              <span class="model-signal" role="cell"><strong>Open source · MIT</strong><span>Official Flash release with a 304B-parameter checkpoint, DSpark speculative decoding, and three reasoning levels.</span></span>
+              <span class="model-fit" role="cell">High-throughput agents, fast analysis, and economical long-context experiments.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">08</span>
-                <span class="model-name"><strong>Kimi K2 Thinking</strong><span>Moonshot AI</span></span>
+                <span class="model-name"><a href="https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>Qwen3.8-2.4T-A95B</strong></a><span>Qwen</span></span>
               </div>
-              <span class="model-tag" role="cell">Agentic</span>
-              <span class="model-signal" role="cell"><strong>Runner-up open reasoning</strong><span>Strong structured thinking, tool use, and coding-agent orchestration.</span></span>
-              <span class="model-fit" role="cell">Structured thinking, multi-step tool use, and coding-agent orchestration.</span>
+              <span class="model-tag" role="cell">Long horizon</span>
+              <span class="model-signal" role="cell"><strong>Open weights · Qwen3.8-Max License</strong><span>2.4T total / 95B active parameters, 262K native context, extension to about 1M tokens, and required thinking mode.</span></span>
+              <span class="model-fit" role="cell">Large-scale agentic coding, professional work, research, and long-horizon tasks.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">09</span>
-                <span class="model-name"><strong>Qwen3.6 27B</strong><span>Alibaba</span></span>
+                <span class="model-name"><a href="https://huggingface.co/Qwen/Qwen3.8-Flash-Next" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>Qwen3.8-Flash-Next</strong></a><span>Qwen</span></span>
               </div>
-              <span class="model-tag" role="cell">On-device dense</span>
-              <span class="model-signal" role="cell"><strong>Best on-device dense model</strong><span>27B dense model with 262k native context, 1M extension, Apache 2.0, and agentic coding focus.</span></span>
-              <span class="model-fit" role="cell">Local workstation deployment, compact multimodal assistants, and repository-level coding.</span>
+              <span class="model-tag" role="cell">Experimental</span>
+              <span class="model-signal" role="cell"><strong>Open weights · Qwen Community 1.0</strong><span>Experimental multimodal model with 125B parameters, 6B active parameters, 262K native context, and 1M extension.</span></span>
+              <span class="model-fit" role="cell">Architecture evaluation, multimodal agents, and efficiency-focused research.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">10</span>
-                <span class="model-name"><strong>Gemma 4 12B</strong><span>Google</span></span>
+                <span class="model-name"><a href="https://huggingface.co/google/gemma-4-12B" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>Gemma 4 12B</strong></a><span>Google DeepMind</span></span>
               </div>
-              <span class="model-tag" role="cell">SLM</span>
-              <span class="model-signal" role="cell"><strong>Best SLM on-device</strong><span>11.95B unified model with 256k context and text, image, and audio support.</span></span>
-              <span class="model-fit" role="cell">On-device small language model deployments, multimodal apps, and low-latency private assistants.</span>
+              <span class="model-tag" role="cell">Compact multimodal</span>
+              <span class="model-signal" role="cell"><strong>Open source · Apache 2.0</strong><span>12B unified model with text, image, audio, and video inputs plus a 256K-token context window.</span></span>
+              <span class="model-fit" role="cell">Local multimodal assistants, document understanding, audio input, and coding.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">11</span>
-                <span class="model-name"><strong>MiniMax M2.7</strong><span>MiniMax</span></span>
+                <span class="model-name"><a href="https://huggingface.co/openai/gpt-oss-120b" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>gpt-oss-120b</strong></a><span>OpenAI</span></span>
               </div>
-              <span class="model-tag" role="cell">Self-improvement</span>
-              <span class="model-signal" role="cell"><strong>Best self-improvement agent</strong><span>Self-evolving agent model with SWE-Pro 56.22, Terminal Bench 57.0, and 97% skill adherence.</span></span>
-              <span class="model-fit" role="cell">Self-improving agent experiments, multi-agent collaboration, and complex productivity tasks.</span>
+              <span class="model-tag" role="cell">Self-hosted agent</span>
+              <span class="model-signal" role="cell"><strong>Open source · Apache 2.0</strong><span>117B total / 5.1B active parameters; configurable reasoning, tool use, structured outputs, and an 80GB-GPU deployment target.</span></span>
+              <span class="model-fit" role="cell">Self-hosted general reasoning, tool use, and fine-tuned developer workflows.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">12</span>
-                <span class="model-name"><strong>Qwen3.5 397B A17B</strong><span>Alibaba</span></span>
+                <span class="model-name"><a href="https://huggingface.co/Qwen/Qwen3.8-27B" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>Qwen3.8-27B</strong></a><span>Qwen</span></span>
               </div>
-              <span class="model-tag" role="cell">Agentic</span>
-              <span class="model-signal" role="cell"><strong>Artificial Analysis article and table</strong><span>Intelligence Index 45; 262k context; Apache 2.0.</span></span>
-              <span class="model-fit" role="cell">Agentic coding, multilingual work, and tool-assisted workflows.</span>
+              <span class="model-tag" role="cell">Dense multimodal</span>
+              <span class="model-signal" role="cell"><strong>Open source · Apache 2.0</strong><span>27B dense vision-language model with image and video understanding, 262K native context, and 1M extension.</span></span>
+              <span class="model-fit" role="cell">Compact multimodal agents, document and video understanding, and repository-level coding.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">13</span>
-                <span class="model-name"><strong>Qwen3.6 35B A3B</strong><span>Alibaba</span></span>
+                <span class="model-name"><a href="https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>Mistral Large 3</strong></a><span>Mistral AI</span></span>
               </div>
-              <span class="model-tag" role="cell">Coding</span>
-              <span class="model-signal" role="cell"><strong>Artificial Analysis open-source table</strong><span>Intelligence Index 43; 262k context.</span></span>
-              <span class="model-fit" role="cell">Fast agentic coding and reasoning when a smaller active-parameter footprint matters.</span>
+              <span class="model-tag" role="cell">General multimodal</span>
+              <span class="model-signal" role="cell"><strong>Open source · Apache 2.0</strong><span>675B total / 41B active parameters with vision, function calling, JSON output, and a 256K-token context window.</span></span>
+              <span class="model-fit" role="cell">Enterprise assistants, retrieval-augmented systems, multimodal knowledge work, and coding.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">14</span>
-                <span class="model-name"><strong>gpt-oss-120b</strong><span>OpenAI</span></span>
+                <span class="model-name"><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>DeepSeek-V4-Flash-Vision-Exp</strong></a><span>DeepSeek</span></span>
               </div>
-              <span class="model-tag" role="cell">Coding</span>
-              <span class="model-signal" role="cell"><strong>LLM Reference top open-source list</strong><span>GPQA Diamond 78.2%; 131k context.</span></span>
-              <span class="model-fit" role="cell">Tool use, coding tasks, and self-hosted assistant experiments.</span>
+              <span class="model-tag" role="cell">Experimental vision</span>
+              <span class="model-signal" role="cell"><strong>Open source · MIT</strong><span>DeepSeek’s first experimental V4 multimodal model, augmenting the Flash architecture with visual modules.</span></span>
+              <span class="model-fit" role="cell">Multimodal agent evaluation where experimental-release constraints are acceptable.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">15</span>
-                <span class="model-name"><strong>FLUX.2 dev Turbo</strong><span>Black Forest Labs / Fal</span></span>
+                <span class="model-name"><a href="https://huggingface.co/black-forest-labs/FLUX.2-dev" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>FLUX.2 [dev]</strong></a><span>Black Forest Labs</span></span>
               </div>
               <span class="model-tag" role="cell">Image</span>
-              <span class="model-signal" role="cell"><strong>Magic Hour image leaderboard #8</strong><span>Consensus 81.0; 4.3s image speed.</span></span>
-              <span class="model-fit" role="cell">Fast image generation, creative iteration, and local or hosted diffusion pipelines.</span>
+              <span class="model-signal" role="cell"><strong>Open weights · FLUX Non-Commercial License</strong><span>32B rectified-flow transformer for generating, editing, and combining images from text instructions.</span></span>
+              <span class="model-fit" role="cell">Image generation, reference-based editing, and research or non-commercial creative workflows.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">16</span>
-                <span class="model-name"><strong>FLUX.2 dev</strong><span>Black Forest Labs</span></span>
+                <span class="model-name"><a href="https://huggingface.co/black-forest-labs/FLUX.2-klein-9B" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>FLUX.2 [klein] 9B</strong></a><span>Black Forest Labs</span></span>
               </div>
-              <span class="model-tag" role="cell">Image</span>
-              <span class="model-signal" role="cell"><strong>Magic Hour image leaderboard #16</strong><span>Consensus 73.5; 3.4s image speed.</span></span>
-              <span class="model-fit" role="cell">High-quality open-weight image generation with broad community tooling.</span>
+              <span class="model-tag" role="cell">Realtime image</span>
+              <span class="model-signal" role="cell"><strong>Open weights · FLUX Non-Commercial License</strong><span>9B model for text-to-image generation and multi-reference editing; its card targets low-latency, real-time workflows.</span></span>
+              <span class="model-fit" role="cell">Fast creative iteration, interactive applications, and compact image-editing pipelines.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">17</span>
-                <span class="model-name"><strong>Qwen Image Max 2512</strong><span>Alibaba</span></span>
+                <span class="model-name"><a href="https://huggingface.co/Qwen/Qwen-Image-2512" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>Qwen-Image-2512</strong></a><span>Qwen</span></span>
               </div>
               <span class="model-tag" role="cell">Image</span>
-              <span class="model-signal" role="cell"><strong>Magic Hour image leaderboard #22</strong><span>Consensus 62.3; 16.1s image speed.</span></span>
-              <span class="model-fit" role="cell">Image generation teams already standardizing around the Qwen ecosystem.</span>
+              <span class="model-signal" role="cell"><strong>Open source · Apache 2.0</strong><span>20B December update with published improvements to human realism, natural detail, and text rendering.</span></span>
+              <span class="model-fit" role="cell">Image generation where rendering people, natural detail, and text-rich compositions matter.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">18</span>
-                <span class="model-name"><strong>Wan 2.2</strong><span>Alibaba</span></span>
+                <span class="model-name"><a href="https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>Wan2.2-TI2V-5B</strong></a><span>Wan-AI</span></span>
               </div>
               <span class="model-tag" role="cell">Video</span>
-              <span class="model-signal" role="cell"><strong>Open video comparison</strong><span>Strong quality and prompt-adherence signal.</span></span>
-              <span class="model-fit" role="cell">Open video generation with strong temporal consistency and object tracking.</span>
+              <span class="model-signal" role="cell"><strong>Open source · Apache 2.0</strong><span>5B text-and-image-to-video model with 720p at 24fps and a published single-consumer-GPU path.</span></span>
+              <span class="model-fit" role="cell">Text-to-video and image-to-video experiments where a smaller checkpoint is useful.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">19</span>
-                <span class="model-name"><strong>LTX-2.3</strong><span>Lightricks</span></span>
+                <span class="model-name"><a href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>LTX-2.5</strong></a><span>LTX.io</span></span>
               </div>
-              <span class="model-tag" role="cell">Video</span>
-              <span class="model-signal" role="cell"><strong>Open video comparison</strong><span>22B model; native audio-video workflow signal.</span></span>
-              <span class="model-fit" role="cell">Video generation where iteration speed or audio-video sync matters.</span>
+              <span class="model-tag" role="cell">Video + audio</span>
+              <span class="model-signal" role="cell"><strong>Open weights · LTX-2.x Community License</strong><span>Open-weight video-and-audio model with multi-shot generation, local execution, and fine-tuning support.</span></span>
+              <span class="model-fit" role="cell">Synchronized video and audio, multishot sequences, and self-hosted production experiments.</span>
             </div>
             <div class="model-row" role="row">
               <div class="model-identity" role="cell">
                 <span class="model-rank">20</span>
-                <span class="model-name"><strong>HunyuanVideo 1.5</strong><span>Tencent</span></span>
+                <span class="model-name"><a href="https://huggingface.co/tencent/HunyuanVideo-1.5" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;"><strong>HunyuanVideo-1.5</strong></a><span>Tencent</span></span>
               </div>
               <span class="model-tag" role="cell">Video</span>
-              <span class="model-signal" role="cell"><strong>Open-source video technical report</strong><span>8.3B model; strong visual quality and motion signal.</span></span>
-              <span class="model-fit" role="cell">GPU-local video experiments and higher-visual-quality open generation.</span>
+              <span class="model-signal" role="cell"><strong>Open weights · Tencent Hunyuan Community License</strong><span>8.3B text-to-video and image-to-video model with an optional super-resolution stage for 1080p output.</span></span>
+              <span class="model-fit" role="cell">GPU-local video experiments, text-to-video, image-to-video, and video-upscaling workflows.</span>
             </div>
           </div>
           <div class="model-sources" aria-label="Top model sources">
-            <span>Sources used for this snapshot:</span>
+            <span>Official model cards used for this snapshot. Every model title above links to its source; review the linked license before a specific deployment.</span>
             <ul>
-              <li><a href="https://docs.z.ai/guides/llm/glm-5.2" target="_blank" rel="noreferrer">Z.AI GLM-5.2</a></li>
-              <li><a href="https://www.kimi.com/ai-models/kimi-k2-6" target="_blank" rel="noreferrer">Moonshot AI Kimi K2.6</a></li>
-              <li><a href="https://api-docs.deepseek.com/news/news260424" target="_blank" rel="noreferrer">DeepSeek V4 Preview Release</a></li>
-              <li><a href="https://www.minimax.io/models/text/m3" target="_blank" rel="noreferrer">MiniMax M3</a></li>
-              <li><a href="https://docs.z.ai/guides/llm/glm-5.1" target="_blank" rel="noreferrer">Z.AI GLM-5.1</a></li>
-              <li><a href="https://platform.xiaomimimo.com/docs/en-US/news/v2.5-open-sourced" target="_blank" rel="noreferrer">Xiaomi MiMo-V2.5 open-source release</a></li>
-              <li><a href="https://huggingface.co/Qwen/Qwen3.6-27B" target="_blank" rel="noreferrer">Qwen3.6-27B model card</a></li>
-              <li><a href="https://huggingface.co/google/gemma-4-12B" target="_blank" rel="noreferrer">Gemma 4 12B model card</a></li>
-              <li><a href="https://www.minimax.io/models/text/m27" target="_blank" rel="noreferrer">MiniMax M2.7</a></li>
-              <li><a href="https://magichour.ai/model-leaderboard/image-generation" target="_blank" rel="noreferrer">Magic Hour image leaderboard</a></li>
-              <li><a href="https://ltxworkflow.com/blog/ltx-2-3-vs-hunyuanvideo-vs-wan2-2-comparison-2026" target="_blank" rel="noreferrer">LTX workflow open-video comparison</a></li>
-              <li><a href="https://arxiv.org/abs/2511.18870" target="_blank" rel="noreferrer">HunyuanVideo 1.5 technical report</a></li>
+              <li><a href="https://huggingface.co/zai-org/GLM-5.3" target="_blank" rel="noreferrer">GLM-5.3</a></li>
+              <li><a href="https://huggingface.co/moonshotai/Kimi-K3" target="_blank" rel="noreferrer">Kimi K3</a></li>
+              <li><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813" target="_blank" rel="noreferrer">DeepSeek V4 Pro 0813</a></li>
+              <li><a href="https://huggingface.co/MiniMaxAI/MiniMax-M3" target="_blank" rel="noreferrer">MiniMax M3</a></li>
+              <li><a href="https://huggingface.co/zai-org/GLM-5.3-Flash" target="_blank" rel="noreferrer">GLM-5.3 Flash</a></li>
+              <li><a href="https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro" target="_blank" rel="noreferrer">MiMo-V2.5-Pro</a></li>
+              <li><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731" target="_blank" rel="noreferrer">DeepSeek V4 Flash 0731</a></li>
+              <li><a href="https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B" target="_blank" rel="noreferrer">Qwen3.8 2.4T</a></li>
+              <li><a href="https://huggingface.co/Qwen/Qwen3.8-Flash-Next" target="_blank" rel="noreferrer">Qwen3.8 Flash Next</a></li>
+              <li><a href="https://huggingface.co/google/gemma-4-12B" target="_blank" rel="noreferrer">Gemma 4 12B</a></li>
+              <li><a href="https://huggingface.co/openai/gpt-oss-120b" target="_blank" rel="noreferrer">gpt-oss-120b</a></li>
+              <li><a href="https://huggingface.co/Qwen/Qwen3.8-27B" target="_blank" rel="noreferrer">Qwen3.8 27B</a></li>
+              <li><a href="https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512" target="_blank" rel="noreferrer">Mistral Large 3</a></li>
+              <li><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp" target="_blank" rel="noreferrer">DeepSeek V4 Flash Vision</a></li>
+              <li><a href="https://huggingface.co/black-forest-labs/FLUX.2-dev" target="_blank" rel="noreferrer">FLUX.2 dev</a></li>
+              <li><a href="https://huggingface.co/black-forest-labs/FLUX.2-klein-9B" target="_blank" rel="noreferrer">FLUX.2 klein 9B</a></li>
+              <li><a href="https://huggingface.co/Qwen/Qwen-Image-2512" target="_blank" rel="noreferrer">Qwen-Image-2512</a></li>
+              <li><a href="https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B" target="_blank" rel="noreferrer">Wan2.2 TI2V 5B</a></li>
+              <li><a href="https://huggingface.co/Lightricks/LTX-2.5" target="_blank" rel="noreferrer">LTX-2.5</a></li>
+              <li><a href="https://huggingface.co/tencent/HunyuanVideo-1.5" target="_blank" rel="noreferrer">HunyuanVideo-1.5</a></li>
             </ul>
           </div>
         </section>

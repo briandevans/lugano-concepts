@@ -1,0 +1,11 @@
+Use case: stylized-concept
+Asset type: standalone website use-case illustration for regulated industries
+Primary request: Create one original, museum-quality isometric copperplate engraving of an elegant Swiss town district that brings together banking, medical, and research institutions. The systems-audit theme is shown by a restrained network of hair-thin engraved lines connecting rooftops, courtyards, and small civic waypoints, with tiny circular nodes; these must feel like an elegant architectural overlay, not a UI or circuit board.
+Scene/backdrop: a precise bird's-eye isometric Swiss town set around quiet formal squares and a small river or lake inlet. Include several distinct but unlabeled institutions: dignified bank-like stone halls, an orderly medical pavilion complex, a refined research observatory or laboratory, arcaded civic buildings, gardens, pedestrian bridges, trees, and compact alpine rooflines. The complete town interconnects through delicate audit network lines and tiny nodes that travel naturally across streets and gardens. Use full balanced detail throughout the 16:9 frame; no giant empty sky.
+Style/medium: antique Swiss engineering atlas and travel-print copperplate engraving, exact perspective, elegant geometry, rich fine cross-hatching, tiny stippled foliage, hand-drawn architectural precision, tactile warm laid paper, same refined blue-and-white porcelain visual language as the Lugano hero.
+Composition/framing: full-bleed horizontal 16:9 isometric panorama. The town is centrally organized and easily legible as a coherent whole; network linework remains fine and decorative, never dominating the architecture.
+Lighting/mood: orderly, elegant, trustworthy, serene.
+Color palette: strictly two colors only: single cobalt blue ink #2552a0 on warm ivory paper #fcf2df. No other hues, black, gray, neon, glow, gradients, or colored wash.
+Materials/textures: crisp copperplate linework, layered crosshatching, stippling, engraved paving, roofs, water, and trees.
+Text (verbatim): ""
+Hard constraints: unframed full-bleed artwork. No border, ornament, cartouche, margin, vignette, text, labels, logos, UI, chart, legend, watermark, people, vehicles, flags, weapons, surveillance cameras, padlocks, shields, sci-fi devices, literal computer screens, 3D rendering, photorealism, or literal legal/security claims.

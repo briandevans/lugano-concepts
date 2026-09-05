@@ -1,0 +1,11 @@
+Use case: stylized-concept
+Asset type: standalone website use-case illustration for government and defense
+Primary request: Create one original, museum-quality architectural copperplate engraving of a discreet fortified Swiss civic and infrastructure complex nestled in alpine foothills. The image should communicate resilient public infrastructure through carefully planned stone buildings, a modest bastion-like retaining structure, a tunnel or protected service portal, terraced slopes, and a subtle geometric perimeter integrated into the terrain. It must feel quiet, lawful, and civil rather than militaristic.
+Scene/backdrop: a balanced detailed mountain valley in southern Switzerland, with an elegant low-slung civic complex of pale stone and slate roofs set into forested rock; a measured secure courtyard and delicate engraved boundary lines follow the contours of the site. Include conifers, cypresses, a narrow calm river or reservoir, retaining walls, a small arched access bridge, and rounded alpine mountains. Fill the whole 16:9 composition with architectural and landscape detail; no giant empty sky.
+Style/medium: antique Swiss engineering and travel-print copperplate engraving, exceptionally precise architectural linework, rich cross-hatching, tiny stippled foliage, engraved stone texture, tactile laid paper, in the same refined blue-and-white porcelain visual language as a classic Swiss lakeside engraving.
+Composition/framing: full-bleed horizontal 16:9 landscape, central civic/infrastructure compound, layered mountains and trees on every side; the geometric perimeter should be subtle and elegant, not a diagram.
+Lighting/mood: composed, reliable, quiet, dignified.
+Color palette: strictly two colors only: single cobalt blue ink #2552a0 on warm ivory paper #fcf2df. No other hues, black, gray, neon, glow, gradients, or colored wash.
+Materials/textures: crisp copperplate ink, dense cross-hatching, stipple work, engraved granite and water ripples, softly textured paper.
+Text (verbatim): ""
+Hard constraints: unframed full-bleed artwork. No border, ornament, cartouche, margin, vignette, text, logos, UI, labels, icons, watermark, people, flags, weapons, soldiers, aircraft, tanks, military insignia, barbed wire, surveillance cameras, padlocks, shields, sci-fi devices, 3D rendering, photorealism, or literal legal/security claims.
