@@ -264,7 +264,7 @@ export default function Home() {
       <div className="lg-sheet lg-desk">
         <div className="lg-desk-field">
           <img className="lg-field-fallback" src="/generated/turbine_bench.png" alt="" />
-          <BenchField plate="/generated/turbine_bench.png" />
+          <BenchField />
         </div>
 
         <header className="lg-nav">
@@ -310,7 +310,11 @@ export default function Home() {
         <section id="top" className="lg-desk-stage">
           <article className="lg-desk-slip" aria-label="Example attestation">
             <h1>
-              Held to <ZeroMark className="lg-zero-hero" />.
+              <span>
+                Held to
+                <ZeroMark className="lg-zero-hero" />
+                .
+              </span>
             </h1>
             <p>Private inference with a cryptographic receipt.</p>
             <header>

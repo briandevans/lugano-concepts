@@ -14,7 +14,6 @@ precision highp float;
 uniform float u_time;
 uniform vec2 u_res;
 uniform vec2 u_mouse;
-uniform sampler2D u_plate;
 varying vec2 v_uv;
 
 float hash(vec2 p) {
@@ -23,22 +22,15 @@ float hash(vec2 p) {
 
 void main() {
   vec2 uv = v_uv;
-  vec2 par = (u_mouse - 0.5) * vec2(0.012, 0.008);
-  vec2 sampleUv = clamp(uv * 1.03 + vec2(-0.015, -0.01) + par, 0.0, 1.0);
-
-  vec3 plate = texture2D(u_plate, sampleUv).rgb;
-
-  // Keep the fluorescent tube; only breathe the light a fraction.
-  float flicker = 1.0 + sin(u_time * 2.1) * 0.012 + sin(u_time * 7.7) * 0.006;
-  plate *= flicker;
-
-  float grain = hash(uv * u_res * 0.55 + floor(u_time * 12.0));
-  plate += (grain - 0.5) * 0.028;
-
-  float vig = smoothstep(1.18, 0.28, length((uv - vec2(0.42, 0.4)) * vec2(1.05, 0.95)));
-  plate *= mix(0.82, 1.0, vig);
-
-  gl_FragColor = vec4(plate, 1.0);
+  float t = u_time;
+  float grain = hash(uv * u_res * 0.6 + floor(t * 14.0));
+  float tube = 1.0 - smoothstep(0.08, 0.42, distance(uv, vec2(0.46, 0.28)));
+  float breath = 0.5 + 0.5 * sin(t * 2.05) + 0.25 * sin(t * 7.4);
+  vec2 par = (u_mouse - 0.5) * 0.15;
+  float heat = tube * (0.10 + breath * 0.04) * (1.0 - distance(uv, 0.5 + par) * 0.35);
+  float alpha = 0.07 + grain * 0.10 + heat;
+  vec3 col = vec3(0.92, 0.91, 0.88) * (0.55 + grain * 0.45) + vec3(1.0, 0.99, 0.96) * heat;
+  gl_FragColor = vec4(col, clamp(alpha, 0.0, 0.22));
 }
 `;
 
@@ -54,15 +46,14 @@ function compile(gl: WebGLRenderingContext, type: number, source: string) {
   return shader;
 }
 
-export default function BenchField({ plate = "/generated/turbine_bench.png" }: { plate?: string }) {
+export default function BenchField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    canvas.style.opacity = "0";
 
-    const gl = canvas.getContext("webgl", { alpha: false, antialias: true, premultipliedAlpha: false });
+    const gl = canvas.getContext("webgl", { alpha: true, antialias: true, premultipliedAlpha: true });
     if (!gl) return;
 
     const vs = compile(gl, gl.VERTEX_SHADER, VERT);
@@ -84,28 +75,10 @@ export default function BenchField({ plate = "/generated/turbine_bench.png" }: {
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 
-    const texture = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, texture);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([7, 8, 10, 255]));
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-
-    const image = new Image();
-    image.onload = () => {
-      gl.bindTexture(gl.TEXTURE_2D, texture);
-      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-      canvas.style.opacity = "1";
-    };
-    image.src = plate;
-
     const uTime = gl.getUniformLocation(program, "u_time");
     const uRes = gl.getUniformLocation(program, "u_res");
     const uMouse = gl.getUniformLocation(program, "u_mouse");
-    const uPlate = gl.getUniformLocation(program, "u_plate");
-    const mouse = { x: 0.42, y: 0.48 };
+    const mouse = { x: 0.46, y: 0.42 };
 
     const onMove = (event: PointerEvent) => {
       const box = canvas.getBoundingClientRect();
@@ -128,13 +101,13 @@ export default function BenchField({ plate = "/generated/turbine_bench.png" }: {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let frame = 0;
     const draw = (now: number) => {
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
       gl.useProgram(program);
       gl.uniform1f(uTime, reduceMotion ? 0 : (now - start) / 1000);
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform2f(uMouse, mouse.x, mouse.y);
-      gl.activeTexture(gl.TEXTURE0);
-      gl.bindTexture(gl.TEXTURE_2D, texture);
-      gl.uniform1i(uPlate, 0);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       if (!reduceMotion) frame = requestAnimationFrame(draw);
     };
@@ -148,7 +121,7 @@ export default function BenchField({ plate = "/generated/turbine_bench.png" }: {
       gl.deleteShader(vs);
       gl.deleteShader(fs);
     };
-  }, [plate]);
+  }, []);
 
   return <canvas ref={canvasRef} className="lg-field" aria-hidden="true" />;
 }

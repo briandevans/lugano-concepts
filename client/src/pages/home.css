@@ -290,7 +290,7 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: #07080b;
+  background: #0a0c0e url("/generated/turbine_bench.png") 48% 62% / cover no-repeat;
 }
 
 .lg-desk-field .lg-field,
@@ -301,13 +301,17 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 42% 58%;
+  object-position: 48% 62%;
+}
+
+.lg-desk-field .lg-field-fallback {
+  z-index: 0;
 }
 
 .lg-desk-field .lg-field {
   z-index: 1;
-  opacity: 0;
-  transition: opacity 280ms linear;
+  opacity: 1;
+  pointer-events: none;
 }
 
 .lg-desk .lg-nav {
@@ -345,11 +349,11 @@
   display: flex;
   flex: 1;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   min-height: 0;
   width: min(100% - (var(--gutter) * 2), var(--max));
   margin: 0 auto;
-  padding: 0 2vw 8vh 0;
+  padding: 0 0 7vh;
   perspective: 1680px;
 }
 
@@ -374,9 +378,6 @@
 }
 
 .lg-desk-slip h1 {
-  display: flex;
-  align-items: center;
-  gap: 0.12em;
   margin: 0 0 0.45rem;
   color: #141310;
   font-family: var(--sans);
@@ -384,6 +385,12 @@
   font-weight: 400;
   line-height: 0.95;
   letter-spacing: -0.04em;
+}
+
+.lg-desk-slip h1 span {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .lg-desk-slip .lg-zero-hero {
