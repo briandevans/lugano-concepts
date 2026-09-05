@@ -39,12 +39,9 @@ function LiveReceipt({ clock }: { clock: string }) {
   return (
     <div className="lg-stage">
       <aside className="lg-slip" aria-label="Attestation receipt">
-        <span className="lg-slip-rib" aria-hidden="true" />
         <ThermalHeat />
-        <p className="lg-slip-status">
-          Retention
-          <strong>0</strong>
-        </p>
+        <p className="lg-slip-zero">0</p>
+        <p className="lg-slip-status">Retention</p>
         <header className="lg-slip-head">
           <p>Attestation</p>
           <p>Lugano, CH</p>
@@ -334,9 +331,8 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-hero-wrap">
-          <img className="lg-field-fallback" src="/generated/night_exposure.png" alt="" />
+          <img className="lg-field-fallback" src="/generated/lungolago_lamps.png" alt="" />
           <NightField />
-          <img className="lg-quay-fg" src="/generated/wet_quay.png" alt="" />
           <div className="lg-hero-veil" />
           <div className="lg-shell lg-split">
             <div className="lg-copy">

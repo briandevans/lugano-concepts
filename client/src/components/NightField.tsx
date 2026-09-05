@@ -111,7 +111,7 @@ export default function NightField() {
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 
-    const night = loadTexture(gl, "/generated/night_exposure.png");
+    const night = loadTexture(gl, "/generated/lungolago_lamps.png");
     const water = loadTexture(gl, "/generated/water_lattice.png");
     const uTime = gl.getUniformLocation(program, "u_time");
     const uRes = gl.getUniformLocation(program, "u_res");
