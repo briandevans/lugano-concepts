@@ -359,7 +359,6 @@
   left: 0;
   bottom: 8vh;
   z-index: 5;
-  max-width: 16ch;
   margin: 0;
   color: #f3f0ea;
 }
@@ -367,6 +366,7 @@
 .lg-desk-lockup em {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 0.08em;
   font-family: var(--sans);
   font-style: normal;
@@ -374,6 +374,7 @@
   font-weight: 400;
   line-height: 0.88;
   letter-spacing: -0.05em;
+  white-space: nowrap;
 }
 
 .lg-desk-lockup .lg-zero-hero {
