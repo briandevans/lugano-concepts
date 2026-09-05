@@ -512,7 +512,7 @@
   grid-template-columns: 6.8rem minmax(0, 1fr);
   gap: 1.15rem;
   align-items: start;
-  padding: 0.7rem 0;
+  padding: 0.48rem 0;
   border-bottom: 1px solid rgba(239, 234, 224, 0.14);
   font-family: var(--mono);
 }
@@ -554,7 +554,7 @@
 .lg-hash-strip {
   display: block;
   width: min(100%, 28rem);
-  height: 1.05rem;
+  height: 0.7rem;
   fill: #c8c2b6;
 }
 
@@ -575,7 +575,7 @@
   display: flex;
   align-items: flex-end;
   gap: 1.15rem;
-  height: 29vh;
+  height: 38vh;
   margin-top: auto;
   overflow: hidden;
 }
@@ -597,7 +597,7 @@
   font-weight: 500;
   line-height: 0.68;
   letter-spacing: -0.07em;
-  transform: translateY(20%);
+  transform: translateY(10%);
 }
 
 .lg-ledger-page {
