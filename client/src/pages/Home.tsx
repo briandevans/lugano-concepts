@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import HashField from "@/components/HashField";
 import "./home.css";
 
 function useUtcClock() {
@@ -30,7 +29,22 @@ const MEASURES = [
 
 function HashBlock({ value }: { value: string }) {
   const groups = value.match(/.{8}/g) ?? [];
-  return <dd className="lg-hash">{groups.join(" ")}</dd>;
+  const bytes = value.match(/.{2}/g) ?? [];
+  return (
+    <dd className="lg-hash">
+      <span className="lg-hash-grid">
+        {groups.map((group) => (
+          <b key={group}>{group}</b>
+        ))}
+      </span>
+      <svg className="lg-hash-strip" viewBox={`0 0 ${bytes.length} 8`} aria-hidden="true">
+        {bytes.map((byte, index) => {
+          const height = (Number.parseInt(byte, 16) / 255) * 8;
+          return <rect key={`${byte}-${index}`} x={index} y={8 - height} width="0.82" height={height} />;
+        })}
+      </svg>
+    </dd>
+  );
 }
 
 const STEPS = [
@@ -263,14 +277,6 @@ export default function Home() {
       </a>
 
       <div className="lg-sheet lg-assay">
-        <div className="lg-assay-field">
-          <img
-            className="lg-field-fallback"
-            src="/generated/hash_fringe.png"
-            alt="Spectrograph of an attestation measurement, copper fringes on ink"
-          />
-          <HashField seed={MEASURES[0].value} />
-        </div>
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
@@ -308,15 +314,9 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-assay-hero">
-          <div className="lg-assay-zero">
-            <h1>0</h1>
-            <p className="lg-assay-label">bytes retained</p>
-            <p className="lg-assay-sub">Every response returns a cryptographic receipt.</p>
-          </div>
           <article className="lg-assay-record" aria-label="Guest measurement record">
-            <p className="lg-assay-meta">
-              Guest measurement record · {clock}
-            </p>
+            <p className="lg-assay-meta">Guest measurement record {clock}</p>
+            <p className="lg-assay-sub">Every response returns a cryptographic receipt.</p>
             <dl className="lg-assay-dl">
               <div>
                 <dt>Prompt</dt>
@@ -337,6 +337,10 @@ export default function Home() {
               Verify sample LUG-7F283
             </a>
           </article>
+          <p className="lg-assay-zero">
+            <span>Bytes retained</span>
+            <b>0</b>
+          </p>
         </section>
       </div>
 

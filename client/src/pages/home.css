@@ -24,7 +24,7 @@
   --metal: #6e6a62;
   --rule: rgba(8, 9, 12, 0.16);
   --rule-paper: rgba(231, 228, 216, 0.14);
-  --serif: "IBM Plex Sans", "Helvetica Neue", Helvetica, sans-serif;
+  --serif: "Fraunces Variable", "Fraunces", "Times New Roman", serif;
   --sans: "IBM Plex Sans", "Helvetica Neue", Helvetica, sans-serif;
   --ui: "IBM Plex Sans", "Helvetica Neue", Helvetica, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
@@ -105,7 +105,7 @@
 .lg-zero-mark {
   display: inline;
   color: var(--filament);
-  font-family: inherit;
+  font-family: var(--mono);
   font-feature-settings: "zero" 1;
   font-size: 1em;
   font-weight: inherit;
@@ -474,54 +474,33 @@
 .lg-assay-hero {
   position: relative;
   z-index: 4;
-  display: grid;
+  display: flex;
   flex: 1;
-  grid-template-columns: minmax(16rem, 0.85fr) minmax(22rem, 1.15fr);
-  align-items: start;
-  gap: clamp(2rem, 5vw, 4.75rem);
+  flex-direction: column;
   width: min(100% - (var(--gutter) * 2), var(--max));
   margin: 0 auto;
-  padding: 2.4rem 0 3rem;
-}
-
-.lg-assay-zero h1 {
-  margin: 0;
-  color: var(--filament);
-  font-family: var(--mono);
-  font-feature-settings: "zero" 1;
-  font-size: clamp(8.5rem, 22vw, 16rem);
-  font-weight: 500;
-  line-height: 0.72;
-  letter-spacing: -0.07em;
-}
-
-.lg-assay-label {
-  margin: 0.45rem 0 0;
-  font-family: var(--mono);
-  font-size: 0.95rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.lg-assay-sub {
-  max-width: 17rem;
-  margin: 1.35rem 0 0;
-  color: #efeae0;
-  font-family: var(--sans);
-  font-size: 1.28rem;
-  line-height: 1.3;
+  padding: 1.1rem 0 0;
 }
 
 .lg-assay-record {
   min-width: 0;
-  padding-top: 0.55rem;
 }
 
 .lg-assay-meta {
-  margin: 0 0 1.15rem;
-  color: #c8c2b6;
+  margin: 0;
+  color: #8d8880;
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
+}
+
+.lg-assay-sub {
+  max-width: 34rem;
+  margin: 0.8rem 0 1.55rem;
+  color: #efeae0;
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1.3;
 }
 
 .lg-assay-dl {
@@ -530,39 +509,95 @@
 
 .lg-assay-dl div {
   display: grid;
-  grid-template-columns: 6.4rem minmax(0, 1fr);
-  gap: 1rem;
-  align-items: baseline;
-  padding: 0.58rem 0;
-  border-bottom: 1px solid rgba(239, 234, 224, 0.16);
+  grid-template-columns: 6.8rem minmax(0, 1fr);
+  gap: 1.15rem;
+  align-items: start;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(239, 234, 224, 0.14);
   font-family: var(--mono);
-  font-size: 0.8rem;
 }
 
 .lg-assay-dl dt {
-  color: #c8c2b6;
+  padding-top: 0.2rem;
+  color: #8d8880;
+  font-size: 0.72rem;
 }
 
 .lg-assay-dl dd {
   margin: 0;
-  color: #efeae0;
-  line-height: 1.45;
+  color: #f4efe6;
+  font-size: 1.02rem;
+  line-height: 1.4;
 }
 
 .lg-assay-record .lg-hash {
-  display: block;
-  letter-spacing: 0.04em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  letter-spacing: 0;
   white-space: normal;
 }
 
+.lg-hash-grid {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  gap: 0.2rem 0.9rem;
+}
+
+.lg-hash-grid b {
+  color: #f4efe6;
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.lg-hash-strip {
+  display: block;
+  width: min(100%, 28rem);
+  height: 1.05rem;
+  fill: #c8c2b6;
+}
+
 .lg-assay-verify {
-  display: inline-block;
-  margin-top: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.7rem;
+  margin-top: 1.35rem;
+  padding: 0 1rem;
+  border: 1px solid var(--filament);
   color: var(--filament) !important;
   font-family: var(--mono);
   font-size: 0.82rem;
-  text-decoration: underline;
-  text-underline-offset: 0.22em;
+  text-decoration: none;
+}
+
+.lg-assay-zero {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.15rem;
+  height: 29vh;
+  margin-top: auto;
+  overflow: hidden;
+}
+
+.lg-assay-zero span {
+  padding-bottom: 1.15rem;
+  color: #efeae0;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.lg-assay-zero b {
+  color: var(--filament);
+  font-family: var(--mono);
+  font-feature-settings: "zero" 1;
+  font-size: clamp(11rem, 30vw, 20rem);
+  font-weight: 500;
+  line-height: 0.68;
+  letter-spacing: -0.07em;
+  transform: translateY(20%);
 }
 
 .lg-ledger-page {
@@ -2624,8 +2659,11 @@
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 980px) {
   .lg-assay-hero {
-    grid-template-columns: 1fr;
-    padding-top: 1.5rem;
+    padding-top: 0.8rem;
+  }
+
+  .lg-hash-grid {
+    grid-template-columns: repeat(2, max-content);
   }
 
   .lg-hero {
