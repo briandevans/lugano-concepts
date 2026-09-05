@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import NightField from "@/components/NightField";
-import ThermalHeat from "@/components/ThermalHeat";
+import HashField from "@/components/HashField";
 import "./home.css";
 
 function useUtcClock() {
@@ -263,7 +262,15 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="lg-sheet lg-ledger">
+      <div className="lg-sheet lg-assay">
+        <div className="lg-assay-field">
+          <img
+            className="lg-field-fallback"
+            src="/generated/hash_fringe.png"
+            alt="Spectrograph of an attestation measurement, copper fringes on ink"
+          />
+          <HashField seed={MEASURES[0].value} />
+        </div>
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
@@ -277,9 +284,6 @@ export default function Home() {
                   {item.label}
                 </a>
               ))}
-              <a className="lg-nav-cta" href="#architecture">
-                Verify
-              </a>
             </nav>
             <button
               className="lg-menu-btn"
@@ -303,52 +307,36 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="top" className="lg-ledger-page">
-          <ThermalHeat />
-          <p className="lg-ledger-kicker">Guest measurement record</p>
-          <h1>
-            <em>AI</em>
-            Privacy by proof.
-          </h1>
-          <p className="lg-ledger-sub">Every response returns a cryptographic receipt.</p>
-          <figure className="lg-ledger-well">
-            <img
-              className="lg-field-fallback"
-              src="/generated/mhd_fullbleed.png"
-              alt="Night lake water, one oxidized copper lamp filament on the surface"
-            />
-            <NightField
-              night="/generated/mhd_fullbleed.png"
-              water="/generated/mhd_filament.png"
-            />
-          </figure>
-          <dl className="lg-ledger-dl">
-            <div>
-              <dt>Issued</dt>
-              <dd>{clock}</dd>
-            </div>
-            <div>
-              <dt>Prompt</dt>
-              <dd>sealed</dd>
-            </div>
-            <div>
-              <dt>Model</dt>
-              <dd>private</dd>
-            </div>
-            {MEASURES.slice(0, 4).map((row) => (
-              <div key={row.key}>
-                <dt>{row.key}</dt>
-                <HashBlock value={row.value} />
+        <section id="top" className="lg-assay-hero">
+          <div className="lg-assay-zero">
+            <h1>0</h1>
+            <p className="lg-assay-label">bytes retained</p>
+            <p className="lg-assay-sub">Every response returns a cryptographic receipt.</p>
+          </div>
+          <article className="lg-assay-record" aria-label="Guest measurement record">
+            <p className="lg-assay-meta">
+              Guest measurement record · {clock}
+            </p>
+            <dl className="lg-assay-dl">
+              <div>
+                <dt>Prompt</dt>
+                <dd>sealed</dd>
               </div>
-            ))}
-            <div className="lg-ledger-zero">
-              <dt>Bytes retained</dt>
-              <dd>0</dd>
-            </div>
-          </dl>
-          <a className="lg-ledger-verify" href="#architecture">
-            Verify sample LUG-7F283
-          </a>
+              <div>
+                <dt>Model</dt>
+                <dd>private</dd>
+              </div>
+              {MEASURES.slice(0, 4).map((row) => (
+                <div key={row.key}>
+                  <dt>{row.key}</dt>
+                  <HashBlock value={row.value} />
+                </div>
+              ))}
+            </dl>
+            <a className="lg-assay-verify" href="#architecture">
+              Verify sample LUG-7F283
+            </a>
+          </article>
         </section>
       </div>
 
