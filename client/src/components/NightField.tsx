@@ -70,7 +70,7 @@ function compile(gl: WebGLRenderingContext, type: number, source: string) {
   return shader;
 }
 
-function loadTexture(gl: WebGLRenderingContext, src: string) {
+function loadTexture(gl: WebGLRenderingContext, src: string, onReady?: () => void) {
   const texture = gl.createTexture();
   if (!texture) return null;
   gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -85,6 +85,7 @@ function loadTexture(gl: WebGLRenderingContext, src: string) {
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+    onReady?.();
   };
   image.src = src;
   return texture;
@@ -98,10 +99,17 @@ export default function NightField({
   water?: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const readyRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    canvas.style.opacity = "0";
+    readyRef.current = 0;
+    const markReady = () => {
+      readyRef.current += 1;
+      if (readyRef.current >= 2 && canvas) canvas.style.opacity = "1";
+    };
     const gl = canvas.getContext("webgl", { alpha: false, antialias: true, premultipliedAlpha: false });
     if (!gl) return;
 
@@ -124,8 +132,8 @@ export default function NightField({
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 
-    const nightTex = loadTexture(gl, night);
-    const waterTex = loadTexture(gl, water);
+    const nightTex = loadTexture(gl, night, markReady);
+    const waterTex = loadTexture(gl, water, markReady);
     const uTime = gl.getUniformLocation(program, "u_time");
     const uRes = gl.getUniformLocation(program, "u_res");
     const uMouse = gl.getUniformLocation(program, "u_mouse");

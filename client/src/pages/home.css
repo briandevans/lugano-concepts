@@ -441,6 +441,8 @@
 
 .lg-field-stage .lg-field {
   z-index: 1;
+  opacity: 0;
+  transition: opacity 240ms linear;
 }
 
 .lg-nav {
