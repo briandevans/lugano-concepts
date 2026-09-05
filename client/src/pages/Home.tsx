@@ -322,11 +322,11 @@ export default function Home() {
               </div>
               <div>
                 <dt>Prompt</dt>
-                <dd>—  not retained</dd>
+                <dd className="lg-absent" />
               </div>
               <div>
                 <dt>Model</dt>
-                <dd>—  not retained</dd>
+                <dd className="lg-absent" />
               </div>
               <div>
                 <dt>MRTD</dt>

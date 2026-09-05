@@ -514,20 +514,21 @@
   z-index: 4;
   display: grid;
   flex: 1;
-  grid-template-columns: minmax(0, 1fr) minmax(22rem, 34rem);
+  grid-template-columns: minmax(0, 1fr) 19.5rem;
   align-items: center;
-  gap: clamp(2rem, 5vw, 4rem);
+  gap: clamp(1.5rem, 4vw, 3rem);
   min-height: 0;
   width: min(100% - (var(--gutter) * 2), var(--max));
   margin: 0 auto;
-  padding: 1.6rem 0 2rem;
+  padding: 0.4rem 0 1.2rem;
 }
 
 .lg-assay-lockup {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.55rem 1.05rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.45rem;
   margin: 0;
   color: #f4efe6;
 }
@@ -535,7 +536,7 @@
 .lg-assay-lockup em {
   font-family: var(--serif);
   font-optical-sizing: auto;
-  font-size: clamp(3.4rem, 5.6vw, 5rem);
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
   font-style: normal;
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -543,13 +544,13 @@
 
 .lg-zero-hero {
   width: auto;
-  height: clamp(9.5rem, 32vh, 18rem);
+  height: min(78vh, 36rem);
   margin: 0;
 }
 
 .lg-assay-lockup strong {
-  align-self: flex-end;
-  padding-bottom: 0.7rem;
+  align-self: flex-start;
+  padding-bottom: 0;
   font-family: var(--mono);
   font-size: 0.88rem;
   font-weight: 400;
@@ -626,8 +627,14 @@
 .lg-assay-dl dd {
   margin: 0;
   color: #f4efe6;
-  font-size: 1.02rem;
+  font-size: 0.88rem;
   line-height: 1.4;
+}
+
+.lg-absent {
+  min-height: 0.9rem;
+  background: linear-gradient(#f4efe6, #f4efe6) 0 55% / 4.5rem 1px no-repeat;
+  opacity: 0.35;
 }
 
 .lg-assay-record .lg-hash {
@@ -643,11 +650,17 @@
   gap: 0.2rem 0.9rem;
 }
 
+.lg-hash-grid {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 0.12rem 0.55rem;
+}
+
 .lg-hash-grid b {
   color: #f4efe6;
-  font-size: 0.92rem;
+  font-size: 0.7rem;
   font-weight: 400;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
 }
 
 .lg-hash-strip {
