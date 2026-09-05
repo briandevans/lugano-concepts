@@ -5082,7 +5082,8 @@
   }
 
   .lg-nm-slip {
-    width: min(20.5rem, 100%);
+    width: min(22rem, 100%);
+    height: auto;
   }
 
   .lg-sheet.lg-ld {
