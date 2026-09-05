@@ -316,12 +316,14 @@ export default function Home() {
 
         <section id="top" className="lg-ed-well">
           <div className="lg-ed-copy">
-            <p className="lg-ed-lede">
-              Frontier models
-              <span>that run sealed</span>
-              <span>and leave a receipt.</span>
-            </p>
-            <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
+            <div className="lg-ed-claim">
+              <p className="lg-ed-lede">
+                Frontier models
+                <span>that run sealed</span>
+                <span>and leave a receipt.</span>
+              </p>
+              <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
+            </div>
             <a className="lg-ed-cta" href="mailto:contact@lugano.ai">
               Request access
             </a>
@@ -356,6 +358,10 @@ export default function Home() {
                 ))}
               </div>
             </div>
+            <div className="lg-ed-proof">
+              <img src="/generated/verifier_qr.png" alt="" />
+              <a href="#architecture">lugano.ai/v/LUG-7F283</a>
+            </div>
             <div className="lg-ed-total">
               <span>Total retained</span>
               <b className="lg-ed-amt">
@@ -363,20 +369,7 @@ export default function Home() {
                 <span>B</span>
               </b>
             </div>
-            <div className="lg-ed-proof">
-              <img src="/generated/verifier_qr.png" alt="" />
-              <a href="#architecture">lugano.ai/v/LUG-7F283</a>
-            </div>
-            {MEASURES.slice(1).map((row) => (
-              <div className="lg-ed-reg" key={row.key}>
-                <p>{row.key} · SHA-384</p>
-                <div className="lg-ed-hash">
-                  {hashGroups(row.value).map((group, index) => (
-                    <b key={`${row.key}-${index}`}>{group}</b>
-                  ))}
-                </div>
-              </div>
-            ))}
+            <img className="lg-ed-tear" src="/generated/thermal_fine_tear.png" alt="" />
           </article>
         </section>
       </div>
