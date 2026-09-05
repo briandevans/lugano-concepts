@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import ThermalHeat from "@/components/ThermalHeat";
+import TiltPlate from "@/components/TiltPlate";
 import "./home.css";
 
 const PROOF_ROWS = [
@@ -22,28 +24,47 @@ function LiveReceipt() {
   }, []);
 
   return (
-    <aside className="lg-cert lg-cert-object" aria-label="Attestation receipt">
-      <div className="lg-cert-inner">
-        <div className="lg-cert-top">
-          <strong>Attestation receipt</strong>
-          <span className="lg-ok">verified</span>
-        </div>
-        <p className="lg-cert-meta">
-          LUG-7F283 · {clock} UTC · CH
-        </p>
-        {PROOF_ROWS.slice(0, 4).map((row) => (
-          <div className="lg-proof-row" key={row.label}>
-            <span className="lg-tick" aria-hidden="true">
-              <svg viewBox="0 0 12 12">
-                <path d="M2 6.2 4.8 9 10 3" />
-              </svg>
-            </span>
-            <b>{row.label}</b>
-            <i>{row.digest}</i>
+    <div className="lg-ticket-col">
+      <TiltPlate className="lg-ticket-tilt">
+        <aside className="lg-ticket" aria-label="Attestation receipt">
+          <ThermalHeat />
+          <div className="lg-ticket-sprocket" aria-hidden="true" />
+          <div className="lg-ticket-print">
+            <header className="lg-ticket-head">
+              <strong>Attestation receipt</strong>
+            </header>
+            <p className="lg-ticket-meta">
+              LUG-7F283
+              <span>{clock} UTC</span>
+              <span>CH · TDX</span>
+            </p>
+            <ol className="lg-ticket-rows">
+              {PROOF_ROWS.map((row) => (
+                <li className="lg-proof-row" key={row.label}>
+                  <span className="lg-tick" aria-hidden="true">
+                    <svg viewBox="0 0 12 12">
+                      <path d="M2 6.2 4.8 9 10 3" />
+                    </svg>
+                  </span>
+                  <b>{row.label}</b>
+                  <i>{row.digest}</i>
+                </li>
+              ))}
+            </ol>
           </div>
-        ))}
-      </div>
-    </aside>
+          <img
+            className="lg-ticket-stamp"
+            src="/generated/verified_rubber_stamp.png"
+            alt=""
+          />
+          <img
+            className="lg-ticket-tear"
+            src="/generated/thermal_tear_edge.png"
+            alt=""
+          />
+        </aside>
+      </TiltPlate>
+    </div>
   );
 }
 
@@ -279,9 +300,8 @@ export default function Home() {
       <header className="lg-nav">
         <div className="lg-nav-inner">
           <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-            <img className="lg-mark-img" src="/logo-mark.webp" alt="" />
             <span className="lg-wordmark">
-              Lugano<b>.</b>ai
+              Lugano.ai
             </span>
           </a>
           <nav className="lg-nav-links" aria-label="Primary">
@@ -292,7 +312,7 @@ export default function Home() {
             ))}
           </nav>
           <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-            Briefing
+            Contact
           </a>
           <button
             className="lg-menu-btn"
@@ -317,11 +337,14 @@ export default function Home() {
       </header>
 
       <main id="main">
-        <section id="top" className="lg-hero-wrap lg-hero-flat">
-          <div className="lg-shell lg-hero lg-hero-split">
+        <section id="top" className="lg-hero-wrap">
+          <div className="lg-shell lg-hero lg-hero-bleed">
             <div className="lg-hero-copy">
-              <p className="lg-hero-kicker">Private infrastructure</p>
-              <h1>AI privacy by proof.</h1>
+              <Folio n="01" label="Hard copy" />
+              <h1>
+                <span>AI privacy</span>
+                <em>by proof.</em>
+              </h1>
               <p>Every response returns a cryptographic receipt. Prompts are not retained.</p>
               <div className="lg-hero-actions">
                 <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
@@ -332,16 +355,15 @@ export default function Home() {
                 </a>
               </div>
             </div>
-
             <LiveReceipt />
           </div>
         </section>
 
-        <section id="problem" className="lg-section lg-section-paper">
+        <section id="problem" className="lg-section lg-section-cont">
           <div className="lg-shell lg-problem">
             <div>
               <Folio n="02" label="The problem" />
-              <h2 className="lg-display">The false choice of the cloud era.</h2>
+              <h2 className="lg-display">The false choice of the cloud era</h2>
               <p className="lg-lede lg-ink-copy">
                 You either send proprietary data to a black box you cannot audit, or you run
                 crippled open-source models locally. That is a failure of infrastructure, not a
@@ -486,7 +508,7 @@ export default function Home() {
                     <span>Employees with access come and go.</span>
                   </li>
                 </ul>
-                <p className="lg-punch">“Trust me, bro.”</p>
+                <p className="lg-punch">A promise you cannot inspect.</p>
               </article>
               <article className="lg-archproof">
                 <p className="lg-col-kicker">Architecture-based privacy</p>
@@ -653,10 +675,7 @@ export default function Home() {
       <footer className="lg-footer">
         <div className="lg-shell lg-footer-row">
           <a className="lg-brand" href="#top">
-            <img className="lg-mark-img" src="/logo-mark.webp" alt="" />
-            <span className="lg-wordmark">
-              Lugano<b>.</b>ai
-            </span>
+            <span className="lg-wordmark">Lugano.ai</span>
           </a>
           <nav aria-label="Footer">
             <a href="mailto:contact@lugano.ai">Contact</a>

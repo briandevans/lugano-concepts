@@ -2,26 +2,27 @@
    Paper / ink / alpine / magenta seal. Homepage-only. */
 
 .lg {
-  --ink: #121410;
-  --ink-soft: #1c1e18;
-  --paper: #ede8dc;
-  --paper-deep: #dcd6c6;
-  --fog: #8a8678;
-  --ash: #5c5a52;
+  --ink: #14130f;
+  --ink-soft: #1c1b16;
+  --paper: #e4dfd2;
+  --paper-deep: #d4cdb8;
+  --thermal: #f3e8c8;
+  --fog: #4a463c;
+  --ash: #3a372f;
   --alpine: #2e6b52;
   --alpine-bright: #3f8a68;
-  --seal: #e11bdd;
-  --metal: #b7b3a6;
-  --rule: rgba(18, 20, 16, 0.14);
-  --rule-paper: rgba(237, 232, 220, 0.14);
+  --seal: #c41a7a;
+  --metal: #6a6558;
+  --rule: rgba(20, 19, 15, 0.16);
+  --rule-paper: rgba(228, 223, 210, 0.16);
   --serif: "Fraunces", "Times New Roman", serif;
-  --sans: "Instrument Sans", "Helvetica Neue", ui-sans-serif, sans-serif;
+  --sans: "IBM Plex Mono", ui-monospace, monospace;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
-  --max: 1180px;
+  --max: 1220px;
   --gutter: clamp(1.25rem, 4.2vw, 3.25rem);
   color: var(--paper);
   background: var(--ink);
-  font-family: var(--sans);
+  font-family: var(--serif);
   font-weight: 400;
   line-height: 1.5;
   text-rendering: optimizeLegibility;
@@ -74,15 +75,10 @@
 
 .lg-wordmark {
   font-family: var(--serif);
-  font-style: normal;
-  font-size: 1.2rem;
+  font-style: italic;
+  font-size: 1.35rem;
   line-height: 1;
-  letter-spacing: 0.01em;
-  color: var(--ink);
-}
-
-.lg-wordmark b {
-  font-weight: 400;
+  letter-spacing: -0.02em;
   color: var(--ink);
 }
 
@@ -136,11 +132,14 @@
 .lg-nav-cta {
   display: inline-flex;
   align-items: center;
-  color: var(--ink);
+  min-height: 2rem;
+  padding: 0.3rem 0.7rem;
+  background: var(--ink);
+  color: var(--paper) !important;
   font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  border-bottom: 1px solid var(--ink);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .lg-menu-btn {
@@ -220,7 +219,7 @@
 .lg-lede {
   max-width: 38rem;
   margin: 1.15rem 0 0;
-  color: var(--fog);
+  color: var(--ash);
   font-size: clamp(1.02rem, 1.5vw, 1.18rem);
   font-weight: 400;
   line-height: 1.55;
@@ -285,6 +284,13 @@
   padding: clamp(4.75rem, 10vw, 8.25rem) 0;
 }
 
+.lg-section-cont {
+  color: var(--ink);
+  background: #e4dfd2;
+  padding-top: 4.5rem;
+  border-top: 1px solid var(--rule);
+}
+
 .lg-section-paper {
   color: var(--ink);
   background-color: var(--paper);
@@ -317,11 +323,11 @@
   overflow: hidden;
   color: var(--ink);
   background-color: #e4dfd2;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-}
-
-.lg-hero-flat {
-  min-height: 0;
+  background-image:
+    url("/generated/thermal_paper_grain.png"),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: cover, auto;
+  background-blend-mode: multiply, normal;
 }
 
 .lg-field,
@@ -355,128 +361,58 @@
 .lg-hero {
   position: relative;
   z-index: 3;
-  padding: clamp(3rem, 6vh, 4.5rem) 0 clamp(3.25rem, 6vh, 4.5rem);
+  padding: 4.75rem 0 0;
 }
 
-.lg-hero-split {
+.lg-hero-bleed {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(22rem, 28rem);
+  grid-template-columns: minmax(20rem, 34rem) minmax(0, 1.15fr);
   align-items: start;
-  gap: clamp(2rem, 5vw, 4rem);
-}
-
-.lg-hero-split h1 {
-  max-width: 8ch;
-  white-space: normal;
-  font-size: clamp(3.4rem, 6.4vw, 5.6rem);
-  letter-spacing: -0.035em;
-}
-
-.lg-hero-doc {
-  display: grid;
+  column-gap: clamp(2rem, 5vw, 4.5rem);
+  min-height: calc(100svh - 64px);
 }
 
 .lg-hero-copy {
   min-width: 0;
+  padding-top: 0.15rem;
 }
 
-.lg-hero-doc h1,
-.lg-hero h1 {
-  max-width: 9ch;
-  color: var(--ink);
-  font-optical-sizing: auto;
-  font-size: clamp(4.2rem, 8vw, 7.2rem);
-  letter-spacing: -0.03em;
-}
-
-.lg-hero-kicker {
+.lg-hero-copy .lg-folio {
+  margin-bottom: 1.35rem;
   color: var(--ash);
 }
 
-.lg-hero p {
-  max-width: 36rem;
+.lg-hero h1 {
+  display: flex;
+  flex-direction: column;
+  max-width: none;
+  margin: 0;
   color: var(--ink);
   font-family: var(--serif);
-  font-size: clamp(1.2rem, 1.8vw, 1.45rem);
-}
-
-.lg-hero-actions {
-  margin-top: 1.6rem;
-}
-
-.lg-hero-doc .lg-cert {
-  width: 100%;
-}
-
-.lg-tilt {
-  transform: none;
-  transform-style: preserve-3d;
-}
-
-.lg-hero-kicker {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.85rem 1.1rem;
-  margin-bottom: 1.4rem;
-  color: var(--metal);
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.lg-hero-kicker .lg-strike {
-  text-transform: lowercase;
-  letter-spacing: 0.02em;
-}
-
-.lg-hero h1 {
-  max-width: 12ch;
-  margin: 0;
-  font-family: var(--serif);
-  font-size: clamp(3.8rem, 7.6vw, 6.6rem);
+  font-optical-sizing: auto;
+  font-size: clamp(4.6rem, 8.4vw, 7.4rem);
   font-weight: 400;
-  line-height: 0.9;
-  letter-spacing: -0.03em;
+  line-height: 0.86;
+  letter-spacing: -0.038em;
+}
+
+.lg-hero h1 span {
+  display: block;
+  white-space: nowrap;
 }
 
 .lg-hero h1 em {
+  display: block;
   font-style: italic;
+  font-optical-sizing: auto;
 }
 
-.lg-strike {
-  position: relative;
-  display: inline-block;
-  color: color-mix(in srgb, var(--paper) 38%, #6b6860);
-}
-
-.lg-strike::before {
-  position: absolute;
-  left: -0.02em;
-  right: -0.02em;
-  top: 52%;
-  height: 2px;
-  pointer-events: none;
-  background: var(--seal);
-  content: "";
-  transform: rotate(-3deg);
-}
-
-.lg-strike {
-  color: color-mix(in srgb, var(--paper) 28%, #5a5852);
-}
-
-.lg-hero-proof-word {
-  font-style: italic;
-}
-
-.lg-hero p {
-  max-width: 32rem;
-  margin: 1.4rem 0 0;
-  color: var(--fog);
+.lg-hero-copy > p {
+  max-width: 26rem;
+  margin: 1.35rem 0 0;
+  color: var(--ash);
   font-family: var(--serif);
-  font-size: clamp(1.15rem, 1.7vw, 1.35rem);
+  font-size: clamp(1.12rem, 1.6vw, 1.32rem);
   line-height: 1.4;
 }
 
@@ -485,7 +421,123 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 1.15rem 1.5rem;
-  margin-top: 1.85rem;
+  margin-top: 2.1rem;
+}
+
+.lg-tilt,
+.lg-ticket-tilt {
+  transform: perspective(1600px) rotateY(-10deg) rotateX(4deg) rotateZ(1.2deg);
+  transform-style: preserve-3d;
+  transform-origin: left top;
+}
+
+/* Thermal ticket — the identity object */
+.lg-ticket-col {
+  position: relative;
+  min-height: 1px;
+}
+
+.lg-ticket {
+  position: relative;
+  width: min(38rem, 54vw);
+  min-height: 58rem;
+  margin-right: -22%;
+  margin-bottom: -10rem;
+  padding: 1.6rem 1.7rem 5.5rem 2.35rem;
+  overflow: hidden;
+  color: var(--ink);
+  background-color: var(--thermal);
+  background-image: url("/generated/thermal_paper_grain.png");
+  background-size: cover;
+  box-shadow:
+    0 1px 0 rgba(255, 248, 230, 0.55) inset,
+    0 28px 70px rgba(20, 16, 10, 0.22),
+    0 6px 16px rgba(20, 16, 10, 0.12);
+}
+
+.lg-heat {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+.lg-ticket-sprocket {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 1.35rem;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 0.42rem 0.7rem, #e4dfd2 0.26rem, transparent 0.28rem);
+  background-size: 1.35rem 1.45rem;
+  box-shadow: inset -1px 0 0 rgba(20, 16, 10, 0.12);
+}
+
+.lg-ticket-print {
+  position: relative;
+  z-index: 3;
+}
+
+.lg-ticket-head {
+  padding-bottom: 0.85rem;
+  margin-bottom: 0.7rem;
+  border-bottom: 1px solid rgba(20, 16, 10, 0.22);
+}
+
+.lg-ticket-head strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.85rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.lg-ticket-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+  margin: 0 0 1.15rem;
+  color: var(--ash);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+.lg-ticket-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lg-ticket-stamp {
+  position: absolute;
+  right: 4%;
+  bottom: 22%;
+  z-index: 4;
+  width: min(16rem, 58%);
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  transform: rotate(-16deg);
+}
+
+.lg-ticket-tear {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  width: 100%;
+  height: 4.4rem;
+  object-fit: cover;
+  object-position: bottom;
+  pointer-events: none;
 }
 
 .lg-quay {
@@ -762,7 +814,7 @@
 
 .lg-choice p {
   margin: 0;
-  color: var(--ash);
+  color: var(--fog);
   font-size: 0.95rem;
   line-height: 1.5;
 }
@@ -1415,6 +1467,10 @@
   gap: 1.15rem 1.5rem;
 }
 
+.lg-footer .lg-wordmark {
+  color: var(--paper);
+}
+
 .lg-footer a,
 .lg-footer p {
   color: var(--fog);
@@ -1427,12 +1483,25 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 980px) {
-  .lg-hero-split {
+  .lg-hero-bleed {
     grid-template-columns: 1fr;
+    min-height: 0;
+    padding-bottom: 2rem;
   }
 
-  .lg-hero-split h1 {
+  .lg-hero h1 span {
     white-space: normal;
+  }
+
+  .lg-ticket {
+    width: min(34rem, 100%);
+    min-height: 42rem;
+    margin-right: 0;
+    margin-bottom: -3rem;
+  }
+
+  .lg-ticket-tilt {
+    transform: perspective(1400px) rotateY(-4deg) rotateX(2deg);
   }
 
   .lg-hero,
