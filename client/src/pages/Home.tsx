@@ -3,15 +3,6 @@ import { Helmet } from "react-helmet";
 import ThermalHeat from "@/components/ThermalHeat";
 import "./home.css";
 
-const PROOF_ROWS = [
-  { label: "TDX quote", value: "verified" },
-  { label: "GPU attestation", value: "verified" },
-  { label: "Nonce binding", value: "verified" },
-  { label: "Signing key", value: "bound" },
-  { label: "Receipt integrity", value: "verified" },
-  { label: "Prompt retention", value: "none" },
-] as const;
-
 function useUtcClock() {
   const [clock, setClock] = useState(() => new Date().toISOString().slice(11, 19));
 
@@ -29,21 +20,40 @@ function LiveReceipt({ clock }: { clock: string }) {
   return (
     <aside className="lg-slip" aria-label="Attestation receipt">
       <ThermalHeat />
-      <p className="lg-slip-kicker">Attestation</p>
+      <header className="lg-slip-head">
+        <p>Attestation</p>
+        <p>Lugano, CH</p>
+      </header>
       <p className="lg-slip-id">LUG-7F283</p>
-      <p className="lg-slip-meta">
-        {clock} UTC
-        <span>CH</span>
-      </p>
-      <ol className="lg-slip-rows">
-            {PROOF_ROWS.map((row) => (
-          <li key={row.label}>
-            <b>{row.label}</b>
-            <span className="lg-leaders" aria-hidden="true" />
-            <i className={row.value === "verified" ? "is-ok" : ""}>{row.value}</i>
-          </li>
-        ))}
-      </ol>
+      <p className="lg-slip-meta">{clock} UTC</p>
+      <p className="lg-slip-quote">4971ba575c8f23e41a1d97f283e3b79c064</p>
+      <dl className="lg-slip-dl">
+        <div>
+          <dt>tdx.quote</dt>
+          <dd>4971ba575c8f23e41a</dd>
+        </div>
+        <div>
+          <dt>gpu.attestation</dt>
+          <dd>c8f23e41a1d97f283e</dd>
+        </div>
+        <div>
+          <dt>nonce.bind</dt>
+          <dd>a1d97f283e3b79c064</dd>
+        </div>
+        <div>
+          <dt>signing.ak</dt>
+          <dd>e3b79c064f6a42d817</dd>
+        </div>
+        <div>
+          <dt>receipt.sha</dt>
+          <dd>f6a42d8170ba575c8f</dd>
+        </div>
+        <div>
+          <dt>retention</dt>
+          <dd>0</dd>
+        </div>
+      </dl>
+      <p className="lg-slip-status">sealed</p>
     </aside>
   );
 }
@@ -244,7 +254,7 @@ const NAV = [
 function Folio({ n, label }: { n: string; label: string }) {
   return (
     <div className="lg-folio">
-      <span>{n}</span>
+      {n ? <span>{n}</span> : null}
       <em>{label}</em>
     </div>
   );
@@ -319,10 +329,6 @@ export default function Home() {
         <section id="top" className="lg-hero-wrap">
           <div className="lg-shell lg-split">
             <div className="lg-copy">
-              <p className="lg-folio">
-                <span>01</span>
-                <em>Receipt</em>
-              </p>
               <h1>
                 <span>AI privacy</span>
                 <span>by proof.</span>
@@ -349,7 +355,7 @@ export default function Home() {
         <section id="problem" className="lg-section lg-section-cont">
           <div className="lg-shell lg-problem">
             <div>
-              <Folio n="02" label="The problem" />
+              <Folio n="" label="The problem" />
               <h2 className="lg-display">The false choice of the cloud era</h2>
               <p className="lg-lede lg-ink-copy">
                 You either send proprietary data to a black box you cannot audit, or you run
