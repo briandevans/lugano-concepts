@@ -684,7 +684,6 @@ export default function Home() {
           <p>© 2026 Lugano.ai</p>
         </div>
       </footer>
-      </main>
     </div>
   );
 }
