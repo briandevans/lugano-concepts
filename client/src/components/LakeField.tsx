@@ -35,14 +35,15 @@ void main() {
   vec3 lake = texture2D(u_lake, clamp(lakeUv, 0.0, 1.0)).rgb;
   vec3 water = texture2D(u_water, clamp(uv * 1.2 + warp * 2.4 + vec2(t * 0.02, 0.0), 0.0, 1.0)).rgb;
 
-  vec3 col = mix(lake, water, 0.18);
-  col = mix(col, vec3(0.071, 0.078, 0.063), 0.22);
+  vec3 col = mix(lake, water, 0.12);
+  col *= 1.12;
+  col = mix(col, vec3(0.071, 0.078, 0.063), 0.08);
 
   float spec = smoothstep(0.62, 0.92, water.r + water.g * 0.4);
-  col += vec3(0.88, 0.11, 0.87) * spec * 0.07;
+  col += vec3(0.88, 0.11, 0.87) * spec * 0.05;
 
-  float vig = smoothstep(1.22, 0.28, length((uv - vec2(0.42, 0.4)) * vec2(1.15, 1.0)));
-  col *= vig;
+  float vig = smoothstep(1.35, 0.22, length((uv - vec2(0.48, 0.42)) * vec2(1.05, 0.95)));
+  col *= mix(0.78, 1.0, vig);
 
   float g = hash(uv * u_res * 0.55 + t);
   col += (g - 0.5) * 0.03;

@@ -96,7 +96,7 @@ const RECEIPT = `{
 const CASES = [
   {
     title: "Government and defense",
-    image: "/use-case-assets/government-defense-enclave.webp",
+    image: "/generated/case_defense.png",
     alt: "A hardened sovereign AI enclave surrounded by encrypted defense-grade circuitry",
     summary:
       "Bring cutting edge model capability closer to sovereign, classified, or disconnected environments.",
@@ -109,7 +109,7 @@ const CASES = [
   },
   {
     title: "Enterprise",
-    image: "/use-case-assets/enterprise-private-perimeter.webp",
+    image: "/generated/case_enterprise.png",
     alt: "A glass enterprise building inside a glowing private network perimeter",
     summary: "Deploy AI across operations. Prove your data posture.",
     bullets: [
@@ -120,7 +120,7 @@ const CASES = [
   },
   {
     title: "Regulated industries",
-    image: "/use-case-assets/regulated-audit-network.webp",
+    image: "/generated/case_regulated.png",
     alt: "A regulated operations network with cryptographic audit paths and verification nodes",
     summary:
       "Deploy AI against sensitive internal data while preserving reviewable privacy boundaries.",
@@ -217,16 +217,6 @@ const NAV = [
   { href: "#docs", label: "Docs" },
 ] as const;
 
-function Mark() {
-  return (
-    <span className="lg-mark" aria-hidden="true">
-      <i />
-      <i />
-      <i />
-    </span>
-  );
-}
-
 function Folio({ n, label }: { n: string; label: string }) {
   return (
     <div className="lg-folio">
@@ -266,7 +256,7 @@ export default function Home() {
       <header className="lg-nav">
         <div className="lg-nav-inner">
           <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-            <Mark />
+            <img className="lg-mark-img" src="/logo-mark.webp" alt="" />
             <span className="lg-wordmark">
               Lugano<b>.</b>ai
             </span>
@@ -305,6 +295,7 @@ export default function Home() {
 
       <main id="main">
         <section id="top" className="lg-hero-wrap">
+          <img className="lg-field-fallback" src="/generated/hero_alpine_lake.png" alt="" />
           <LakeField />
           <div className="lg-hero-veil" />
           <div className="lg-shell lg-hero">
@@ -691,7 +682,7 @@ export default function Home() {
       <footer className="lg-footer">
         <div className="lg-shell lg-footer-row">
           <a className="lg-brand" href="#top">
-            <Mark />
+            <img className="lg-mark-img" src="/logo-mark.webp" alt="" />
             <span className="lg-wordmark">
               Lugano<b>.</b>ai
             </span>
