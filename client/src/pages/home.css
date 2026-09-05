@@ -1951,9 +1951,9 @@
 
 .lg-nm .lg-nav-links a {
   color: #ece7dc !important;
-  font-family: var(--sans);
-  font-size: 1.02rem;
-  letter-spacing: -0.015em;
+  font-family: var(--receipt);
+  font-size: 0.92rem;
+  letter-spacing: 0;
   background: transparent;
   padding: 0;
   min-height: 0;
@@ -1974,13 +1974,14 @@
   position: relative;
   z-index: 4;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 22rem;
+  grid-template-columns: minmax(0, 1fr) 23.5rem;
   column-gap: 3rem;
   align-items: start;
   width: min(100% - (var(--gutter) * 2), 72rem);
-  height: calc(100vh - 72px);
+  min-height: calc(100vh - 72px);
+  height: auto;
   margin: 0 auto;
-  padding: 2.6rem 0 0;
+  padding: 2.6rem 0 3.2rem;
   overflow: hidden;
 }
 
@@ -2010,17 +2011,13 @@
 
 .lg-nm-sub {
   margin: 1.55rem 0 0;
-  max-width: 28rem;
+  max-width: 32rem;
   color: #c4bfb4;
   font-family: var(--sans);
   font-size: 1.28rem;
   font-weight: 400;
   line-height: 1.4;
   letter-spacing: -0.016em;
-}
-
-.lg-nm-sub span {
-  display: block;
 }
 
 .lg-nm-cta {
@@ -2031,10 +2028,10 @@
   padding: 0 1.3rem;
   background: var(--nm);
   color: #ece7dc !important;
-  font-family: var(--sans);
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-family: var(--receipt);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0;
   text-decoration: none;
 }
 
@@ -2047,19 +2044,16 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 22rem;
-  height: calc(100vh - 72px - 2.6rem + 4.5rem);
+  width: 23.5rem;
   color: #2a2722;
   background-color: #efebe1;
   background-image: url("/generated/thermal_paper_fiber.png");
   background-size: 180px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.42);
 }
 
 .lg-nm-body {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 1.15rem 1.25rem 2rem;
+  padding: 1.15rem 1.3rem 1.2rem;
 }
 
 .lg-nm-kind,
@@ -2098,10 +2092,10 @@
 
 .lg-nm-body dl div {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 6.2rem minmax(2.8rem, 1fr) auto;
   gap: 0.4rem;
   align-items: baseline;
-  padding: 0.2rem 0;
+  padding: 0.22rem 0;
 }
 
 .lg-nm-body dt {
@@ -2145,11 +2139,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: center;
-  flex: 1 1 auto;
-  gap: 0.2rem;
-  margin: 0.35rem 0;
-  min-height: 8rem;
+  gap: 0.15rem;
+  margin: 0.15rem 0 0.7rem;
 }
 
 .lg-nm-total > span {

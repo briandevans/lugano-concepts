@@ -325,8 +325,7 @@ export default function Home() {
               <span>and leave a receipt.</span>
             </p>
             <p className="lg-nm-sub">
-              Every run returns a TDX quote,
-              <span>and discards the prompt.</span>
+              Every run returns a TDX quote. Nothing retains the prompt.
             </p>
             <a className="lg-nm-cta" href="mailto:contact@lugano.ai">
               Request access
@@ -357,6 +356,11 @@ export default function Home() {
                   <dt>Enclave</dt>
                   <i />
                   <dd>TDX</dd>
+                </div>
+                <div>
+                  <dt>Signed</dt>
+                  <i />
+                  <dd>TDX quote</dd>
                 </div>
               </dl>
               <hr className="lg-nm-rule" />
