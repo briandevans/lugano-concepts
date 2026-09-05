@@ -521,12 +521,12 @@ a {
 
 .hero-glass-clip {
   position: absolute;
-  right: -8%;
-  top: 50%;
-  width: min(540px, 92%);
-  transform: translateY(-52%);
+  right: -12%;
+  top: 46%;
+  width: min(560px, 96%);
+  transform: translateY(-50%);
   pointer-events: none;
-  filter: drop-shadow(0 28px 48px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 42px rgba(118, 188, 231, 0.12));
+  filter: drop-shadow(0 36px 40px rgba(0, 0, 0, 0.62)) drop-shadow(12px 18px 28px rgba(0, 0, 0, 0.28));
 }
 
 .hero-glass-video {
@@ -1989,7 +1989,9 @@ h6 {
 
 .hero-title .strike,
 .hero-title em {
-  font-family: var(--font-sans);
+  font-family: "Geist", var(--font-sans);
+  font-style: italic;
+  font-weight: 400;
 }
 
 .section-dark,
@@ -2119,7 +2121,8 @@ h6 {
   justify-content: flex-start;
 }
 
-.marker {
+.marker,
+.redaction-tag {
   border-radius: 0;
   padding: 0;
   border: 0;

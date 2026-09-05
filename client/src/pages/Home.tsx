@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import GlassSeal from "@/components/GlassSeal";
 import "./live.css";
 
 export default function Home() {
@@ -118,7 +117,6 @@ export default function Home() {
     <main id="main">
       {/* 1. Hero */}
       <section className="hero" id="hero">
-        <GlassSeal />
         <div className="hero-inner">
           <div className="hero-copy">
             <h1 className="hero-title reveal">
