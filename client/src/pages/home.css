@@ -100,6 +100,8 @@
 /* ── Nav ──────────────────────────────────────────────── */
 .lg-sheet {
   position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   min-height: 100vh;
   color: #f3efe6;
@@ -130,12 +132,10 @@
 }
 
 .lg-nav {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
+  position: relative;
   z-index: 80;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
@@ -167,10 +167,10 @@
 }
 
 .lg-nav-links a {
-  color: rgba(243, 239, 230, 0.78);
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.02em;
+  color: rgba(243, 239, 230, 0.82);
+  font-family: var(--ui);
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
 }
 
 .lg-nav-links a:hover {
@@ -184,10 +184,10 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: rgba(243, 239, 230, 0.78) !important;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.02em;
+  color: rgba(243, 239, 230, 0.82) !important;
+  font-family: var(--ui);
+  font-size: 0.8125rem;
+  letter-spacing: 0.01em;
 }
 
 .lg-nav-cta:hover {
@@ -299,10 +299,10 @@
   border: 1.5px solid var(--ink);
   background: transparent;
   color: var(--ink) !important;
-  font-family: var(--mono);
-  font-size: 0.84rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
+  font-family: var(--ui);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
 .lg a.lg-btn.lg-btn-ink,
@@ -324,9 +324,9 @@
   min-height: 3.35rem;
   padding: 0.7rem 0;
   color: #f3efe6;
-  font-family: var(--mono);
-  font-size: 0.84rem;
-  letter-spacing: 0.02em;
+  font-family: var(--ui);
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
   border-bottom: 0;
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -394,9 +394,9 @@
   position: relative;
   z-index: 2;
   display: flex;
-  align-items: stretch;
-  overflow: hidden;
-  min-height: 100vh;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
   color: #f3efe6;
   background: transparent;
 }
@@ -445,17 +445,19 @@
   position: relative;
   z-index: 3;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(20rem, 24rem);
-  align-items: start;
-  gap: clamp(2.5rem, 5vw, 5rem);
-  padding: 7.75rem 0 3.6rem;
+  flex: 1;
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 26rem);
+  align-items: stretch;
+  gap: clamp(2.75rem, 5vw, 5.5rem);
+  padding: 2.25rem 0 2rem;
 }
 
 .lg-copy {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   max-width: 38rem;
-  padding-bottom: 0.4rem;
+  min-height: 100%;
 }
 
 .lg-copy h1 {
@@ -492,8 +494,9 @@
 .lg-stage {
   position: relative;
   z-index: 4;
-  justify-self: end;
+  justify-self: stretch;
   width: 100%;
+  height: 100%;
 }
 
 .lg-slip {
@@ -502,7 +505,8 @@
   flex-direction: column;
   z-index: 6;
   width: 100%;
-  padding: 1.15rem 1.2rem 1.15rem;
+  height: 100%;
+  padding: 1.25rem 1.3rem 1.2rem;
   color: #16140f;
   background-color: #e7e4d8;
   background-image: url("/generated/gelatin_sheet.png");
@@ -528,13 +532,15 @@
 .lg-slip-foot {
   position: relative;
   z-index: 2;
-  margin: 0.95rem 0 0;
-  padding-top: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.85rem;
   border-top: 1px solid rgba(22, 20, 15, 0.16);
+  color: var(--swiss) !important;
   font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  color: #5c574c;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
 }
 
 .lg-slip-head,
@@ -626,15 +632,16 @@
 
 .lg-hash {
   letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
 .lg-slip-status {
-  margin: 0.2rem 0 0.95rem;
-  padding: 0 0 0.8rem;
-  border-bottom: 1px solid rgba(18, 20, 16, 0.22);
+  margin: 0.15rem 0 1rem;
+  padding: 0 0 0.75rem;
+  border-bottom: 1px solid var(--swiss);
   font-family: var(--mono);
   font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -840,8 +847,25 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 1.15rem 1.5rem;
-  margin-top: 2.7rem;
+  margin-top: 2rem;
   padding-top: 0;
+}
+
+.lg-rail {
+  flex-shrink: 0;
+  border-top: 1px solid rgba(243, 239, 230, 0.12);
+}
+
+.lg-rail-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 2.4rem;
+  padding: 1.05rem 0 1.15rem;
+  color: rgba(243, 239, 230, 0.7);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .lg-hero-live {

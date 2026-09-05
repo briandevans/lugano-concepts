@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import NightField from "@/components/NightField";
 import ThermalHeat from "@/components/ThermalHeat";
 import "./home.css";
 
@@ -31,7 +30,7 @@ const MEASURES = [
 ] as const;
 
 function groupHash(value: string) {
-  return value.match(/.{8}/g)?.join(" ") ?? value;
+  return `${value.slice(0, 8)}…${value.slice(-8)}`;
 }
 
 function LiveReceipt({ clock }: { clock: string }) {
@@ -55,7 +54,9 @@ function LiveReceipt({ clock }: { clock: string }) {
             </div>
           ))}
         </dl>
-        <p className="lg-slip-foot">verify  lugano.ai/a/LUG-7F283</p>
+        <a className="lg-slip-foot" href="#architecture">
+          verify LUG-7F283
+        </a>
       </aside>
     </div>
   );
@@ -330,18 +331,15 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-hero-wrap">
-          <img className="lg-field-fallback" src="/generated/lungolago_lamps.png" alt="" />
-          <NightField />
-          <div className="lg-hero-veil" />
           <div className="lg-shell lg-split">
             <div className="lg-copy">
-              <h1>
-                <span>AI privacy</span>
-                <span>by proof.</span>
-              </h1>
-              <p className="lg-sub">
-                Every response returns a cryptographic receipt. Prompts are not retained.
-              </p>
+              <div>
+                <h1>
+                  <span>AI privacy</span>
+                  <span>by proof</span>
+                </h1>
+                <p className="lg-sub">Every response returns a cryptographic receipt.</p>
+              </div>
               <div className="lg-hero-actions">
                 <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
                   Request briefing
@@ -352,6 +350,13 @@ export default function Home() {
               </div>
             </div>
             <LiveReceipt clock={clock} />
+          </div>
+          <div className="lg-rail">
+            <div className="lg-shell lg-rail-inner">
+              <span>Intel TDX</span>
+              <span>Retention 0</span>
+              <span>Lugano, CH</span>
+            </div>
           </div>
         </section>
       </div>
