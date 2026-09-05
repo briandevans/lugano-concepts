@@ -13,15 +13,7 @@ const MEASURES = [
 
 function HashBlock({ value }: { value: string }) {
   const groups = value.match(/.{8}/g) ?? [];
-  return (
-    <dd className="lg-hash">
-      <span className="lg-hash-grid">
-        {groups.map((group) => (
-          <b key={group}>{group}</b>
-        ))}
-      </span>
-    </dd>
-  );
+  return <dd className="lg-hash">{groups.join(" ")}</dd>;
 }
 
 function ZeroMark({ className }: { className?: string }) {
@@ -284,7 +276,7 @@ export default function Home() {
                 </a>
               ))}
               <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-                Request briefing
+                Briefing →
               </a>
             </nav>
             <button
@@ -310,44 +302,36 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-assay-hero">
-          <div className="lg-assay-copy">
-            <p className="lg-assay-kicker">Bytes retained</p>
-            <h1>Held to zero.</h1>
-            <p className="lg-assay-sub">Every response returns a cryptographic receipt.</p>
-            <article className="lg-assay-record" aria-label="Example attestation">
-              <header className="lg-assay-meta">
-                <span>Example attestation</span>
-                <span>LUG-7F283</span>
-              </header>
-              <dl className="lg-assay-dl">
-                <div>
-                  <dt>Prompt</dt>
-                  <dd className="lg-state">sealed</dd>
-                </div>
-                <div>
-                  <dt>Model</dt>
-                  <dd className="lg-state">private</dd>
-                </div>
-                <div>
-                  <dt>
-                    MRTD
-                    <i>TD measurement</i>
-                  </dt>
-                  <HashBlock value={MEASURES[0].value} />
-                </div>
-                <div>
-                  <dt>
-                    RTMR0
-                    <i>runtime register</i>
-                  </dt>
-                  <HashBlock value={MEASURES[1].value} />
-                </div>
-              </dl>
-              <a className="lg-assay-verify" href="#architecture">
-                Verify this example
-              </a>
-            </article>
-          </div>
+          <h1>
+            <span>Held to</span>
+          </h1>
+          <p className="lg-assay-kicker">Bytes retained</p>
+          <article className="lg-assay-record" aria-label="Example attestation">
+            <p className="lg-assay-sub">
+              The receipt is the product. Example LUG-7F283.
+            </p>
+            <dl className="lg-assay-dl">
+              <div>
+                <dt>Prompt</dt>
+                <dd>sealed</dd>
+              </div>
+              <div>
+                <dt>Model</dt>
+                <dd>private</dd>
+              </div>
+              <div>
+                <dt>MRTD</dt>
+                <HashBlock value={MEASURES[0].value} />
+              </div>
+              <div>
+                <dt>RTMR0</dt>
+                <HashBlock value={MEASURES[1].value} />
+              </div>
+            </dl>
+            <a className="lg-assay-verify" href="#architecture">
+              Verify this example
+            </a>
+          </article>
         </section>
       </div>
 
