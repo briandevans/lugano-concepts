@@ -282,10 +282,10 @@ export default function Home() {
 
       <main id="main">
         <section id="top" className="lg-hero-wrap lg-hero-flat">
-          <div className="lg-shell lg-hero">
+          <div className="lg-shell lg-hero lg-hero-stack">
             <div className="lg-hero-copy">
-              <p className="lg-hero-kicker">Private AI infrastructure</p>
-              <h1>AI Privacy by proof.</h1>
+              <p className="lg-hero-kicker">Private infrastructure</p>
+              <h1>AI privacy by proof.</h1>
               <p>
                 Frontier models execute in a hardware-sealed enclave. Every response returns a
                 cryptographic receipt. Prompts are not retained.
@@ -300,14 +300,14 @@ export default function Home() {
               </div>
             </div>
 
-            <aside className="lg-cert lg-cert-print" aria-label="Attestation receipt">
+            <aside className="lg-cert lg-cert-object" aria-label="Attestation receipt">
+              <span className="lg-stamp">Verified</span>
               <div className="lg-cert-inner">
                 <div className="lg-cert-top">
                   <strong>Attestation receipt</strong>
-                  <span className="lg-verified">Verified</span>
+                  <span>LUG-7F283 · 2026-09-05 · 04:12:09 UTC · CH</span>
                 </div>
-                <p className="lg-cert-meta">LUG-7F283 · 2026-09-05 · 04:12:09 UTC · CH</p>
-                {PROOF_ROWS.slice(0, 5).map((row) => (
+                {PROOF_ROWS.slice(0, 4).map((row) => (
                   <div className="lg-proof-row" key={row.label}>
                     <b>{row.label}</b>
                     <span className="lg-leaders" aria-hidden="true" />
@@ -330,18 +330,15 @@ export default function Home() {
                 law of physics.
               </p>
             </div>
-            <div className="lg-still">
-              <img src="/generated/sealed_envelope.png" alt="" />
-              <div className="lg-choice">
-                <article>
-                  <h3>The black box</h3>
-                  <p>Frontier models, hosted elsewhere. Capability you cannot inspect. Data you cannot get back.</p>
-                </article>
-                <article>
-                  <h3>The local compromise</h3>
-                  <p>Air-gapped, underpowered, and always a generation behind. Privacy bought with capability.</p>
-                </article>
-              </div>
+            <div className="lg-choice">
+              <article>
+                <h3>The black box</h3>
+                <p>Frontier models, hosted elsewhere. Capability you cannot inspect. Data you cannot get back.</p>
+              </article>
+              <article>
+                <h3>The local compromise</h3>
+                <p>Air-gapped, underpowered, and always a generation behind. Privacy bought with capability.</p>
+              </article>
             </div>
           </div>
         </section>

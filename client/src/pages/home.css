@@ -97,7 +97,7 @@
   gap: 1.5rem;
   height: 64px;
   border-bottom: 1px solid var(--rule);
-  background: var(--paper);
+  background: #e4dfd2;
   color: var(--ink);
 }
 
@@ -230,6 +230,12 @@
   color: var(--ash);
 }
 
+.lg a.lg-btn-ink,
+.lg-btn-ink {
+  background: var(--ink);
+  color: var(--paper) !important;
+}
+
 .lg a.lg-btn,
 .lg-btn {
   display: inline-flex;
@@ -318,7 +324,7 @@
   isolation: isolate;
   overflow: hidden;
   color: var(--ink);
-  background-color: var(--paper);
+  background-color: #e4dfd2;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 }
 
@@ -357,11 +363,16 @@
 .lg-hero {
   position: relative;
   z-index: 3;
+  padding: clamp(3rem, 6vh, 4.5rem) 0 clamp(3.25rem, 6vh, 4.5rem);
+}
+
+.lg-hero-stack {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  align-items: start;
-  gap: clamp(2rem, 5vw, 4rem);
-  padding: clamp(3.5rem, 7vh, 5.5rem) 0 clamp(3.25rem, 6vh, 4.5rem);
+  gap: clamp(2.25rem, 4vw, 3rem);
+}
+
+.lg-hero-stack .lg-hero-copy h1 {
+  max-width: 14ch;
 }
 
 .lg-hero-doc {
@@ -386,8 +397,10 @@
 }
 
 .lg-hero p {
-  color: var(--ash);
+  max-width: 36rem;
+  color: var(--ink);
   font-family: var(--serif);
+  font-size: clamp(1.2rem, 1.8vw, 1.45rem);
 }
 
 .lg-hero-actions {
@@ -532,6 +545,43 @@
   border-top: 1px solid var(--ink);
 }
 
+.lg-cert-object {
+  position: relative;
+  overflow: hidden;
+  background: #f7f3e8;
+  box-shadow:
+    0 22px 48px rgba(18, 20, 16, 0.1),
+    0 0 0 1px rgba(18, 20, 16, 0.14);
+  padding-left: 1.15rem;
+}
+
+.lg-cert-object::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1.15rem;
+  pointer-events: none;
+  background: radial-gradient(circle at 0.35rem 0.7rem, #e4dfd2 0.28rem, transparent 0.3rem);
+  background-size: 1.15rem 1.4rem;
+  content: "";
+}
+
+.lg-stamp {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.35rem;
+  z-index: 2;
+  padding: 0.18em 0.42em 0.12em;
+  border: 2px solid var(--seal);
+  color: var(--seal);
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-style: italic;
+  line-height: 1;
+  transform: rotate(-9deg);
+}
+
 .lg-cert-print .lg-cert-inner {
   padding: 1.1rem 0 0;
 }
@@ -595,11 +645,11 @@
   grid-template-columns: max-content minmax(1.5rem, 1fr) auto;
   align-items: end;
   gap: 0.4rem;
-  min-height: 1.7rem;
-  padding: 0.28rem 0;
+  min-height: 2.05rem;
+  padding: 0.4rem 0;
   border-bottom: 0;
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.8rem;
 }
 
 .lg-leaders {
