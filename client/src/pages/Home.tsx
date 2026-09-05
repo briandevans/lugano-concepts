@@ -56,6 +56,7 @@ function LiveReceipt({ clock }: { clock: string }) {
             ))}
           </ol>
           <p className="lg-ticket-ok">VERIFIED</p>
+          <p className="lg-ticket-end">END OF RECORD · DO NOT RETAIN</p>
         </div>
         <img
           className="lg-ticket-tear"

@@ -460,10 +460,10 @@
 .lg-ticket {
   position: relative;
   width: min(40rem, 56vw);
-  min-height: 70rem;
+  min-height: 46rem;
   margin-right: -14%;
-  margin-bottom: -14rem;
-  padding: 1.7rem 1.8rem 6rem 2.45rem;
+  margin-bottom: -3.5rem;
+  padding: 1.7rem 1.8rem 4.25rem 2.45rem;
   overflow: hidden;
   color: #2a261c;
   background-color: var(--thermal);
@@ -546,6 +546,16 @@
   font-size: 1.55rem;
   font-weight: 500;
   letter-spacing: 0.18em;
+}
+
+.lg-ticket-end {
+  margin: 0.85rem 0 0;
+  padding-top: 0.7rem;
+  border-top: 1px dashed rgba(42, 38, 28, 0.28);
+  color: #2a261c;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
 }
 
 .lg-ticket-rows {
