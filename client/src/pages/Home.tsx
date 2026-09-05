@@ -287,6 +287,7 @@ export default function Home() {
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
               <span className="lg-wordmark">Lugano</span>
+              <i className="lg-nm-dot" aria-hidden="true" />
             </a>
             <nav className="lg-nav-links" aria-label="Primary">
               {NAV.map((item) => (
@@ -324,7 +325,7 @@ export default function Home() {
               <span>that run sealed</span>
               <span>and leave a receipt.</span>
             </p>
-            <p className="lg-nm-sub">TDX quotes. Frontier weights. Prompt discarded.</p>
+            <p className="lg-nm-sub">Every run returns a TDX quote and discards the prompt.</p>
             <a className="lg-nm-cta" href="mailto:contact@lugano.ai">
               Request access
             </a>
@@ -374,36 +375,6 @@ export default function Home() {
                 <img src="/generated/verifier_qr.png" alt="Verification QR for LUG-7F283" />
                 <a href="#architecture">lugano.ai/v/LUG-7F283</a>
               </div>
-              <hr className="lg-nm-perf" />
-              <p className="lg-nm-next">LUG-7F284 · queued</p>
-              <p className="lg-nm-next">LUG-7F285 · queued</p>
-              <p className="lg-nm-kind">Attestation</p>
-              <p className="lg-nm-ticket">LUG-7F286</p>
-              <p className="lg-nm-when">waiting on enclave</p>
-              <dl>
-                <div>
-                  <dt>Service</dt>
-                  <i />
-                  <dd>sealed inference</dd>
-                </div>
-                <div>
-                  <dt>Prompt</dt>
-                  <i />
-                  <dd>not retained</dd>
-                </div>
-                <div>
-                  <dt>Model</dt>
-                  <i />
-                  <dd>—</dd>
-                </div>
-                <div>
-                  <dt>Enclave</dt>
-                  <i />
-                  <dd>TDX</dd>
-                </div>
-              </dl>
-              <p className="lg-nm-next">LUG-7F287 · queued</p>
-              <p className="lg-nm-next">LUG-7F288 · queued</p>
             </div>
           </article>
         </section>

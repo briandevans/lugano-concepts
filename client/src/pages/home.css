@@ -1921,7 +1921,20 @@
 }
 
 .lg-nm .lg-nav-inner {
-  width: min(100% - (var(--gutter) * 2), 88rem);
+  width: min(100% - (var(--gutter) * 2), 68rem);
+}
+
+.lg-nm .lg-brand {
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.lg-nm-dot {
+  display: block;
+  width: 0.42rem;
+  height: 0.42rem;
+  background: var(--nm);
+  border-radius: 50%;
 }
 
 .lg-nm .lg-wordmark {
@@ -1978,7 +1991,7 @@
   margin: 0;
   color: #ece7dc;
   font-family: var(--sans);
-  font-size: clamp(2.6rem, 4.2vw, 4rem);
+  font-size: clamp(3rem, 4.8vw, 4.55rem);
   font-weight: 600;
   line-height: 0.95;
   letter-spacing: -0.048em;
@@ -2005,8 +2018,8 @@
   min-height: 3.2rem;
   margin-top: 2.4rem;
   padding: 0 1.25rem;
-  background: #ece7dc;
-  color: #12141a !important;
+  background: var(--nm);
+  color: #ece7dc !important;
   font-family: var(--receipt);
   font-size: 1.02rem;
   font-weight: 700;
@@ -2015,9 +2028,8 @@
 }
 
 .lg-nm-cta:hover {
-  background: var(--nm);
-  border-color: var(--nm);
-  color: #ece7dc !important;
+  background: #ece7dc;
+  color: #12141a !important;
 }
 
 .lg-nm-slip {
@@ -2032,7 +2044,7 @@
 }
 
 .lg-nm-body {
-  padding: 1.05rem 1.25rem 3.5rem;
+  padding: 1.05rem 1.25rem 1.2rem;
 }
 
 .lg-nm-kind,
@@ -2128,15 +2140,37 @@
   font-size: 0.94rem;
 }
 
-.lg-nm-amt,
-.lg-nm-amt span {
+.lg-nm-amt {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.05em;
+  gap: 0.04em;
   color: var(--nm);
   font-size: clamp(6.2rem, 14vh, 8.8rem);
   font-weight: 700;
   line-height: 0.8;
+}
+
+.lg-nm-amt span {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.lg-nm-amt .lg-oh {
+  position: relative;
+  display: inline-block;
+}
+
+.lg-nm-amt .lg-oh::after {
+  content: "";
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  top: 47%;
+  height: 0.13em;
+  background: currentColor;
+  transform: rotate(-30deg);
 }
 
 .lg-nm-reg {
