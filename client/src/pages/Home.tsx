@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import PlateField from "../components/PlateField";
+import AlloyField from "../components/AlloyField";
 import "./home.css";
 
 const MEASURES = [
@@ -250,12 +250,9 @@ function Folio({ n, label }: { n: string; label: string }) {
   );
 }
 
-function BenchTick({ className }: { className?: string }) {
-  return (
-    <svg className={className ?? "lg-sp-tick"} viewBox="0 0 20 20" aria-hidden="true">
-      <path d="M10 1.5v17M4 6.2h12M5.8 13.8h8.4" fill="none" stroke="currentColor" strokeWidth="1.35" />
-    </svg>
-  );
+function hashLines(value: string) {
+  const groups = hashGroups(value);
+  return [0, 4, 8].map((start) => groups.slice(start, start + 4).join(" "));
 }
 
 export default function Home() {
@@ -286,13 +283,12 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="lg-sheet lg-sp">
-        <img className="lg-field-fallback" src="/generated/brass_cadastre_plate.png" alt="" />
-        <PlateField />
+      <div className="lg-sheet lg-ld">
+        <img className="lg-field-fallback" src="/generated/alloy_mill_plate.png" alt="" />
+        <AlloyField />
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-              <BenchTick />
               <span className="lg-wordmark">Lugano</span>
             </a>
             <nav className="lg-nav-links" aria-label="Primary">
@@ -301,9 +297,6 @@ export default function Home() {
                   {item.label}
                 </a>
               ))}
-              <a className="lg-sp-nav-cta" href="mailto:contact@lugano.ai">
-                Request access
-              </a>
             </nav>
             <button
               className="lg-menu-btn"
@@ -327,41 +320,67 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="top" className="lg-sp-stage">
-          <article className="lg-sp-sheet" aria-label="Attestation receipt">
-            <i className="lg-sp-crop lg-sp-crop-tl" />
-            <i className="lg-sp-crop lg-sp-crop-tr" />
-            <i className="lg-sp-crop lg-sp-crop-bl" />
-            <i className="lg-sp-crop lg-sp-crop-br" />
-            <p className="lg-sp-lede">
+        <section id="top" className="lg-ld-well">
+          <div className="lg-ld-copy">
+            <p className="lg-ld-lede">
               Frontier models
               <span>that run sealed</span>
               <span>and leave a receipt.</span>
             </p>
-            <p className="lg-sp-sub">For work that cannot leave the enclave.</p>
-            <p className="lg-sp-keep">Prompt not retained.</p>
-            <p className="lg-sp-run">
-              LUG-7F283 · {issued} · GLM-5.2 · TDX
-            </p>
-            <div className="lg-sp-punch">
-              <span>Total retained</span>
-              <b className="lg-sp-amt">
-                <span className="lg-oh">0</span>
-                <span>B</span>
-              </b>
-            </div>
-            <div className="lg-sp-reg">
-              <p>MRTD · SHA-384</p>
-              <div className="lg-sp-hash">
-                {hashGroups(MEASURES[0].value).map((group, index) => (
-                  <b key={`mrtd-0-${index}`}>{group}</b>
-                ))}
-              </div>
-            </div>
-            <p className="lg-sp-url">lugano.ai/v/LUG-7F283</p>
-            <a className="lg-sp-verify" href="#architecture">
-              Verify this receipt
+            <p className="lg-ld-sub">For work that cannot leave the enclave.</p>
+            <p className="lg-ld-keep">Prompt not retained.</p>
+            <a className="lg-ld-cta" href="mailto:contact@lugano.ai">
+              Request access
             </a>
+          </div>
+          <article className="lg-ld-slip" aria-label="Attestation receipt">
+            <div className="lg-ld-teeth" aria-hidden="true" />
+            <div className="lg-ld-body">
+              <p className="lg-ld-kind">Attestation</p>
+              <p className="lg-ld-ticket">LUG-7F283</p>
+              <p className="lg-ld-when">{issued}</p>
+              <dl>
+                <div>
+                  <dt>Service</dt>
+                  <i />
+                  <dd>sealed inference</dd>
+                </div>
+                <div>
+                  <dt>Prompt</dt>
+                  <i />
+                  <dd>not retained</dd>
+                </div>
+                <div>
+                  <dt>Model</dt>
+                  <i />
+                  <dd>GLM-5.2</dd>
+                </div>
+                <div>
+                  <dt>Enclave</dt>
+                  <i />
+                  <dd>TDX</dd>
+                </div>
+              </dl>
+              <hr className="lg-ld-rule" />
+              <div className="lg-ld-total">
+                <span>Total retained</span>
+                <b className="lg-ld-amt">
+                  <span className="lg-oh">0</span>
+                  <span>B</span>
+                </b>
+              </div>
+              <p className="lg-ld-reg">MRTD · SHA-384</p>
+              <pre className="lg-ld-hash">
+                {hashLines(MEASURES[0].value).map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </pre>
+              <div className="lg-ld-foot">
+                <img src="/generated/verifier_qr.png" alt="Verification QR for LUG-7F283" />
+                <a href="#architecture">lugano.ai/v/LUG-7F283</a>
+              </div>
+              <p className="lg-ld-next">LUG-7F284 · queued</p>
+            </div>
           </article>
         </section>
       </div>
