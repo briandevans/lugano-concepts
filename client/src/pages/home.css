@@ -916,13 +916,13 @@
   pointer-events: none;
 }
 
-/* ── Ed fold: typographic lockup, no object theater ───── */
+/* ── Ed fold: caption over a folio of paper ───────────── */
 .lg-sheet.lg-ed {
   --receipt: "Courier Prime", "Courier New", Courier, monospace;
   position: relative;
-  height: 100vh;
-  max-height: 100vh;
-  overflow: hidden;
+  height: auto;
+  max-height: none;
+  overflow: visible;
   color: #f4eee3;
   background: #12110f;
 }
@@ -984,35 +984,29 @@
 .lg-ed-well {
   position: relative;
   z-index: 4;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 1px min(26.5rem, 34vw);
-  column-gap: 0;
-  align-items: start;
   width: min(100% - (var(--gutter) * 2), 1220px);
-  min-height: calc(100vh - 72px);
   margin: 0 auto;
-  padding: 2.35rem 0 2.5rem;
-  border-bottom: 1px solid #3a3732;
+  padding: 2rem 0 2.75rem;
 }
 
-.lg-ed-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.45rem;
-  min-width: 0;
-  padding-right: 3.1rem;
+.lg-ed-mast {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 2rem 3rem;
+  margin-bottom: 1.65rem;
 }
 
 .lg-ed-lede {
-  width: 100%;
+  width: max-content;
+  max-width: 100%;
   margin: 0;
   color: #f7f1e6;
   font-family: var(--sans);
-  font-size: clamp(3.1rem, 4.4vw, 4.4rem);
+  font-size: clamp(2.7rem, 4.1vw, 3.85rem);
   font-weight: 600;
-  line-height: 0.96;
-  letter-spacing: -0.032em;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
 }
 
 .lg-ed-lede span {
@@ -1020,12 +1014,20 @@
   white-space: nowrap;
 }
 
+.lg-ed-tools {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-bottom: 0.2rem;
+}
+
 .lg-ed-sub {
-  max-width: 42ch;
+  max-width: 22ch;
   margin: 0;
   color: #ddd4c4;
   font-family: var(--sans);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   line-height: 1.35;
   letter-spacing: -0.018em;
 }
@@ -1033,11 +1035,11 @@
 .lg-ed-cta {
   display: inline-flex;
   align-items: center;
-  min-height: 3.05rem;
-  padding: 0 1.35rem;
-  border: 1px solid #f4eee3;
-  background: transparent;
-  color: #f4eee3 !important;
+  min-height: 3.1rem;
+  padding: 0 1.4rem;
+  border: 0;
+  background: #f3f0e7;
+  color: #12110f !important;
   font-family: var(--sans);
   font-size: 1.05rem;
   font-weight: 500;
@@ -1046,185 +1048,168 @@
 }
 
 .lg-ed-cta:hover {
-  background: #f4eee3;
+  background: #fff;
   color: #12110f !important;
 }
 
-.lg-ed-spine {
-  align-self: stretch;
-  min-height: calc(100vh - 72px - 4.85rem);
-  background: #3a3732;
+.lg-ed-paper {
+  color: #2a2722;
+  background-color: #f3f0e7;
+  background-image: url("/generated/thermal_paper_fiber.png");
+  background-size: 280px;
+  padding: 1.7rem 2rem 1.85rem;
 }
 
-.lg-ed-slip {
-  padding: 0 0 0 3.1rem;
-  color: #f4eee3;
-  background: transparent;
-}
-
-.lg-ed-shop {
+.lg-ed-meta {
   display: flex;
-  align-items: center;
-  margin: 0;
-  color: #f4eee3;
-  font-family: var(--sans);
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1;
-}
-
-.lg-ed-slip .lg-zero-mark {
-  width: 0.62em;
-  height: 0.86em;
-  color: #f4eee3;
-}
-
-.lg-ed-kind,
-.lg-ed-ticket,
-.lg-ed-when {
-  margin: 0;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem 1.4rem;
   font-family: var(--receipt);
+  font-size: 0.98rem;
 }
 
-.lg-ed-kind {
-  margin-top: 0.28rem;
-  color: #b7ae9e;
-  font-size: 0.95rem;
+.lg-ed-meta span:first-child {
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
-.lg-ed-ticket {
-  margin-top: 1rem;
-  color: #f4eee3;
-  font-size: 1.12rem;
-  font-weight: 700;
+.lg-ed-body {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.9fr) minmax(0, 1.2fr);
+  gap: 1.6rem 3rem;
+  margin-top: 1.25rem;
 }
 
-.lg-ed-when {
-  margin-top: 0.15rem;
-  color: #b7ae9e;
-  font-size: 0.95rem;
-}
-
-.lg-ed-rule {
-  width: 100%;
-  height: 0;
-  margin: 0.85rem 0 0.4rem;
-  border: 0;
-  border-top: 1px solid #5a554c;
-}
-
-.lg-ed-slip dl {
+.lg-ed-paper dl {
   margin: 0;
 }
 
-.lg-ed-slip dl div {
+.lg-ed-paper dl div {
   display: grid;
-  grid-template-columns: 6.4rem minmax(0.7rem, 1fr) auto;
+  grid-template-columns: 6.2rem minmax(0.7rem, 1fr) auto;
   gap: 0.45rem;
   align-items: baseline;
-  padding: 0.22rem 0;
+  padding: 0.28rem 0;
   font-family: var(--receipt);
 }
 
-.lg-ed-slip dt {
-  color: #b7ae9e;
+.lg-ed-paper dt {
+  color: #5a554c;
   font-size: 0.95rem;
 }
 
-.lg-ed-slip dd {
+.lg-ed-paper dd {
   margin: 0;
-  color: #f4eee3;
-  font-size: 1rem;
+  color: #2a2722;
+  font-size: 1.02rem;
 }
 
-.lg-ed-slip dl div > i {
+.lg-ed-paper dl div > i {
   display: block;
   height: 0.5em;
-  background-image: radial-gradient(#8a8478 0.7px, transparent 0.8px);
+  background-image: radial-gradient(#2a2722 0.7px, transparent 0.8px);
   background-size: 4px 0.5em;
   background-repeat: repeat-x;
   background-position: 0 0.34em;
 }
 
 .lg-ed-reg {
-  grid-template-columns: 1fr !important;
-  gap: 0.22rem !important;
-  padding: 0.55rem 0 0.3rem !important;
+  margin: 0;
+}
+
+.lg-ed-reg p {
+  margin: 0 0 0.45rem;
+  color: #5a554c;
+  font-family: var(--receipt);
+  font-size: 0.95rem;
 }
 
 .lg-ed-hash {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.16rem 0.65rem;
+  grid-template-columns: repeat(4, max-content);
+  gap: 0.2rem 1.15rem;
 }
 
 .lg-ed-hash b {
-  color: #c8bfb0;
-  font-size: 0.82rem;
+  color: #322e28;
+  font-family: var(--receipt);
+  font-size: 0.95rem;
   font-weight: 400;
 }
 
+.lg-ed-end {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1.35rem;
+  padding-top: 1rem;
+  border-top: 2px solid #2a2722;
+}
+
 .lg-ed-total {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.55rem;
-  padding: 0.6rem 0 0.15rem;
-  border-top: 1px solid #5a554c;
+  gap: 1.25rem;
   font-family: var(--receipt);
 }
 
 .lg-ed-total span {
-  color: #f4eee3;
-  font-size: 1rem;
+  color: #2a2722;
+  font-size: 1.15rem;
   font-weight: 700;
-}
-
-.lg-ed-total i {
-  display: block;
-  height: 0.5em;
-  background-image: radial-gradient(#8a8478 0.7px, transparent 0.8px);
-  background-size: 4px 0.5em;
-  background-repeat: repeat-x;
-  background-position: 0 0.34em;
 }
 
 .lg-ed-amt {
   display: inline-flex;
   align-items: center;
-  gap: 0.14em;
-  color: #c24a3a;
+  gap: 0.12em;
+  color: #9a2b24;
   line-height: 1;
 }
 
 .lg-ed-zero {
-  width: 1.2rem;
-  height: 1.65rem;
-  color: #c24a3a;
+  width: 2.15rem;
+  height: 2.9rem;
+  color: #9a2b24;
 }
 
-.lg-ed-total small {
-  color: #c24a3a;
+.lg-ed-amt em {
+  color: #9a2b24;
   font-family: var(--receipt);
-  font-size: 1.25rem;
+  font-size: 2.05rem;
+  font-style: normal;
   font-weight: 700;
   line-height: 1;
 }
 
-.lg-ed-url {
-  display: inline-block;
-  margin-top: 1.1rem;
-  color: #ddd4c4 !important;
+.lg-ed-proof {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+
+.lg-ed-proof img {
+  width: 4.4rem;
+  height: 4.4rem;
+  background: #f3f0e7;
+}
+
+.lg-ed-proof a {
+  color: #5a554c !important;
   font-family: var(--sans);
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   letter-spacing: 0.01em;
   text-decoration: none;
 }
 
-.lg-ed-url:hover {
-  color: #fff !important;
+.lg-ed-proof a:hover {
+  color: #2a2722 !important;
 }
 
 /* ── Void fold: brand on the ground, receipt as evidence ─ */
@@ -4095,28 +4080,31 @@
   }
 
   .lg-ed-well {
+    padding: 1.4rem 0 2rem;
+  }
+
+  .lg-ed-mast {
     grid-template-columns: 1fr;
-    min-height: 0;
-    padding: 1.6rem 0 2rem;
+    gap: 1.2rem;
   }
 
-  .lg-ed-copy {
-    padding-right: 0;
-    padding-bottom: 1.8rem;
+  .lg-ed-lede {
+    width: 100%;
   }
 
-  .lg-ed-lede span {
-    white-space: normal;
+  .lg-ed-body,
+  .lg-ed-end {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .lg-ed-spine {
-    display: none;
+  .lg-ed-proof {
+    align-items: flex-start;
   }
 
-  .lg-ed-slip {
-    padding-left: 0;
-    padding-top: 1.6rem;
-    border-top: 1px solid #3a3732;
+  .lg-ed-hash {
+    grid-template-columns: repeat(3, max-content);
   }
 
   .lg-sheet.lg-oz {

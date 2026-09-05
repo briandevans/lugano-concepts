@@ -292,9 +292,6 @@ export default function Home() {
                   {item.label}
                 </a>
               ))}
-              <a className="lg-ed-nav-cta" href="mailto:contact@lugano.ai">
-                Request access
-              </a>
             </nav>
             <button
               className="lg-menu-btn"
@@ -319,63 +316,65 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-ed-well">
-          <div className="lg-ed-copy">
+          <div className="lg-ed-mast">
             <p className="lg-ed-lede">
               Frontier models
               <span>that run sealed</span>
               <span>and leave a receipt.</span>
             </p>
-            <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
-            <a className="lg-ed-cta" href="mailto:contact@lugano.ai">
-              Request access
-            </a>
+            <div className="lg-ed-tools">
+              <p className="lg-ed-sub">For work that cannot leave the enclave.</p>
+              <a className="lg-ed-cta" href="mailto:contact@lugano.ai">
+                Request access
+              </a>
+            </div>
           </div>
-          <div className="lg-ed-spine" aria-hidden="true" />
-          <article className="lg-ed-slip" aria-label="Attestation record">
-            <p className="lg-ed-shop">
-              Lugan
-              <ZeroMark heavy />
-            </p>
-            <p className="lg-ed-kind">Attestation</p>
-            <p className="lg-ed-ticket">LUG-7F283</p>
-            <p className="lg-ed-when">{issued}</p>
-            <hr className="lg-ed-rule" />
-            <dl>
-              <div>
-                <dt>Model</dt>
-                <i />
-                <dd>GLM-5.2</dd>
-              </div>
-              <div>
-                <dt>Enclave</dt>
-                <i />
-                <dd>TDX</dd>
-              </div>
-              <div>
-                <dt>Prompt</dt>
-                <i />
-                <dd>—</dd>
-              </div>
+          <article className="lg-ed-paper" aria-label="Attestation record">
+            <header className="lg-ed-meta">
+              <span>Attestation</span>
+              <span>LUG-7F283</span>
+              <span>{issued}</span>
+            </header>
+            <div className="lg-ed-body">
+              <dl>
+                <div>
+                  <dt>Model</dt>
+                  <i />
+                  <dd>GLM-5.2</dd>
+                </div>
+                <div>
+                  <dt>Enclave</dt>
+                  <i />
+                  <dd>TDX</dd>
+                </div>
+                <div>
+                  <dt>Prompt</dt>
+                  <i />
+                  <dd>not retained</dd>
+                </div>
+              </dl>
               <div className="lg-ed-reg">
-                <dt>MRTD · SHA-384</dt>
-                <dd className="lg-ed-hash">
+                <p>MRTD · SHA-384</p>
+                <div className="lg-ed-hash">
                   {hashGroups(MEASURES[0].value).map((group, index) => (
                     <b key={`mrtd-${index}`}>{group}</b>
                   ))}
-                </dd>
+                </div>
               </div>
-            </dl>
-            <div className="lg-ed-total">
-              <span>Total retained</span>
-              <i />
-              <b className="lg-ed-amt">
-                <ZeroMark heavy className="lg-ed-zero" />
-                <small>B</small>
-              </b>
             </div>
-            <a className="lg-ed-url" href="#architecture">
-              lugano.ai/v/LUG-7F283
-            </a>
+            <footer className="lg-ed-end">
+              <div className="lg-ed-total">
+                <span>Total retained</span>
+                <b className="lg-ed-amt">
+                  <ZeroMark heavy className="lg-ed-zero" />
+                  <em>B</em>
+                </b>
+              </div>
+              <div className="lg-ed-proof">
+                <img src="/generated/verifier_qr.png" alt="" />
+                <a href="#architecture">lugano.ai/v/LUG-7F283</a>
+              </div>
+            </footer>
           </article>
         </section>
       </div>
