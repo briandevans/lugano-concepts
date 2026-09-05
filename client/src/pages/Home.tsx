@@ -278,9 +278,6 @@ export default function Home() {
                   {item.label}
                 </a>
               ))}
-              <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-                Get access
-              </a>
             </nav>
             <button
               className="lg-menu-btn"
@@ -310,7 +307,7 @@ export default function Home() {
               <ZeroMark className="lg-zero-hero" />
               <b>bytes retained</b>
             </h1>
-            <p>Frontier models. Sealed execution. Proof on every run.</p>
+            <p>Frontier models that run sealed and leave a receipt.</p>
             <a className="lg-void-cta" href="mailto:contact@lugano.ai">
               Get access
             </a>
@@ -389,7 +386,7 @@ export default function Home() {
                   </a>
                 </div>
               </footer>
-              <img className="lg-void-tear" src="/generated/paper_fiber_tear.png" alt="" />
+              <img className="lg-void-tear" src="/generated/cream_thermal_tear.png" alt="" />
             </article>
           </aside>
         </section>
