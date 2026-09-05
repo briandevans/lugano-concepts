@@ -1,23 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import HashField from "@/components/HashField";
 import "./home.css";
-
-function useUtcClock() {
-  const [clock, setClock] = useState(() => formatClock(new Date()));
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setClock(formatClock(new Date()));
-    }, 1000);
-    return () => window.clearInterval(id);
-  }, []);
-
-  return clock;
-}
-
-function formatClock(date: Date) {
-  return `${date.toISOString().slice(0, 10)}  ${date.toISOString().slice(11, 19)} UTC`;
-}
 
 const MEASURES = [
   { key: "MRTD", value: "dd9d8f30b4acae6da08575b2d5f32e3e43fae5c3130ea67cc81233200845192bde0281b75b907892d37359b19586daa9" },
@@ -29,7 +13,6 @@ const MEASURES = [
 
 function HashBlock({ value }: { value: string }) {
   const groups = value.match(/.{8}/g) ?? [];
-  const bytes = value.match(/.{2}/g) ?? [];
   return (
     <dd className="lg-hash">
       <span className="lg-hash-grid">
@@ -37,18 +20,19 @@ function HashBlock({ value }: { value: string }) {
           <b key={group}>{group}</b>
         ))}
       </span>
-      <svg
-        className="lg-hash-strip"
-        viewBox={`0 0 ${bytes.length} 8`}
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        {bytes.map((byte, index) => {
-          const height = (Number.parseInt(byte, 16) / 255) * 8;
-          return <rect key={`${byte}-${index}`} x={index} y={8 - height} width="0.82" height={height} />;
-        })}
-      </svg>
     </dd>
+  );
+}
+
+function ZeroMark({ className }: { className?: string }) {
+  return (
+    <img
+      className={className ?? "lg-zero-mark"}
+      src="/zero-mark.svg"
+      alt="0"
+      width="22"
+      height="32"
+    />
   );
 }
 
@@ -256,7 +240,6 @@ function Folio({ n, label }: { n: string; label: string }) {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [pillar, setPillar] = useState(0);
-  const clock = useUtcClock();
 
   useEffect(() => {
     const path = window.location.pathname.replace(/\/$/, "");
@@ -282,11 +265,16 @@ export default function Home() {
       </a>
 
       <div className="lg-sheet lg-assay">
+        <div className="lg-zero-field" aria-hidden="true">
+          <img className="lg-field-fallback" src="/generated/hash_fringe.png" alt="" />
+          <HashField seed={MEASURES[0].value} />
+        </div>
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
               <span className="lg-wordmark">
-                Lugan<span className="lg-zero-mark">0</span>
+                Lugan
+                <ZeroMark />
               </span>
             </a>
             <nav className="lg-nav-links" aria-label="Primary">
@@ -295,6 +283,9 @@ export default function Home() {
                   {item.label}
                 </a>
               ))}
+              <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
+                Request briefing
+              </a>
             </nav>
             <button
               className="lg-menu-btn"
@@ -319,45 +310,44 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-assay-hero">
-          <p className="lg-assay-zero">
-            <b>0</b>
-            <span>Bytes retained</span>
-          </p>
-          <article className="lg-assay-record" aria-label="Attestation receipt">
-            <header className="lg-assay-meta">
-              <span>Attestation receipt</span>
-              <span>№ LUG-7F283</span>
-              <span>{clock}</span>
-            </header>
+          <div className="lg-assay-copy">
+            <p className="lg-assay-kicker">Bytes retained</p>
+            <h1>Held to zero.</h1>
             <p className="lg-assay-sub">Every response returns a cryptographic receipt.</p>
-            <dl className="lg-assay-dl">
-              <div>
-                <dt>Prompt</dt>
-                <dd className="lg-state">sealed</dd>
-              </div>
-              <div>
-                <dt>Model</dt>
-                <dd className="lg-state">private</dd>
-              </div>
-              <div>
-                <dt>
-                  MRTD
-                  <i>TD measurement</i>
-                </dt>
-                <HashBlock value={MEASURES[0].value} />
-              </div>
-              <div>
-                <dt>
-                  RTMR0
-                  <i>runtime register</i>
-                </dt>
-                <HashBlock value={MEASURES[1].value} />
-              </div>
-            </dl>
-            <a className="lg-assay-verify" href="#architecture">
-              Verify this receipt
-            </a>
-          </article>
+            <article className="lg-assay-record" aria-label="Example attestation">
+              <header className="lg-assay-meta">
+                <span>Example attestation</span>
+                <span>LUG-7F283</span>
+              </header>
+              <dl className="lg-assay-dl">
+                <div>
+                  <dt>Prompt</dt>
+                  <dd className="lg-state">sealed</dd>
+                </div>
+                <div>
+                  <dt>Model</dt>
+                  <dd className="lg-state">private</dd>
+                </div>
+                <div>
+                  <dt>
+                    MRTD
+                    <i>TD measurement</i>
+                  </dt>
+                  <HashBlock value={MEASURES[0].value} />
+                </div>
+                <div>
+                  <dt>
+                    RTMR0
+                    <i>runtime register</i>
+                  </dt>
+                  <HashBlock value={MEASURES[1].value} />
+                </div>
+              </dl>
+              <a className="lg-assay-verify" href="#architecture">
+                Verify this example
+              </a>
+            </article>
+          </div>
         </section>
       </div>
 
@@ -679,7 +669,8 @@ export default function Home() {
         <div className="lg-shell lg-footer-row">
           <a className="lg-brand" href="#top">
             <span className="lg-wordmark">
-              Lugan<span className="lg-zero-mark">0</span>
+              Lugan
+              <ZeroMark />
             </span>
           </a>
           <nav aria-label="Footer">
