@@ -24,29 +24,35 @@ float hash(vec2 p) {
 
 void main() {
   vec2 uv = v_uv;
-  float t = u_time * 0.035;
-  vec2 par = (u_mouse - 0.5) * vec2(0.028, 0.016);
+  float t = u_time * 0.045;
+  vec2 par = (u_mouse - 0.5) * vec2(0.034, 0.02);
 
-  float ripple = sin((uv.y + par.y) * 16.0 + t * 1.4) * 0.0018
-               + cos((uv.x * 1.4 + par.x) * 9.0 - t * 1.1) * 0.0012;
-  vec2 warp = vec2(ripple, ripple * 0.62) + par;
+  // Slight table-depth: the plate recedes toward the top.
+  vec2 p = uv - vec2(0.5, 0.42);
+  p.y *= 1.0 + (uv.y - 0.5) * 0.06;
+  vec2 plate = p + vec2(0.5, 0.42);
 
-  vec2 nightUv = uv * vec2(1.06, 1.1) + vec2(-0.03, -0.04) + warp;
-  vec3 night = texture2D(u_night, clamp(nightUv, 0.0, 1.0)).rgb;
-  vec3 water = texture2D(u_water, clamp(uv * 1.15 + warp * 3.1 + vec2(t * 0.012, t * 0.004), 0.0, 1.0)).rgb;
+  float ripple = sin((plate.y + par.y) * 22.0 + t * 1.7) * 0.0031
+               + cos((plate.x * 1.55 + par.x) * 11.0 - t * 1.25) * 0.002;
+  vec2 warp = vec2(ripple, ripple * 0.7) + par;
 
-  vec3 col = mix(night, water, 0.18);
-  col *= vec3(0.86, 0.9, 0.97);
-  col = mix(col, vec3(0.027, 0.031, 0.04), 0.12);
+  vec3 night = texture2D(u_night, clamp(plate * vec2(1.04, 1.08) + vec2(-0.02, -0.03) + warp, 0.0, 1.0)).rgb;
+  vec3 water = texture2D(u_water, clamp(plate * 1.12 + warp * 2.8 + vec2(t * 0.01, t * -0.006), 0.0, 1.0)).rgb;
 
-  float spec = smoothstep(0.55, 0.9, water.r * 0.55 + water.g * 0.35 + water.b * 0.1);
-  col += vec3(0.72, 0.48, 0.18) * spec * 0.07;
+  vec3 col = mix(night, water, 0.22);
+  col *= vec3(0.9, 0.88, 0.82);
 
-  float vig = smoothstep(1.28, 0.18, length((uv - vec2(0.46, 0.4)) * vec2(1.08, 0.92)));
-  col *= mix(0.72, 1.0, vig);
+  float spec = smoothstep(0.42, 0.88, water.r * 0.62 + water.g * 0.3);
+  col += vec3(0.78, 0.52, 0.22) * spec * 0.16;
 
-  float g = hash(uv * u_res * 0.48 + t * 0.2);
-  col += (g - 0.5) * 0.028;
+  float ridge = 1.0 - abs(plate.x - 0.5 - par.x * 0.4);
+  col += vec3(0.86, 0.58, 0.24) * pow(ridge, 18.0) * 0.12;
+
+  float vig = smoothstep(1.22, 0.22, length((uv - vec2(0.5, 0.46)) * vec2(1.05, 0.9)));
+  col *= mix(0.7, 1.0, vig);
+
+  float g = hash(uv * u_res * 0.5 + t * 0.15);
+  col += (g - 0.5) * 0.03;
 
   gl_FragColor = vec4(col, 1.0);
 }
@@ -84,7 +90,13 @@ function loadTexture(gl: WebGLRenderingContext, src: string) {
   return texture;
 }
 
-export default function NightField() {
+export default function NightField({
+  night = "/generated/mhd_lake_plate.png",
+  water = "/generated/mhd_filament.png",
+}: {
+  night?: string;
+  water?: string;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -112,20 +124,21 @@ export default function NightField() {
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 
-    const night = loadTexture(gl, "/generated/lungolago_lamps.png");
-    const water = loadTexture(gl, "/generated/water_lattice.png");
+    const nightTex = loadTexture(gl, night);
+    const waterTex = loadTexture(gl, water);
     const uTime = gl.getUniformLocation(program, "u_time");
     const uRes = gl.getUniformLocation(program, "u_res");
     const uMouse = gl.getUniformLocation(program, "u_mouse");
     const uNight = gl.getUniformLocation(program, "u_night");
     const uWater = gl.getUniformLocation(program, "u_water");
 
-    const mouse = { x: 0.52, y: 0.46 };
+    const mouse = { x: 0.5, y: 0.48 };
     const onMove = (event: PointerEvent) => {
-      mouse.x = event.clientX / window.innerWidth;
-      mouse.y = 1 - event.clientY / window.innerHeight;
+      const box = canvas.getBoundingClientRect();
+      mouse.x = (event.clientX - box.left) / box.width;
+      mouse.y = 1 - (event.clientY - box.top) / box.height;
     };
-    window.addEventListener("pointermove", onMove, { passive: true });
+    canvas.parentElement?.addEventListener("pointermove", onMove, { passive: true });
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -147,10 +160,10 @@ export default function NightField() {
       gl.uniform2f(uRes, canvas.width, canvas.height);
       gl.uniform2f(uMouse, mouse.x, mouse.y);
       gl.activeTexture(gl.TEXTURE0);
-      gl.bindTexture(gl.TEXTURE_2D, night);
+      gl.bindTexture(gl.TEXTURE_2D, nightTex);
       gl.uniform1i(uNight, 0);
       gl.activeTexture(gl.TEXTURE1);
-      gl.bindTexture(gl.TEXTURE_2D, water);
+      gl.bindTexture(gl.TEXTURE_2D, waterTex);
       gl.uniform1i(uWater, 1);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       if (!reduceMotion) frame = requestAnimationFrame(draw);
@@ -160,12 +173,12 @@ export default function NightField() {
     return () => {
       cancelAnimationFrame(frame);
       ro.disconnect();
-      window.removeEventListener("pointermove", onMove);
+      canvas.parentElement?.removeEventListener("pointermove", onMove);
       gl.deleteProgram(program);
       gl.deleteShader(vs);
       gl.deleteShader(fs);
     };
-  }, []);
+  }, [night, water]);
 
   return <canvas ref={canvasRef} className="lg-field" aria-hidden="true" />;
 }

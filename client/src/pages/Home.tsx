@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import NightField from "@/components/NightField";
+import ThermalHeat from "@/components/ThermalHeat";
 import "./home.css";
 
 function useUtcClock() {
@@ -39,40 +41,6 @@ function HashBlock({ value }: { value: string }) {
         <span key={line}>{line}</span>
       ))}
     </dd>
-  );
-}
-
-function LiveReceipt({ clock }: { clock: string }) {
-  return (
-    <aside className="lg-print" aria-label="Attestation receipt">
-      <p className="lg-print-kicker">
-        <span>LUG-7F283</span>
-        <span>ATTESTED</span>
-      </p>
-      <p className="lg-print-title">Guest measurement record</p>
-      <p className="lg-print-meta">Lugano.ai · Intel TDX · {clock}</p>
-      <p className="lg-slip-zero">0</p>
-      <p className="lg-slip-status">Bytes retained</p>
-      <dl className="lg-slip-dl">
-        <div>
-          <dt>PROMPT</dt>
-          <dd>sealed</dd>
-        </div>
-        <div>
-          <dt>MODEL</dt>
-          <dd>private</dd>
-        </div>
-        {MEASURES.slice(0, 4).map((row) => (
-          <div key={row.key}>
-            <dt>{row.key}</dt>
-            <HashBlock value={row.value} />
-          </div>
-        ))}
-      </dl>
-      <a className="lg-slip-foot" href="#architecture">
-        verify lugano.ai/v/LUG-7F283
-      </a>
-    </aside>
   );
 }
 
@@ -306,7 +274,7 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="lg-sheet lg-sheet-paper">
+      <div className="lg-sheet">
         <header className="lg-nav">
           <div className="lg-nav-inner">
             <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
@@ -346,29 +314,56 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="top" className="lg-hero-wrap">
-          <div className="lg-shell lg-split">
-            <div className="lg-copy">
-              <h1>
-                <span>AI privacy</span>
-                <span>by proof</span>
-              </h1>
-              <p className="lg-sub">Every response returns a cryptographic receipt.</p>
-              <div className="lg-hero-actions">
-                <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
-                  Request briefing
-                </a>
+        <section id="top" className="lg-easel">
+          <figure className="lg-plate">
+            <div className="lg-plate-well">
+              <img
+                className="lg-field-fallback"
+                src="/generated/mhd_lake_plate.png"
+                alt="Night water off a granite quay, one copper lamp filament on the surface"
+              />
+              <NightField
+                night="/generated/mhd_lake_plate.png"
+                water="/generated/mhd_filament.png"
+              />
+            </div>
+            <figcaption className="lg-plate-legend">
+              <ThermalHeat />
+              <p className="lg-print-kicker">
+                <span>Guest measurement record</span>
+                <span>Attested · {clock}</span>
+              </p>
+              <div className="lg-plate-head">
+                <h1>
+                  <span>AI privacy</span>
+                  <span>by proof</span>
+                </h1>
+                <p className="lg-slip-zero">
+                  0<span>bytes retained</span>
+                </p>
               </div>
-            </div>
-            <LiveReceipt clock={clock} />
-          </div>
-          <div className="lg-rail">
-            <div className="lg-shell lg-rail-inner">
-              <span>Private beta</span>
-              <span>Attestation root LUG-7F283</span>
-              <span>Lugano, CH</span>
-            </div>
-          </div>
+              <p className="lg-sub">Every response returns a cryptographic receipt.</p>
+              <dl className="lg-slip-dl">
+                <div>
+                  <dt>Prompt</dt>
+                  <dd>sealed</dd>
+                </div>
+                <div>
+                  <dt>Model</dt>
+                  <dd>private</dd>
+                </div>
+                {MEASURES.slice(0, 4).map((row) => (
+                  <div key={row.key}>
+                    <dt>{row.key}</dt>
+                    <HashBlock value={row.value} />
+                  </div>
+                ))}
+              </dl>
+              <a className="lg-slip-foot" href="#architecture">
+                Verify lugano.ai/v/LUG-7F283
+              </a>
+            </figcaption>
+          </figure>
         </section>
       </div>
 
@@ -398,7 +393,7 @@ export default function Home() {
         </section>
 
         <section id="why-now" className="lg-section lg-section-ink lg-gap-section">
-          <img className="lg-bleed" src="/generated/water_lattice.png" alt="" />
+          <img className="lg-bleed" src="/generated/mhd_filament.png" alt="" />
           <div className="lg-shell lg-gap">
             <div>
               <Folio n="03" label="The trust gap" />
@@ -426,7 +421,7 @@ export default function Home() {
                 policy. Private by architecture you can audit yourself.
               </p>
               <figure className="lg-film">
-                <img src="/generated/desk_enlarger.png" alt="A darkroom enlarger over a blank photographic sheet" />
+                <img src="/generated/easel_print.png" alt="A gelatin print of night water on a black viewing table" />
               </figure>
             </div>
           </div>
@@ -665,7 +660,7 @@ export default function Home() {
         </section>
 
         <section id="private-beta" className="lg-section lg-close-section">
-          <img className="lg-close-photo" src="/generated/night_exposure.png" alt="" />
+          <img className="lg-close-photo" src="/generated/mhd_lake_plate.png" alt="" />
           <div className="lg-close-veil" />
           <div className="lg-shell lg-close">
             <Folio n="11" label="Private beta" />
