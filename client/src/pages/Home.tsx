@@ -294,9 +294,6 @@ export default function Home() {
                   {item.label}
                 </a>
               ))}
-              <a className="lg-nm-nav-cta" href="mailto:contact@lugano.ai">
-                Request access
-              </a>
             </nav>
             <button
               className="lg-menu-btn"
@@ -321,14 +318,19 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-nm-well">
+          <div className="lg-nm-copy">
+            <p className="lg-nm-lede">
+              Frontier models
+              <span>that run sealed</span>
+              <span>and leave a receipt.</span>
+            </p>
+            <p className="lg-nm-sub">Every run returns a TDX quote and discards the prompt.</p>
+            <a className="lg-nm-cta" href="mailto:contact@lugano.ai">
+              Request access
+            </a>
+          </div>
           <article className="lg-nm-slip" aria-label="Attestation receipt">
             <div className="lg-nm-body">
-              <p className="lg-nm-lede">
-                Frontier models
-                <span>that run sealed</span>
-                <span>and leave a receipt.</span>
-              </p>
-              <p className="lg-nm-sub">Every run returns a TDX quote and discards the prompt.</p>
               <p className="lg-nm-kind">Attestation</p>
               <p className="lg-nm-ticket">LUG-7F283</p>
               <p className="lg-nm-when">{issued}</p>
