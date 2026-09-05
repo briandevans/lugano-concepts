@@ -277,62 +277,32 @@
   display: none;
 }
 
-/* ── Desk fold: the roll is the page ──────────────────── */
+/* ── Desk fold: cropped thermal object ────────────────── */
 .lg-sheet.lg-desk {
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-  color: #141310;
-  background: #1a1b1d;
-}
-
-.lg-desk-field {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: #1a1b1d url("/generated/steel_plan.png") center / cover no-repeat;
-  filter: grayscale(0.55) contrast(1.06);
-}
-
-.lg-desk-roll {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  width: min(46rem, 78vw);
-  height: 100vh;
-  margin: 0 auto;
-  color: #141310;
-  background-color: #ebe4d2;
-  background-image: url("/generated/thermal_warm_sheet.png");
-  background-size: cover;
-  background-position: center;
-  box-shadow: -1px 0 0 #b8b09e, 1px 0 0 #b8b09e;
+  color: #efeae0;
+  background: #141310;
 }
 
 .lg-desk .lg-nav {
   z-index: 8;
-  color: #141310;
-  height: 64px;
-}
-
-.lg-desk .lg-nav-inner {
-  width: 100%;
-  padding: 0 2.1rem;
+  color: #efeae0;
 }
 
 .lg-desk .lg-wordmark {
-  color: #141310;
+  color: #efeae0;
   font-family: var(--mono);
 }
 
 .lg-desk .lg-zero-mark {
-  color: #141310;
+  color: #efeae0;
 }
 
 .lg-desk .lg-nav-links a,
 .lg-desk .lg-nav-cta {
-  color: #3f3c35 !important;
+  color: #c8c2b4 !important;
   font-family: var(--mono);
   font-size: 0.78rem;
   letter-spacing: 0;
@@ -344,7 +314,7 @@
 
 .lg-desk .lg-nav-links a:hover,
 .lg-desk .lg-nav-cta:hover {
-  color: #141310 !important;
+  color: #efeae0 !important;
 }
 
 .lg-desk-stage {
@@ -352,32 +322,46 @@
   z-index: 4;
   display: flex;
   flex: 1;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-height: 0;
+  padding: 0 1.5rem 3.5rem;
 }
 
 .lg-desk-slip {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  padding: 0.4rem 2.1rem 1.6rem;
+  width: min(52rem, 88vw);
+  padding: 0.2rem 2rem 1.35rem;
   color: #141310;
-  background: transparent;
-  box-shadow: none;
+  background-color: #ebe4d2;
+  background-image: url("/generated/thermal_warm_sheet.png");
+  background-size: cover;
+  background-position: center;
+  transform: rotate(-0.55deg);
+  box-shadow:
+    0 1px 0 #c4bbab,
+    0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.lg-desk-perf {
+  display: block;
+  height: 12px;
+  margin: 0 -2rem 1.15rem;
+  background:
+    radial-gradient(circle at 7px 0, transparent 4px, #ebe4d2 4.2px) 0 0 / 14px 12px repeat-x;
 }
 
 .lg-desk-slip h1 {
   display: flex;
   flex-wrap: nowrap;
   align-items: baseline;
-  gap: 0.14em;
-  margin: 1.1rem 0 0.7rem;
+  gap: 0.12em;
+  margin: 0 0 0.45rem;
   color: #141310;
   font-family: var(--mono);
-  font-size: clamp(2.6rem, 6.2vw, 4.4rem);
-  font-weight: 400;
+  font-size: clamp(2.5rem, 5.6vw, 4.2rem);
+  font-weight: 500;
   line-height: 0.95;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.055em;
   white-space: nowrap;
   font-feature-settings: "zero" 1;
 }
@@ -391,55 +375,100 @@
 }
 
 .lg-desk-slip > p {
-  max-width: 28rem;
-  margin: 0 0 2rem;
-  color: #3f3c35;
+  margin: 0 0 1.35rem;
+  color: #141310;
   font-family: var(--mono);
   font-size: 1.05rem;
-  line-height: 1.4;
+  line-height: 1.35;
+  white-space: nowrap;
 }
 
 .lg-desk-slip dl {
   margin: 0;
-  max-width: 34rem;
 }
 
 .lg-desk-slip dl div {
   display: grid;
-  grid-template-columns: 6.2rem minmax(0, 1fr);
-  gap: 1rem;
+  grid-template-columns: 9.2rem minmax(1.5rem, 1fr) auto;
+  gap: 0.55rem;
   align-items: baseline;
-  padding: 0.42rem 0;
-  border: 0;
+  padding: 0.28rem 0;
   font-family: var(--mono);
 }
 
-.lg-desk-slip dt {
-  color: #5c584e;
-  font-size: 0.82rem;
-}
-
+.lg-desk-slip dt,
 .lg-desk-slip dd {
   margin: 0;
   color: #141310;
   font-size: 0.92rem;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
-.lg-desk-slip .lg-hash-line {
-  letter-spacing: 0.04em;
+.lg-desk-slip dl div > i {
+  display: block;
+  height: 0;
+  border-bottom: 1px dotted #141310;
+  transform: translateY(-0.35em);
+}
+
+.lg-desk-slip .lg-hash-line em {
+  font-style: normal;
+  letter-spacing: 0.12em;
+}
+
+.lg-desk-total {
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid #141310;
+}
+
+.lg-desk-total dd {
+  font-size: 1.15rem;
+}
+
+.lg-desk-total .lg-zero-mark {
+  width: 0.72em;
+  height: 1em;
+  color: #141310;
+}
+
+.lg-desk-slip footer {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.lg-desk-slip footer img {
+  width: 88px;
+  height: 88px;
+  flex-shrink: 0;
+  background: #ebe4d2;
+}
+
+.lg-desk-slip footer div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.lg-desk-slip footer span {
+  color: #141310;
+  font-family: var(--mono);
+  font-size: 0.82rem;
 }
 
 .lg-desk-verify {
   display: inline-flex;
   align-items: center;
-  margin-top: auto;
-  padding-top: 1.6rem;
-  color: #141310 !important;
+  width: max-content;
+  min-height: 2.15rem;
+  padding: 0 0.75rem;
+  border: 1px solid #9a2b24;
+  background: #9a2b24;
+  color: #f4ebe4 !important;
   font-family: var(--mono);
-  font-size: 0.95rem;
-  text-decoration: underline;
-  text-underline-offset: 0.22em;
+  font-size: 0.88rem;
 }
 
 /* ── Shared type ──────────────────────────────────────── */
@@ -2973,14 +3002,15 @@
     overflow: visible;
   }
 
-  .lg-desk-roll {
-    width: 100%;
+  .lg-desk-slip {
+    width: min(52rem, 100%);
+    transform: none;
   }
 
-  .lg-desk-slip h1 {
+  .lg-desk-slip h1,
+  .lg-desk-slip > p {
     white-space: normal;
     flex-wrap: wrap;
-    font-size: clamp(2.1rem, 10vw, 3.2rem);
   }
 
   .lg-assay-hero {

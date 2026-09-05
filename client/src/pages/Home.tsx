@@ -248,91 +248,111 @@ export default function Home() {
       </a>
 
       <div className="lg-sheet lg-desk">
-        <div className="lg-desk-field" aria-hidden="true" />
-
-        <div className="lg-desk-roll">
-          <header className="lg-nav">
-            <div className="lg-nav-inner">
-              <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
-                <span className="lg-wordmark">
-                  Lugan
-                  <ZeroMark />
-                </span>
-              </a>
-              <nav className="lg-nav-links" aria-label="Primary">
-                {NAV.map((item) => (
-                  <a key={item.href} href={item.href}>
-                    {item.label}
-                  </a>
-                ))}
-                <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-                  Briefing
-                </a>
-              </nav>
-              <button
-                className="lg-menu-btn"
-                type="button"
-                aria-expanded={menuOpen}
-                aria-label="Open menu"
-                onClick={() => setMenuOpen((open) => !open)}
-              >
-                <span />
-              </button>
-            </div>
-            <div className={`lg-mobile-panel${menuOpen ? " is-open" : ""}`}>
+        <header className="lg-nav">
+          <div className="lg-nav-inner">
+            <a className="lg-brand" href="#top" onClick={() => setMenuOpen(false)}>
+              <span className="lg-wordmark">
+                Lugan
+                <ZeroMark />
+              </span>
+            </a>
+            <nav className="lg-nav-links" aria-label="Primary">
               {NAV.map((item) => (
-                <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
+                <a key={item.href} href={item.href}>
                   {item.label}
                 </a>
               ))}
-              <a href="mailto:contact@lugano.ai" onClick={() => setMenuOpen(false)}>
-                Request briefing
+              <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
+                Briefing
               </a>
-            </div>
-          </header>
+            </nav>
+            <button
+              className="lg-menu-btn"
+              type="button"
+              aria-expanded={menuOpen}
+              aria-label="Open menu"
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              <span />
+            </button>
+          </div>
+          <div className={`lg-mobile-panel${menuOpen ? " is-open" : ""}`}>
+            {NAV.map((item) => (
+              <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
+                {item.label}
+              </a>
+            ))}
+            <a href="mailto:contact@lugano.ai" onClick={() => setMenuOpen(false)}>
+              Request briefing
+            </a>
+          </div>
+        </header>
 
-          <section id="top" className="lg-desk-stage">
-            <article className="lg-desk-slip" aria-label="Specimen attestation">
-              <h1>
-                <ZeroMark className="lg-zero-hero" /> bytes retained.
-              </h1>
-              <p>Private inference with a cryptographic receipt.</p>
-              <dl>
-                <div>
-                  <dt>Issued</dt>
-                  <dd>12 Mar 2026 14:02 UTC</dd>
-                </div>
-                <div>
-                  <dt>Prompt</dt>
-                  <dd>—</dd>
-                </div>
-                <div>
-                  <dt>Model</dt>
-                  <dd>sealed · GLM-5.2</dd>
-                </div>
-                <div>
-                  <dt>MRTD</dt>
-                  <dd className="lg-hash-line">
-                    {MEASURES[0].value.slice(0, 8)}…{MEASURES[0].value.slice(-8)}
-                  </dd>
-                </div>
-                <div>
-                  <dt>RTMR0</dt>
-                  <dd className="lg-hash-line">
-                    {MEASURES[1].value.slice(0, 8)}…{MEASURES[1].value.slice(-8)}
-                  </dd>
-                </div>
-                <div>
-                  <dt>Verifier</dt>
-                  <dd>lugano.ai/v/LUG-7F283</dd>
-                </div>
-              </dl>
-              <a className="lg-desk-verify" href="#architecture">
-                Verify this receipt
-              </a>
-            </article>
-          </section>
-        </div>
+        <section id="top" className="lg-desk-stage">
+          <article className="lg-desk-slip" aria-label="Specimen attestation">
+            <i className="lg-desk-perf" aria-hidden="true" />
+            <h1>
+              <ZeroMark className="lg-zero-hero" /> bytes retained.
+            </h1>
+            <p>Private inference with a cryptographic receipt.</p>
+            <dl>
+              <div>
+                <dt>Issued</dt>
+                <i />
+                <dd>12 Mar 2026 14:02 UTC</dd>
+              </div>
+              <div>
+                <dt>Prompt</dt>
+                <i />
+                <dd>not retained</dd>
+              </div>
+              <div>
+                <dt>Model</dt>
+                <i />
+                <dd>sealed · GLM-5.2</dd>
+              </div>
+              <div>
+                <dt>MRTD</dt>
+                <i />
+                <dd className="lg-hash-line">
+                  {MEASURES[0].value.slice(0, 8)}
+                  <em> … </em>
+                  {MEASURES[0].value.slice(-8)}
+                </dd>
+              </div>
+              <div>
+                <dt>RTMR0</dt>
+                <i />
+                <dd className="lg-hash-line">
+                  {MEASURES[1].value.slice(0, 8)}
+                  <em> … </em>
+                  {MEASURES[1].value.slice(-8)}
+                </dd>
+              </div>
+              <div className="lg-desk-total">
+                <dt>Bytes retained</dt>
+                <i />
+                <dd>
+                  <ZeroMark className="lg-zero-mark" />
+                </dd>
+              </div>
+            </dl>
+            <footer>
+              <img
+                src="/generated/verifier_qr.png"
+                alt="QR code for lugano.ai/v/LUG-7F283"
+                width="88"
+                height="88"
+              />
+              <div>
+                <span>lugano.ai/v/LUG-7F283</span>
+                <a className="lg-desk-verify" href="#architecture">
+                  Verify this receipt
+                </a>
+              </div>
+            </footer>
+          </article>
+        </section>
       </div>
 
       <main id="main" className="lg-rest">
