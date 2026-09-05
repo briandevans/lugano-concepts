@@ -5,8 +5,11 @@
 @import "@fontsource-variable/fraunces/opsz-italic.css";
 @import "@fontsource/ibm-plex-sans/latin-400.css";
 @import "@fontsource/ibm-plex-sans/latin-500.css";
+@import "@fontsource/ibm-plex-sans/latin-600.css";
 @import "@fontsource/ibm-plex-mono/latin-400.css";
 @import "@fontsource/ibm-plex-mono/latin-500.css";
+@import "@fontsource/courier-prime/latin-400.css";
+@import "@fontsource/courier-prime/latin-700.css";
 
 .lg {
   --ink: #08090c;
@@ -555,21 +558,28 @@
   pointer-events: none;
 }
 
-/* ── Oz fold: 58mm slip as a hanging object ───────────── */
+/* ── Oz fold: 62mm ticket, punched and serrated ───────── */
 .lg-sheet.lg-oz {
+  --receipt: "Courier Prime", "Courier New", Courier, monospace;
   position: relative;
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-  color: #f2eadc;
-  background: #08080a;
+  color: #f4eee3;
+  background: #12110f;
+}
+
+.lg-oz-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
 }
 
 .lg-oz .lg-nav {
   position: relative;
   z-index: 8;
-  height: 64px;
-  color: #f2eadc;
+  height: 68px;
+  color: #f4eee3;
 }
 
 .lg-oz .lg-nav-inner {
@@ -579,23 +589,23 @@
 .lg-oz .lg-wordmark {
   display: inline-flex;
   align-items: center;
-  color: #f2eadc;
+  color: #f4eee3;
   font-family: var(--sans);
-  font-size: 1.28rem;
-  font-weight: 500;
+  font-size: 1.55rem;
+  font-weight: 600;
 }
 
 .lg-oz .lg-zero-mark {
-  width: 0.68em;
-  height: 0.96em;
-  color: #f2eadc;
+  width: 0.7em;
+  height: 0.98em;
+  color: #f4eee3;
 }
 
 .lg-oz .lg-nav-links a,
 .lg-oz .lg-nav-cta {
-  color: #cfc6b6 !important;
+  color: #c8bfb0 !important;
   font-family: var(--sans);
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   letter-spacing: 0;
   background: transparent;
   padding: 0;
@@ -612,34 +622,33 @@
   position: relative;
   z-index: 4;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 20.25rem;
-  column-gap: clamp(2.4rem, 6vw, 6.5rem);
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) 28.5rem;
+  column-gap: clamp(2rem, 3.6vw, 3.4rem);
+  align-items: center;
   width: min(100% - (var(--gutter) * 2), 1180px);
-  height: calc(100vh - 64px);
+  height: calc(100vh - 68px);
   margin: 0 auto;
-  padding: 3.1rem 0 0;
+  padding: 0 0 1.4rem;
 }
 
 .lg-oz-copy {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.45rem;
-  width: min(34rem, 100%);
-  padding-top: 1.6rem;
+  gap: 1.35rem;
+  width: min(36rem, 100%);
 }
 
 .lg-oz-lede {
   width: max-content;
   max-width: 100%;
   margin: 0;
-  color: #f2eadc;
+  color: #f4eee3;
   font-family: var(--sans);
-  font-size: clamp(3.35rem, 5.4vw, 5.15rem);
-  font-weight: 500;
+  font-size: clamp(3.4rem, 5.5vw, 5.2rem);
+  font-weight: 600;
   line-height: 0.98;
-  letter-spacing: -0.058em;
+  letter-spacing: -0.06em;
 }
 
 .lg-oz-lede span {
@@ -648,23 +657,30 @@
 }
 
 .lg-oz-sub {
-  max-width: 26ch;
+  max-width: 28ch;
   margin: 0;
-  color: #b7ae9e;
+  color: #d2c8b6;
   font-family: var(--sans);
-  font-size: 1.02rem;
-  line-height: 1.4;
-  letter-spacing: -0.012em;
+  font-size: 1.12rem;
+  line-height: 1.35;
+  letter-spacing: -0.018em;
+}
+
+.lg-oz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.15rem 1.4rem;
 }
 
 .lg-oz-cta {
   display: inline-flex;
   align-items: center;
-  min-height: 2.7rem;
-  padding: 0 1.15rem;
+  min-height: 2.75rem;
+  padding: 0 1.2rem;
   border: 0;
-  background: #f2eadc;
-  color: #08080a !important;
+  background: #f3f0e7;
+  color: #12110f !important;
   font-family: var(--sans);
   font-size: 1rem;
   font-weight: 500;
@@ -674,33 +690,38 @@
 
 .lg-oz-cta:hover {
   background: #fff;
-  color: #08080a !important;
+  color: #12110f !important;
+}
+
+.lg-oz-verify {
+  color: #f4eee3 !important;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
 }
 
 .lg-oz-stage {
   position: relative;
-  height: calc(100vh - 64px);
-  perspective: 1680px;
-  perspective-origin: 60% 10%;
+  justify-self: end;
 }
 
 .lg-oz-slip {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 20.25rem;
-  min-height: calc(100vh + 5.5rem);
-  padding: 0 1.12rem 2rem;
-  overflow: visible;
+  width: 28.5rem;
+  min-height: 0;
+  padding: 1.45rem 1.45rem 1.7rem;
+  overflow: hidden;
   color: #2a2722;
   background-color: #f3f0e7;
-  background-image:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, transparent 38%, rgba(28, 22, 14, 0.055) 100%),
-    url("/generated/thermal_paper_fiber.png");
-  background-size: auto, 240px;
-  box-shadow: 18px 26px 0 #000;
-  transform: rotateY(-6deg) rotateX(1.5deg);
-  transform-origin: 50% 0;
+  background-image: url("/generated/thermal_paper_fiber.png");
+  background-size: 220px;
+  clip-path: url(#lg-oz-ticket);
+  filter: drop-shadow(10px 14px 0 #0a0908);
 }
 
 .lg-oz-slip .lg-oz-film {
@@ -711,24 +732,12 @@
   height: 100%;
   pointer-events: none;
   mix-blend-mode: multiply;
-  opacity: 0.55;
+  opacity: 0.32;
 }
 
 .lg-oz-slip > *:not(canvas) {
   position: relative;
   z-index: 2;
-}
-
-.lg-oz-perf {
-  height: 1.12rem;
-  margin: 0 -1.12rem 0.7rem;
-  background-color: #f3f0e7;
-  background-image:
-    radial-gradient(circle at 50% 50%, #08080a 3.05px, transparent 3.2px),
-    url("/generated/thermal_paper_fiber.png");
-  background-size: 13px 1.12rem, 240px;
-  background-repeat: repeat-x, repeat;
-  background-position: 6px 50%, 0 0;
 }
 
 .lg-oz-shop {
@@ -737,10 +746,10 @@
   justify-content: center;
   margin: 0;
   color: #2a2722;
-  font-family: var(--sans);
-  font-size: 1.28rem;
-  font-weight: 500;
-  letter-spacing: -0.03em;
+  font-family: var(--receipt);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0;
   line-height: 1;
 }
 
@@ -755,31 +764,32 @@
 .lg-oz-when {
   margin: 0;
   text-align: center;
-  font-family: var(--mono);
+  font-family: var(--receipt);
 }
 
 .lg-oz-kind {
-  margin-top: 0.22rem;
+  margin-top: 0.18rem;
   color: #5a554c;
-  font-size: 0.78rem;
-}
-
-.lg-oz-ticket {
-  margin-top: 0.7rem;
-  color: #2a2722;
   font-size: 0.92rem;
 }
 
+.lg-oz-ticket {
+  margin-top: 0.85rem;
+  color: #2a2722;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
 .lg-oz-when {
-  margin-top: 0.18rem;
+  margin-top: 0.12rem;
   color: #5a554c;
-  font-size: 0.78rem;
+  font-size: 0.88rem;
 }
 
 .lg-oz-rule {
   width: 100%;
   height: 0;
-  margin: 0.7rem 0 0.35rem;
+  margin: 0.7rem 0 0.3rem;
   border: 0;
   border-top: 1px solid #2a2722;
 }
@@ -790,146 +800,118 @@
 
 .lg-oz-slip dl div {
   display: grid;
-  grid-template-columns: 5.4rem minmax(0.6rem, 1fr) auto;
-  gap: 0.4rem;
+  grid-template-columns: 6.2rem minmax(0.7rem, 1fr) auto;
+  gap: 0.45rem;
   align-items: baseline;
-  padding: 0.18rem 0;
-  font-family: var(--mono);
+  padding: 0.2rem 0;
+  font-family: var(--receipt);
 }
 
 .lg-oz-slip dt {
   color: #5a554c;
-  font-size: 0.76rem;
+  font-size: 0.9rem;
 }
 
 .lg-oz-slip dd {
   margin: 0;
   color: #2a2722;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
 }
 
 .lg-oz-slip dl div > i {
   display: block;
   height: 0.5em;
-  background-image: radial-gradient(#2a2722 0.65px, transparent 0.75px);
-  background-size: 3.5px 0.5em;
+  background-image: radial-gradient(#2a2722 0.7px, transparent 0.8px);
+  background-size: 4px 0.5em;
   background-repeat: repeat-x;
   background-position: 0 0.34em;
 }
 
 .lg-oz-reg {
   grid-template-columns: 1fr !important;
-  gap: 0.18rem !important;
-  padding: 0.42rem 0 0.2rem !important;
+  gap: 0.2rem !important;
+  padding: 0.5rem 0 0.25rem !important;
 }
 
 .lg-oz-hash {
   display: grid;
   grid-template-columns: repeat(4, max-content);
   justify-content: space-between;
-  gap: 0.08rem 0.28rem;
+  gap: 0.1rem 0.4rem;
 }
 
 .lg-oz-hash b {
-  color: #4e4a42;
-  font-size: 0.68rem;
+  color: #3f3b34;
+  font-size: 0.82rem;
   font-weight: 400;
 }
 
 .lg-oz-total {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  align-items: baseline;
-  gap: 0.45rem;
-  margin-top: 0.45rem;
-  padding: 0.5rem 0 0.15rem;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.55rem 0 0.2rem;
   border-top: 2px solid #2a2722;
-  font-family: var(--mono);
+  font-family: var(--receipt);
 }
 
 .lg-oz-total span {
   color: #2a2722;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 700;
 }
 
 .lg-oz-total i {
   display: block;
   height: 0.5em;
-  background-image: radial-gradient(#2a2722 0.65px, transparent 0.75px);
-  background-size: 3.5px 0.5em;
+  background-image: radial-gradient(#2a2722 0.7px, transparent 0.8px);
+  background-size: 4px 0.5em;
   background-repeat: repeat-x;
   background-position: 0 0.34em;
 }
 
-.lg-oz-total b {
+.lg-oz-amt {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.08em;
+  align-items: center;
+  gap: 0.12em;
   color: #9a2b24;
+  line-height: 1;
 }
 
 .lg-oz-zero {
-  width: 1.45rem;
-  height: 2.05rem;
+  width: 1.35rem;
+  height: 1.85rem;
   color: #9a2b24;
 }
 
 .lg-oz-total small {
   color: #9a2b24;
-  font-size: 1.05rem;
-  font-weight: 500;
-}
-
-.lg-oz-bars {
-  display: block;
-  width: 100%;
-  height: 1.55rem;
-  margin: 0.7rem 0 0.65rem;
+  font-family: var(--receipt);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .lg-oz-foot {
-  display: grid;
-  grid-template-columns: 4.1rem 1fr;
-  gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
 }
 
 .lg-oz-foot img {
-  width: 4.1rem;
-  height: 4.1rem;
+  width: 5.1rem;
+  height: 5.1rem;
   background: #f3f0e7;
 }
 
-.lg-oz-foot a {
-  display: inline-block;
-  color: #2a2722 !important;
-  font-family: var(--sans);
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-
 .lg-oz-foot span {
-  display: block;
-  margin-top: 0.22rem;
   color: #5a554c;
-  font-family: var(--mono);
-  font-size: 0.68rem;
-}
-
-.lg-oz-continues {
-  margin-top: 0.85rem;
-  padding-top: 0.55rem;
-  border-top: 1px solid #2a2722;
-}
-
-.lg-oz-continues p {
-  margin: 0 0 0.2rem;
-  text-align: center;
-  font-family: var(--mono);
-  font-size: 0.86rem;
+  font-family: var(--receipt);
+  font-size: 0.82rem;
 }
 
 /* ── Void fold: brand on the ground, receipt as evidence ─ */
@@ -3802,8 +3784,9 @@
   .lg-oz-well {
     grid-template-columns: 1fr;
     height: auto;
-    padding: 1.5rem 0 0;
+    padding: 1.5rem 0 2rem;
     row-gap: 2rem;
+    align-items: start;
   }
 
   .lg-oz-copy,
@@ -3811,16 +3794,16 @@
     width: 100%;
   }
 
+  .lg-oz-lede span {
+    white-space: normal;
+  }
+
   .lg-oz-stage {
-    height: auto;
-    perspective: none;
+    justify-self: start;
   }
 
   .lg-oz-slip {
-    width: min(20.25rem, 100%);
-    min-height: 0;
-    transform: none;
-    box-shadow: 8px 12px 0 #000;
+    width: min(28.5rem, 100%);
   }
 
   .lg-sheet.lg-mat {

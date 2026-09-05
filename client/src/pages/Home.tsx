@@ -24,21 +24,27 @@ function hashGroups(value: string) {
   return value.match(/.{8}/g) ?? [];
 }
 
-function ProofBars({ value }: { value: string }) {
-  const widths = [...value].map((ch) => (parseInt(ch, 16) % 3) + 1);
-  let x = 0;
-  const bars = widths.map((w, i) => {
-    const rect =
-      i % 2 === 0 ? <rect key={i} x={x} y="0" width={w} height="26" fill="#2a2722" /> : null;
-    x += w + 1;
-    return rect;
-  });
-  return (
-    <svg className="lg-oz-bars" viewBox={`0 0 ${x} 26`} preserveAspectRatio="none" aria-hidden="true">
-      {bars}
-    </svg>
-  );
+function ticketClipPath() {
+  const holes = 15;
+  const radius = 0.012;
+  const top = 0.018;
+  const valley = 0.958;
+  const peak = 0.996;
+  const teeth = 24;
+  let d = `M0 ${top} H1 V${valley}`;
+  for (let i = teeth; i >= 0; i -= 1) {
+    const x = i / teeth;
+    d += ` L${x.toFixed(4)} ${i % 2 === 0 ? valley : peak}`;
+  }
+  d += " Z";
+  for (let i = 0; i < holes; i += 1) {
+    const cx = (i + 0.5) / holes;
+    d += ` M${(cx - radius).toFixed(4)} ${top} a${radius} ${radius} 0 1 1 ${(radius * 2).toFixed(4)} 0 a${radius} ${radius} 0 1 1 ${(-radius * 2).toFixed(4)} 0`;
+  }
+  return d;
 }
+
+const TICKET_CLIP = ticketClipPath();
 
 function formatIssued(date: Date) {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -316,6 +322,12 @@ export default function Home() {
           </div>
         </header>
 
+        <svg className="lg-oz-defs" aria-hidden="true">
+          <clipPath id="lg-oz-ticket" clipPathUnits="objectBoundingBox">
+            <path d={TICKET_CLIP} clipRule="evenodd" />
+          </clipPath>
+        </svg>
+
         <section id="top" className="lg-oz-well">
           <div className="lg-oz-copy">
             <p className="lg-oz-lede">
@@ -323,15 +335,19 @@ export default function Home() {
               <span>that run sealed</span>
               <span>and leave a receipt.</span>
             </p>
-            <p className="lg-oz-sub">Sealed inference. A TDX quote. Zero bytes kept.</p>
-            <a className="lg-oz-cta" href="mailto:contact@lugano.ai">
-              Request access
-            </a>
+            <p className="lg-oz-sub">For work that cannot leave the enclave.</p>
+            <div className="lg-oz-actions">
+              <a className="lg-oz-cta" href="mailto:contact@lugano.ai">
+                Request access
+              </a>
+              <a className="lg-oz-verify" href="#architecture">
+                Verify this proof
+              </a>
+            </div>
           </div>
           <div className="lg-oz-stage">
             <article className="lg-oz-slip" aria-label="Attestation receipt">
               <ThermalFilm />
-              <div className="lg-oz-perf" aria-hidden="true" />
               <p className="lg-oz-shop">
                 Lugan
                 <ZeroMark />
@@ -373,33 +389,14 @@ export default function Home() {
               <div className="lg-oz-total">
                 <span>Total retained</span>
                 <i />
-                <b>
+                <b className="lg-oz-amt">
                   <ZeroMark className="lg-oz-zero" />
                   <small>B</small>
                 </b>
               </div>
-              <ProofBars value={MEASURES[0].value} />
               <div className="lg-oz-foot">
                 <img src="/generated/verifier_qr.png" alt="" />
-                <div>
-                  <a href="#architecture">Verify this proof</a>
-                  <span>lugano.ai/v/LUG-7F283</span>
-                </div>
-              </div>
-              <div className="lg-oz-continues" aria-hidden="true">
-                <p>LUG-7F284</p>
-                <dl>
-                  <div>
-                    <dt>Issued</dt>
-                    <i />
-                    <dd>queued</dd>
-                  </div>
-                  <div>
-                    <dt>Service</dt>
-                    <i />
-                    <dd>sealed inference</dd>
-                  </div>
-                </dl>
+                <span>lugano.ai/v/LUG-7F283</span>
               </div>
             </article>
           </div>
