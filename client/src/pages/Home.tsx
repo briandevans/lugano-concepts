@@ -47,12 +47,22 @@ function LiveReceipt({ clock }: { clock: string }) {
     <aside className="lg-print" aria-label="Attestation receipt">
       <p className="lg-print-kicker">
         <span>LUG-7F283</span>
-        <span>{clock}</span>
+        <span>ATTESTED</span>
       </p>
+      <p className="lg-print-title">Guest measurement record</p>
+      <p className="lg-print-meta">Lugano.ai · Intel TDX · {clock}</p>
       <p className="lg-slip-zero">0</p>
-      <p className="lg-slip-status">Retention</p>
+      <p className="lg-slip-status">Bytes retained</p>
       <dl className="lg-slip-dl">
-        {MEASURES.slice(0, 5).map((row) => (
+        <div>
+          <dt>PROMPT</dt>
+          <dd>sealed</dd>
+        </div>
+        <div>
+          <dt>MODEL</dt>
+          <dd>private</dd>
+        </div>
+        {MEASURES.slice(0, 4).map((row) => (
           <div key={row.key}>
             <dt>{row.key}</dt>
             <HashBlock value={row.value} />
@@ -354,8 +364,8 @@ export default function Home() {
           </div>
           <div className="lg-rail">
             <div className="lg-shell lg-rail-inner">
-              <span>Intel TDX</span>
-              <span>{clock}</span>
+              <span>Private beta</span>
+              <span>Attestation root LUG-7F283</span>
               <span>Lugano, CH</span>
             </div>
           </div>

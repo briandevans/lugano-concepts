@@ -519,11 +519,11 @@
 
 .lg-sub {
   max-width: 28rem;
-  margin: 1.15rem 0 0;
+  margin: 1.35rem 0 0;
   color: #16140f;
-  font-family: var(--mono);
-  font-size: 0.95rem;
-  line-height: 1.45;
+  font-family: var(--sans);
+  font-size: 1.35rem;
+  line-height: 1.35;
   white-space: normal;
 }
 
@@ -535,7 +535,21 @@
   min-width: 0;
   padding: 1.15rem 1.25rem 1.2rem;
   background: #f7f4ec;
-  box-shadow: 1px 0 0 rgba(22, 20, 15, 0.12) inset;
+  border: 1px solid rgba(22, 20, 15, 0.2);
+}
+
+.lg-print-title {
+  margin: 0.85rem 0 0;
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.lg-print-meta {
+  margin: 0.25rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
 }
 
 .lg-print-kicker {
