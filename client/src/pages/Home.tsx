@@ -1,9 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import "./live.css";
 
 export default function Home() {
-  const glassVideoRef = useRef<HTMLVideoElement>(null);
-
   useEffect(() => {
     if (document.querySelector("script[data-lugano-home]")) {
       return;
@@ -13,22 +11,6 @@ export default function Home() {
     script.async = false;
     script.dataset.luganoHome = "1";
     document.body.appendChild(script);
-  }, []);
-
-  useEffect(() => {
-    const video = glassVideoRef.current;
-    if (!video) return;
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => {
-      if (media.matches) {
-        video.pause();
-      } else {
-        void video.play();
-      }
-    };
-    sync();
-    media.addEventListener("change", sync);
-    return () => media.removeEventListener("change", sync);
   }, []);
 
   return (
@@ -117,21 +99,9 @@ export default function Home() {
     <main id="main">
       {/* 1. Hero */}
       <section className="hero" id="hero">
-        <div className="hero-glass-clip" aria-hidden="true">
-          <video
-            ref={glassVideoRef}
-            className="hero-glass-video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/glass-seal-a.png"
-          >
-            <source src="/glass-seal.webm" type="video/webm" />
-          </video>
-        </div>
         <div className="hero-inner">
           <div className="hero-copy">
+            <p className="label hero-eyebrow reveal">Private AI Infrastructure</p>
             <h1 className="hero-title reveal">
               AI Privacy by
               <span className="strike">trust me bro</span>
@@ -231,6 +201,7 @@ export default function Home() {
       <section className="arch-section section" id="architecture">
         <div className="shell">
           <div className="section-heading">
+            <p className="label reveal">How it works</p>
             <h2 className="section-title reveal">How Lugano creates a verifiable privacy boundary</h2>
             <p className="body-large section-sub reveal">
               The public model is intentionally simplified. Technical review is available under NDA.
@@ -304,6 +275,7 @@ export default function Home() {
       <section className="proof-section section section-dark" id="proof">
         <div className="shell">
           <div className="section-heading">
+            <p className="label reveal">Proof model</p>
             <h2 className="section-title reveal">Proof without plaintext</h2>
             <p className="body-large section-sub reveal">
               Lugano produces evidence that a request followed the privacy boundary without turning
@@ -397,6 +369,7 @@ export default function Home() {
       <section className="platform-section section" id="platform">
         <div className="shell">
           <div className="section-heading">
+            <p className="label reveal">Platform</p>
             <h2 className="section-title reveal">Platform capabilities</h2>
             <p className="body-large section-sub reveal">
               Representative modules — not product screenshots. Product surfaces are available in
@@ -517,6 +490,7 @@ export default function Home() {
       <section className="use-cases-section section section-dark" id="use-cases">
         <div className="shell">
           <div className="section-heading">
+            <p className="label reveal">Use cases</p>
             <h2 className="section-title reveal">Built for sensitive environments</h2>
           </div>
 
@@ -591,6 +565,7 @@ export default function Home() {
       <section className="models-section section" id="models">
         <div className="shell">
           <div className="section-heading">
+            <p className="label reveal">Models</p>
             <h2 className="section-title reveal">Private model access, controlled by policy</h2>
             <p className="body-large section-sub reveal">
               Lugano is designed to support frontier, open, and customer-selected models inside a
@@ -660,6 +635,7 @@ export default function Home() {
       <section className="review-kit-section section section-dark" id="security-review">
         <div className="shell">
           <div className="section-heading">
+            <p className="label reveal">Security review</p>
             <h2 className="section-title reveal">Built for security review</h2>
             <p className="body-large section-sub reveal">
               The public site gives the outline. Qualified teams can review the technical model
@@ -670,6 +646,7 @@ export default function Home() {
           <div className="kit-grid">
             <article className="kit-card reveal">
               <div className="kit-card-top">
+                <p className="label kit-doc-type">Brief</p>
                 <span className="marker marker-nda">NDA</span>
               </div>
               <h3 className="card-title">Architecture brief</h3>
@@ -677,6 +654,7 @@ export default function Home() {
             </article>
             <article className="kit-card reveal">
               <div className="kit-card-top">
+                <p className="label kit-doc-type">Sample</p>
                 <span className="marker marker-public">Public</span>
               </div>
               <h3 className="card-title"><a className="kit-link" href="#proof">Sample proof receipt</a></h3>
@@ -684,6 +662,7 @@ export default function Home() {
             </article>
             <article className="kit-card reveal">
               <div className="kit-card-top">
+                <p className="label kit-doc-type">Checklist</p>
                 <span className="marker marker-public">Public</span>
               </div>
               <h3 className="card-title">
@@ -693,6 +672,7 @@ export default function Home() {
             </article>
             <article className="kit-card reveal">
               <div className="kit-card-top">
+                <p className="label kit-doc-type">Overview</p>
                 <span className="marker marker-public">Public</span>
               </div>
               <h3 className="card-title">
@@ -704,6 +684,7 @@ export default function Home() {
             </article>
             <article className="kit-card reveal">
               <div className="kit-card-top">
+                <p className="label kit-doc-type">Review</p>
                 <span className="marker marker-nda">NDA</span>
               </div>
               <h3 className="card-title">Private technical review</h3>
@@ -722,6 +703,7 @@ export default function Home() {
       <section className="briefing-section section" id="briefing">
         <div className="shell briefing-shell">
           <div className="briefing-copy">
+            <p className="label reveal">Private beta</p>
             <h2 className="section-title reveal">Request a private briefing</h2>
             <p className="body-large section-sub reveal">
               Lugano is onboarding teams working with sensitive AI workloads. Tell us who you are
