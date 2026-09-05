@@ -263,7 +263,7 @@ export default function Home() {
                 </a>
               ))}
               <a className="lg-nav-cta" href="mailto:contact@lugano.ai">
-                Get access →
+                Get access
               </a>
             </nav>
             <button
@@ -298,10 +298,17 @@ export default function Home() {
               <span>Private inference you can prove.</span>
             </h1>
             <a className="lg-desk-cta" href="#architecture">
-              Verify a receipt →
+              Verify this proof
             </a>
           </div>
           <article className="lg-desk-slip" aria-label="Specimen attestation">
+            <header>
+              <strong className="lg-wordmark">
+                Lugan
+                <ZeroMark />
+              </strong>
+              <span>LUG-7F283</span>
+            </header>
             <dl>
               <div>
                 <dt>Issued</dt>
@@ -334,13 +341,10 @@ export default function Home() {
                   ))}
                 </dd>
               </div>
-              <div className="lg-desk-reg">
-                <dt>RTMR1</dt>
-                <dd className="lg-hash-full">
-                  {(MEASURES[2].value.match(/.{8}/g) ?? []).map((group) => (
-                    <b key={`r1-${group}`}>{group}</b>
-                  ))}
-                </dd>
+              <div>
+                <dt>Signed</dt>
+                <i />
+                <dd>TDX quote · SHA-384</dd>
               </div>
               <div className="lg-desk-total">
                 <dt>Total retained</dt>
