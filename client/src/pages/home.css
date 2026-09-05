@@ -1902,14 +1902,14 @@
 /* ── Nm fold: 65mm tape on lunar charcoal ─────────────── */
 .lg-sheet.lg-nm {
   --receipt: "Courier Prime", "Courier New", Courier, monospace;
-  --nm: #b51d22;
+  --nm: #8e2c24;
   position: relative;
   height: 100vh;
   max-height: 100vh;
   min-height: 100vh;
   overflow: hidden;
   color: #ece7dc;
-  background: #161513;
+  background: #12141a;
 }
 
 .lg-nm .lg-nav {
@@ -1930,6 +1930,7 @@
   font-size: 1.7rem;
   font-weight: 600;
   letter-spacing: -0.032em;
+  box-shadow: inset 0 -0.12em 0 var(--nm);
 }
 
 .lg-nm .lg-nav-links {
@@ -1955,13 +1956,13 @@
   position: relative;
   z-index: 4;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 20.5rem;
-  column-gap: 2.6rem;
+  grid-template-columns: minmax(22rem, 1fr) 22rem;
+  column-gap: 3.4rem;
   align-items: start;
-  width: min(100% - (var(--gutter) * 2), 88rem);
+  width: min(100% - (var(--gutter) * 2), 74rem);
   height: calc(100vh - 72px);
   margin: 0 auto;
-  padding: 1.35rem 0 0;
+  padding: 2.1rem 0 0;
   overflow: hidden;
 }
 
@@ -1969,7 +1970,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 1.55rem 0 0;
+  padding: 0.15rem 0 0;
 }
 
 .lg-nm-lede {
@@ -1978,7 +1979,7 @@
   margin: 0;
   color: #ece7dc;
   font-family: var(--sans);
-  font-size: clamp(3rem, 5vw, 4.7rem);
+  font-size: clamp(2.6rem, 4.2vw, 4rem);
   font-weight: 600;
   line-height: 0.95;
   letter-spacing: -0.036em;
@@ -2002,20 +2003,22 @@
 .lg-nm-cta {
   display: inline-flex;
   align-items: center;
-  min-height: 3.45rem;
+  min-height: 3.15rem;
   margin-top: 2.4rem;
-  padding: 0 1.55rem;
-  background: #ece7dc;
-  color: #161513 !important;
-  font-family: var(--sans);
-  font-size: 1.14rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  padding: 0 1.2rem;
+  border: 1px solid #ece7dc;
+  background: transparent;
+  color: #ece7dc !important;
+  font-family: var(--receipt);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0;
   text-decoration: none;
 }
 
 .lg-nm-cta:hover {
   background: var(--nm);
+  border-color: var(--nm);
   color: #ece7dc !important;
 }
 
@@ -2023,26 +2026,16 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 20.5rem;
+  width: 22rem;
+  height: calc(100vh - 72px - 2.1rem + 5.5rem);
   color: #2a2722;
   background-color: #efebe1;
   background-image: url("/generated/thermal_paper_fiber.png");
   background-size: 180px;
-  box-shadow: 1px 0 0 #d2cdc0, 0 1px 0 rgba(0, 0, 0, 0.28);
-}
-
-.lg-nm-slot {
-  display: block;
-  width: 100%;
-  height: 2.15rem;
-  object-fit: cover;
-  object-position: center 22%;
 }
 
 .lg-nm-body {
-  position: relative;
-  z-index: 2;
-  padding: 0.55rem 1.15rem 0.2rem;
+  padding: 1.05rem 1.2rem 2rem;
 }
 
 .lg-nm-kind,
@@ -2136,7 +2129,7 @@
   align-items: baseline;
   gap: 0.05em;
   color: var(--nm);
-  font-size: clamp(5.4rem, 11vh, 7.6rem);
+  font-size: clamp(6.2rem, 14vh, 8.8rem);
   font-weight: 700;
   line-height: 0.8;
 }

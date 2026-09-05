@@ -324,13 +324,12 @@ export default function Home() {
               <span>that run sealed</span>
               <span>and leave a receipt.</span>
             </p>
-            <p className="lg-nm-sub">For work that cannot leave the enclave.</p>
+            <p className="lg-nm-sub">TDX quotes. Frontier weights. Prompt discarded.</p>
             <a className="lg-nm-cta" href="mailto:contact@lugano.ai">
               Request access
             </a>
           </div>
           <article className="lg-nm-slip" aria-label="Attestation receipt">
-            <img className="lg-nm-slot" src="/generated/charcoal_slot_lip.png" alt="" />
             <div className="lg-nm-body">
               <p className="lg-nm-kind">Attestation</p>
               <p className="lg-nm-ticket">LUG-7F283</p>
@@ -376,8 +375,11 @@ export default function Home() {
                 <a href="#architecture">lugano.ai/v/LUG-7F283</a>
               </div>
               <p className="lg-nm-next">LUG-7F284 · queued</p>
+              <p className="lg-nm-next">LUG-7F285 · queued</p>
+              <p className="lg-nm-kind">Attestation</p>
+              <p className="lg-nm-ticket">LUG-7F286</p>
+              <p className="lg-nm-when">waiting on enclave</p>
             </div>
-            <img className="lg-nm-tear" src="/generated/thermal_tear_charcoal.png" alt="" />
           </article>
         </section>
       </div>
