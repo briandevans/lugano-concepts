@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import ThermalHeat from "@/components/ThermalHeat";
 import "./home.css";
 
 function useUtcClock() {
@@ -21,15 +20,11 @@ function formatClock(date: Date) {
 }
 
 const MEASURES = [
-  { key: "MRTD", value: "3fa91c70e2b64d18a7c0e5f1b9d24680c31e8a5f70b2d4e19c6a83f0e15b27d491e0c4ab72f63d15b8a04e27c6d1f9a3" },
-  { key: "RTMR0", value: "91e0c4ab72f63d15b8a04e27c6d1f9a3e5b8702c14d9a6f0b3c7e18d52a4f06ec2d8f0a16e4b7395a0c1d7e24f8b6035" },
-  { key: "RTMR1", value: "c2d8f0a16e4b7395a0c1d7e24f8b6035d19a7c2e48b0f3a6e15d82c9b7043f1a07b3e9a1d5c82f406e1a94c7b2d0f835" },
-  { key: "RTMR2", value: "07b3e9a1d5c82f406e1a94c7b2d0f835a6c1e04d79b2f1a8c3e5d06b9147a2f0b8f17d20c4a9e35f16d0a2c78e4b9153" },
-  { key: "RTMR3", value: "b8f17d20c4a9e35f16d0a2c78e4b9153f0c6a1d7e29b83504c1f6a2d90e3b7485e0c1a94d7b283f06a1e4c9b72d0f835" },
-  {
-    key: "REPORTDATA",
-    value: "07b3e9a1d5c82f406e1a94c7b2d0f835a6c1e04d79b2f1a8c3e5d06b9147a2f0b8f17d20c4a9e35f16d0a2c78e4b9153f0c6a1d7e29b83504c1f6a2d90e3b7485e0c1a94",
-  },
+  { key: "MRTD", value: "dd9d8f30b4acae6da08575b2d5f32e3e43fae5c3130ea67cc81233200845192bde0281b75b907892d37359b19586daa9" },
+  { key: "RTMR0", value: "f3601c3c6770be1e7c042a47caf1133a794cb38f440a327426fa8406b97220522f9e200554e6991b01de0e598615ccf1" },
+  { key: "RTMR1", value: "d516df163a45fca0d1abd9f1b59dbb9c71cb231101f4e655c9d73401c6b02fafde026e6bb4de41a8183616b620bd2152" },
+  { key: "RTMR2", value: "a9a2fa5daaf831ec0072bac9c78327b3745948e79cd89497e7999a0952d248d1efec8c032456c3034ea5eb1ee1ea6ece" },
+  { key: "RTMR3", value: "f4e97ade7149b4fc5057f0e80cf112303daf4e2f30b2b30f874eac595309e9f6030bbe538ecb25437a37b5db9124b478" },
 ] as const;
 
 function HashBlock({ value }: { value: string }) {
@@ -54,6 +49,8 @@ function LiveReceipt({ clock }: { clock: string }) {
         <span>LUG-7F283</span>
         <span>{clock}</span>
       </p>
+      <p className="lg-slip-zero">0</p>
+      <p className="lg-slip-status">Retention</p>
       <dl className="lg-slip-dl">
         {MEASURES.slice(0, 5).map((row) => (
           <div key={row.key}>
@@ -342,7 +339,6 @@ export default function Home() {
         <section id="top" className="lg-hero-wrap">
           <div className="lg-shell lg-split">
             <div className="lg-copy">
-              <p className="lg-slip-zero">0</p>
               <h1>
                 <span>AI privacy</span>
                 <span>by proof</span>
@@ -355,6 +351,13 @@ export default function Home() {
               </div>
             </div>
             <LiveReceipt clock={clock} />
+          </div>
+          <div className="lg-rail">
+            <div className="lg-shell lg-rail-inner">
+              <span>Intel TDX</span>
+              <span>{clock}</span>
+              <span>Lugano, CH</span>
+            </div>
           </div>
         </section>
       </div>

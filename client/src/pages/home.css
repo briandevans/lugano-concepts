@@ -83,14 +83,12 @@
 }
 
 .lg-wordmark {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-style: normal;
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 36, "SOFT" 0, "WONK" 0;
-  font-size: 1.7rem;
-  font-weight: 400;
+  font-size: 1.4rem;
+  font-weight: 500;
   line-height: 1;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.03em;
   color: #16140f;
 }
 
@@ -430,8 +428,10 @@
   position: relative;
   z-index: 2;
   display: flex;
+  flex: 1;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
+  min-height: calc(100vh - 72px);
   color: #16140f;
   background: transparent;
 }
@@ -500,13 +500,11 @@
   max-width: none;
   margin: 0;
   color: #16140f;
-  font-family: var(--serif);
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 144, "SOFT" 0, "WONK" 0;
-  font-size: clamp(2.8rem, 4.4vw, 3.85rem);
+  font-family: var(--sans);
+  font-size: clamp(4.8rem, 8.4vw, 7.2rem);
   font-weight: 400;
   line-height: 0.9;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.042em;
 }
 
 .lg-copy h1 span {
@@ -620,14 +618,14 @@
 }
 
 .lg-slip-zero {
-  margin: 0 0 0.35rem;
+  margin: 0.35rem 0 0;
   color: var(--swiss);
   font-family: var(--mono);
   font-feature-settings: "zero" 1;
-  font-size: clamp(11rem, 24vw, 19rem);
+  font-size: 4.4rem;
   font-weight: 500;
-  line-height: 0.72;
-  letter-spacing: -0.08em;
+  line-height: 0.78;
+  letter-spacing: -0.05em;
 }
 
 .lg-slip-head {
@@ -921,7 +919,7 @@
 
 .lg-rail {
   flex-shrink: 0;
-  border-top: 1px solid rgba(243, 239, 230, 0.12);
+  border-top: 1px solid rgba(22, 20, 15, 0.16);
 }
 
 .lg-rail-inner {
@@ -929,7 +927,7 @@
   flex-wrap: wrap;
   gap: 0.4rem 2.4rem;
   padding: 1.05rem 0 1.15rem;
-  color: rgba(243, 239, 230, 0.7);
+  color: #16140f;
   font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
