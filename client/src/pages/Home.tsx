@@ -317,12 +317,16 @@ export default function Home() {
             </header>
             <dl className="lg-assay-dl">
               <div>
+                <dt>Issued</dt>
+                <dd>12 Mar 2026  14:02:11 UTC</dd>
+              </div>
+              <div>
                 <dt>Prompt</dt>
-                <dd>sealed</dd>
+                <dd>—  not retained</dd>
               </div>
               <div>
                 <dt>Model</dt>
-                <dd>private</dd>
+                <dd>—  not retained</dd>
               </div>
               <div>
                 <dt>MRTD</dt>
@@ -331,6 +335,10 @@ export default function Home() {
               <div>
                 <dt>RTMR0</dt>
                 <HashBlock value={MEASURES[1].value} />
+              </div>
+              <div>
+                <dt>Verifier</dt>
+                <dd>lugano.ai/v/LUG-7F283</dd>
               </div>
             </dl>
             <a className="lg-assay-verify" href="#architecture">

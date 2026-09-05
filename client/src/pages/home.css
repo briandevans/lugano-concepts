@@ -19,8 +19,8 @@
   --ash: #3a3832;
   --alpine: #c4a574;
   --alpine-bright: #d7b57a;
-  --seal: #8f4f1c;
-  --filament: #8f4f1c;
+  --seal: #c8722e;
+  --filament: #c8722e;
   --metal: #6e6a62;
   --rule: rgba(8, 9, 12, 0.16);
   --rule-paper: rgba(231, 228, 216, 0.14);
@@ -28,7 +28,7 @@
   --sans: "IBM Plex Sans", "Helvetica Neue", Helvetica, sans-serif;
   --ui: "IBM Plex Sans", "Helvetica Neue", Helvetica, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
-  --swiss: #8f4f1c;
+  --swiss: #c8722e;
   --max: 1220px;
   --gutter: clamp(1.25rem, 4.2vw, 3.25rem);
   color: var(--paper);
@@ -199,9 +199,9 @@
 
 .lg-nav-links a {
   color: #ece6d6;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.01em;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  letter-spacing: -0.015em;
 }
 
 .lg-ledger .lg-nav-links a {
@@ -224,9 +224,9 @@
   border: 0;
   background: transparent;
   color: var(--filament) !important;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.01em;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  letter-spacing: -0.015em;
 }
 
 .lg-nav-cta:hover {
@@ -512,21 +512,23 @@
 .lg-assay-hero {
   position: relative;
   z-index: 4;
-  display: flex;
+  display: grid;
   flex: 1;
-  flex-direction: column;
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 34rem);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
   min-height: 0;
   width: min(100% - (var(--gutter) * 2), var(--max));
   margin: 0 auto;
-  padding: 2.4rem 0 1.8rem;
+  padding: 1.6rem 0 2rem;
 }
 
 .lg-assay-lockup {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.55rem 1.2rem;
-  margin: 2vh 0 auto;
+  gap: 0.55rem 1.05rem;
+  margin: 0;
   color: #f4efe6;
 }
 
@@ -541,7 +543,7 @@
 
 .lg-zero-hero {
   width: auto;
-  height: clamp(8.5rem, 28vh, 16rem);
+  height: clamp(9.5rem, 32vh, 18rem);
   margin: 0;
 }
 
@@ -559,11 +561,10 @@
   z-index: 5;
   width: 100%;
   min-width: 0;
-  margin-top: auto;
-  padding: 1.1rem 0 0;
+  margin-top: 0;
+  padding: 0;
   background: transparent;
   border: 0;
-  border-top: 1px solid rgba(239, 234, 224, 0.16);
 }
 
 .lg-assay-meta {
