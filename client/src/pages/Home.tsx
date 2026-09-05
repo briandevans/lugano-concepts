@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import NightField from "@/components/NightField";
 import ThermalHeat from "@/components/ThermalHeat";
 import "./home.css";
 
@@ -30,32 +31,37 @@ const MEASURES = [
 ] as const;
 
 function groupHash(value: string) {
-  return `${value.slice(0, 8)}…${value.slice(-5)}`;
+  return `${value.slice(0, 8)}  ${value.slice(8, 16)}  ${value.slice(-8)}`;
 }
 
 function LiveReceipt({ clock }: { clock: string }) {
+  const stamp = clock.replace(/\D/g, "").slice(-6);
   return (
-    <aside className="lg-slip" aria-label="Attestation receipt">
-      <ThermalHeat />
-      <p className="lg-slip-status">
-        Retention
-        <strong>0</strong>
-      </p>
-      <header className="lg-slip-head">
-        <p>Attestation</p>
-        <p>Lugano, CH</p>
-      </header>
-      <p className="lg-slip-id">LUG-7F283</p>
-      <p className="lg-slip-meta">{clock}</p>
-      <dl className="lg-slip-dl">
-        {MEASURES.slice(0, 3).map((row) => (
-          <div key={row.key}>
-            <dt>{row.key}</dt>
-            <dd className="lg-hash">{groupHash(row.value)}</dd>
-          </div>
-        ))}
-      </dl>
-    </aside>
+    <div className="lg-stage">
+      <aside className="lg-slip" aria-label="Attestation receipt">
+        <span className="lg-slip-rib" aria-hidden="true" />
+        <ThermalHeat />
+        <p className="lg-slip-status">
+          Retention
+          <strong>0</strong>
+        </p>
+        <header className="lg-slip-head">
+          <p>Attestation</p>
+          <p>Lugano, CH</p>
+        </header>
+        <p className="lg-slip-id">LUG-7F283</p>
+        <p className="lg-slip-meta">{clock}</p>
+        <dl className="lg-slip-dl">
+          {MEASURES.slice(0, 5).map((row) => (
+            <div key={row.key}>
+              <dt>{row.key}</dt>
+              <dd className="lg-hash">{groupHash(row.value)}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="lg-slip-foot">verify  lugano.ai/a/{stamp}</p>
+      </aside>
+    </div>
   );
 }
 
@@ -131,8 +137,8 @@ const RECEIPT = `{
 const CASES = [
   {
     title: "Government and defense",
-    image: "/generated/case_defense.png",
-    alt: "A hardened sovereign AI enclave surrounded by encrypted defense-grade circuitry",
+    image: "/generated/case_defense_night.png",
+    alt: "A mountain road tunnel at night, wet asphalt under a single sodium lamp",
     summary:
       "Bring cutting edge model capability closer to sovereign, classified, or disconnected environments.",
     bullets: [
@@ -144,8 +150,8 @@ const CASES = [
   },
   {
     title: "Enterprise",
-    image: "/generated/case_enterprise.png",
-    alt: "A glass enterprise building inside a glowing private network perimeter",
+    image: "/generated/case_enterprise_night.png",
+    alt: "An empty glass lobby at night, seen through rain, one lamp on the desk",
     summary: "Deploy AI across operations. Prove your data posture.",
     bullets: [
       "Use frontier models across your organization without new exposure surfaces",
@@ -155,8 +161,8 @@ const CASES = [
   },
   {
     title: "Regulated industries",
-    image: "/generated/case_regulated.png",
-    alt: "A regulated operations network with cryptographic audit paths and verification nodes",
+    image: "/generated/case_records.png",
+    alt: "A records room of rolling archive shelves and labeled cardboard boxes",
     summary:
       "Deploy AI against sensitive internal data while preserving reviewable privacy boundaries.",
     bullets: [
@@ -328,6 +334,9 @@ export default function Home() {
         </header>
 
         <section id="top" className="lg-hero-wrap">
+          <NightField />
+          <img className="lg-quay-fg" src="/generated/wet_quay.png" alt="" />
+          <div className="lg-hero-veil" />
           <div className="lg-shell lg-split">
             <div className="lg-copy">
               <h1>
@@ -341,8 +350,8 @@ export default function Home() {
                 <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
                   Request briefing
                 </a>
-                <a className="lg-btn-ghost lg-btn-ghost-ink" href="#platform">
-                  How it works →
+                <a className="lg-btn-ghost" href="#platform">
+                  How it works
                 </a>
               </div>
             </div>
@@ -377,7 +386,7 @@ export default function Home() {
         </section>
 
         <section id="why-now" className="lg-section lg-section-ink lg-gap-section">
-          <img className="lg-bleed" src="/generated/water_caustic.png" alt="" />
+          <img className="lg-bleed" src="/generated/water_lattice.png" alt="" />
           <div className="lg-shell lg-gap">
             <div>
               <Folio n="03" label="The trust gap" />
@@ -405,7 +414,7 @@ export default function Home() {
                 policy. Private by architecture you can audit yourself.
               </p>
               <figure className="lg-film">
-                <img src="/generated/ledger_vault.png" alt="Private archive of sealed ledgers" />
+                <img src="/generated/desk_enlarger.png" alt="A darkroom enlarger over a blank photographic sheet" />
               </figure>
             </div>
           </div>
@@ -644,7 +653,7 @@ export default function Home() {
         </section>
 
         <section id="private-beta" className="lg-section lg-close-section">
-          <img className="lg-close-photo" src="/generated/hero_alpine_lake.png" alt="" />
+          <img className="lg-close-photo" src="/generated/night_exposure.png" alt="" />
           <div className="lg-close-veil" />
           <div className="lg-shell lg-close">
             <Folio n="11" label="Private beta" />
@@ -658,7 +667,7 @@ export default function Home() {
               Lugano.ai is the verification layer for private AI. Frontier AI with cryptographic
               privacy. No trust required.
             </p>
-            <a className="lg-btn" href="mailto:contact@lugano.ai">
+            <a className="lg-btn lg-btn-ink" href="mailto:contact@lugano.ai">
               Request briefing
             </a>
           </div>

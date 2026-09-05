@@ -108,13 +108,13 @@
   }
   html {
     scroll-behavior: smooth;
-    background: #121410;
+    background: #08090c;
   }
   body,
   #root {
     min-height: 100%;
     margin: 0;
-    background: #121410;
+    background: #08090c;
     color: #ede8dc;
   }
   body {
