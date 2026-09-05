@@ -995,13 +995,13 @@
   position: relative;
   z-index: 4;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) min(31rem, 40vw);
-  column-gap: clamp(1.8rem, 3.2vw, 2.8rem);
+  grid-template-columns: minmax(0, 1fr) min(22.75rem, 34vw);
+  column-gap: clamp(2rem, 4vw, 3.5rem);
   align-items: start;
   width: min(100% - (var(--gutter) * 2), 1220px);
   height: calc(100vh - 72px);
   margin: 0 auto;
-  padding: 1.7rem 0 0;
+  padding: 1.35rem 0 0;
 }
 
 .lg-ed-copy {
@@ -1019,7 +1019,7 @@
   margin: 0;
   color: #f7f1e6;
   font-family: var(--sans);
-  font-size: clamp(2.8rem, 4.2vw, 3.9rem);
+  font-size: clamp(2.55rem, 3.7vw, 3.45rem);
   font-weight: 600;
   line-height: 0.98;
   letter-spacing: -0.032em;
@@ -1043,36 +1043,50 @@
 .lg-ed-cta {
   display: inline-flex;
   align-items: center;
-  min-height: 2.4rem;
-  padding: 0;
-  border: 0;
+  min-height: 2.85rem;
+  padding: 0 1.15rem;
+  border: 1px solid #f4eee3;
   background: transparent;
   color: #f4eee3 !important;
   font-family: var(--sans);
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   font-weight: 500;
   letter-spacing: -0.02em;
-  text-decoration: underline;
-  text-underline-offset: 0.22em;
+  text-decoration: none;
 }
 
 .lg-ed-cta:hover {
-  color: #fff !important;
-  background: transparent;
+  background: #f4eee3;
+  color: #12110f !important;
 }
 
 .lg-ed-paper {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - 72px - 1.7rem);
+  height: calc(100vh - 72px - 0.4rem);
+  margin-top: -0.15rem;
   color: #2a2722;
   background-color: #efebe1;
   background-image:
     linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(40, 32, 22, 0.06)),
     url("/generated/thermal_paper_fiber.png");
-  background-size: auto, 180px;
-  padding: 1.3rem 1.5rem 1.4rem;
+  background-size: auto, 160px;
+  padding: 0 1.25rem 1.2rem;
+  transform: rotate(-1.15deg);
+  transform-origin: 50% 0;
+  filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.45));
+}
+
+.lg-ed-tear-top {
+  display: block;
+  width: calc(100% + 2.5rem);
+  height: 2.9rem;
+  margin: 0 -1.25rem 0.35rem;
+  object-fit: cover;
+  object-position: center 78%;
+  transform: scaleY(-1);
+  pointer-events: none;
 }
 
 .lg-ed-kind,
@@ -1191,7 +1205,8 @@
   align-items: baseline;
   gap: 0.08em;
   color: #9a2b24;
-  font-size: clamp(5rem, 11vh, 7.4rem);
+  font-size: clamp(5.6rem, 13vh, 8.4rem);
+  transform: rotate(-1.8deg);
   font-weight: 700;
   line-height: 0.82;
 }

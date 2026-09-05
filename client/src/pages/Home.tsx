@@ -327,6 +327,7 @@ export default function Home() {
             </a>
           </div>
           <article className="lg-ed-paper" aria-label="Attestation record">
+            <img className="lg-ed-tear-top" src="/generated/thermal_fine_tear.png" alt="" />
             <p className="lg-ed-kind">Attestation</p>
             <p className="lg-ed-ticket">LUG-7F283</p>
             <p className="lg-ed-when">{issued}</p>
@@ -341,6 +342,21 @@ export default function Home() {
                 <dt>Enclave</dt>
                 <i />
                 <dd>TDX</dd>
+              </div>
+              <div>
+                <dt>Input</dt>
+                <i />
+                <dd>4,821 tok</dd>
+              </div>
+              <div>
+                <dt>Output</dt>
+                <i />
+                <dd>1,104 tok</dd>
+              </div>
+              <div>
+                <dt>Logs</dt>
+                <i />
+                <dd>none</dd>
               </div>
               <div>
                 <dt>Prompt</dt>
