@@ -358,25 +358,22 @@ export default function Home() {
               <div>
                 <dt>Signed</dt>
                 <i />
-                <dd>TDX quote · SHA-384</dd>
-              </div>
-              <div className="lg-mat-total">
-                <dt>Total retained</dt>
-                <i />
-                <dd>
-                  <ZeroMark className="lg-zero-hero" />
-                  <small>B</small>
-                </dd>
+                <dd>TDX quote</dd>
               </div>
             </dl>
-            <footer>
+            <div className="lg-mat-end">
+              <div className="lg-mat-total">
+                <span>Total retained</span>
+                <b>
+                  <ZeroMark className="lg-zero-hero" />
+                  <small>B</small>
+                </b>
+              </div>
               <a className="lg-mat-verify" href="#architecture">
                 Verify this proof
               </a>
-              <span className="lg-mat-feed" aria-hidden="true">
-                * * * * * * *
-              </span>
-            </footer>
+              <img className="lg-mat-tear" src="/generated/cream_thermal_tear.png" alt="" />
+            </div>
           </article>
         </section>
       </div>

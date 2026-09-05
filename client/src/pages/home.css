@@ -354,6 +354,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
+  height: calc(100vh - 64px - 2.2rem);
+  padding-bottom: 2.6rem;
   gap: 1.6rem;
 }
 
@@ -373,9 +376,11 @@
 
 .lg-mat-sheet {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 1.15rem 1.2rem 7rem;
+  padding: 1.15rem 1.2rem 0;
   overflow: hidden;
   color: #2c2924;
   background: #f7f4ec;
@@ -479,9 +484,9 @@
 
 .lg-mat-hash {
   display: grid;
-  grid-template-columns: repeat(6, max-content);
+  grid-template-columns: repeat(4, max-content);
   justify-content: space-between;
-  gap: 0.08rem 0.38rem;
+  gap: 0.1rem 0.32rem;
 }
 
 .lg-mat-hash b {
@@ -490,21 +495,28 @@
   color: #5a564c;
 }
 
+.lg-mat-end {
+  margin-top: auto;
+}
+
 .lg-mat-total {
-  display: grid !important;
-  grid-template-columns: auto 1fr auto !important;
+  display: flex;
   align-items: baseline;
-  margin-top: 0.55rem;
-  padding: 0.7rem 0 0.15rem !important;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0.75rem 0 0.35rem;
   border-top: 1px solid #2c2924;
+  font-family: var(--mono);
 }
 
-.lg-mat-total dt {
-  color: #9a2b24;
-  font-size: 0.95rem;
+.lg-mat-total span {
+  color: #2c2924;
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-.lg-mat-total dd {
+.lg-mat-total b {
   display: inline-flex;
   align-items: baseline;
   gap: 0.1em;
@@ -523,31 +535,24 @@
   font-weight: 500;
 }
 
-.lg-mat-sheet footer {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
 .lg-mat-verify {
+  display: inline-block;
+  margin: 0.55rem 0 0.7rem;
   color: #2c2924 !important;
   font-family: var(--mono);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   text-decoration: underline;
   text-underline-offset: 0.22em;
 }
 
-.lg-mat-feed {
-  color: #8a8478;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-}
-
-.lg-mat-total dt {
-  color: #2c2924;
+.lg-mat-tear {
+  display: block;
+  width: calc(100% + 2.4rem);
+  height: 1.7rem;
+  margin: 0 -1.2rem;
+  object-fit: cover;
+  object-position: center top;
+  pointer-events: none;
 }
 
 /* ── Void fold: brand on the ground, receipt as evidence ─ */
@@ -3418,19 +3423,19 @@
   }
 
   .lg-mat-well {
-    height: auto;
-    padding: 1.2rem var(--gutter) 2rem;
-  }
-
-  .lg-mat-well {
     grid-template-columns: 1fr;
     height: auto;
-    padding: 1.4rem 0 0;
+    padding: 1.4rem var(--gutter) 2rem;
   }
 
   .lg-mat-lede,
   .lg-mat-sheet {
     width: 100%;
+  }
+
+  .lg-mat-copy {
+    height: auto;
+    padding-bottom: 1.4rem;
   }
 
   .lg-mat-sheet {
