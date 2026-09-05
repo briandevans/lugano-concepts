@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import ThermalHeat from "@/components/ThermalHeat";
-import TiltPlate from "@/components/TiltPlate";
 import "./home.css";
 
 const PROOF_ROWS = [
@@ -10,10 +9,10 @@ const PROOF_ROWS = [
   { label: "Nonce binding verified", digest: "a1d9…7f283" },
   { label: "Signing key bound", digest: "e3b7…9c064" },
   { label: "Receipt verification", digest: "f6a4…2d817" },
-  { label: "No prompt retention", digest: "0 retained" },
+  { label: "No prompt retention", digest: "0 retained", climax: true },
 ] as const;
 
-function LiveReceipt() {
+function useUtcClock() {
   const [clock, setClock] = useState(() => new Date().toISOString().slice(11, 19));
 
   useEffect(() => {
@@ -23,47 +22,47 @@ function LiveReceipt() {
     return () => window.clearInterval(id);
   }, []);
 
+  return clock;
+}
+
+function LiveReceipt({ clock }: { clock: string }) {
   return (
     <div className="lg-ticket-col">
-      <TiltPlate className="lg-ticket-tilt">
-        <aside className="lg-ticket" aria-label="Attestation receipt">
-          <ThermalHeat />
-          <div className="lg-ticket-sprocket" aria-hidden="true" />
-          <div className="lg-ticket-print">
-            <header className="lg-ticket-head">
-              <strong>Attestation receipt</strong>
-            </header>
-            <p className="lg-ticket-meta">
-              LUG-7F283
-              <span>{clock} UTC</span>
-              <span>CH · TDX</span>
-            </p>
-            <ol className="lg-ticket-rows">
-              {PROOF_ROWS.map((row) => (
-                <li className="lg-proof-row" key={row.label}>
-                  <span className="lg-tick" aria-hidden="true">
-                    <svg viewBox="0 0 12 12">
-                      <path d="M2 6.2 4.8 9 10 3" />
-                    </svg>
-                  </span>
-                  <b>{row.label}</b>
-                  <i>{row.digest}</i>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <img
-            className="lg-ticket-stamp"
-            src="/generated/verified_stamp_alpha.png"
-            alt=""
-          />
-          <img
-            className="lg-ticket-tear"
-            src="/generated/thermal_tear_edge.png"
-            alt=""
-          />
-        </aside>
-      </TiltPlate>
+      <aside className="lg-ticket" aria-label="Attestation receipt">
+        <ThermalHeat />
+        <div className="lg-ticket-sprocket" aria-hidden="true" />
+        <div className="lg-ticket-print">
+          <header className="lg-ticket-head">
+            <strong>Attestation receipt</strong>
+            <span>CLR</span>
+          </header>
+          <p className="lg-ticket-meta">
+            LUG-7F283 · {clock} UTC · CH · TDX
+          </p>
+          <ol className="lg-ticket-rows">
+            {PROOF_ROWS.map((row) => (
+              <li
+                className={`lg-proof-row${"climax" in row && row.climax ? " is-climax" : ""}`}
+                key={row.label}
+              >
+                <span className="lg-tick" aria-hidden="true">
+                  <svg viewBox="0 0 12 12">
+                    <path d="M2.1 6.3 4.7 9.1 10 2.8" />
+                  </svg>
+                </span>
+                <b>{row.label}</b>
+                <i>{row.digest}</i>
+              </li>
+            ))}
+          </ol>
+          <p className="lg-ticket-ok">VERIFIED</p>
+        </div>
+        <img
+          className="lg-ticket-tear"
+          src="/generated/thermal_tear_edge.png"
+          alt=""
+        />
+      </aside>
     </div>
   );
 }
@@ -273,6 +272,7 @@ function Folio({ n, label }: { n: string; label: string }) {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [pillar, setPillar] = useState(0);
+  const clock = useUtcClock();
 
   useEffect(() => {
     const path = window.location.pathname.replace(/\/$/, "");
@@ -340,10 +340,10 @@ export default function Home() {
         <section id="top" className="lg-hero-wrap">
           <div className="lg-shell lg-hero lg-hero-bleed">
             <div className="lg-hero-copy">
-              <Folio n="01" label="Hard copy" />
+              <Folio n="01" label="Clearance" />
               <h1>
                 <span>AI privacy</span>
-                <em>by proof.</em>
+                <span>by proof.</span>
               </h1>
               <p>Every response returns a cryptographic receipt. Prompts are not retained.</p>
               <div className="lg-hero-actions">
@@ -354,8 +354,12 @@ export default function Home() {
                   How it works
                 </a>
               </div>
+              <p className="lg-hero-live">
+                <span className="lg-live-dot" aria-hidden="true" />
+                {clock} UTC · 6 checks · 0 retained
+              </p>
             </div>
-            <LiveReceipt />
+            <LiveReceipt clock={clock} />
           </div>
         </section>
 

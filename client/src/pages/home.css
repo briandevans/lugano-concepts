@@ -4,25 +4,25 @@
 .lg {
   --ink: #14130f;
   --ink-soft: #1c1b16;
-  --paper: #e4dfd2;
-  --paper-deep: #d4cdb8;
-  --thermal: #f3e8c8;
-  --fog: #4a463c;
-  --ash: #3a372f;
+  --paper: #c9b892;
+  --paper-deep: #b9a87c;
+  --thermal: #f7f2e2;
+  --fog: #3f3b32;
+  --ash: #2f2c26;
   --alpine: #2e6b52;
   --alpine-bright: #3f8a68;
-  --seal: #c41a7a;
-  --metal: #6a6558;
-  --rule: rgba(20, 19, 15, 0.16);
+  --seal: #b01668;
+  --metal: #5a5446;
+  --rule: rgba(20, 19, 15, 0.18);
   --rule-paper: rgba(228, 223, 210, 0.16);
   --serif: "Fraunces", "Times New Roman", serif;
-  --sans: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: "Instrument Sans", "Helvetica Neue", ui-sans-serif, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
   --max: 1220px;
   --gutter: clamp(1.25rem, 4.2vw, 3.25rem);
   color: var(--paper);
   background: var(--ink);
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-weight: 400;
   line-height: 1.5;
   text-rendering: optimizeLegibility;
@@ -76,7 +76,7 @@
 .lg-wordmark {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 1.35rem;
+  font-size: 1.4rem;
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -92,8 +92,10 @@
   justify-content: space-between;
   gap: 1.5rem;
   height: 64px;
-  border-bottom: 1px solid var(--rule);
-  background: #e4dfd2;
+  border-bottom: 0;
+  background-color: #c9b892;
+  background-image: url("/generated/kraft_blotter_grain.png");
+  background-size: 720px;
   color: var(--ink);
 }
 
@@ -119,10 +121,10 @@
 }
 
 .lg-nav-links a {
-  color: var(--ash);
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  letter-spacing: 0;
 }
 
 .lg-nav-links a:hover {
@@ -132,14 +134,13 @@
 .lg-nav-cta {
   display: inline-flex;
   align-items: center;
-  min-height: 2rem;
-  padding: 0.3rem 0.7rem;
+  min-height: 2.05rem;
+  padding: 0.32rem 0.75rem;
   background: var(--ink);
-  color: var(--paper) !important;
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  color: var(--thermal) !important;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
 }
 
 .lg-menu-btn {
@@ -192,10 +193,10 @@
   align-items: baseline;
   gap: 0.7rem;
   margin-bottom: 1.15rem;
-  color: var(--metal);
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
+  color: var(--ash);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
 }
 
 .lg-folio em {
@@ -234,21 +235,21 @@
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  min-height: 2.7rem;
-  padding: 0.55rem 1rem;
+  min-height: 2.85rem;
+  padding: 0.55rem 1.1rem;
   border: 0;
   background: var(--paper);
   color: var(--ink) !important;
-  font-family: var(--mono);
-  font-size: 0.74rem;
-  font-weight: 400;
-  letter-spacing: 0.04em;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
 .lg a.lg-btn.lg-btn-ink,
 .lg-btn-ink {
   background: var(--ink);
-  color: var(--paper) !important;
+  color: var(--thermal) !important;
 }
 
 .lg a.lg-btn.lg-btn-ink:hover,
@@ -259,13 +260,16 @@
 .lg-btn-ghost {
   display: inline-flex;
   align-items: center;
-  min-height: 2.7rem;
+  min-height: 2.85rem;
   padding: 0.55rem 0;
-  color: var(--ash);
-  font-family: var(--mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.04em;
-  border-bottom: 1px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  letter-spacing: 0;
+  border-bottom: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
 }
 
 .lg-btn-ghost:hover,
@@ -286,7 +290,9 @@
 
 .lg-section-cont {
   color: var(--ink);
-  background: #e4dfd2;
+  background-color: #c9b892;
+  background-image: url("/generated/kraft_blotter_grain.png");
+  background-size: 720px;
   padding-top: 4.5rem;
   border-top: 1px solid var(--rule);
 }
@@ -322,12 +328,9 @@
   isolation: isolate;
   overflow: hidden;
   color: var(--ink);
-  background-color: #e4dfd2;
-  background-image:
-    url("/generated/thermal_paper_grain.png"),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  background-size: cover, auto;
-  background-blend-mode: multiply, normal;
+  background-color: #c9b892;
+  background-image: url("/generated/kraft_blotter_grain.png");
+  background-size: 720px;
 }
 
 .lg-field,
@@ -373,8 +376,12 @@
 }
 
 .lg-hero-copy {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
+  min-height: calc(100svh - 64px - 4.75rem);
   padding-top: 0.15rem;
+  padding-bottom: 2.4rem;
 }
 
 .lg-hero-copy .lg-folio {
@@ -401,18 +408,12 @@
   white-space: nowrap;
 }
 
-.lg-hero h1 em {
-  display: block;
-  font-style: italic;
-  font-optical-sizing: auto;
-}
-
 .lg-hero-copy > p {
-  max-width: 26rem;
-  margin: 1.35rem 0 0;
+  max-width: 28rem;
+  margin: 1.5rem 0 0;
   color: var(--ash);
-  font-family: var(--serif);
-  font-size: clamp(1.12rem, 1.6vw, 1.32rem);
+  font-family: var(--sans);
+  font-size: clamp(1.22rem, 1.8vw, 1.48rem);
   line-height: 1.4;
 }
 
@@ -424,11 +425,30 @@
   margin-top: 2.1rem;
 }
 
-.lg-tilt,
-.lg-ticket-tilt {
-  transform: perspective(1600px) rotateY(-10deg) rotateX(4deg) rotateZ(1.2deg);
-  transform-style: preserve-3d;
-  transform-origin: left top;
+.lg-hero-live {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: auto;
+  padding-top: 2.75rem;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+}
+
+.lg-live-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--seal);
+  box-shadow: 0 0 0 0 rgba(176, 22, 104, 0.45);
+  animation: lg-pulse 1.6s ease-out infinite;
+}
+
+@keyframes lg-pulse {
+  70% {
+    box-shadow: 0 0 0 0.45rem transparent;
+  }
 }
 
 /* Thermal ticket — the identity object */
@@ -439,20 +459,20 @@
 
 .lg-ticket {
   position: relative;
-  width: min(42rem, 58vw);
-  min-height: 62rem;
-  margin-right: -28%;
-  margin-bottom: -12rem;
+  width: min(40rem, 56vw);
+  min-height: 70rem;
+  margin-right: -14%;
+  margin-bottom: -14rem;
   padding: 1.7rem 1.8rem 6rem 2.45rem;
   overflow: hidden;
-  color: var(--ink);
+  color: #2a261c;
   background-color: var(--thermal);
-  background-image: url("/generated/thermal_paper_grain.png");
-  background-size: cover;
+  background-image: url("/generated/thermal_ivory_grain.png");
+  background-size: 480px;
   box-shadow:
-    0 1px 0 rgba(255, 248, 230, 0.55) inset,
-    0 28px 70px rgba(20, 16, 10, 0.22),
-    0 6px 16px rgba(20, 16, 10, 0.12);
+    0 1px 0 rgba(255, 252, 244, 0.7) inset,
+    0 22px 48px rgba(20, 16, 10, 0.16),
+    0 4px 12px rgba(20, 16, 10, 0.1);
 }
 
 .lg-heat {
@@ -471,12 +491,12 @@
   bottom: 0;
   left: 0;
   z-index: 2;
-  width: 1.35rem;
+  width: 1.45rem;
   pointer-events: none;
   background:
-    radial-gradient(circle at 0.42rem 0.7rem, #e4dfd2 0.26rem, transparent 0.28rem);
-  background-size: 1.35rem 1.45rem;
-  box-shadow: inset -1px 0 0 rgba(20, 16, 10, 0.12);
+    radial-gradient(circle at 0.48rem 0.78rem, #c9b892 0.3rem, transparent 0.32rem);
+  background-size: 1.45rem 1.55rem;
+  box-shadow: inset -1px 0 0 rgba(20, 16, 10, 0.1);
 }
 
 .lg-ticket-print {
@@ -485,46 +505,53 @@
 }
 
 .lg-ticket-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
   padding-bottom: 0.85rem;
   margin-bottom: 0.7rem;
-  border-bottom: 1px solid rgba(20, 16, 10, 0.22);
+  border-bottom: 1px dashed rgba(42, 38, 28, 0.35);
 }
 
 .lg-ticket-head strong {
   display: block;
-  font-family: var(--serif);
-  font-size: 1.85rem;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1;
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+}
+
+.lg-ticket-head span {
+  color: var(--seal);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
 }
 
 .lg-ticket-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 0.85rem;
   margin: 0 0 1.15rem;
-  color: var(--ash);
+  color: #2a261c;
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+
+.lg-ticket-ok {
+  margin: 1.15rem 0 0;
+  color: var(--seal);
+  font-family: var(--mono);
+  font-size: 1.55rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
 }
 
 .lg-ticket-rows {
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.lg-ticket-stamp {
-  position: absolute;
-  right: 6%;
-  bottom: 24%;
-  z-index: 4;
-  width: min(17.5rem, 62%);
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  transform: rotate(-14deg);
 }
 
 .lg-ticket-tear {
@@ -688,11 +715,11 @@
   grid-template-columns: 0.9rem minmax(0, 1fr) 7.2rem;
   align-items: center;
   gap: 0.55rem;
-  min-height: 2.05rem;
-  padding: 0.4rem 0;
-  border-bottom: 0;
+  min-height: 2.15rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px dashed rgba(42, 38, 28, 0.22);
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
 }
 
 .lg-proof-row b {
@@ -717,14 +744,25 @@
   border-bottom: 0;
 }
 
+.lg-proof-row.is-climax {
+  margin-top: 0.35rem;
+  border-bottom-color: rgba(42, 38, 28, 0.45);
+}
+
+.lg-proof-row.is-climax i {
+  color: var(--seal);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
 .lg-tick {
   display: grid;
   place-items: center;
-  width: 0.72rem;
-  height: 0.72rem;
-  border: 1px solid var(--ink);
-  background: transparent;
-  color: var(--ink);
+  width: 0.82rem;
+  height: 0.82rem;
+  border: 0;
+  background: #2a261c;
+  color: var(--thermal);
 }
 
 .lg-tick svg {
@@ -1500,8 +1538,8 @@
     margin-bottom: -3rem;
   }
 
-  .lg-ticket-tilt {
-    transform: perspective(1400px) rotateY(-4deg) rotateX(2deg);
+  .lg-hero-copy {
+    min-height: 0;
   }
 
   .lg-hero,
@@ -1553,7 +1591,9 @@
     left: 0;
     gap: 0.25rem;
     padding: 1rem var(--gutter) 1.25rem;
-    background: var(--paper);
+    background-color: #c9b892;
+    background-image: url("/generated/kraft_blotter_grain.png");
+    background-size: 720px;
     border-bottom: 1px solid var(--rule);
   }
 
