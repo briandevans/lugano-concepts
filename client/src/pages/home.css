@@ -5108,9 +5108,11 @@
   }
 
   .lg-nm-well {
+    grid-template-columns: 1fr;
     height: auto;
     overflow: visible;
-    padding: 0 var(--gutter) 2rem;
+    row-gap: 1.8rem;
+    padding: 1.2rem 0 2rem;
   }
 
   .lg-nm-lede {
