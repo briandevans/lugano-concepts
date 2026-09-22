@@ -1,0 +1,327 @@
+/* Panoramic opening direction. Scoped so the copied page can coexist with Longbow. */
+.opening-panorama { background: #fffdfa; }
+
+.opening-panorama .panorama-hero {
+  padding: clamp(50px, 6.2vw, 88px) 0 0;
+  background: #fffdfa;
+}
+
+.opening-panorama .panorama-hero__shell { display: grid; gap: 0; }
+
+.opening-panorama .panorama-hero__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 26px;
+  justify-items: center;
+  text-align: center;
+  padding: 0 0 clamp(42px, 5.2vw, 72px);
+}
+
+.opening-panorama .panorama-hero__title {
+  width: min(100%, 960px);
+  min-width: 0;
+}
+.opening-panorama .panorama-hero .eyebrow { margin-bottom: 19px; }
+
+.opening-panorama .panorama-hero h1 {
+  max-width: none;
+  margin: 0 auto;
+  font-size: clamp(76px, 8.5vw, 116px);
+  letter-spacing: -.046em;
+  line-height: .88;
+}
+
+.opening-panorama .panorama-hero .hero-line { white-space: nowrap; }
+.opening-panorama .panorama-hero .proof-line { justify-content: center; gap: .17em; }
+.opening-panorama .panorama-hero h1 del { font-size: .34em; text-decoration-thickness: 2px; }
+
+.opening-panorama .panorama-hero__summary { max-width: 620px; padding-bottom: 0; }
+.opening-panorama .panorama-hero .lead { color: #534e48; font-size: 16px; line-height: 1.68; text-wrap: balance; }
+.opening-panorama .panorama-hero .hero-actions { margin-top: 25px; }
+.opening-panorama .panorama-hero .button { border-radius: 4px; }
+
+.opening-panorama .panorama-hero__art {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 2.12 / 1;
+  border: 1px solid #d2c4b8;
+  border-bottom: 0;
+  border-radius: 3px 3px 0 0;
+  background: #253d78;
+  box-shadow: none;
+}
+
+.opening-panorama .panorama-hero__art picture,
+.opening-panorama .panorama-hero__art img { width: 100%; height: 100%; }
+
+.opening-panorama .panorama-hero__art img {
+  min-height: 0;
+  object-fit: cover;
+  object-position: center 52%;
+}
+
+.opening-panorama .panorama-hero__art::after {
+  border-radius: 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), inset 0 -1px 0 rgba(17, 29, 61, .22);
+}
+
+.opening-panorama .panorama-hero__promise {
+  display: grid;
+  grid-template-columns: minmax(170px, .58fr) minmax(0, 1.42fr);
+  gap: 28px;
+  max-width: none;
+  margin: 0;
+  padding: 18px clamp(22px, 3vw, 42px) 20px;
+  border: 1px solid #d2c4b8;
+  border-radius: 0 0 3px 3px;
+  background: #f4ebe2;
+}
+
+.opening-panorama .panorama-hero__promise > div {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 11px;
+  align-items: baseline;
+}
+
+.opening-panorama .panorama-hero__promise strong { color: #1e1a17; font-size: 12px; }
+.opening-panorama .panorama-hero__promise span { display: inline; margin: 0; color: #9d563a; font-size: 11px; }
+
+.opening-panorama .panorama-hero__promise ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px clamp(18px, 2.6vw, 37px);
+  align-items: baseline;
+  color: #615a54;
+  font-size: 12px;
+}
+
+.opening-panorama .panorama-hero__promise li::before { padding-right: 5px; }
+
+/* The verification material becomes an evidence strip: present but quieter than the panorama. */
+.opening-panorama .panorama-proof {
+  --specimen-folio-inline-inset: 0px;
+  padding: clamp(42px, 5.2vw, 74px) 0 clamp(64px, 7.3vw, 102px);
+  border-top: 0;
+  border-bottom: 1px solid #ddd6ce;
+  background: #f7f2eb;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__sheet {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__masthead {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 38px;
+  align-items: end;
+  padding: 0 0 20px;
+  border-bottom: 1px solid #cec4ba;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__kicker {
+  color: #a45d3f;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__title-block h2 {
+  max-width: none;
+  margin-top: 7px;
+  color: #1c1916;
+  font-size: clamp(38px, 4.1vw, 57px);
+  letter-spacing: -.043em;
+  line-height: .95;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__retention {
+  padding: 0 0 2px 25px;
+  border-left: 1px solid #cec4ba;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__retention-stat { gap: 8px; }
+.opening-panorama .panorama-proof .specimen-folio__retention-stat strong { color: #1c1916; font-size: 44px; line-height: .72; }
+.opening-panorama .panorama-proof .specimen-folio__retention-stat span { color: #7f513d; font-size: 11px; }
+
+.opening-panorama .panorama-proof .specimen-folio__body {
+  grid-template-columns: minmax(250px, .72fr) minmax(0, 1.28fr);
+  border-top: 0;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__declaration {
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 238px;
+  justify-content: space-between;
+  gap: 27px;
+  padding: 27px clamp(24px, 3vw, 42px) 28px 0;
+  border-right: 1px solid #cec4ba;
+  background: transparent;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__declaration > p:first-child,
+.opening-panorama .panorama-proof .specimen-folio__principles p {
+  color: #a45d3f;
+  font-size: 10px;
+  letter-spacing: .105em;
+  text-transform: uppercase;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__statement {
+  flex: initial;
+  color: #25201c;
+  font-size: clamp(34px, 3.4vw, 48px);
+  line-height: .95;
+  text-align: left;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__records {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: clamp(17px, 2vw, 31px);
+  padding: 11px 0 12px clamp(24px, 3vw, 42px);
+  border-left: 0;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__records article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+  align-content: center;
+  min-height: 67px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd4cb;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__records article:last-child {
+  grid-column: auto;
+  margin-top: 0;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid #ddd4cb;
+  border-radius: 0;
+  background: transparent;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__records strong { color: #302924; font-size: 11px; line-height: 1.32; }
+.opening-panorama .panorama-proof .specimen-folio__records code { color: #806452; font-size: 10px; line-height: 1.25; text-align: left; }
+
+.opening-panorama .panorama-proof .specimen-folio__principles {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid #cec4ba;
+  background: transparent;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__principles article { padding: 21px clamp(20px, 2.8vw, 38px) 3px 0; }
+
+.opening-panorama .panorama-proof .specimen-folio__principles article + article {
+  padding-left: clamp(20px, 2.8vw, 38px);
+  border-left: 1px solid #cec4ba;
+}
+
+.opening-panorama .panorama-proof .specimen-folio__principles h3 {
+  max-width: 275px;
+  margin-top: 7px;
+  color: #2e2823;
+  font-size: clamp(22px, 2.1vw, 30px);
+  letter-spacing: -.035em;
+  line-height: 1;
+}
+
+@media (max-width: 1000px) {
+  .opening-panorama .panorama-hero__intro {
+    gap: 24px;
+  }
+
+  .opening-panorama .panorama-hero h1 { font-size: clamp(64px, 8.1vw, 86px); }
+
+  .opening-panorama .panorama-proof .specimen-folio__masthead {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 0 0 19px;
+  }
+
+  .opening-panorama .panorama-proof .specimen-folio__declaration { min-height: 218px; }
+  .opening-panorama .panorama-proof .specimen-folio__records { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .opening-panorama .panorama-hero { padding-top: 37px; }
+
+  .opening-panorama .panorama-hero__intro {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding-bottom: 35px;
+  }
+
+  .opening-panorama .panorama-hero h1 { font-size: clamp(53px, 13.1vw, 76px); }
+  .opening-panorama .panorama-hero .hero-line { white-space: normal; }
+  .opening-panorama .panorama-hero__summary { max-width: 485px; }
+  .opening-panorama .panorama-hero__art { order: 0; aspect-ratio: 1.35 / 1; }
+  .opening-panorama .panorama-hero__art img { object-position: center; }
+
+  .opening-panorama .panorama-hero__promise {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 17px 20px 19px;
+  }
+
+  .opening-panorama .panorama-hero__promise ul { display: grid; gap: 3px; }
+
+  .opening-panorama .panorama-proof { padding-top: 47px; padding-bottom: 63px; }
+  .opening-panorama .panorama-proof .specimen-folio__masthead { gap: 18px; padding-bottom: 18px; }
+  .opening-panorama .panorama-proof .specimen-folio__title-block h2 { font-size: clamp(36px, 9.2vw, 52px); }
+  .opening-panorama .panorama-proof .specimen-folio__retention { padding-left: 18px; }
+  .opening-panorama .panorama-proof .specimen-folio__body { grid-template-columns: 1fr; }
+
+  .opening-panorama .panorama-proof .specimen-folio__declaration {
+    min-height: 0;
+    padding: 24px 0 26px;
+    border-right: 0;
+    border-bottom: 1px solid #cec4ba;
+  }
+
+  .opening-panorama .panorama-proof .specimen-folio__statement br { display: none; }
+  .opening-panorama .panorama-proof .specimen-folio__records { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 10px 0 14px; }
+  .opening-panorama .panorama-proof .specimen-folio__principles article { padding: 20px 18px 2px 0; }
+  .opening-panorama .panorama-proof .specimen-folio__principles article + article { padding-left: 18px; }
+  .opening-panorama .panorama-proof .specimen-folio__principles h3 { font-size: clamp(20px, 3.7vw, 27px); }
+}
+
+@media (max-width: 460px) {
+  .opening-panorama .panorama-hero h1 { font-size: clamp(50px, 13.4vw, 59px); }
+  .opening-panorama .panorama-hero .proof-line { white-space: nowrap; }
+  .opening-panorama .panorama-hero__art { aspect-ratio: 1.16 / 1; }
+  .opening-panorama .panorama-hero__promise { padding-right: 17px; padding-left: 17px; }
+
+  .opening-panorama .panorama-proof .specimen-folio__masthead {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
+
+  .opening-panorama .panorama-proof .specimen-folio__retention {
+    justify-self: start;
+    padding: 13px 0 0;
+    border-top: 1px solid #cec4ba;
+    border-left: 0;
+  }
+
+  .opening-panorama .panorama-proof .specimen-folio__records { grid-template-columns: 1fr; }
+  .opening-panorama .panorama-proof .specimen-folio__records article { min-height: 0; padding: 12px 0; }
+  .opening-panorama .panorama-proof .specimen-folio__principles { grid-template-columns: 1fr; }
+
+  .opening-panorama .panorama-proof .specimen-folio__principles article,
+  .opening-panorama .panorama-proof .specimen-folio__principles article + article {
+    padding: 19px 0 0;
+    border-left: 0;
+  }
+
+  .opening-panorama .panorama-proof .specimen-folio__principles article + article {
+    margin-top: 18px;
+    border-top: 1px solid #cec4ba;
+  }
+}

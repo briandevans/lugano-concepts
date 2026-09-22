@@ -14,6 +14,14 @@ const homepageIndex = readFileSync(
   new URL("../index.html", import.meta.url),
   "utf8",
 );
+const homepageRouter = readFileSync(
+  new URL("../homepage-router.js", import.meta.url),
+  "utf8",
+);
+const approvedPanorama = readFileSync(
+  new URL("../concepts/longbow/opening/panorama/index.html", import.meta.url),
+  "utf8",
+);
 const homepageBundle = readFileSync(
   new URL("../assets/index--1ut8_O7.js", import.meta.url),
   "utf8",
@@ -129,7 +137,7 @@ test("footer labels are converted to real links", () => {
   assert.doesNotMatch(homepageScript, /"Terms of Service":\s*"\/terms\/"/);
 });
 
-test("brand mark and favicon use the cobalt Lugano mark", () => {
+test("brand mark, favicon, and legacy route assets use the cobalt Lugano mark", () => {
   assert.equal(logoMarkWebp.subarray(0, 4).toString("ascii"), "RIFF");
   assert.equal(logoMarkWebp.subarray(8, 12).toString("ascii"), "WEBP");
   assert.match(logoMark, /viewBox="0 0 1920 1920"/);
@@ -140,19 +148,23 @@ test("brand mark and favicon use the cobalt Lugano mark", () => {
   assert.match(logoMark, /x="1032" y="964" width="395" height="434"/);
   assert.match(
     homepageIndex,
-    /<link rel="icon" type="image\/svg\+xml" href="\.\/logo-mark\.svg\?v=[^"]+" \/>/,
+    /<link rel="icon" type="image\/svg\+xml" href="\/logo-mark\.svg\?v=[^"]+" \/>/,
   );
   assert.match(
     homepageIndex,
-    /homepage-sections\.css\?v=[^"]+/,
+    /<script src="\/homepage-router\.js\?v=[^"]+"><\/script>/,
   );
   assert.match(
-    homepageIndex,
-    /homepage-sections\.js\?v=[^\"]+/,
+    homepageRouter,
+    /href: "\/homepage-sections\.css\?v=[^"]+"/,
   );
   assert.match(
-    homepageIndex,
-    /lugano-design-system\.css\?v=[^"]+/,
+    homepageRouter,
+    /src: "\/homepage-sections\.js\?v=[^"]+"/,
+  );
+  assert.match(
+    homepageRouter,
+    /href: "\/lugano-design-system\.css\?v=[^"]+"/,
   );
   assert.match(
     homepageScript,
@@ -161,6 +173,31 @@ test("brand mark and favicon use the cobalt Lugano mark", () => {
   assert.doesNotMatch(homepageScript, /BRAND_MARK_SRC = "\//);
   assert.match(homepageScript, /normalizeBrandMarkAssets/);
   assert.match(homepageStyles, /--lgx-magenta: #e11bdd;/);
+});
+
+test("marketing root preserves the approved panorama body", () => {
+  const rootStartMarker = '<div id="marketing-root">\n';
+  const rootEndMarker = '\n    </div>\n    <div id="root"';
+  const sourceStartMarker = '<body class="opening-panorama">\n';
+  const sourceEndMarker = '\n    <script src="/concepts/longbow/longbow.js';
+  const rootStart = homepageIndex.indexOf(rootStartMarker);
+  const sourceStart = approvedPanorama.indexOf(sourceStartMarker);
+
+  assert.notEqual(rootStart, -1, "marketing root should exist");
+  assert.notEqual(sourceStart, -1, "approved panorama body should exist");
+
+  const marketingRoot = homepageIndex.slice(
+    rootStart + rootStartMarker.length,
+    homepageIndex.indexOf(rootEndMarker, rootStart),
+  );
+  const approvedBody = approvedPanorama
+    .slice(
+      sourceStart + sourceStartMarker.length,
+      approvedPanorama.indexOf(sourceEndMarker, sourceStart),
+    )
+    .replace(/^ {4}/, "");
+
+  assert.equal(marketingRoot, approvedBody);
 });
 
 test("hero keeps the verification ledger as a first-class editorial feature", () => {
@@ -213,10 +250,10 @@ test("hero preserves the original trust-me-bro headline and all live verificatio
 
 test("static engraving hero prevents the retired Mux player from starting", () => {
   const staticHeroMarker = 'document.documentElement.dataset.lgxStaticHero = "true";';
-  const bundleScript = 'src="./assets/index--1ut8_O7.js?v=lugano-engraved-hero-20260905"';
+  const routerScript = 'src="/homepage-router.js';
 
   assert.ok(homepageIndex.includes(staticHeroMarker));
-  assert.ok(homepageIndex.indexOf(staticHeroMarker) < homepageIndex.indexOf(bundleScript));
+  assert.ok(homepageIndex.indexOf(staticHeroMarker) < homepageIndex.indexOf(routerScript));
   assert.match(
     homepageBundle,
     /const a=i\.current;if\(a&&document\.documentElement\.dataset\.lgxStaticHero!=="true"\)\{if\(Zn\.isSupported\(\)\)/,

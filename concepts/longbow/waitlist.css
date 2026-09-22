@@ -1,0 +1,587 @@
+/*
+ * The compiled application keeps ownership of its route, fields, and submit
+ * handler. These rules only restyle the hash-routed application surface.
+ */
+
+/*
+ * Existing application CSS uses broad, unlayered !important rules. Important
+ * declarations in this named layer intentionally win that inherited surface
+ * without requiring selectors to bleed beyond the application route.
+ */
+@layer longbow-waitlist {
+
+:root:has(#root .apply-form) {
+  --longbow-waitlist-paper: #fffdfa;
+  --longbow-waitlist-panel: #fffefc;
+  --longbow-waitlist-ink: #151412;
+  --longbow-waitlist-copy: #514d48;
+  --longbow-waitlist-muted: #746e67;
+  --longbow-waitlist-line: #ded9d2;
+  --longbow-waitlist-sand: #f4e4d3;
+  --longbow-waitlist-rust: #a45d3f;
+  color-scheme: light !important;
+}
+
+html:has(#root .apply-form),
+body:has(#root .apply-form),
+#root:has(.apply-form) {
+  background: var(--longbow-waitlist-paper) !important;
+}
+
+body:has(#root .apply-form) {
+  color: var(--longbow-waitlist-ink);
+  font-family: "Manrope", Arial, sans-serif;
+}
+
+/* Quiet, warm header shared with the approved Longbow page. */
+#root:has(.apply-form) nav {
+  height: 72px !important;
+  border-bottom: 1px solid rgba(86, 70, 55, .14) !important;
+  background: rgba(255, 253, 250, .88) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .9) inset, 0 6px 18px rgba(67, 48, 32, .035) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(112%) !important;
+  backdrop-filter: blur(14px) saturate(112%) !important;
+}
+
+#root:has(.apply-form) nav > div:not(.fixed) {
+  width: min(calc(100% - 80px), 1240px) !important;
+  max-width: 1240px !important;
+  margin: 0 auto !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+#root:has(.apply-form) nav :where(a, button),
+#root:has(.apply-form) nav :where(a, button) * {
+  color: var(--longbow-waitlist-ink) !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  text-transform: none !important;
+}
+
+#root:has(.apply-form) nav .lgx-brand-link {
+  gap: .55rem !important;
+  color: var(--longbow-waitlist-ink) !important;
+}
+
+#root:has(.apply-form) nav .lgx-brand-link span {
+  font-family: "Instrument Serif", Georgia, serif !important;
+  font-size: 1.45rem !important;
+  font-style: italic;
+  letter-spacing: -.035em;
+}
+
+#root:has(.apply-form) nav .lgx-brand-mark-image {
+  filter: brightness(0) saturate(100%) invert(24%) sepia(28%) saturate(2382%) hue-rotate(178deg)
+    brightness(89%) contrast(91%) !important;
+}
+
+#root:has(.apply-form) nav a:not(.lgx-brand-link):not([href*="apply"]) {
+  color: #625d57 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: .045em !important;
+}
+
+#root:has(.apply-form) nav a:not(.lgx-brand-link):not([href*="apply"]):hover {
+  color: var(--longbow-waitlist-rust) !important;
+}
+
+#root:has(.apply-form) nav a[href*="apply"] {
+  min-height: 40px;
+  padding: 10px 16px !important;
+  border: 1px solid var(--longbow-waitlist-ink) !important;
+  border-radius: 10px !important;
+  background: var(--longbow-waitlist-ink) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 1px 2px rgba(21, 20, 18, .14) !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: .025em !important;
+  text-transform: none !important;
+}
+
+#root:has(.apply-form) nav a[href*="apply"] * {
+  color: #fff !important;
+}
+
+#root:has(.apply-form) nav a[href*="apply"]:hover {
+  border-color: var(--longbow-waitlist-rust) !important;
+  background: var(--longbow-waitlist-rust) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), 0 5px 11px rgba(76, 57, 42, .16) !important;
+  transform: translateY(-1px);
+}
+
+#root:has(.apply-form) nav button[aria-label="Toggle menu"] span {
+  background-color: var(--longbow-waitlist-ink) !important;
+}
+
+/* The route retains its existing canvas, subdued to a paper-grain detail. */
+#root:has(.apply-form) section:has(.apply-form) {
+  display: flex !important;
+  min-height: 100dvh !important;
+  align-items: center !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: var(--longbow-waitlist-paper) !important;
+  color: var(--longbow-waitlist-ink) !important;
+  isolation: isolate;
+}
+
+#root:has(.apply-form) section:has(.apply-form) .hash-field-wrap {
+  z-index: 0 !important;
+  opacity: .035 !important;
+  mix-blend-mode: multiply;
+  filter: sepia(.32) saturate(.55);
+}
+
+#root:has(.apply-form) section:has(.apply-form) > .relative.z-10 {
+  width: min(calc(100% - 80px), 1240px) !important;
+  max-width: 1240px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  padding: 136px 0 88px !important;
+}
+
+#root:has(.apply-form) section:has(.apply-form) .grid {
+  grid-template-columns: minmax(0, .94fr) minmax(430px, .86fr) !important;
+  gap: clamp(56px, 9vw, 136px) !important;
+  align-items: center !important;
+}
+
+#root:has(.apply-form) .apply-bracket {
+  display: block !important;
+  margin: 0 0 1.2rem !important;
+  color: var(--longbow-waitlist-rust) !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: .14em !important;
+  line-height: 1.35 !important;
+  text-transform: uppercase;
+}
+
+#root:has(.apply-form) .apply-bracket::before,
+#root:has(.apply-form) .apply-bracket::after {
+  display: none !important;
+  content: none !important;
+}
+
+#root:has(.apply-form) .apply-headline {
+  max-width: 8.6ch !important;
+  margin: 0 !important;
+  color: var(--longbow-waitlist-ink) !important;
+  font-family: "Instrument Serif", Georgia, serif !important;
+  font-size: clamp(4.1rem, 6.45vw, 5.9rem) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.05em !important;
+  line-height: .89 !important;
+}
+
+#root:has(.apply-form) .apply-headline span {
+  display: block !important;
+  margin-top: .1em !important;
+  color: var(--longbow-waitlist-rust) !important;
+  font-style: italic !important;
+}
+
+#root:has(.apply-form) .apply-sub {
+  max-width: 31rem !important;
+  margin: 1.55rem 0 0 !important;
+  color: var(--longbow-waitlist-copy) !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: clamp(.98rem, 1.3vw, 1.08rem) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.7 !important;
+}
+
+/* The form is intentionally a single elevated paper sheet. */
+#root:has(.apply-form) .apply-form {
+  width: min(100%, 31.5rem) !important;
+  justify-self: end !important;
+}
+
+#root:has(.apply-form) .apply-form form > div,
+#root:has(.apply-form) .apply-form > div {
+  padding: 2.25rem 2.35rem 2.3rem !important;
+  border: 1px solid var(--longbow-waitlist-line) !important;
+  border-radius: 18px !important;
+  background: var(--longbow-waitlist-panel) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .84), 0 2px 5px rgba(76, 57, 42, .045), 0 18px 36px rgba(76, 57, 42, .085) !important;
+  color: var(--longbow-waitlist-ink) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+#root:has(.apply-form) .apply-form form > div > .mb-8 {
+  margin: 0 0 1.55rem !important;
+  padding-bottom: 1.3rem;
+  border-bottom: 1px solid #e6e1da;
+}
+
+#root:has(.apply-form) .apply-form form > div > .mb-8 p:first-child {
+  margin: 0 0 .45rem !important;
+  color: var(--longbow-waitlist-rust) !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: .13em !important;
+  line-height: 1.35 !important;
+}
+
+#root:has(.apply-form) .apply-form form > div > .mb-8 p:last-child {
+  margin: 0 !important;
+  color: var(--longbow-waitlist-muted) !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+}
+
+#root:has(.apply-form) .apply-form .space-y-5 {
+  display: grid !important;
+  gap: 1.05rem !important;
+}
+
+#root:has(.apply-form) .apply-form .space-y-5 > div + div {
+  margin-top: 0 !important;
+}
+
+#root:has(.apply-form) .apply-form label {
+  display: block !important;
+  margin: 0 0 .44rem !important;
+  color: #635d56 !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: .095em !important;
+  line-height: 1.35 !important;
+  text-transform: uppercase;
+}
+
+#root:has(.apply-form) .apply-form input,
+#root:has(.apply-form) .apply-form textarea {
+  min-height: 50px;
+  padding: .78rem .9rem !important;
+  border: 1px solid #d8d2ca !important;
+  border-radius: 9px !important;
+  background: #fffdfa !important;
+  box-shadow: inset 0 1px 1px rgba(76, 57, 42, .02) !important;
+  color: var(--longbow-waitlist-ink) !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  outline: 0 !important;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease !important;
+}
+
+#root:has(.apply-form) .apply-form input::placeholder,
+#root:has(.apply-form) .apply-form textarea::placeholder {
+  color: #999188 !important;
+  opacity: 1;
+}
+
+#root:has(.apply-form) .apply-form input:focus,
+#root:has(.apply-form) .apply-form textarea:focus {
+  border-color: var(--longbow-waitlist-rust) !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 3px rgba(164, 93, 63, .13), inset 0 1px 1px rgba(76, 57, 42, .02) !important;
+}
+
+#root:has(.apply-form) .apply-form button[type="submit"] {
+  display: inline-flex !important;
+  width: 100% !important;
+  min-height: 52px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 1.55rem !important;
+  padding: .82rem 1.1rem !important;
+  border: 1px solid var(--longbow-waitlist-ink) !important;
+  border-radius: 10px !important;
+  background: var(--longbow-waitlist-ink) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .13), 0 1px 2px rgba(21, 20, 18, .14) !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  filter: none !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: .015em !important;
+  line-height: 1 !important;
+  text-transform: none !important;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease !important;
+}
+
+#root:has(.apply-form) .apply-form button[type="submit"]:hover:not(:disabled) {
+  border-color: var(--longbow-waitlist-rust) !important;
+  background: var(--longbow-waitlist-rust) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .17), 0 5px 11px rgba(76, 57, 42, .16) !important;
+  color: #fff !important;
+  filter: none !important;
+  transform: translateY(-1px);
+}
+
+#root:has(.apply-form) .apply-form button[type="submit"]:disabled {
+  border-color: #76716b !important;
+  background: #76716b !important;
+  box-shadow: none !important;
+  color: rgba(255, 255, 255, .88) !important;
+  cursor: wait;
+  opacity: .72;
+  transform: none;
+}
+
+#root:has(.apply-form) :where(a, button, input, textarea):focus-visible {
+  outline: 2px solid var(--longbow-waitlist-rust) !important;
+  outline-offset: 3px;
+}
+
+/* The existing success state uses a direct child instead of a form. */
+#root:has(.apply-form) .apply-form > div {
+  min-height: 20.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.2rem 2.45rem !important;
+  text-align: center !important;
+}
+
+#root:has(.apply-form) .apply-form > div > div:first-child {
+  display: grid !important;
+  width: 52px !important;
+  height: 52px !important;
+  place-items: center;
+  margin: 0 auto 1.35rem !important;
+  border: 1px solid #d1ad96 !important;
+  border-radius: 50% !important;
+  background: var(--longbow-waitlist-sand) !important;
+  color: var(--longbow-waitlist-rust) !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: 1.15rem !important;
+}
+
+#root:has(.apply-form) .apply-form > div h3 {
+  margin: 0 0 .7rem !important;
+  color: var(--longbow-waitlist-ink) !important;
+  font-family: "Instrument Serif", Georgia, serif !important;
+  font-size: clamp(2rem, 3vw, 2.55rem) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.035em !important;
+  line-height: .98 !important;
+}
+
+#root:has(.apply-form) .apply-form > div > p {
+  max-width: 20rem;
+  margin: 0 !important;
+  color: var(--longbow-waitlist-muted) !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+/* The inherited footer stays connected to the Longbow endpoint. */
+body:has(#root .apply-form) footer {
+  padding: 50px 0 24px !important;
+  border-top: 1px solid #34312e !important;
+  background: var(--longbow-waitlist-ink) !important;
+  color: #c9c4be !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+}
+
+body:has(#root .apply-form) footer > div {
+  width: min(calc(100% - 80px), 1240px) !important;
+  max-width: 1240px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+body:has(#root .apply-form) footer :where(a, button, p, span) {
+  color: inherit !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+}
+
+body:has(#root .apply-form) footer button,
+body:has(#root .apply-form) footer a {
+  color: #c9c4be !important;
+}
+
+body:has(#root .apply-form) footer button {
+  min-height: auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #c9c4be !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: .035em !important;
+  text-transform: none !important;
+}
+
+body:has(#root .apply-form) footer button:hover,
+body:has(#root .apply-form) footer a:hover {
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #e6ad89 !important;
+}
+
+body:has(#root .apply-form) footer .lgx-brand-link span {
+  color: #fff !important;
+  font-family: "Instrument Serif", Georgia, serif !important;
+  font-style: italic;
+}
+
+body:has(#root .apply-form) footer .lgx-brand-mark-image {
+  filter: brightness(0) invert(1) grayscale(1) !important;
+  opacity: .9;
+}
+
+@media (max-width: 1023px) {
+  #root:has(.apply-form) section:has(.apply-form) > .relative.z-10 {
+    width: min(calc(100% - 48px), 42rem) !important;
+    padding-top: 126px !important;
+    padding-bottom: 76px !important;
+  }
+
+  #root:has(.apply-form) section:has(.apply-form) .grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 3.35rem !important;
+  }
+
+  #root:has(.apply-form) .apply-form {
+  width: min(100%, 33rem) !important;
+  justify-self: start !important;
+  }
+}
+
+@media (max-width: 760px) {
+  #root:has(.apply-form) nav {
+    height: 64px !important;
+  }
+
+  #root:has(.apply-form) nav > div:not(.fixed),
+  body:has(#root .apply-form) footer > div {
+    width: min(calc(100% - 40px), 38rem) !important;
+  }
+
+  #root:has(.apply-form) nav > div.fixed.inset-0 {
+    top: 64px !important;
+    right: 20px !important;
+    left: 20px !important;
+    bottom: auto !important;
+    min-height: 0 !important;
+    max-height: calc(100dvh - 80px) !important;
+    overflow-y: auto;
+    width: auto !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 0 !important;
+    padding: .85rem 1rem 1rem !important;
+    border: 1px solid rgba(86, 70, 55, .16) !important;
+    border-radius: 14px !important;
+    background: #fffdfa !important;
+    box-shadow: 0 14px 30px rgba(76, 57, 42, .09) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  #root:has(.apply-form) nav > div.fixed.inset-0 > :where(a, button) {
+    min-height: 42px;
+    padding: .62rem .35rem !important;
+    border-bottom: 1px solid #e8e3dc !important;
+    color: var(--longbow-waitlist-copy) !important;
+    font-family: "Manrope", Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+  }
+
+  #root:has(.apply-form) nav > div.fixed.inset-0 > a:last-child {
+    justify-content: center;
+    margin-top: .4rem;
+    border: 1px solid var(--longbow-waitlist-ink) !important;
+    border-radius: 9px !important;
+    background: var(--longbow-waitlist-ink) !important;
+    color: #fff !important;
+  }
+
+  #root:has(.apply-form) nav > div.fixed.inset-0 > a:last-child * {
+    color: #fff !important;
+  }
+
+  #root:has(.apply-form) section:has(.apply-form) > .relative.z-10 {
+    width: min(calc(100% - 40px), 38rem) !important;
+    padding-top: 108px !important;
+    padding-bottom: 58px !important;
+  }
+
+  #root:has(.apply-form) section:has(.apply-form) .grid {
+    gap: 2.6rem !important;
+  }
+
+  #root:has(.apply-form) .apply-bracket {
+    margin-bottom: 1rem !important;
+  }
+
+  #root:has(.apply-form) .apply-headline {
+    max-width: 7.8ch !important;
+    font-size: clamp(3.45rem, 15vw, 4.75rem) !important;
+  }
+
+  #root:has(.apply-form) .apply-sub {
+    max-width: 32rem !important;
+    margin-top: 1.3rem !important;
+    font-size: 15px !important;
+    line-height: 1.66 !important;
+  }
+
+  #root:has(.apply-form) .apply-form {
+    width: 100% !important;
+  }
+
+  #root:has(.apply-form) .apply-form form > div,
+  #root:has(.apply-form) .apply-form > div {
+    padding: 1.7rem 1.35rem 1.5rem !important;
+    border-radius: 15px !important;
+  }
+
+  #root:has(.apply-form) .apply-form > div {
+    min-height: 18.5rem;
+    padding: 2.6rem 1.35rem !important;
+  }
+
+  #root:has(.apply-form) .apply-form :is(input, textarea) {
+    font-size: 16px !important;
+  }
+
+  body:has(#root .apply-form) footer {
+    padding: 2.4rem 0 1.45rem !important;
+  }
+}
+
+@media (max-width: 390px) {
+  #root:has(.apply-form) nav > div:not(.fixed),
+  #root:has(.apply-form) section:has(.apply-form) > .relative.z-10,
+  body:has(#root .apply-form) footer > div {
+    width: min(calc(100% - 32px), 38rem) !important;
+  }
+
+  #root:has(.apply-form) .apply-headline {
+    font-size: clamp(3.25rem, 15.2vw, 3.8rem) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #root:has(.apply-form) :where(a, button, input, textarea) {
+    transition: none !important;
+  }
+}
+
+}

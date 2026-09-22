@@ -1,0 +1,382 @@
+.specimen-folio {
+  --specimen-folio-inline-inset: 44px;
+  padding: 78px 0 90px;
+  border-top: 1px solid #e2ddd6;
+  border-bottom: 1px solid #ded8d0;
+  background: #f6f3ee;
+}
+
+.specimen-folio .specimen-folio__sheet {
+  overflow: hidden;
+  border: 1px solid #d6c6b7;
+  border-radius: 18px 18px 5px 5px;
+  background: #fffaf3;
+  box-shadow: inset 0 1px 0 var(--paper-highlight, rgba(255, 255, 255, .72)), 0 2px 5px rgba(76, 52, 36, .045), 0 18px 36px rgba(76, 52, 36, .075);
+}
+
+.specimen-folio .specimen-folio__masthead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 228px;
+  gap: 44px;
+  align-items: end;
+  padding: 46px var(--specimen-folio-inline-inset) 42px;
+}
+
+.specimen-folio .specimen-folio__kicker,
+.specimen-folio .specimen-folio__declaration > p:first-child,
+.specimen-folio .specimen-folio__principles p {
+  margin: 0;
+  color: #a45d3f;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .055em;
+  line-height: 1.3;
+}
+
+.specimen-folio .specimen-folio__title-block h2 {
+  max-width: 670px;
+  margin: 12px 0 0;
+  color: #171411;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(54px, 5.2vw, 76px);
+  font-weight: 400;
+  letter-spacing: -.045em;
+  line-height: .92;
+}
+
+.specimen-folio .specimen-folio__title-block h2 em,
+.specimen-folio .specimen-folio__statement em {
+  color: #a45d3f;
+}
+
+.specimen-folio .specimen-folio__retention {
+  min-width: 0;
+  padding: 3px 0 4px 28px;
+  border-left: 1px solid #d6c6b7;
+}
+
+.specimen-folio .specimen-folio__retention-stat {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.specimen-folio .specimen-folio__retention-stat strong {
+  color: #171411;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 58px;
+  font-weight: 400;
+  letter-spacing: -.065em;
+  line-height: .75;
+}
+
+.specimen-folio .specimen-folio__retention-stat span {
+  color: #7c4632;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .015em;
+  line-height: 1;
+}
+
+.specimen-folio .specimen-folio__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  border-top: 1px solid #d6c6b7;
+}
+
+.specimen-folio .specimen-folio__declaration {
+  display: flex;
+  min-height: 342px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  padding: 40px var(--specimen-folio-inline-inset) 43px;
+  background: #f2dfce;
+}
+
+.specimen-folio .specimen-folio__statement {
+  margin: 0;
+  color: #211b17;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(41px, 4vw, 60px);
+  font-weight: 400;
+  letter-spacing: -.045em;
+  line-height: 1.02;
+}
+
+.specimen-folio .specimen-folio__records {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 38px;
+  align-content: start;
+  padding: 16px var(--specimen-folio-inline-inset) 24px;
+  border-left: 1px solid #d6c6b7;
+}
+
+.specimen-folio .specimen-folio__records article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: baseline;
+  min-width: 0;
+  padding: 17px 0 16px;
+  border-bottom: 1px solid #ded4ca;
+}
+
+.specimen-folio .specimen-folio__records strong {
+  min-width: 0;
+  color: #28221d;
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  line-height: 1.4;
+}
+
+.specimen-folio .specimen-folio__records code {
+  color: #755442;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.specimen-folio .specimen-folio__principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid #d6c6b7;
+  background: #f9f2e9;
+}
+
+.specimen-folio .specimen-folio__principles article {
+  min-width: 0;
+  padding: 27px var(--specimen-folio-inline-inset) 31px;
+}
+
+.specimen-folio .specimen-folio__principles article + article {
+  border-left: 1px solid #d6c6b7;
+}
+
+.specimen-folio .specimen-folio__principles h3 {
+  max-width: 300px;
+  margin: 11px 0 0;
+  color: #211b17;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(26px, 2.25vw, 35px);
+  font-weight: 400;
+  letter-spacing: -.032em;
+  line-height: .99;
+}
+
+@media (max-width: 1000px) {
+  .specimen-folio {
+    padding: 58px 0 68px;
+  }
+
+  .specimen-folio .specimen-folio__masthead {
+    grid-template-columns: minmax(0, 1fr) 190px;
+    gap: 30px;
+    padding: 39px 38px 35px;
+  }
+
+  .specimen-folio .specimen-folio__retention {
+    padding-left: 22px;
+  }
+
+  .specimen-folio .specimen-folio__declaration {
+    min-height: 325px;
+    justify-content: space-between;
+    padding: 36px 28px 39px 38px;
+  }
+
+  .specimen-folio .specimen-folio__records {
+    column-gap: 26px;
+    padding: 14px 28px 20px;
+    border-left: 0;
+  }
+
+  .specimen-folio .specimen-folio__records article {
+    gap: 9px;
+    padding: 15px 0;
+  }
+
+  .specimen-folio .specimen-folio__records strong {
+    font-size: 12px;
+  }
+
+  .specimen-folio .specimen-folio__principles article {
+    padding: 24px 24px 27px;
+  }
+}
+
+@media (min-width: 761px) {
+  .specimen-folio .specimen-folio__records article:last-child {
+    grid-column: 1 / -1;
+    margin-top: 9px;
+    padding: 14px 17px 15px;
+    border: 1px solid #ddc7b5;
+    border-radius: 5px;
+    background: #f8eee4;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1000px) {
+  .specimen-folio .specimen-folio__body {
+    grid-template-columns: 1fr;
+  }
+
+  .specimen-folio .specimen-folio__declaration {
+    min-height: 0;
+    flex-direction: row;
+    gap: 42px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 29px 38px 31px;
+    border-right: 0;
+    border-bottom: 1px solid #d6c6b7;
+  }
+
+  .specimen-folio .specimen-folio__declaration > p:first-child {
+    flex: 0 0 128px;
+  }
+
+  .specimen-folio .specimen-folio__statement {
+    flex: 1;
+    font-size: clamp(47px, 6.2vw, 58px);
+    text-align: right;
+  }
+
+  .specimen-folio .specimen-folio__statement br {
+    display: none;
+  }
+
+  .specimen-folio .specimen-folio__records {
+    column-gap: 34px;
+    padding: 15px 38px 25px;
+  }
+}
+
+@media (max-width: 760px) {
+  .specimen-folio {
+    padding: 40px 0 56px;
+  }
+
+  .specimen-folio .specimen-folio__sheet {
+    border-radius: 15px 15px 4px 4px;
+  }
+
+  .specimen-folio .specimen-folio__masthead {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 34px 28px 28px;
+  }
+
+  .specimen-folio .specimen-folio__title-block h2 {
+    max-width: 510px;
+    font-size: clamp(49px, 11vw, 67px);
+  }
+
+  .specimen-folio .specimen-folio__retention {
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+    padding: 19px 0 0;
+    border-top: 1px solid #d6c6b7;
+    border-left: 0;
+  }
+
+  .specimen-folio .specimen-folio__retention-stat strong {
+    font-size: 52px;
+  }
+
+  .specimen-folio .specimen-folio__body {
+    grid-template-columns: 1fr;
+  }
+
+  .specimen-folio .specimen-folio__declaration {
+    min-height: 0;
+    gap: 30px;
+    padding: 32px 28px 29px;
+    border-right: 0;
+    border-bottom: 1px solid #d6c6b7;
+  }
+
+  .specimen-folio .specimen-folio__statement {
+    font-size: clamp(42px, 10.3vw, 59px);
+  }
+
+  .specimen-folio .specimen-folio__records {
+    grid-template-columns: 1fr;
+    padding: 9px 28px 23px;
+  }
+
+  .specimen-folio .specimen-folio__records strong {
+    font-size: 13px;
+  }
+
+  .specimen-folio .specimen-folio__principles {
+    grid-template-columns: 1fr;
+  }
+
+  .specimen-folio .specimen-folio__principles article {
+    padding: 23px 28px 25px;
+  }
+
+  .specimen-folio .specimen-folio__principles article + article {
+    border-top: 1px solid #d6c6b7;
+    border-left: 0;
+  }
+
+  .specimen-folio .specimen-folio__principles h3 {
+    max-width: 440px;
+    font-size: clamp(29px, 7.7vw, 38px);
+  }
+}
+
+@media (max-width: 460px) {
+  .specimen-folio {
+    padding: 30px 0 45px;
+  }
+
+  .specimen-folio .specimen-folio__masthead {
+    padding: 29px 22px 24px;
+  }
+
+  .specimen-folio .specimen-folio__kicker,
+  .specimen-folio .specimen-folio__declaration > p:first-child,
+  .specimen-folio .specimen-folio__principles p {
+    font-size: 11px;
+  }
+
+  .specimen-folio .specimen-folio__title-block h2 {
+    font-size: clamp(47px, 13.5vw, 55px);
+  }
+
+  .specimen-folio .specimen-folio__declaration {
+    padding: 28px 22px 25px;
+  }
+
+  .specimen-folio .specimen-folio__statement {
+    font-size: clamp(40px, 12.4vw, 50px);
+  }
+
+  .specimen-folio .specimen-folio__records {
+    padding: 7px 22px 19px;
+  }
+
+  .specimen-folio .specimen-folio__records article {
+    gap: 10px;
+    padding: 14px 0 13px;
+  }
+
+  .specimen-folio .specimen-folio__records strong {
+    font-size: 12px;
+  }
+
+  .specimen-folio .specimen-folio__principles article {
+    padding: 21px 22px 23px;
+  }
+}
