@@ -34,7 +34,7 @@
         },
         {
           id: "lugano-panorama-style-css",
-          href: "/concepts/longbow/opening/panorama/style.css?v=mobile-20260921-1",
+          href: "/concepts/longbow/opening/panorama/style.css?v=hero-20260922-14",
         },
         {
           id: "lugano-panorama-map-css",
