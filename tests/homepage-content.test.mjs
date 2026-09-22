@@ -129,12 +129,21 @@ test("receipt JSON patch keeps a comma between hash and status", () => {
   );
 });
 
-test("footer labels are converted to real links", () => {
+test("footer links stay normalized without publishing Docs", () => {
   assert.match(homepageScript, /Contact:\s*"\/#\/apply"/);
   assert.match(homepageScript, /"Privacy Policy":\s*"\/privacy\/"/);
   assert.match(homepageScript, /Security:\s*"\/security\/"/);
   assert.match(homepageScript, /Terms:\s*"\/terms\/"/);
   assert.doesNotMatch(homepageScript, /"Terms of Service":\s*"\/terms\/"/);
+  assert.match(homepageScript, /const normalizeFooterLinks = \(\) =>/);
+  assert.match(homepageScript, /normalizedText\.toLowerCase\(\) === "docs"/);
+  assert.match(homepageScript, /link\.remove\(\);/);
+  assert.doesNotMatch(homepageScript, /updateFooterDocsLink|docsLink|href = "\/docs"/);
+
+  [homepageIndex, approvedPanorama].forEach((page) => {
+    assert.doesNotMatch(page, /<a href="\/docs">Docs<\/a>/);
+  });
+  assert.match(docsIndex, /<main id="main" class="shell docs-shell">/);
 });
 
 test("brand mark, favicon, and legacy route assets use the cobalt Lugano mark", () => {

@@ -3,34 +3,58 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fffdfa">
     <title>Security - Lugano</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/legal.css">
-    <link rel="stylesheet" href="/lugano-design-system.css?v=lugano-engraved-hero-20260905">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/legal.css?v=legal-panorama-20260921-1">
   </head>
   <body>
+    <header class="legal-header">
+      <div class="legal-wide legal-header__inner">
+        <a class="legal-brand" href="/" aria-label="Lugano.ai home"><img src="/logo-mark.svg" alt="" width="25" height="25"><span>Lugano.ai</span></a>
+        <nav class="legal-nav" aria-label="Page navigation">
+          <a class="legal-nav__home" href="/">Back home</a>
+          <a class="legal-waitlist" href="/#/apply">Waitlist</a>
+        </nav>
+      </div>
+    </header>
     <main class="legal-shell">
-      <nav class="legal-nav">
-        <a href="/">Lugano.ai</a>
-        <a href="/#/apply">Request a demo</a>
-      </nav>
-      <section class="legal-card">
-        <p class="legal-kicker">Security</p>
-        <h1>Receipts first. Claims second.</h1>
-        <p class="legal-lede">Lugano security is built around receipts, attestations, key release, sealed execution, and privacy controls for sensitive AI workloads.</p>
-        <ul class="legal-list">
-          <li><strong>Runtime proof</strong> Protected runs produce records for execution state, receipt integrity, disclosure scope, and retention posture.</li>
-          <li><strong>Architecture controls</strong> Deployment boundaries, key custody, and logging posture are defined for each environment.</li>
-          <li><strong>Responsible contact</strong> Security questions or reports can be sent through the demo request form.</li>
-        </ul>
+      <article class="legal-document" aria-labelledby="security-title">
+        <header class="legal-document__header">
+          <p class="legal-kicker">Security</p>
+          <h1 id="security-title">Receipts first. Claims second.</h1>
+          <p class="legal-lede">Lugano security is built around receipts, attestations, key release, sealed execution, and privacy controls for sensitive AI workloads.</p>
+        </header>
+        <div class="legal-list">
+          <section class="legal-item" aria-labelledby="runtime-proof-title">
+            <h2 id="runtime-proof-title">Runtime proof</h2>
+            <p>Protected runs produce records for execution state, receipt integrity, disclosure scope, and retention posture.</p>
+          </section>
+          <section class="legal-item" aria-labelledby="architecture-controls-title">
+            <h2 id="architecture-controls-title">Architecture controls</h2>
+            <p>Deployment boundaries, key custody, and logging posture are defined for each environment.</p>
+          </section>
+          <section class="legal-item" aria-labelledby="responsible-contact-title">
+            <h2 id="responsible-contact-title">Responsible contact</h2>
+            <p>Security questions or reports can be sent through the demo request form.</p>
+          </section>
+        </div>
         <p class="legal-note"><a href="/#/apply">Request a demo</a></p>
-      </section>
-      <footer class="legal-footer">
-        <a href="/privacy/">Privacy</a>
-        <a href="/terms/">Terms</a>
-      </footer>
+      </article>
     </main>
+    <footer class="legal-footer">
+      <div class="legal-wide legal-footer__inner">
+        <a class="legal-footer__home" href="/">Lugano.ai</a>
+        <nav aria-label="Footer navigation">
+          <a href="/">Home</a>
+          <a href="/privacy/">Privacy Policy</a>
+          <a href="/terms/">Terms</a>
+          <a href="/security/">Security</a>
+          <a href="/#/apply">Contact</a>
+        </nav>
+      </div>
+    </footer>
   </body>
 </html>

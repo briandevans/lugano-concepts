@@ -79,7 +79,7 @@
         },
         {
           id: "lugano-legacy-homepage-sections-js",
-          src: "/homepage-sections.js?v=legacy-waitlist-route-20260921-1",
+          src: "/homepage-sections.js?v=legacy-waitlist-route-20260921-2",
         },
       ],
     },

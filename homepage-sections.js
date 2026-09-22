@@ -948,7 +948,7 @@
     });
   };
 
-  const updateFooterDocsLink = () => {
+  const normalizeFooterLinks = () => {
     document.querySelectorAll("footer").forEach((footer) => {
       const footerLinkTargets = {
         Contact: "/#/apply",
@@ -997,32 +997,11 @@
         if (normalizedText === "Lugano.ai" && ["", "#", "#/"].includes(href)) {
           link.setAttribute("href", "/");
         }
+
+        if (normalizedText.toLowerCase() === "docs") {
+          link.remove();
+        }
       });
-
-      const existingDocsLink = [...footer.querySelectorAll("a")].find(
-        (link) => link.textContent.trim().toLowerCase() === "docs",
-      );
-
-      if (existingDocsLink) {
-        existingDocsLink.setAttribute("href", "/docs");
-        return;
-      }
-
-      const referenceLink = footer.querySelector("a");
-
-      if (!referenceLink?.parentElement) {
-        return;
-      }
-
-      const docsLink = document.createElement("a");
-      docsLink.href = "/docs";
-      docsLink.textContent = "Docs";
-      docsLink.className = referenceLink.className.toString();
-      docsLink.setAttribute(
-        "style",
-        referenceLink.getAttribute("style") || "color: inherit; text-decoration: none;",
-      );
-      referenceLink.parentElement.appendChild(docsLink);
     });
   };
 
@@ -1766,7 +1745,7 @@
     normalizeHeaderNavOrder();
     bindHeaderNavClickCapture();
     bindLogoHomeNav();
-    updateFooterDocsLink();
+    normalizeFooterLinks();
     normalizeBrandMarkAssets();
     normalizeLiveHeadings();
     ensureWhyNowStrip();

@@ -3,33 +3,57 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fffdfa">
     <title>Privacy Policy - Lugano</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/legal.css">
-    <link rel="stylesheet" href="/lugano-design-system.css?v=lugano-engraved-hero-20260905">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/legal.css?v=legal-panorama-20260921-1">
   </head>
   <body>
+    <header class="legal-header">
+      <div class="legal-wide legal-header__inner">
+        <a class="legal-brand" href="/" aria-label="Lugano.ai home"><img src="/logo-mark.svg" alt="" width="25" height="25"><span>Lugano.ai</span></a>
+        <nav class="legal-nav" aria-label="Page navigation">
+          <a class="legal-nav__home" href="/">Back home</a>
+          <a class="legal-waitlist" href="/#/apply">Waitlist</a>
+        </nav>
+      </div>
+    </header>
     <main class="legal-shell">
-      <nav class="legal-nav">
-        <a href="/">Lugano.ai</a>
-        <a href="/#/apply">Request a demo</a>
-      </nav>
-      <section class="legal-card">
-        <p class="legal-kicker">Privacy Policy</p>
-        <h1>We store nothing. We verify everything.</h1>
-        <p class="legal-lede">Lugano is built for private AI work where privacy is enforced by architecture, not explained after the fact.</p>
-        <ul class="legal-list">
-          <li><strong>Prompts and outputs</strong> The product is designed so sensitive inference data stays inside the verified path, not in a Lugano training corpus.</li>
-          <li><strong>Demo requests</strong> If you contact us, we use the information you provide to respond and evaluate access.</li>
-          <li><strong>Proof over promises</strong> Private deployments produce receipt, attestation, and control records for sensitive AI work.</li>
-        </ul>
-      </section>
-      <footer class="legal-footer">
-        <a href="/terms/">Terms</a>
-        <a href="/security/">Security</a>
-      </footer>
+      <article class="legal-document" aria-labelledby="privacy-title">
+        <header class="legal-document__header">
+          <p class="legal-kicker">Privacy Policy</p>
+          <h1 id="privacy-title">We store nothing. We verify everything.</h1>
+          <p class="legal-lede">Lugano is built for private AI work where privacy is enforced by architecture, not explained after the fact.</p>
+        </header>
+        <div class="legal-list">
+          <section class="legal-item" aria-labelledby="prompts-title">
+            <h2 id="prompts-title">Prompts and outputs</h2>
+            <p>The product is designed so sensitive inference data stays inside the verified path, not in a Lugano training corpus.</p>
+          </section>
+          <section class="legal-item" aria-labelledby="demo-requests-title">
+            <h2 id="demo-requests-title">Demo requests</h2>
+            <p>If you contact us, we use the information you provide to respond and evaluate access.</p>
+          </section>
+          <section class="legal-item" aria-labelledby="proof-title">
+            <h2 id="proof-title">Proof over promises</h2>
+            <p>Private deployments produce receipt, attestation, and control records for sensitive AI work.</p>
+          </section>
+        </div>
+      </article>
     </main>
+    <footer class="legal-footer">
+      <div class="legal-wide legal-footer__inner">
+        <a class="legal-footer__home" href="/">Lugano.ai</a>
+        <nav aria-label="Footer navigation">
+          <a href="/">Home</a>
+          <a href="/privacy/">Privacy Policy</a>
+          <a href="/terms/">Terms</a>
+          <a href="/security/">Security</a>
+          <a href="/#/apply">Contact</a>
+        </nav>
+      </div>
+    </footer>
   </body>
 </html>
