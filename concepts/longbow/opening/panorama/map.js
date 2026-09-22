@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const interactiveQuery = window.matchMedia("(min-width: 1001px) and (hover: hover) and (pointer: fine)");
+  const desktopQuery = window.matchMedia("(min-width: 1001px) and (hover: hover) and (pointer: fine)");
   let mounted = null;
 
   const text = (element) => element ? element.textContent.replace(/\s+/g, " ").trim() : "";
@@ -10,6 +10,31 @@
     if (className) element.className = className;
     if (content !== undefined) element.textContent = content;
     return element;
+  };
+
+  const createIcon = (name, className) => {
+    const paths = {
+      data: ["M4.25 7h7.5v5.75h-7.5z", "M5.75 7V5.35a2.25 2.25 0 0 1 4.5 0V7", "M8 9.45v1.3"],
+      retention: ["M3 10.9 10.9 3l2.1 2.1-7.9 7.9H3z", "M9.75 4.15 11.85 6.25"],
+      receipt: ["M3 2.75h10v10.5H3z", "m5.1 5.9 1.7 1.7 3.95-3.1", "M5.2 10.2h5.6"],
+      shield: ["M8 2.5 12.5 4.2v3.35c0 2.75-1.85 4.8-4.5 5.95-2.65-1.15-4.5-3.2-4.5-5.95V4.2z", "m5.95 8 1.4 1.4 2.85-2.9"]
+    };
+    const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    icon.setAttribute("aria-hidden", "true");
+    icon.setAttribute("viewBox", "0 0 16 16");
+    icon.setAttribute("fill", "none");
+    icon.setAttribute("focusable", "false");
+    if (className) icon.setAttribute("class", className);
+    (paths[name] || paths.data).forEach((pathData) => {
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", pathData);
+      path.setAttribute("stroke", "currentColor");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("stroke-linejoin", "round");
+      path.setAttribute("stroke-width", "1.25");
+      icon.append(path);
+    });
+    return icon;
   };
 
   const getSource = () => {
@@ -45,19 +70,84 @@
     };
   };
 
-  const mount = () => {
-    if (mounted || !interactiveQuery.matches) return;
-    const source = getSource();
-    if (!source?.art) return;
-
+  const getGroups = (source) => {
     const groups = [
-      { id: "data-prompts", label: source.declaration.label, statement: source.declaration.statement, records: [4, 8], x: "18%", y: "66%", labelX: "42px", labelY: "-25px", labelTranslate: "0", leader: "35px", angle: "-28deg" },
-      { id: "retention", label: source.principles[0].label, statement: source.principles[0].statement, records: [], metric: source.masthead.retained, x: "49%", y: "77%", labelX: "40px", labelY: "-25px", labelTranslate: "0", leader: "33px", angle: "-29deg" },
-      { id: "every-request", label: source.principles[1].label, statement: source.principles[1].statement, records: [5, 6, 7], x: "69%", y: "64%", labelX: "-42px", labelY: "-27px", labelTranslate: "-100%", leader: "34px", angle: "-151deg" },
-      { id: "threat-model", label: source.principles[2].label, statement: source.principles[2].statement, records: [0, 1, 2, 3], x: "78%", y: "91%", labelX: "-42px", labelY: "-27px", labelTranslate: "-100%", leader: "34px", angle: "-151deg" }
+      {
+        id: "data-prompts",
+        label: source.declaration.label,
+        statement: source.declaration.statement,
+        records: [4, 8],
+        x: "18%",
+        y: "66%",
+        labelX: "42px",
+        labelY: "-25px",
+        labelTranslate: "0",
+        leader: "35px",
+        angle: "-28deg",
+        icon: "data",
+        touchPhoneX: "24%",
+        touchPhoneY: "69%"
+      },
+      {
+        id: "retention",
+        label: source.principles[0].label,
+        statement: source.principles[0].statement,
+        records: [],
+        metric: source.masthead.retained,
+        x: "49%",
+        y: "77%",
+        labelX: "40px",
+        labelY: "-25px",
+        labelTranslate: "0",
+        leader: "33px",
+        angle: "-29deg",
+        icon: "retention",
+        touchPhoneX: "48%",
+        touchPhoneY: "75%"
+      },
+      {
+        id: "every-request",
+        label: source.principles[1].label,
+        statement: source.principles[1].statement,
+        records: [5, 6, 7],
+        x: "69%",
+        y: "64%",
+        labelX: "-42px",
+        labelY: "-27px",
+        labelTranslate: "-100%",
+        leader: "34px",
+        angle: "-151deg",
+        icon: "receipt",
+        touchPhoneX: "69%",
+        touchPhoneY: "72%"
+      },
+      {
+        id: "threat-model",
+        label: source.principles[2].label,
+        statement: source.principles[2].statement,
+        records: [0, 1, 2, 3],
+        x: "78%",
+        y: "91%",
+        labelX: "-42px",
+        labelY: "-27px",
+        labelTranslate: "-100%",
+        leader: "34px",
+        angle: "-151deg",
+        icon: "shield",
+        touchPhoneX: "82%",
+        touchPhoneY: "88%"
+      }
     ];
 
-    if (groups.some((group) => !group.label || !group.statement || group.records.some((index) => !source.records[index]))) return;
+    return !source.masthead.title || !source.masthead.kicker || !source.masthead.retained || groups.some((group) => !group.label || !group.statement || group.records.some((index) => !source.records[index])) ? null : groups;
+  };
+
+  const mountDesktop = () => {
+    if (mounted || !desktopQuery.matches) return;
+    const source = getSource();
+    if (!source?.art) return;
+    const groups = getGroups(source);
+    if (!groups) return;
 
     const map = create("section", "panorama-map panorama-map--paused");
     map.setAttribute("aria-label", "Interactive verification landscape");
@@ -324,6 +414,7 @@
     resizeObserver?.observe(panel);
     window.addEventListener("resize", repositionActivePanel);
     mounted = {
+      mode: "desktop",
       source,
       map,
       observer,
@@ -336,11 +427,201 @@
     };
   };
 
+  const mountTouch = () => {
+    if (mounted || desktopQuery.matches) return;
+    const source = getSource();
+    if (!source?.art) return;
+    const groups = getGroups(source);
+    if (!groups) return;
+
+    const map = create("section", "panorama-map panorama-map--touch");
+    map.setAttribute("aria-label", "Interactive verification landscape");
+    map.setAttribute("role", "region");
+
+    const stage = create("div", "panorama-map__touch-stage");
+    stage.setAttribute("aria-label", "Verification markers");
+    stage.setAttribute("role", "group");
+
+    const instruction = create("p", "panorama-map__touch-instruction", "Tap a marker or topic to explore.");
+    instruction.id = "panorama-map-touch-instruction";
+    map.setAttribute("aria-describedby", instruction.id);
+    const topics = create("div", "panorama-map__topics");
+    topics.setAttribute("aria-label", "Verification topics");
+    topics.setAttribute("role", "group");
+
+    const panel = create("section", "panorama-map__touch-panel");
+    panel.id = "panorama-map-touch-panel";
+    panel.hidden = true;
+    panel.setAttribute("aria-live", "polite");
+    panel.setAttribute("aria-atomic", "true");
+    const panelHeader = create("div", "panorama-map__touch-panel-header");
+    const title = create("h2", "panorama-map__title");
+    title.id = "panorama-map-touch-panel-title";
+    const close = create("button", "panorama-map__close", "×");
+    close.type = "button";
+    close.setAttribute("aria-label", "Close verification detail");
+    panelHeader.append(title, close);
+    const statement = create("p", "panorama-map__statement");
+    const recordList = create("ul", "panorama-map__records");
+    recordList.hidden = true;
+    const metric = create("p", "panorama-map__metric");
+    metric.hidden = true;
+    const sound = create("button", "panorama-map__sound", "Sound on");
+    sound.type = "button";
+    sound.setAttribute("aria-pressed", "true");
+    sound.setAttribute("aria-label", "Sound on");
+    panel.append(panelHeader, statement, recordList, metric, sound);
+
+    const state = { activeId: null, lastTrigger: null, soundEnabled: true, audioContext: null };
+    const markerButtons = new Map();
+    const topicButtons = new Map();
+
+    const renderPanel = (group) => {
+      while (recordList.firstChild) recordList.removeChild(recordList.firstChild);
+      if (!group) {
+        panel.hidden = true;
+        title.textContent = "";
+        statement.textContent = "";
+        recordList.hidden = true;
+        metric.hidden = true;
+        return;
+      }
+
+      title.textContent = group.label;
+      statement.textContent = group.statement;
+      recordList.classList.toggle("panorama-map__records--compact", group.records.length > 3);
+      group.records.forEach((index) => {
+        const record = source.records[index];
+        const item = create("li");
+        item.append(create("strong", "", record.label), create("code", "", record.hash));
+        recordList.append(item);
+      });
+      recordList.hidden = group.records.length === 0;
+      metric.hidden = !group.metric;
+      metric.textContent = group.metric || "";
+      panel.hidden = false;
+    };
+
+    const update = () => {
+      const group = groups.find((candidate) => candidate.id === state.activeId) || null;
+      markerButtons.forEach((button, id) => {
+        button.setAttribute("aria-expanded", String(id === state.activeId));
+        button.setAttribute("aria-pressed", String(id === state.activeId));
+      });
+      topicButtons.forEach((button, id) => {
+        button.setAttribute("aria-expanded", String(id === state.activeId));
+        button.setAttribute("aria-pressed", String(id === state.activeId));
+      });
+      map.dataset.state = group ? "active" : "idle";
+      renderPanel(group);
+    };
+
+    const closePanel = (restoreFocus) => {
+      const trigger = topicButtons.get(state.activeId) || state.lastTrigger;
+      state.activeId = null;
+      update();
+      if (restoreFocus && trigger?.isConnected) trigger.focus({ preventScroll: true });
+    };
+
+    const playTick = () => {
+      if (!state.soundEnabled) return;
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      try {
+        state.audioContext ||= new AudioContext();
+        const context = state.audioContext;
+        if (context.state === "suspended") context.resume().catch(() => {});
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        const now = context.currentTime;
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(330, now);
+        oscillator.frequency.exponentialRampToValueAtTime(180, now + .055);
+        gain.gain.setValueAtTime(.0001, now);
+        gain.gain.exponentialRampToValueAtTime(.022, now + .006);
+        gain.gain.exponentialRampToValueAtTime(.0001, now + .07);
+        oscillator.connect(gain).connect(context.destination);
+        oscillator.start(now);
+        oscillator.stop(now + .08);
+        oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
+      } catch (_) { /* Audio is optional. */ }
+    };
+
+    const show = (id) => {
+      if (state.activeId === id) return;
+      state.activeId = id;
+      state.lastTrigger = topicButtons.get(id) || null;
+      playTick();
+      update();
+    };
+
+    groups.forEach((group, index) => {
+      const marker = create("button", "panorama-map__touch-marker");
+      marker.type = "button";
+      marker.dataset.group = group.id;
+      marker.style.setProperty("--touch-marker-tablet-x", group.x);
+      marker.style.setProperty("--touch-marker-tablet-y", group.y);
+      marker.style.setProperty("--touch-marker-phone-x", group.touchPhoneX);
+      marker.style.setProperty("--touch-marker-phone-y", group.touchPhoneY);
+      marker.setAttribute("aria-controls", panel.id);
+      marker.setAttribute("aria-expanded", "false");
+      marker.setAttribute("aria-pressed", "false");
+      marker.setAttribute("aria-label", `${group.label}: ${group.statement}`);
+      marker.append(createIcon(group.icon, "panorama-map__touch-marker-icon"));
+      marker.addEventListener("click", () => show(group.id));
+      markerButtons.set(group.id, marker);
+      stage.append(marker);
+
+      const topic = create("button", "panorama-map__topic");
+      topic.type = "button";
+      topic.setAttribute("aria-controls", panel.id);
+      topic.setAttribute("aria-expanded", "false");
+      topic.setAttribute("aria-pressed", "false");
+      topic.append(createIcon(group.icon, "panorama-map__topic-icon"), create("span", "panorama-map__topic-label", group.label));
+      topic.addEventListener("click", () => show(group.id));
+      topicButtons.set(group.id, topic);
+      topics.append(topic);
+    });
+
+    close.addEventListener("click", () => closePanel(true));
+    sound.addEventListener("click", () => {
+      state.soundEnabled = !state.soundEnabled;
+      sound.setAttribute("aria-pressed", String(state.soundEnabled));
+      sound.textContent = state.soundEnabled ? "Sound on" : "Sound off";
+      sound.setAttribute("aria-label", sound.textContent);
+    });
+    const handleEscape = (event) => {
+      if (event.key === "Escape" && state.activeId) {
+        event.preventDefault();
+        closePanel(true);
+      }
+    };
+    map.addEventListener("keydown", handleEscape);
+    stage.addEventListener("keydown", handleEscape);
+
+    map.append(instruction, topics, panel);
+    source.art.append(stage);
+    source.art.after(map);
+    source.proof.classList.add("panorama-proof--map-source");
+    source.proof.hidden = true;
+    update();
+    mounted = {
+      mode: "touch",
+      source,
+      map,
+      stage,
+      dispose: () => {
+        try { state.audioContext?.close?.().catch(() => {}); } catch (_) { /* Audio is optional. */ }
+      }
+    };
+  };
+
   const unmount = () => {
     if (!mounted) return;
-    const restoreFocus = mounted.map.contains(document.activeElement);
+    const restoreFocus = mounted.map.contains(document.activeElement) || mounted.stage?.contains(document.activeElement);
     mounted.observer?.disconnect();
     mounted.dispose?.();
+    mounted.stage?.remove();
     mounted.map.remove();
     mounted.source.proof.hidden = false;
     mounted.source.proof.classList.remove("panorama-proof--map-source");
@@ -352,11 +633,15 @@
   };
 
   const reconcile = () => {
-    if (interactiveQuery.matches) mount();
-    else unmount();
+    const nextMode = desktopQuery.matches ? "desktop" : "touch";
+    if (mounted?.mode === nextMode) return;
+    unmount();
+    if (nextMode === "desktop") mountDesktop();
+    else mountTouch();
   };
 
-  interactiveQuery.addEventListener?.("change", reconcile);
+  if (desktopQuery.addEventListener) desktopQuery.addEventListener("change", reconcile);
+  else desktopQuery.addListener?.(reconcile);
   window.addEventListener("DOMContentLoaded", reconcile, { once: true });
   if (document.readyState !== "loading") reconcile();
 })();

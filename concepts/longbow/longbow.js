@@ -6,6 +6,7 @@
     const closeMenu = () => {
       menu.hidden = true;
       toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open navigation");
     };
     const desktopQuery = window.matchMedia("(min-width: 761px)");
 
@@ -13,6 +14,13 @@
       const open = toggle.getAttribute("aria-expanded") === "true";
       menu.hidden = open;
       toggle.setAttribute("aria-expanded", String(!open));
+      toggle.setAttribute("aria-label", open ? "Open navigation" : "Close navigation");
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !menu.hidden) {
+        closeMenu();
+        toggle.focus();
+      }
     });
     menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
     desktopQuery.addEventListener("change", (event) => {

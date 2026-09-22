@@ -364,6 +364,320 @@
 
 .opening-panorama #panorama-landscape { scroll-margin-top: 96px; }
 
+/* Touch uses the landscape as a small orientation layer and keeps the details in flow below it. */
+.opening-panorama .panorama-map--touch {
+  display: grid;
+  gap: 13px;
+  width: 100%;
+  padding: 17px clamp(17px, 4.8vw, 30px) 19px;
+  border: 1px solid #d2c4b8;
+  border-top: 0;
+  background: #f7f2eb;
+  color: #1e263d;
+  font-family: "Manrope", Arial, sans-serif;
+}
+
+.opening-panorama .panorama-map--touch + .panorama-hero__promise { border-top: 0; }
+
+.opening-panorama .panorama-map__touch-stage {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+}
+
+.opening-panorama .panorama-map__touch-marker {
+  position: absolute;
+  z-index: 1;
+  top: var(--touch-marker-tablet-y);
+  left: var(--touch-marker-tablet-x);
+  display: grid;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #fffdf7;
+  cursor: pointer;
+  place-items: center;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.opening-panorama .panorama-map__touch-marker::before {
+  position: absolute;
+  inset: 8px;
+  border: 1px solid #fffdf7;
+  border-radius: 50%;
+  background: #a45d3f;
+  box-shadow: 0 0 0 1px #23385f, 0 2px 6px rgba(20, 38, 74, .32);
+  content: "";
+  transition: background .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.opening-panorama .panorama-map__touch-marker::after {
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(255, 253, 247, .88);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(35, 56, 95, .68);
+  content: "";
+  pointer-events: none;
+}
+
+.opening-panorama .panorama-map__touch-marker-icon {
+  position: relative;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  color: #fffdf7;
+}
+
+.opening-panorama .panorama-map__touch-marker[aria-pressed="true"]::before {
+  background: #71442f;
+  box-shadow: 0 0 0 1px #23385f, 0 0 0 4px rgba(255, 253, 247, .9), 0 0 0 6px #a45d3f;
+  transform: scale(1.08);
+}
+
+.opening-panorama .panorama-map__touch-instruction {
+  margin: 0;
+  color: #596174;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.opening-panorama .panorama-map__topics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.opening-panorama .panorama-map__topic {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+  min-height: 46px;
+  padding: 9px 11px;
+  border: 1px solid rgba(35, 50, 87, .36);
+  border-radius: 0;
+  background: rgba(255, 252, 245, .7);
+  color: #233656;
+  cursor: pointer;
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  line-height: 1.18;
+  text-align: left;
+  touch-action: manipulation;
+  transition: background .18s ease, border-color .18s ease, box-shadow .18s ease, color .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.opening-panorama .panorama-map__topic-icon {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  color: #81503b;
+}
+
+.opening-panorama .panorama-map__topic-label { min-width: 0; overflow-wrap: anywhere; }
+
+.opening-panorama .panorama-map__topic[aria-pressed="true"] {
+  border-color: #8f5941;
+  background: #fffdf7;
+  box-shadow: inset 3px 0 0 #a45d3f;
+  color: #172343;
+}
+
+.opening-panorama .panorama-map__touch-panel {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid rgba(35, 50, 87, .39);
+  background: rgba(255, 252, 245, .94);
+  box-shadow: 0 8px 18px rgba(27, 39, 70, .1), inset 0 1px 0 rgba(255, 255, 255, .85);
+}
+
+.opening-panorama .panorama-map__touch-panel[hidden] { display: none; }
+
+.opening-panorama .panorama-map__touch-panel-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: 13px;
+  align-items: start;
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__title {
+  margin: 2px 0 0;
+  color: #172343;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(28px, 7vw, 34px);
+  font-weight: 400;
+  letter-spacing: -.035em;
+  line-height: .94;
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__statement {
+  margin: -2px 0 0;
+  color: #353d52;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__close {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #b6b9bf;
+  border-radius: 0;
+  background: transparent;
+  color: #71442f;
+  cursor: pointer;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 18px;
+  line-height: 1;
+  touch-action: manipulation;
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__records {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(50, 66, 99, .2);
+  list-style: none;
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__records[hidden] { display: none; }
+
+.opening-panorama .panorama-map--touch .panorama-map__records li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: baseline;
+  padding: 9px 0 8px;
+  border-bottom: 1px solid rgba(50, 66, 99, .13);
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__records strong {
+  min-width: 0;
+  color: #202c48;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  line-height: 1.25;
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__records code {
+  color: #86523d;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__records--compact {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 14px;
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__records--compact li {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3px;
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__metric {
+  margin: 0;
+  padding: 10px 0 9px;
+  border-top: 1px solid rgba(50, 66, 99, .2);
+  border-bottom: 1px solid rgba(50, 66, 99, .13);
+  color: #202c48;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 31px;
+  letter-spacing: -.035em;
+  line-height: .85;
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__metric[hidden] { display: none; }
+
+.opening-panorama .panorama-map--touch .panorama-map__sound {
+  justify-self: start;
+  min-height: 44px;
+  padding: 0 8px 0 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #81503b;
+  cursor: pointer;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  line-height: 1;
+  text-transform: uppercase;
+  touch-action: manipulation;
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__sound::before {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin: 0 5px 1px 0;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  content: "";
+  vertical-align: middle;
+}
+
+.opening-panorama .panorama-map--touch .panorama-map__sound[aria-pressed="true"]::before { background: currentColor; }
+
+.opening-panorama .panorama-map--touch button:focus-visible,
+.opening-panorama .panorama-map__touch-marker:focus-visible {
+  outline: 2px solid #a45d3f;
+  outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+  .opening-panorama .panorama-map__touch-marker {
+    top: var(--touch-marker-phone-y);
+    left: var(--touch-marker-phone-x);
+  }
+
+  .opening-panorama .panorama-map--touch { gap: 12px; }
+
+  .opening-panorama .panorama-map--touch .panorama-map__records--compact { grid-template-columns: 1fr; }
+  .opening-panorama .panorama-map--touch .panorama-map__records--compact li { grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
+}
+
+@media (max-width: 460px) {
+  .opening-panorama .panorama-map--touch { padding: 15px 14px 17px; }
+  .opening-panorama .panorama-map__topic { padding-right: 9px; padding-left: 9px; }
+  .opening-panorama .panorama-map--touch .panorama-map__touch-panel { padding: 14px; }
+}
+
+@media (max-width: 360px) {
+  .opening-panorama .panorama-map__touch-marker[data-group="every-request"] {
+    left: 65%;
+    top: 70%;
+  }
+
+  .opening-panorama .panorama-map--touch .panorama-map__records li,
+  .opening-panorama .panorama-map--touch .panorama-map__records--compact li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opening-panorama .panorama-map__touch-marker::before,
+  .opening-panorama .panorama-map__topic { transition: none !important; }
+}
+
 @media (min-width: 1001px) and (max-width: 1150px) and (hover: hover) and (pointer: fine) {
   .opening-panorama .panorama-map__marker[data-group="threat-model"] .panorama-map__marker-label {
     left: calc(50% + 34px);

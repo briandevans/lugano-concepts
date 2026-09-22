@@ -34,21 +34,21 @@
         },
         {
           id: "lugano-panorama-style-css",
-          href: "/concepts/longbow/opening/panorama/style.css?v=panorama-root-20260921-1",
+          href: "/concepts/longbow/opening/panorama/style.css?v=mobile-20260921-1",
         },
         {
           id: "lugano-panorama-map-css",
-          href: "/concepts/longbow/opening/panorama/map.css?v=panorama-root-20260921-1",
+          href: "/concepts/longbow/opening/panorama/map.css?v=mobile-20260921-1",
         },
       ],
       scripts: [
         {
           id: "lugano-panorama-longbow-js",
-          src: "/concepts/longbow/longbow.js?v=panorama-root-20260921-1",
+          src: "/concepts/longbow/longbow.js?v=mobile-20260921-1",
         },
         {
           id: "lugano-panorama-map-js",
-          src: "/concepts/longbow/opening/panorama/map.js?v=panorama-root-20260921-1",
+          src: "/concepts/longbow/opening/panorama/map.js?v=mobile-20260921-1",
         },
       ],
     },
