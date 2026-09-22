@@ -79,8 +79,8 @@
 
 .opening-panorama .panorama-hero .proof-correction {
   position: absolute;
-  bottom: calc(100% + 8px);
-  left: .06em;
+  bottom: calc(100% - 5px);
+  left: 46%;
   z-index: 2;
   display: block;
   color: #514b45;
@@ -90,7 +90,7 @@
   font-weight: 500;
   letter-spacing: -.025em;
   line-height: 1;
-  transform: none;
+  transform: translateX(-50%);
   white-space: nowrap;
 }
 
@@ -428,7 +428,7 @@
 
   .opening-panorama .panorama-hero .hero-line { display: block; font-size: clamp(50px, 14vw, 60px); letter-spacing: -.04em; line-height: .86; text-align: center; white-space: nowrap; }
   .opening-panorama .panorama-hero .proof-line { display: block; margin: 34px auto 0; font-size: 72px; line-height: .83; text-align: center; }
-  .opening-panorama .panorama-hero .proof-correction { bottom: calc(100% + 8px); left: 50%; font-size: 17px; transform: translateX(-50%); }
+  .opening-panorama .panorama-hero .proof-correction { bottom: calc(100% + 1px); left: 50%; font-size: 17px; transform: translateX(-50%); }
 
   .opening-panorama .panorama-hero__summary {
     grid-template-columns: 1fr;
