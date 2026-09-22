@@ -146,7 +146,7 @@ test("footer links stay normalized without publishing Docs", () => {
   assert.match(docsIndex, /<main id="main" class="shell docs-shell">/);
 });
 
-test("brand mark, favicon, and legacy route assets use the cobalt Lugano mark", () => {
+test("brand mark and dedicated monochrome favicon retain their intended assets", () => {
   assert.equal(logoMarkWebp.subarray(0, 4).toString("ascii"), "RIFF");
   assert.equal(logoMarkWebp.subarray(8, 12).toString("ascii"), "WEBP");
   assert.match(logoMark, /viewBox="0 0 1920 1920"/);
@@ -157,7 +157,7 @@ test("brand mark, favicon, and legacy route assets use the cobalt Lugano mark", 
   assert.match(logoMark, /x="1032" y="964" width="395" height="434"/);
   assert.match(
     homepageIndex,
-    /<link rel="icon" type="image\/svg\+xml" href="\/logo-mark\.svg\?v=[^"]+" \/>/,
+    /<link rel="icon" type="image\/svg\+xml" href="\/favicon\.svg\?v=[^"]+" \/>/,
   );
   assert.match(
     homepageIndex,
