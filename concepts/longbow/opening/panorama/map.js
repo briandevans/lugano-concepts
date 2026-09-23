@@ -162,7 +162,9 @@
         labelTranslate: "0",
         leader: "35px",
         angle: "-28deg",
-        icon: "data"
+        icon: "data",
+        touchPhoneX: "42%",
+        touchPhoneY: "42%"
       }
     ];
   };
@@ -675,10 +677,11 @@
     };
 
     items.forEach((item) => {
-      if (!item.kind) {
+      if (item.touchPhoneX && item.touchPhoneY) {
         const marker = create("button", "panorama-map__touch-marker");
         marker.type = "button";
         marker.dataset.group = item.id;
+        marker.dataset.kind = item.kind || "verification";
         marker.style.setProperty("--touch-marker-tablet-x", item.x);
         marker.style.setProperty("--touch-marker-tablet-y", item.y);
         marker.style.setProperty("--touch-marker-phone-x", item.touchPhoneX);
