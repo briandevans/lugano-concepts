@@ -79,6 +79,29 @@ test("Waitlist CTAs explicitly opt into Ceresio while retaining the apply fallba
   });
 });
 
+test("privacy policy scopes private AI storage and discloses Ceresio handling", () => {
+  assert.match(
+    privacyIndex,
+    /<h1 id="privacy-title">Private AI products store nothing\. We verify everything\.<\/h1>/,
+  );
+  assert.match(
+    privacyIndex,
+    /<h2 id="ceresio-assistant-title">Ceresio website assistant<\/h2>/,
+  );
+  assert.match(
+    privacyIndex,
+    /Ceresio is a website assistant separate from Lugano's private AI inference offering\./,
+  );
+  assert.match(
+    privacyIndex,
+    /Conversations and any contact details you choose to share are stored in an isolated database to operate the assistant and enable team review\./,
+  );
+  assert.match(
+    privacyIndex,
+    /Messages are processed by model providers through Wafer and OpenRouter\. Do not submit confidential or sensitive information\./,
+  );
+});
+
 test("does not inject withheld-detail teaser boxes", () => {
   assert.doesNotMatch(homepageScript, /Privacy tiers/);
   assert.doesNotMatch(homepageScript, /Deeper tiers disclosed under NDA\./);
