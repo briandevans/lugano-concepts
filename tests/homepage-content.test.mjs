@@ -37,6 +37,18 @@ const docsIndex = readFileSync(
   new URL("../docs/index.html", import.meta.url),
   "utf8",
 );
+const privacyIndex = readFileSync(
+  new URL("../privacy/index.html", import.meta.url),
+  "utf8",
+);
+const securityIndex = readFileSync(
+  new URL("../security/index.html", import.meta.url),
+  "utf8",
+);
+const termsIndex = readFileSync(
+  new URL("../terms/index.html", import.meta.url),
+  "utf8",
+);
 
 test("uses 10+ checks consistently and never reintroduces 30+ checks", () => {
   assert.match(homepageScript, /across 10\+ checks/i);
@@ -54,6 +66,17 @@ test("normalizes all request CTAs to Waitlist", () => {
   assert.match(homepageScript, /const CTA_LABEL_TEXT = "Waitlist";/);
   assert.match(homepageScript, /element\.textContent = CTA_LABEL_TEXT;/);
   assert.doesNotMatch(homepageScript, /private briefing/i);
+});
+
+test("Waitlist CTAs explicitly opt into Ceresio while retaining the apply fallback", () => {
+  const ceresioLoader =
+    /<script src="https:\/\/lugano-ceresio\.vercel\.app\/ceresio-modal\.js" data-enabled="true" data-trigger="waitlist" defer><\/script>/;
+  const waitlistFallback = /<a[^>]*href="\/#\/apply"[^>]*>\s*Waitlist\b/;
+
+  [homepageIndex, privacyIndex, securityIndex, termsIndex].forEach((page) => {
+    assert.match(page, ceresioLoader);
+    assert.match(page, waitlistFallback);
+  });
 });
 
 test("does not inject withheld-detail teaser boxes", () => {
