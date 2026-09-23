@@ -17,6 +17,7 @@
     "privacy",
     "use-cases",
     "private-agents",
+    "thesis",
     "private-models",
     "cta",
   ]);
@@ -34,21 +35,21 @@
         },
         {
           id: "lugano-panorama-style-css",
-          href: "/concepts/longbow/opening/panorama/style.css?v=hero-20260922-15",
+          href: "/concepts/longbow/opening/panorama/style.css?v=thesis-hover-20260923-1",
         },
         {
           id: "lugano-panorama-map-css",
-          href: "/concepts/longbow/opening/panorama/map.css?v=mobile-20260921-1",
+          href: "/concepts/longbow/opening/panorama/map.css?v=map-uiqa-20260923-1",
         },
       ],
       scripts: [
         {
           id: "lugano-panorama-longbow-js",
-          src: "/concepts/longbow/longbow.js?v=mobile-20260921-1",
+          src: "/concepts/longbow/longbow.js?v=thesis-hover-20260923-1",
         },
         {
           id: "lugano-panorama-map-js",
-          src: "/concepts/longbow/opening/panorama/map.js?v=mobile-20260921-1",
+          src: "/concepts/longbow/opening/panorama/map.js?v=map-a11y-20260923-1",
         },
       ],
     },

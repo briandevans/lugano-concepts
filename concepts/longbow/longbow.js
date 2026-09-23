@@ -33,6 +33,7 @@
     ".comparison-grid > .comparison",
     ".agent-grid > .agent-card",
     ".model-grid > .model-card",
+    ".opening-panorama .network-thesis__rows > div",
   ].join(", ");
   const CIPHER_CHARS = "0123456789ABCDEF";
   const CIPHER_CELL_WIDTH = 7;

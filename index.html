@@ -18,18 +18,18 @@
     <script>
       document.documentElement.dataset.lgxStaticHero = "true";
     </script>
-    <script src="/homepage-router.js?v=hero-route-20260922-15"></script>
+    <script src="/homepage-router.js?v=map-a11y-20260923-1"></script>
   </head>
   <body>
     <div id="marketing-root">
 <header class="site-header">
       <div class="shell nav-wrap">
         <a class="brand" href="#top" aria-label="Lugano.ai home"><img src="/logo-mark.svg" alt="" width="30" height="30" /><span>Lugano.ai</span></a>
-        <nav class="site-nav" aria-label="Primary navigation"><a href="#platform">Platform</a><a href="#architecture">Architecture</a><a href="#privacy">Privacy</a><a href="#use-cases">Use Cases</a></nav>
+        <nav class="site-nav" aria-label="Primary navigation"><a href="#platform">Platform</a><a href="#architecture">Architecture</a><a href="#privacy">Privacy</a><a href="#use-cases">Use Cases</a><a href="#thesis">Thesis</a></nav>
         <a class="button button-small nav-cta" href="/#/apply">Waitlist</a>
         <button class="menu-toggle" type="button" aria-controls="mobile-nav" aria-expanded="false"><span class="sr-only">Open navigation</span><span></span><span></span></button>
       </div>
-      <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="#platform">Platform</a><a href="#architecture">Architecture</a><a href="#privacy">Privacy</a><a href="#use-cases">Use Cases</a><a class="button" href="/#/apply">Waitlist</a></nav>
+      <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="#platform">Platform</a><a href="#architecture">Architecture</a><a href="#privacy">Privacy</a><a href="#use-cases">Use Cases</a><a href="#thesis">Thesis</a><a class="button" href="/#/apply">Waitlist</a></nav>
     </header>
 
     <main id="top">
@@ -37,10 +37,9 @@
         <div class="shell panorama-hero__shell">
           <div class="panorama-hero__intro">
             <div class="panorama-hero__title">
-              <p class="eyebrow">Private AI Infrastructure</p>
               <h1 id="hero-title"><span class="hero-line">AI Privacy by</span> <span class="proof-line"><span class="proof-correction"><del>trust me bro</del></span><em>proof.</em></span></h1>
               <div class="panorama-hero__summary">
-                <p class="lead"><span class="hero-standfirst">Unverifiable privacy is just marketing.</span> <span class="hero-support">Lugano.ai is provably <span class="lead-keep">private AI infrastructure</span>: any model, cryptographically auditable, <span class="zero-trust">zero-trust</span> by default.</span></p>
+                <p class="lead">Private AI infrastructure for a tokenized economy. Any model, cryptographically auditable, zero-trust by default.</p>
                 <div class="hero-actions"><a class="button" href="/#/apply">Waitlist <svg class="hero-action-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 10h13M11 5l5 5-5 5" /></svg></a></div>
               </div>
             </div>
@@ -97,7 +96,7 @@
 </section>
 
       <section class="section editorial" aria-labelledby="problem-title">
-        <div class="shell editorial-grid"><div><p class="eyebrow">The problem</p><h2 id="problem-title">The false choice of the cloud era.</h2></div><p class="editorial-body">You either send proprietary data to a black box you cannot audit, or you run crippled open-source models locally. That is a failure of infrastructure, not a law of physics.</p></div>
+        <div class="shell editorial-grid"><div><p class="eyebrow">The problem</p><h2 id="problem-title">The false choice of the cloud era.</h2><p class="problem-intro">Unverifiable privacy is just marketing.</p></div><p class="editorial-body">You either send proprietary data to a black box you cannot audit, or you run crippled open-source models locally. That is a failure of infrastructure, not a law of physics.</p></div>
       </section>
 
       <section class="section-tight trust-gap" aria-labelledby="trust-gap-title">
@@ -171,6 +170,32 @@
         </div>
       </section>
 
+      <section id="thesis" class="network-thesis" aria-labelledby="thesis-title">
+        <div class="shell">
+          <header class="network-thesis__heading">
+            <p class="eyebrow">Our thesis</p>
+            <h2 id="thesis-title">AI will be tokenized.<br /><em>Its execution must be verifiable.</em></h2>
+          </header>
+          <div class="network-thesis__narrative">
+            <p>LLMs turn intent into action. Blockchains make access, payments, and settlement programmable. We believe the next step is tokenized access to AI whose execution can be independently verified.</p>
+            <p>Our long-term vision is a Lugano token that connects private inference with the people and infrastructure that verify it.</p>
+          </div>
+          <div class="network-thesis__utility">
+            <p class="network-thesis__label">Proposed utility. Token mechanics are not finalized.</p>
+            <dl class="network-thesis__rows">
+              <div><dt>Access</dt><dd>Recurring private inference capacity and transferable compute credits.</dd></div>
+              <div><dt>Verification</dt><dd>Incentives for independent operators to check execution attestations and policy compliance.</dd></div>
+              <div><dt>Accountability</dt><dd>Operator bonds tied to objectively provable protocol violations.</dd></div>
+            </dl>
+          </div>
+          <footer class="network-thesis__footnote">
+            <p class="network-thesis__qualification">Cryptographic evidence supports verification. Token incentives support the network that performs it.</p>
+            <a class="network-thesis__source" href="https://www.blackrock.com/us/individual/literature/whitepaper/the-machine-native-economy.pdf" target="_blank" rel="noopener noreferrer">Research: BlackRock’s The Machine-Native Economy</a>
+          </footer>
+        </div>
+      </section>
+
+
       <section id="private-models" class="section models" aria-labelledby="models-title">
         <div class="shell"><div class="section-heading centered-heading"><h2 id="models-title">Private Models Available</h2><p>Run leading open models inside a verifiable privacy boundary</p></div>
           <div class="model-grid">
@@ -188,7 +213,7 @@
       <section id="cta" class="closing-cta" aria-labelledby="cta-title"><div class="shell cta-grid"><div><p class="eyebrow">Private beta</p><h2 id="cta-title">Don't trust.<br /> <em>Verify.</em></h2></div><div><p>Lugano.ai is the verification layer for private AI. Frontier AI with cryptographic privacy. No trust required.</p><a class="button button-light" href="/#/apply">Waitlist <span aria-hidden="true">→</span></a></div></div></section>
     </main>
 
-    <footer class="site-footer"><div class="shell footer-main"><div><a class="brand" href="#top"><img src="/logo-mark.svg" alt="" width="30" height="30" /><span>Lugano.ai</span></a><p>AI Privacy by Proof</p></div><div class="footer-links"><a href="#architecture">Architecture</a><a href="#privacy">Privacy</a><a href="#platform">Platform</a><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/security/">Security</a><a href="/#/apply">Contact</a></div></div><div class="shell footer-bottom"><span>© 2026 Lugano AI</span></div></footer>
+    <footer class="site-footer"><div class="shell footer-main"><div><a class="brand" href="#top"><img src="/logo-mark.svg" alt="" width="30" height="30" /><span>Lugano.ai</span></a><p>AI Privacy by Proof</p></div><div class="footer-links"><a href="#architecture">Architecture</a><a href="#privacy">Privacy</a><a href="#platform">Platform</a><a href="#thesis">Thesis</a><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/security/">Security</a><a href="/#/apply">Contact</a></div></div><div class="shell footer-bottom"><span>© 2026 Lugano AI</span></div></footer>
     </div>
     <div id="root" hidden></div>
   </body>
