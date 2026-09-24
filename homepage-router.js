@@ -39,7 +39,7 @@
         },
         {
           id: "lugano-panorama-map-css",
-          href: "/concepts/longbow/opening/panorama/map.css?v=map-uiqa-20260923-1",
+          href: "/concepts/longbow/opening/panorama/map.css?v=map-token-placement-20260923-4",
         },
       ],
       scripts: [
@@ -49,7 +49,7 @@
         },
         {
           id: "lugano-panorama-map-js",
-          src: "/concepts/longbow/opening/panorama/map.js?v=map-mobile-token-20260923-2",
+          src: "/concepts/longbow/opening/panorama/map.js?v=map-token-placement-20260923-4",
         },
       ],
     },

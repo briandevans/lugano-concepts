@@ -266,6 +266,7 @@
       panel.style.removeProperty("--panel-top");
       panel.style.removeProperty("--panel-caret-left");
       delete panel.dataset.kind;
+      delete panel.dataset.placement;
     };
 
     const positionPanel = (item) => {
@@ -274,34 +275,28 @@
       if (!marker || !label) return;
 
       const mapRect = map.getBoundingClientRect();
-      const markerRect = marker.getBoundingClientRect();
       const labelRect = label.getBoundingClientRect();
       const panelWidth = panel.offsetWidth;
       const panelHeight = panel.offsetHeight;
       if (!mapRect.width || !mapRect.height || !panelWidth || !panelHeight) return;
 
       const maxLeft = Math.max(panelMargin, mapRect.width - panelMargin - panelWidth);
-      let desiredLeft;
-      let desiredTop;
-      let anchor;
-      if (item.kind === "tokenization") {
-        const markerCenter = markerRect.left - mapRect.left + (markerRect.width / 2);
-        desiredLeft = markerCenter - panelWidth - panelGap;
-        desiredTop = markerRect.top - mapRect.top - panelGap - panelHeight;
-        anchor = markerCenter;
-      } else {
-        const labelCenter = labelRect.left - mapRect.left + (labelRect.width / 2);
-        desiredLeft = labelCenter - (panelWidth / 2);
-        desiredTop = labelRect.top - mapRect.top - panelGap - panelHeight;
-        anchor = labelCenter;
-      }
+      const labelCenter = labelRect.left - mapRect.left + (labelRect.width / 2);
+      const desiredLeft = labelCenter - (panelWidth / 2);
+      const aboveTop = labelRect.top - mapRect.top - panelGap - panelHeight;
+      const belowTop = labelRect.bottom - mapRect.top + panelGap;
+      const maxTop = mapRect.height - panelMargin - panelHeight;
+      const placeBelow = aboveTop < panelMargin && belowTop <= maxTop;
+      const desiredTop = placeBelow ? belowTop : aboveTop;
+      const anchor = labelCenter;
       const left = Math.min(Math.max(desiredLeft, panelMargin), maxLeft);
-      const top = Math.max(panelMargin, Math.min(desiredTop, mapRect.height - panelMargin - panelHeight));
+      const top = Math.max(panelMargin, Math.min(desiredTop, maxTop));
       const caretLeft = Math.min(Math.max(anchor - left, 24), panelWidth - 24);
 
       panel.style.setProperty("--panel-left", `${left}px`);
       panel.style.setProperty("--panel-top", `${top}px`);
       panel.style.setProperty("--panel-caret-left", `${caretLeft}px`);
+      panel.dataset.placement = placeBelow ? "below" : "above";
     };
 
     const repositionActivePanel = () => {

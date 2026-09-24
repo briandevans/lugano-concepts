@@ -96,6 +96,12 @@
     transform: translateX(-50%);
   }
 
+  .opening-panorama .panorama-map__panel[data-state="active"][data-placement="below"]::after {
+    top: -8px;
+    bottom: auto;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  }
+
   .opening-panorama .panorama-map__panel[data-state="idle"] {
     display: flex;
     align-items: center;
