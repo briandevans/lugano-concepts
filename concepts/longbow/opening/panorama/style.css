@@ -506,6 +506,15 @@
 
 /* Responsive composition for the panorama page. Keep the visual introductions centered,
    while the explanatory and reference material retains a readable editorial edge. */
+@media (min-width: 761px) {
+  .opening-panorama .editorial { padding-block: 80px; }
+
+  .opening-panorama .how-it-works,
+  .opening-panorama .architecture { padding-block: 96px; }
+
+  .opening-panorama .agent-grid { align-items: start; }
+}
+
 @media (min-width: 761px) and (max-width: 1000px) {
   .opening-panorama .panorama-hero__intro { max-width: none; margin-inline: auto; }
   .opening-panorama .workflow-list { max-width: 760px; margin-inline: auto; }

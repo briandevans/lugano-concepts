@@ -35,7 +35,7 @@
         },
         {
           id: "lugano-panorama-style-css",
-          href: "/concepts/longbow/opening/panorama/style.css?v=thesis-hover-20260923-1",
+          href: "/concepts/longbow/opening/panorama/style.css?v=spacing-polish-20260924-1",
         },
         {
           id: "lugano-panorama-map-css",
