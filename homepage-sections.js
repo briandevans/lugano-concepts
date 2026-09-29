@@ -19,7 +19,7 @@
   const CIPHER_UPDATE_MIN = 1400;
   const CIPHER_UPDATE_RANGE = 1800;
   const CIPHER_FLASH_DURATION = 320;
-  const CTA_LABEL_TEXT = "Talk to our agent";
+  const CTA_LABEL_TEXT = "Waitlist";
   const HERO_ART_DESKTOP_SRC = "assets/lugano-engraving-v1.webp";
   const HERO_ART_MOBILE_SRC = "assets/lugano-engraving-v1-mobile.webp";
   const HERO_PROOF_FACTS = [
@@ -51,7 +51,6 @@
     "request access",
     "request briefing",
     "request demo",
-    "waitlist",
   ]);
   const HEADER_NAV_ORDER = [
     "Platform",

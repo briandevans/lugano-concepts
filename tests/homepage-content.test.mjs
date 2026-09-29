@@ -55,7 +55,7 @@ test("uses 10+ checks consistently and never reintroduces 30+ checks", () => {
   assert.doesNotMatch(homepageScript, /30\+\s*checks/i);
 });
 
-test("normalizes all request CTAs to Talk to our agent", () => {
+test("normalizes all request CTAs to Waitlist", () => {
   const labelSetMatch = homepageScript.match(/const CTA_LABELS = new Set\(\[([\s\S]*?)\]\);/);
   assert.ok(labelSetMatch, "CTA_LABELS set should exist");
 
@@ -63,21 +63,20 @@ test("normalizes all request CTAs to Talk to our agent", () => {
 
   assert.ok(labels.includes("request a demo"));
   assert.ok(labels.includes("request demo"));
-  assert.ok(labels.includes("waitlist"));
-  assert.match(homepageScript, /const CTA_LABEL_TEXT = "Talk to our agent";/);
+  assert.match(homepageScript, /const CTA_LABEL_TEXT = "Waitlist";/);
   assert.match(homepageScript, /element\.textContent = CTA_LABEL_TEXT;/);
   assert.doesNotMatch(homepageScript, /private briefing/i);
 });
 
-test("Talk to our agent CTAs explicitly opt into Ceresio while retaining the apply fallback", () => {
+// Ceresio binds to CTAs labelled "Waitlist"; renaming them sends clicks to the /#/apply form instead.
+test("Waitlist CTAs explicitly opt into Ceresio while retaining the apply fallback", () => {
   const ceresioLoader =
     /<script src="https:\/\/lugano-ceresio\.vercel\.app\/ceresio-modal\.js" data-enabled="true" data-trigger="waitlist" defer><\/script>/;
-  const waitlistFallback = /<a[^>]*href="\/#\/apply"[^>]*>\s*Talk to our agent\b/;
+  const waitlistFallback = /<a[^>]*href="\/#\/apply"[^>]*>\s*Waitlist\b/;
 
   [homepageIndex, privacyIndex, securityIndex, termsIndex].forEach((page) => {
     assert.match(page, ceresioLoader);
     assert.match(page, waitlistFallback);
-    assert.doesNotMatch(page, /href="\/#\/apply"[^>]*>\s*Waitlist\b/);
   });
 });
 
