@@ -18,7 +18,7 @@
     <script>
       document.documentElement.dataset.lgxStaticHero = "true";
     </script>
-    <script src="/homepage-router.js?v=spacing-polish-20260924-1"></script>
+    <script src="/homepage-router.js?v=private-agents-20260929-1"></script>
   </head>
   <body>
     <div id="marketing-root">
@@ -26,10 +26,10 @@
       <div class="shell nav-wrap">
         <a class="brand" href="#top" aria-label="Lugano.ai home"><img src="/logo-mark.svg" alt="" width="30" height="30" /><span>Lugano.ai</span></a>
         <nav class="site-nav" aria-label="Primary navigation"><a href="#platform">Platform</a><a href="#architecture">Architecture</a><a href="#privacy">Privacy</a><a href="#use-cases">Use Cases</a><a href="#thesis">Thesis</a></nav>
-        <a class="button button-small nav-cta" href="/#/apply">Waitlist</a>
+        <a class="button button-small nav-cta" href="/#/apply">Talk to our agent</a>
         <button class="menu-toggle" type="button" aria-controls="mobile-nav" aria-expanded="false"><span class="sr-only">Open navigation</span><span></span><span></span></button>
       </div>
-      <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="#platform">Platform</a><a href="#architecture">Architecture</a><a href="#privacy">Privacy</a><a href="#use-cases">Use Cases</a><a href="#thesis">Thesis</a><a class="button" href="/#/apply">Waitlist</a></nav>
+      <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="#platform">Platform</a><a href="#architecture">Architecture</a><a href="#privacy">Privacy</a><a href="#use-cases">Use Cases</a><a href="#thesis">Thesis</a><a class="button" href="/#/apply">Talk to our agent</a></nav>
     </header>
 
     <main id="top">
@@ -40,7 +40,7 @@
               <h1 id="hero-title"><span class="hero-line">AI Privacy by</span> <span class="proof-line"><span class="proof-correction"><del>trust me bro</del></span><em>proof.</em></span></h1>
               <div class="panorama-hero__summary">
                 <p class="lead">Private AI infrastructure for a tokenized economy. Any model, cryptographically auditable, zero-trust by default.</p>
-                <div class="hero-actions"><a class="button" href="/#/apply">Waitlist <svg class="hero-action-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 10h13M11 5l5 5-5 5" /></svg></a></div>
+                <div class="hero-actions"><a class="button" href="/#/apply">Talk to our agent <svg class="hero-action-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M3 10h13M11 5l5 5-5 5" /></svg></a></div>
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@
       </section>
 
       <section class="section editorial what-we-do" aria-labelledby="what-title">
-        <div class="shell editorial-grid"><div><p class="eyebrow">What we do</p><h2 id="what-title">Frontier intelligence, verifiably private.</h2></div><p class="editorial-body">Lugano.ai collapses the false choice. Frontier models running inside your perimeter, with cryptographic proof that your data never left. Not private by policy. Private by architecture you can audit yourself.</p></div>
+        <div class="shell editorial-grid"><div><p class="eyebrow">What we do</p><h2 id="what-title">Private models. Private agents. <em>Verifiable execution.</em></h2></div><div class="control-plane"><p class="editorial-body">Lugano.ai collapses the false choice with one control plane. Frontier models and the agents that use them run inside a verifiable privacy boundary, with cryptographic proof that your data never left. Not private by policy. Private by architecture you can audit yourself.</p><dl class="control-plane__rows"><div><dt>Private models</dt><dd>Approved open-weight runtimes inside our boundary.</dd></div><div><dt>Private agents</dt><dd>Files, memory, tools and workflows, governed privately.</dd></div><div><dt>Cryptographic proof</dt><dd>Signed receipts that prove the workload stayed private.</dd></div></dl></div></div>
       </section>
 
       <section id="platform" class="section how-it-works" aria-labelledby="how-title">
@@ -161,11 +161,28 @@
       </section>
 
       <section id="private-agents" class="section agents" aria-labelledby="agents-title">
-        <div class="shell"><div class="section-heading centered-heading"><h2 id="agents-title">Make Your Agents Fully Private</h2><p>Any agent framework. Any workflow. Zero data leakage.</p><p class="product-line">Private Chat <span>·</span> Private Agents <span>·</span> Private API <span>—</span> in private beta.</p></div>
+        <div class="shell"><div class="section-heading centered-heading"><p class="eyebrow">Private agents</p><h2 id="agents-title">Your agent talks to the world. <em>Your data stays with you.</em></h2><p>Lugano agents book, buy, sign in and message on your behalf. Every tool, API and agent they touch sees only what the task needs.</p><p class="product-line">Private Agent <span>·</span> Privacy API <span>·</span> Desktop Privacy App <span>·</span> Private Agentic Profiles <span>·</span> Trading Tools</p></div>
+          <div class="agent-privacy">
+            <dl class="agent-privacy__features">
+              <div><dt>Minimum disclosure</dt><dd>Each tool, API or agent sees only what the task needs.</dd></div>
+              <div><dt>Single-use payments</dt><dd>A new card for every purchase. Yours is never shared.</dd></div>
+              <div><dt>Sealed credentials</dt><dd>Signs in for you. Passwords and keys stay in the enclave.</dd></div>
+              <div><dt>Agentic profiles <span class="agent-privacy__badge">Beta</span></dt><dd>Sends and signs in under its own identity, never as you.</dd></div>
+            </dl>
+            <aside class="receipt agent-privacy__receipt" aria-label="Agent step receipt"><p>// agent step receipt</p><pre>{
+  "to": "airline-api",
+  "shared": ["name", "dates"],
+  "payment": "single-use card",
+  "sent_as": "agent profile",
+  "withheld": "files, memory",
+  "status": "VERIFIED"
+}</pre></aside>
+          </div>
+          <p class="agent-privacy__statement">Other agents ask for your trust. <em>Lugano agents show a receipt at every step.</em></p>
           <div class="agent-grid">
             <article class="agent-card"><div class="agent-logo"><img src="/brand-assets/hermes-agent.webp" alt="Hermes Agent logo" /></div><h3>Hermes Agent</h3><p>Private software delivery agents with repository memory, tool access, and auditable action logs.</p></article>
             <article class="agent-card"><div class="agent-symbol" aria-hidden="true">OC</div><h3>OpenClaw</h3><p>Open agent runtime for long-horizon research and automation inside isolated infrastructure.</p></article>
-            <article class="agent-card"><div class="agent-symbol" aria-hidden="true">PA</div><h3>Private agents</h3><p>Run agentic workflows without turning tools, logs, and intermediate steps into exposure surfaces.</p><ul><li>Private tool use.</li><li>Reduced transcript leakage.</li><li>Reviewable action evidence.</li></ul></article>
+            <article class="agent-card"><div class="agent-symbol" aria-hidden="true">BYO</div><h3>Your own agents</h3><p>Bring any agent framework. Tools, logs, and intermediate steps stay inside the verified boundary.</p><ul><li>Private tool use.</li><li>Reduced transcript leakage.</li><li>Reviewable action evidence.</li></ul></article>
           </div>
         </div>
       </section>
@@ -179,6 +196,29 @@
           <div class="network-thesis__narrative">
             <p>LLMs turn intent into action. Blockchains make access, payments, and settlement programmable. We believe the next step is tokenized access to AI whose execution can be independently verified.</p>
             <p>Our long-term vision is a Lugano token that connects private inference with the people and infrastructure that verify it.</p>
+          </div>
+          <div class="compute-case">
+            <p class="network-thesis__label">Why now: compute is becoming an investable asset.</p>
+            <dl class="compute-case__stats">
+              <div><dt>$1.1T</dt><dd>Projected 2030 cloud revenue for AWS, Microsoft, and Google, growing 29% a year from 2025.</dd></div>
+              <div><dt>$5T+</dt><dd>Estimated cumulative AI capital spending, 2025 to 2030.</dd></div>
+              <div><dt>#1</dt><dd>Inference is expected to be the largest AI workload by 2030.</dd></div>
+            </dl>
+            <p class="compute-case__source">Source: BlackRock, The Machine-Native Economy (2026), citing Bloomberg, Goldman Sachs, and McKinsey.</p>
+          </div>
+          <div class="delivery">
+            <header class="delivery__heading"><p class="network-thesis__label">Where Lugano fits</p><h3>Tokenized compute needs proof of delivery.</h3></header>
+            <ol class="delivery__flow">
+              <li><strong>Claim</strong><span>A tokenized compute credit. It can be traded or pledged.</span></li>
+              <li><strong>Discover</strong><span>An agent compares price, latency, and hardware over MCP.</span></li>
+              <li><strong>Pay</strong><span>Settles per token or per job over rails such as x402.</span></li>
+              <li class="is-lugano"><em>Lugano</em><strong>Execute</strong><span>Inference runs inside a sealed hardware enclave.</span></li>
+              <li class="is-lugano"><em>Lugano</em><strong>Prove</strong><span>A signed receipt shows what ran, and that no data was kept.</span></li>
+            </ol>
+            <div class="delivery__markets">
+              <p><strong>Next: a market per model.</strong> Each model can get its own tokenized compute market: a claim on private inference for one named model, priced by its own demand and settled only against a signed receipt.</p>
+              <ul aria-label="Illustrative model markets"><li>Kimi</li><li>DeepSeek</li><li>GLM</li><li>Qwen</li><li>MiniMax</li><li class="is-note">Illustrative</li></ul>
+            </div>
           </div>
           <div class="network-thesis__utility">
             <p class="network-thesis__label">Proposed utility. Token mechanics are not finalized.</p>
@@ -210,7 +250,7 @@
         </div>
       </section>
 
-      <section id="cta" class="closing-cta" aria-labelledby="cta-title"><div class="shell cta-grid"><div><p class="eyebrow">Private beta</p><h2 id="cta-title">Don't trust.<br /> <em>Verify.</em></h2></div><div><p>Lugano.ai is the verification layer for private AI. Frontier AI with cryptographic privacy. No trust required.</p><a class="button button-light" href="/#/apply">Waitlist <span aria-hidden="true">→</span></a></div></div></section>
+      <section id="cta" class="closing-cta" aria-labelledby="cta-title"><div class="shell cta-grid"><div><p class="eyebrow">Private beta</p><h2 id="cta-title">Don't trust.<br /> <em>Verify.</em></h2></div><div><p>Lugano.ai is the verification layer for private AI. Frontier AI with cryptographic privacy. No trust required.</p><a class="button button-light" href="/#/apply">Talk to our agent <span aria-hidden="true">→</span></a></div></div></section>
     </main>
 
     <footer class="site-footer"><div class="shell footer-main"><div><a class="brand" href="#top"><img src="/logo-mark.svg" alt="" width="30" height="30" /><span>Lugano.ai</span></a><p>AI Privacy by Proof</p></div><div class="footer-links"><a href="#architecture">Architecture</a><a href="#privacy">Privacy</a><a href="#platform">Platform</a><a href="#thesis">Thesis</a><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms</a><a href="/security/">Security</a><a href="/#/apply">Contact</a></div></div><div class="shell footer-bottom"><span>© 2026 Lugano AI</span></div></footer>
