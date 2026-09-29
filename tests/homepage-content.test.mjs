@@ -55,7 +55,7 @@ test("uses 10+ checks consistently and never reintroduces 30+ checks", () => {
   assert.doesNotMatch(homepageScript, /30\+\s*checks/i);
 });
 
-test("normalizes all request CTAs to Waitlist", () => {
+test("normalizes all request CTAs to Talk to our agent", () => {
   const labelSetMatch = homepageScript.match(/const CTA_LABELS = new Set\(\[([\s\S]*?)\]\);/);
   assert.ok(labelSetMatch, "CTA_LABELS set should exist");
 
@@ -63,19 +63,21 @@ test("normalizes all request CTAs to Waitlist", () => {
 
   assert.ok(labels.includes("request a demo"));
   assert.ok(labels.includes("request demo"));
-  assert.match(homepageScript, /const CTA_LABEL_TEXT = "Waitlist";/);
+  assert.ok(labels.includes("waitlist"));
+  assert.match(homepageScript, /const CTA_LABEL_TEXT = "Talk to our agent";/);
   assert.match(homepageScript, /element\.textContent = CTA_LABEL_TEXT;/);
   assert.doesNotMatch(homepageScript, /private briefing/i);
 });
 
-test("Waitlist CTAs explicitly opt into Ceresio while retaining the apply fallback", () => {
+test("Talk to our agent CTAs explicitly opt into Ceresio while retaining the apply fallback", () => {
   const ceresioLoader =
     /<script src="https:\/\/lugano-ceresio\.vercel\.app\/ceresio-modal\.js" data-enabled="true" data-trigger="waitlist" defer><\/script>/;
-  const waitlistFallback = /<a[^>]*href="\/#\/apply"[^>]*>\s*Waitlist\b/;
+  const waitlistFallback = /<a[^>]*href="\/#\/apply"[^>]*>\s*Talk to our agent\b/;
 
   [homepageIndex, privacyIndex, securityIndex, termsIndex].forEach((page) => {
     assert.match(page, ceresioLoader);
     assert.match(page, waitlistFallback);
+    assert.doesNotMatch(page, /href="\/#\/apply"[^>]*>\s*Waitlist\b/);
   });
 });
 
@@ -376,4 +378,21 @@ test("current model shortlist has six sourced releases and dated availability", 
   assert.match(homepageScript, /escapeHtml\(item\.source\)/);
   assert.match(docsIndex, /<strong>GLM-5\.3<\/strong>/);
   assert.match(docsIndex, /https:\/\/huggingface\.co\/zai-org\/GLM-5\.3/);
+});
+
+test("homepage carries the deck's private agents, control plane, and proof-of-delivery content", () => {
+  [
+    /<h2 id="agents-title">Your agent talks to the world\. <em>Your data stays with you\.<\/em><\/h2>/,
+    /<dt>Minimum disclosure<\/dt>/,
+    /<dt>Single-use payments<\/dt>/,
+    /<dt>Sealed credentials<\/dt>/,
+    /<dt>Agentic profiles <span class="agent-privacy__badge">Beta<\/span><\/dt>/,
+    /\/\/ agent step receipt/,
+    /Lugano agents show a receipt at every step\./,
+    /Private Agent <span>·<\/span> Privacy API <span>·<\/span> Desktop Privacy App <span>·<\/span> Private Agentic Profiles <span>·<\/span> Trading Tools/,
+    /<h2 id="what-title">Private models\. Private agents\. <em>Verifiable execution\.<\/em><\/h2>/,
+    /<h3>Tokenized compute needs proof of delivery\.<\/h3>/,
+    /Source: BlackRock, The Machine-Native Economy \(2026\)/,
+    /Proposed utility\. Token mechanics are not finalized\./,
+  ].forEach((pattern) => assert.match(homepageIndex, pattern));
 });
