@@ -361,3 +361,16 @@ h1 {
     padding-left: 9px;
   }
 }
+
+/* Ceresio (data-trigger="waitlist") binds to CTAs by their "Waitlist" text, so that text stays in
+   the DOM, zero-sized, and the visible label is drawn by ::before. Renaming the text breaks the modal. */
+.legal-waitlist.cta-agent { font-size: 0; letter-spacing: 0; }
+.legal-waitlist.cta-agent::before { content: "Talk to waitlist agent"; font-size: 12px; letter-spacing: .02em; }
+
+@media (max-width: 620px) {
+  .legal-waitlist.cta-agent::before { font-size: 11px; }
+}
+
+@media (max-width: 360px) {
+  .legal-waitlist.cta-agent::before { content: "Waitlist agent"; }
+}

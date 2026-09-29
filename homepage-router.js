@@ -35,7 +35,7 @@
         },
         {
           id: "lugano-panorama-style-css",
-          href: "/concepts/longbow/opening/panorama/style.css?v=private-agents-20260929-1",
+          href: "/concepts/longbow/opening/panorama/style.css?v=waitlist-agent-20260929-1",
         },
         {
           id: "lugano-panorama-map-css",

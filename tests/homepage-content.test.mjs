@@ -395,3 +395,19 @@ test("homepage carries the deck's private agents, control plane, and proof-of-de
     /Proposed utility\. Token mechanics are not finalized\./,
   ].forEach((pattern) => assert.match(homepageIndex, pattern));
 });
+
+test("Waitlist CTAs display the agent label while keeping the Waitlist text Ceresio binds to", () => {
+  const panoramaStyles = readFileSync(
+    new URL("../concepts/longbow/opening/panorama/style.css", import.meta.url),
+    "utf8",
+  );
+  const legalStyles = readFileSync(new URL("../legal.css", import.meta.url), "utf8");
+  const agentCta = /<a class="[^"]*\bcta-agent\b[^"]*" href="\/#\/apply" aria-label="Talk to waitlist agent">Waitlist\b/g;
+
+  assert.equal((homepageIndex.match(agentCta) || []).length, 4);
+  [privacyIndex, securityIndex, termsIndex].forEach((page) => {
+    assert.equal((page.match(agentCta) || []).length, 1);
+  });
+  assert.match(panoramaStyles, /\.opening-panorama \.cta-agent::before \{ content: "Talk to waitlist agent";/);
+  assert.match(legalStyles, /\.legal-waitlist\.cta-agent::before \{ content: "Talk to waitlist agent";/);
+});
