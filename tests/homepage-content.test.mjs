@@ -411,3 +411,11 @@ test("Waitlist CTAs display the agent label while keeping the Waitlist text Cere
   assert.match(panoramaStyles, /\.opening-panorama \.cta-agent::before \{ content: "Talk to waitlist agent";/);
   assert.match(legalStyles, /\.legal-waitlist\.cta-agent::before \{ content: "Talk to waitlist agent";/);
 });
+
+test("lugano.ai/portal forwards investors to the portal", () => {
+  const portalRedirect = readFileSync(new URL("../portal/index.html", import.meta.url), "utf8");
+  assert.match(portalRedirect, /<meta http-equiv="refresh" content="0; url=https:\/\/portal\.lugano\.ai\/" \/>/);
+  assert.match(portalRedirect, /window\.location\.replace\("https:\/\/portal\.lugano\.ai\/"/);
+  assert.match(portalRedirect, /<a href="https:\/\/portal\.lugano\.ai\/">/);
+  assert.match(portalRedirect, /<meta name="robots" content="noindex" \/>/);
+});
